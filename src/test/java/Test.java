@@ -9,6 +9,6 @@ import java.io.IOException;
 public class Test {
     public static void main(String[] args) throws IOException, UnsupportedAudioFileException {
         Converter c = new Converter(new File("131.mid"));
-        AudioSystem.write(c.convert(), AudioFileFormat.Type.WAVE, new File("out.flac"));
+        AudioSystem.write(c.convert(), AudioFileFormat.Type.WAVE, new File("out.wav"));
     }
 }

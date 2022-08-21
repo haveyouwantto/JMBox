@@ -29,18 +29,20 @@
         }
 
         body {
-            color: #ffffff;
             background-color: #b2dfdb;
         }
     </style>
+    <audio controls autoplay id="audio"></audio>
+    <a id="playing">None</a>
     <div id="content"></div>
-    <audio controls id="audio"></audio>
     <script>
         let content = document.getElementById("content");
-        let audio = document.createElement("audio");
+        let audio = document.getElementById("audio");
+        let playing = document.getElementById("playing");
+
         let cd = [];
         function list(dir, add = true) {
-            fetch("./api/list/" + cd.join('/') + '/' + encodeURIComponent(dir))
+            fetch("api/list/" + cd.join('/') + '/' + encodeURIComponent(dir))
                 .then(response => response.json())
                 .then(files => {
                     if (add)
@@ -81,8 +83,12 @@
         }
 
         function play(file) {
-            audio.src = "./api/play/" + cd.join('/') + '/' + encodeURIComponent(file);
-            audio.play();
+            let url = "api/play/" + cd.join('/') + '/' + encodeURIComponent(file);
+            playing.innerText = file;
+            console.log(file);
+
+            audio.setAttribute("src", url);
+            playing.setAttribute("href", url);
         }
         list('/', false);
     </script>
