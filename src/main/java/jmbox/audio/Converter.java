@@ -3,16 +3,20 @@ package jmbox.audio;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 public class Converter {
-    public File midi;
-    public Converter(File midi){
-        this.midi = midi;
+    public InputStream is;
+
+    public Converter(File midi) throws FileNotFoundException {
+        this.is = new FileInputStream(midi);
     }
+
+    public Converter(InputStream is) {
+        this.is = is;
+    }
+
     public AudioInputStream convert() throws IOException, UnsupportedAudioFileException {
-        return AudioSystem.getAudioInputStream(midi);
+        return AudioSystem.getAudioInputStream(is);
     }
 }

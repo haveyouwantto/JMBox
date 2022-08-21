@@ -72,7 +72,7 @@ public class APIHandler implements HttpHandler {
         try {
             AudioInputStream is = c.convert();
             Headers response = exchange.getResponseHeaders();
-            response.set("Content-Type", "audio/wav");
+            response.set("Content-Type", "audio/x-wav");
             exchange.sendResponseHeaders(200, is.getFrameLength() * is.getFormat().getFrameSize() + 44);
 
             AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
