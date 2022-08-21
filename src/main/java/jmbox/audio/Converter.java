@@ -6,17 +6,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
 
 public class Converter {
-    public InputStream is;
+    public File midi;
 
     public Converter(File midi) throws FileNotFoundException {
-        this.is = new FileInputStream(midi);
-    }
-
-    public Converter(InputStream is) {
-        this.is = is;
+        this.midi = midi;
     }
 
     public AudioInputStream convert() throws IOException, UnsupportedAudioFileException {
-        return AudioSystem.getAudioInputStream(is);
+        return AudioSystem.getAudioInputStream(midi);
     }
 }

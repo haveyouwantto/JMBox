@@ -12,6 +12,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -89,6 +90,7 @@ public class APIHandler implements HttpHandler {
         } catch (FileNotFoundException e) {
             send(404, "Not Found");
         } catch (IOException e) {
+            e.printStackTrace();
         } finally {
             exchange.close();
         }
