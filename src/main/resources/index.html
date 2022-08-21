@@ -1,0 +1,88 @@
+<html>
+
+<head>
+    <title>JMBox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <style>
+        .link {
+            background-color: #00796b;
+            border: none;
+            color: #ffffff;
+            padding: 5px 16px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            transition-duration: 0.4s;
+            font-family: sans;
+        }
+
+        .link:hover {
+            background-color: #00897b;
+        }
+
+        body {
+            color: #ffffff;
+            background-color: #b2dfdb;
+        }
+    </style>
+    <div id="content"></div>
+    <audio controls id="audio"></audio>
+    <script>
+        let content = document.getElementById("content");
+        let audio = document.createElement("audio");
+        let cd = [];
+        function list(dir, add = true) {
+            fetch("./api/list/" + cd.join('/') + '/' + encodeURIComponent(dir))
+                .then(response => response.json())
+                .then(files => {
+                    if (add)
+                        cd.push(dir);
+
+                    content.innerHTML = '';
+
+                    let updir = document.createElement("div");
+                    updir.setAttribute("class", "link");
+                    updir.innerText = "..";
+                    updir.setAttribute("onclick", "back();");
+                    content.appendChild(updir);
+
+                    files.sort((a, b) => {
+                        let av = a.isDir ? -1000 : 0;
+                        let bv = b.isDir ? -1000 : 0;
+                        return a.name.localeCompare(b.name) + (av - bv);
+                    });
+
+                    files.forEach(element => {
+                        let file = document.createElement("div");
+                        file.setAttribute("class", "link");
+                        if (element.isDir) {
+                            file.innerText = "\u{1F5C1} " + element.name;
+                            file.setAttribute("onclick", `list("${element.name}");`);
+                        } else {
+                            file.innerText = "\u{1F39C} " + element.name;
+                            file.setAttribute("onclick", `play("${element.name}");`);
+                        }
+                        content.appendChild(file);
+                    });
+                });
+        }
+
+        function back() {
+            cd.pop();
+            list('.', false);
+        }
+
+        function play(file) {
+            audio.src = "./api/play/" + cd.join('/') + '/' + encodeURIComponent(file);
+            audio.play();
+        }
+        list('/', false);
+    </script>
+</body>
+
+</html>
