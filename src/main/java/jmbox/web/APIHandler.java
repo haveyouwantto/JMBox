@@ -29,6 +29,12 @@ public class APIHandler implements HttpHandler {
         new Thread(() -> {
             try {
                 logger.info(String.format("%s %s %s", exchange.getRemoteAddress(), exchange.getRequestMethod(), exchange.getRequestURI()));
+
+                Headers headers = exchange.getResponseHeaders();
+                headers.set("Access-Control-Allow-Origin", "*");
+                headers.set("Access-Control-Allow-Headers", "*");
+                headers.set("Server", "JMBox");
+
                 if (exchange.getRequestMethod().equals("GET")) {
                     String[] args = URLDecoder.decode(exchange.getRequestURI().toString(), "UTF-8").split("/");
                     switch (args[2]) {
@@ -43,6 +49,10 @@ public class APIHandler implements HttpHandler {
                             return;
                     }
                     send(200, "OK");
+                }else if(exchange.getRequestMethod().equals("OPTIONS")){
+                    exchange.getResponseHeaders().set("Allow","OPTIONS, GET");
+                    exchange.sendResponseHeaders(200,0);
+                    exchange.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -51,7 +61,7 @@ public class APIHandler implements HttpHandler {
 
     }
 
-    private void midi(File file) throws IOException {
+    private void midi(File file) {
         try {
             FileInputStream fis = new FileInputStream(file);
             exchange.getResponseHeaders().set("Content-Type", "audio/midi");
@@ -70,6 +80,8 @@ public class APIHandler implements HttpHandler {
             send(404, "Not Found");
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            exchange.close();
         }
     }
 
@@ -91,7 +103,7 @@ public class APIHandler implements HttpHandler {
         exchange.getResponseHeaders().set("Content-Type", "application/json;charset=UTF-8");
         exchange.sendResponseHeaders(200, b.length);
         exchange.getResponseBody().write(b);
-        exchange.getResponseBody().close();
+        exchange.close();
     }
 
     public void play(File file) {
@@ -140,7 +152,7 @@ public class APIHandler implements HttpHandler {
         try {
             exchange.sendResponseHeaders(statusCode, html.getBytes().length);
             exchange.getResponseBody().write(html.getBytes());
-            exchange.getResponseBody().close();
+            exchange.close();
         } catch (IOException e) {
             logger.warning(String.format("HTTP Write failed. %s", e.toString()));
         }
