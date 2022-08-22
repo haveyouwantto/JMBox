@@ -70,7 +70,7 @@ public class APIHandler implements HttpHandler {
         JsonObject obj = new JsonObject();
         obj.addProperty("serverName", Config.prop.getProperty("server-name"));
         byte[] b = obj.toString().getBytes(StandardCharsets.UTF_8);
-        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.getResponseHeaders().set("Content-Type", "application/json;charset=UTF-8");
         exchange.sendResponseHeaders(200, b.length);
         exchange.getResponseBody().write(b);
         exchange.close();
