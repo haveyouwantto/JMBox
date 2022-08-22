@@ -66,10 +66,10 @@
                         let file = document.createElement("div");
                         file.setAttribute("class", "link");
                         if (element.isDir) {
-                            file.innerText = "\u{1F5C1} " + element.name;
+                            file.innerText = "\u26D8 " + element.name;
                             file.setAttribute("onclick", `list("${element.name}");`);
                         } else {
-                            file.innerText = "\u{1F39C} " + element.name;
+                            file.innerText = "\u266b " + element.name;
                             file.setAttribute("onclick", `play("${element.name}");`);
                         }
                         content.appendChild(file);
