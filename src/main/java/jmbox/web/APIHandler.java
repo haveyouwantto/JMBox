@@ -12,15 +12,17 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class APIHandler implements HttpHandler {
     private HttpExchange exchange;
+    private static final Pattern REGEX = Pattern.compile("(\\d+)?-(\\d+)?");
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -69,15 +71,16 @@ public class APIHandler implements HttpHandler {
 
     public void play(File file) throws IOException {
         Converter c = new Converter(file);
-        System.out.println(file);
         try {
             AudioInputStream is = c.convert();
+            long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
             Headers response = exchange.getResponseHeaders();
             response.set("Content-Type", "audio/x-wav");
-            exchange.sendResponseHeaders(200, is.getFrameLength() * is.getFormat().getFrameSize() + 44);
+
+            response.set("Content-Range", String.format("bytes %d-%d/%d", 0, length - 1, length));
+            exchange.sendResponseHeaders(206, length);
 
             AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
-//            OutputStream os = exchange.getResponseBody();
 //            int len;
 //            byte[] buffer = new byte[4096];
 //            while ((len = is.read(buffer)) >= 0) {
