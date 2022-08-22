@@ -1,14 +1,14 @@
 package jmbox;
 
+import jmbox.web.Config;
 import jmbox.web.WebServer;
 
-import javax.sound.midi.MidiSystem;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.logging.Logger;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        Config.load();
         WebServer server = new WebServer(new InetSocketAddress(64000));
         server.start();
     }

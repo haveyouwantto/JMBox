@@ -49,6 +49,14 @@
         let mid = document.getElementById("mid");
 
         let cd = [];
+
+        function info() {
+            fetch('api/info').then(r => r.json()).then(result => {
+                serverName = result.serverName;
+                document.title = serverName;
+            });
+        }
+
         function list(dir, add = true) {
             let cwd = concatDir(dir);
             fetch("api/list/" + cwd)
@@ -57,6 +65,7 @@
                     if (add && dir != "") {
                         cd.push(dir);
                     }
+                    console.log(files);
 
                     location.href = "/#/" + cwd;
                     content.innerHTML = '';
@@ -124,7 +133,9 @@
         let urlDir = location.href.split("#")[1];
         if (urlDir != null)
             goto(urlDir);
+
         list('', false);
+        setTimeout(info, 1000);
     </script>
 </body>
 

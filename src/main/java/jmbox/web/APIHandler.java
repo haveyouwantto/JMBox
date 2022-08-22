@@ -24,7 +24,7 @@ public class APIHandler implements HttpHandler {
     private static final Logger logger = Logger.getLogger("API");
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
+    public void handle(HttpExchange exchange) {
         this.exchange = exchange;
         new Thread(() -> {
             try {
@@ -37,21 +37,26 @@ public class APIHandler implements HttpHandler {
 
                 if (exchange.getRequestMethod().equals("GET")) {
                     String[] args = URLDecoder.decode(exchange.getRequestURI().toString(), "UTF-8").split("/");
-                    switch (args[2]) {
-                        case "play":
-                            play(new File(buildPath(args)));
-                            return;
-                        case "list":
-                            list(new File(buildPath(args)));
-                            return;
-                        case "midi":
-                            midi(new File(buildPath(args)));
-                            return;
+                    if (args.length > 2) {
+                        switch (args[2]) {
+                            case "play":
+                                play(new File(buildPath(args)));
+                                return;
+                            case "list":
+                                list(new File(buildPath(args)));
+                                return;
+                            case "midi":
+                                midi(new File(buildPath(args)));
+                                return;
+                            case "info":
+                                info();
+                                return;
+                        }
                     }
-                    send(200, "OK");
-                }else if(exchange.getRequestMethod().equals("OPTIONS")){
-                    exchange.getResponseHeaders().set("Allow","OPTIONS, GET");
-                    exchange.sendResponseHeaders(200,0);
+                    send(403, "");
+                } else if (exchange.getRequestMethod().equals("OPTIONS")) {
+                    exchange.getResponseHeaders().set("Allow", "OPTIONS, GET");
+                    exchange.sendResponseHeaders(200, 0);
                     exchange.close();
                 }
             } catch (IOException e) {
@@ -59,6 +64,16 @@ public class APIHandler implements HttpHandler {
             }
         }).start();
 
+    }
+
+    private void info() throws IOException {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("serverName", Config.prop.getProperty("server-name"));
+        byte[] b = obj.toString().getBytes(StandardCharsets.UTF_8);
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.sendResponseHeaders(200, b.length);
+        exchange.getResponseBody().write(b);
+        exchange.close();
     }
 
     private void midi(File file) {
