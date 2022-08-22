@@ -89,7 +89,6 @@ public class APIHandler implements HttpHandler {
 
                     response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, length - 1, length));
                     exchange.sendResponseHeaders(206, length - skiplen);
-                    System.out.println(length - skiplen);
                     AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
                     return;
                 }
