@@ -10,6 +10,7 @@
         a {
             color: #00695c;
         }
+
         .link {
             background-color: #00796b;
             border: none;
@@ -45,12 +46,15 @@
 
         let cd = [];
         function list(dir, add = true) {
-            fetch("api/list/" + cd.join('/') + '/' + encodeURIComponent(dir))
+            let cwd = concatDir(dir);
+            fetch("api/list/" + cwd)
                 .then(response => response.json())
                 .then(files => {
-                    if (add)
+                    if (add && dir != "") {
                         cd.push(dir);
+                    }
 
+                    location.href = "/#/" + cwd;
                     content.innerHTML = '';
 
                     let updir = document.createElement("div");
@@ -80,20 +84,42 @@
                 });
         }
 
+        function concatDir(dir) {
+            let base = cd.join('/');
+            if (cd.length > 0) {
+                base += "/";
+            }
+            return base + encodeURIComponent(dir);
+        }
+
         function back() {
             cd.pop();
-            list('.', false);
+            list('', false);
         }
 
         function play(file) {
-            let url = "api/play/" + cd.join('/') + '/' + encodeURIComponent(file);
+            let url = "api/play/" + concatDir(file);
             playing.innerText = file;
             console.log(file);
 
             audio.setAttribute("src", url);
             playing.setAttribute("href", url);
         }
-        list('/', false);
+
+        function goto(dir) {
+            let dirs = dir.split('/');
+            cd = [];
+            for (let dir of dirs) {
+                if (dir != '') {
+                    cd.push(dir);
+                }
+            }
+        }
+
+        let urlDir = location.href.split("#")[1];
+        if (urlDir != null && urlDir != "/")
+            goto(urlDir);
+        list('', false);
     </script>
 </body>
 

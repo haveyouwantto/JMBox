@@ -8,7 +8,7 @@ import java.io.*;
 public class Converter {
     public File midi;
 
-    public Converter(File midi) throws FileNotFoundException {
+    public Converter(File midi) {
         this.midi = midi;
     }
 
