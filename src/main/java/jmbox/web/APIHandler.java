@@ -14,21 +14,23 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class APIHandler implements HttpHandler {
     private HttpExchange exchange;
     private static final Pattern REGEX = Pattern.compile("(\\d+)?-(\\d+)?");
+    private static final Logger logger = Logger.getLogger("API");
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         this.exchange = exchange;
         new Thread(() -> {
             try {
+                logger.info(String.format("%s %s %s", exchange.getRemoteAddress(), exchange.getRequestMethod(), exchange.getRequestURI()));
                 if (exchange.getRequestMethod().equals("GET")) {
                     String[] args = URLDecoder.decode(exchange.getRequestURI().toString(), "UTF-8").split("/");
                     switch (args[2]) {
@@ -77,23 +79,35 @@ public class APIHandler implements HttpHandler {
             Headers response = exchange.getResponseHeaders();
             response.set("Content-Type", "audio/x-wav");
 
+            Headers request = exchange.getRequestHeaders();
+            if (request.get("Range") != null) {
+                String range = request.get("Range").get(0);
+                Matcher m = REGEX.matcher(range);
+                if (m.find()) {
+                    long skiplen = Math.max(Long.parseLong(m.group(1)) - 44, 0);
+                    is.skip(skiplen);
+
+                    response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, length - 1, length));
+                    exchange.sendResponseHeaders(206, length - skiplen);
+                    System.out.println(length - skiplen);
+                    AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                    return;
+                }
+            }
+
             response.set("Content-Range", String.format("bytes %d-%d/%d", 0, length - 1, length));
             exchange.sendResponseHeaders(206, length);
 
             AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
-//            int len;
-//            byte[] buffer = new byte[4096];
-//            while ((len = is.read(buffer)) >= 0) {
-//                os.write(buffer, 0, len);
-//            }
-//            os.close();
         } catch (UnsupportedAudioFileException e) {
+            logger.warning(e.toString());
             e.printStackTrace();
             send(500, "Internal Server Error");
         } catch (FileNotFoundException e) {
+            logger.warning(e.toString());
             send(404, "Not Found");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning(e.toString());
         } finally {
             exchange.close();
         }

@@ -1,15 +1,15 @@
 package jmbox.web;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
+import java.util.logging.Logger;
 
 public class WebServer {
     private HttpServer server;
+    private final Logger logger = Logger.getLogger("Web");
 
     public WebServer(InetSocketAddress address) throws IOException {
         server = HttpServer.create(address, 1);
@@ -25,6 +25,7 @@ public class WebServer {
             }
             exchange.close();
         });
+        logger.info(String.format("Listing on port %d", address.getPort()));
     }
 
     public void start() {
