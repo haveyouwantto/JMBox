@@ -37,12 +37,16 @@
         }
     </style>
     <audio controls autoplay id="audio"></audio>
-    <a id="playing">None</a>
+    <a id="wav">WAVE</a> <a id="mid">MIDI</a>
     <div id="content"></div>
     <script>
+        let serverName = "JMBox";
+
+
         let content = document.getElementById("content");
         let audio = document.getElementById("audio");
-        let playing = document.getElementById("playing");
+        let wav = document.getElementById("wav");
+        let mid = document.getElementById("mid");
 
         let cd = [];
         function list(dir, add = true) {
@@ -99,11 +103,12 @@
 
         function play(file) {
             let url = "api/play/" + concatDir(file);
-            playing.innerText = file;
             console.log(file);
 
+            document.title = serverName + " - " + file;
             audio.setAttribute("src", url);
-            playing.setAttribute("href", url);
+            wav.setAttribute("href", "api/play/" + concatDir(file));
+            mid.setAttribute("href", "api/midi/" + concatDir(file));
         }
 
         function goto(dir) {
@@ -117,7 +122,7 @@
         }
 
         let urlDir = location.href.split("#")[1];
-        if (urlDir != null && urlDir != "/")
+        if (urlDir != null)
             goto(urlDir);
         list('', false);
     </script>

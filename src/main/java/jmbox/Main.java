@@ -2,6 +2,7 @@ package jmbox;
 
 import jmbox.web.WebServer;
 
+import javax.sound.midi.MidiSystem;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.logging.Logger;

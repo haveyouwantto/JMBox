@@ -11,9 +11,7 @@ import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
@@ -40,6 +38,9 @@ public class APIHandler implements HttpHandler {
                         case "list":
                             list(new File(buildPath(args)));
                             return;
+                        case "midi":
+                            midi(new File(buildPath(args)));
+                            return;
                     }
                     send(200, "OK");
                 }
@@ -48,6 +49,28 @@ public class APIHandler implements HttpHandler {
             }
         }).start();
 
+    }
+
+    private void midi(File file) throws IOException {
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            exchange.getResponseHeaders().set("Content-Type", "audio/midi");
+            exchange.sendResponseHeaders(200, fis.available());
+            OutputStream os = exchange.getResponseBody();
+
+            byte[] b = new byte[4096];
+            int len;
+            while ((len = fis.read(b)) >= 0) {
+                os.write(b, 0, len);
+            }
+            os.close();
+
+        } catch (FileNotFoundException e) {
+            logger.warning(e.toString());
+            send(404, "Not Found");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void list(File file) throws IOException {
@@ -71,10 +94,11 @@ public class APIHandler implements HttpHandler {
         exchange.getResponseBody().close();
     }
 
-    public void play(File file) throws IOException {
+    public void play(File file) {
         Converter c = new Converter(file);
-        try {
-            AudioInputStream is = c.convert();
+        try (
+                AudioInputStream is = c.convert();
+        ) {
             long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
             Headers response = exchange.getResponseHeaders();
             response.set("Content-Type", "audio/x-wav");
@@ -112,10 +136,14 @@ public class APIHandler implements HttpHandler {
         }
     }
 
-    private void send(int statusCode, String html) throws IOException {
-        exchange.sendResponseHeaders(statusCode, html.getBytes().length);
-        exchange.getResponseBody().write(html.getBytes());
-        exchange.getResponseBody().close();
+    private void send(int statusCode, String html) {
+        try {
+            exchange.sendResponseHeaders(statusCode, html.getBytes().length);
+            exchange.getResponseBody().write(html.getBytes());
+            exchange.getResponseBody().close();
+        } catch (IOException e) {
+            logger.warning(String.format("HTTP Write failed. %s", e.toString()));
+        }
     }
 
     private String buildPath(String[] args) {
