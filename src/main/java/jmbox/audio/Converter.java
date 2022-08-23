@@ -13,6 +13,7 @@ public class Converter {
     }
 
     public AudioInputStream convert() throws IOException, UnsupportedAudioFileException {
+
         return AudioSystem.getAudioInputStream(midi);
     }
 }
