@@ -1,14 +1,22 @@
+<!DOCTYPE html>
 <html>
 
 <head>
     <title>JMBox</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
+    <meta name="theme-color" content="#00796b" />
 </head>
 
 <body>
     <style>
         a {
             color: #00695c;
+        }
+
+        #content {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
         }
 
         .link {
@@ -34,6 +42,16 @@
 
         body {
             background-color: #b2dfdb;
+        }
+
+        @media only screen and (min-width: 768px) {
+            .link {
+                width: 50vw;
+            }
+
+            #content {
+                align-items: center;
+            }
         }
     </style>
     <audio controls autoplay id="audio"></audio>
