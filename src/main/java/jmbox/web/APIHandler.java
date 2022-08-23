@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import jmbox.IOStream;
 import jmbox.audio.Converter;
 
 import javax.sound.sampled.AudioFileFormat;
@@ -14,10 +15,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.logging.Logger;
@@ -93,12 +91,7 @@ public class APIHandler implements HttpHandler {
             exchange.sendResponseHeaders(200, fis.available());
             OutputStream os = exchange.getResponseBody();
 
-            byte[] b = new byte[4096];
-            int len;
-            while ((len = fis.read(b)) >= 0) {
-                os.write(b, 0, len);
-            }
-            os.close();
+            IOStream.writeTo(fis, os);
 
         } catch (FileNotFoundException e) {
             logger.warning(e.toString());
