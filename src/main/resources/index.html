@@ -70,11 +70,13 @@
                     location.href = "/#/" + cwd;
                     content.innerHTML = '';
 
-                    let updir = document.createElement("div");
-                    updir.setAttribute("class", "link");
-                    updir.innerText = "..";
-                    updir.setAttribute("onclick", "back();");
-                    content.appendChild(updir);
+                    if (cd.length > 0) {
+                        let updir = document.createElement("div");
+                        updir.setAttribute("class", "link");
+                        updir.innerText = "..";
+                        updir.setAttribute("onclick", "back();");
+                        content.appendChild(updir);
+                    }
 
                     files.sort((a, b) => {
                         let av = a.isDir ? -1000 : 0;
