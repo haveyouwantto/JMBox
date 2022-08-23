@@ -13,13 +13,19 @@
             color: #00695c;
         }
 
+        #page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         #content {
             display: flex;
             flex-direction: column;
             align-items: stretch;
         }
 
-        .link {
+        .button {
             background-color: #00796b;
             border: none;
             color: #ffffff;
@@ -29,13 +35,16 @@
             border-radius: 4px;
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             transition-duration: 0.4s;
-            min-height: 40px;
             display: flex;
             align-items: center;
         }
 
-        .link:hover {
+        .button:hover {
             background-color: #009688;
+        }
+
+        .link {
+            min-height: 40px;
         }
 
         body {
@@ -53,8 +62,10 @@
             }
         }
     </style>
-    <audio controls autoplay id="audio"></audio>
-    <a id="wav">WAVE</a> <a id="mid">MIDI</a>
+    <div id="page">
+        <audio controls autoplay id="audio"></audio>
+        <div id="control"><a id="wav">WAVE</a> <a id="mid">MIDI</a></div>
+    </div>
     <div id="content"></div>
     <script>
         let serverName = "JMBox";
@@ -89,7 +100,7 @@
 
                     if (cd.length > 0) {
                         let updir = document.createElement("div");
-                        updir.setAttribute("class", "link");
+                        updir.setAttribute("class", "link button");
                         updir.innerText = "..";
                         updir.setAttribute("onclick", "back();");
                         content.appendChild(updir);
@@ -103,7 +114,7 @@
 
                     files.forEach(element => {
                         let file = document.createElement("div");
-                        file.setAttribute("class", "link");
+                        file.setAttribute("class", "link button");
                         if (element.isDir) {
                             file.innerText = "\u26D8 " + element.name;
                             file.setAttribute("onclick", `list("${element.name}");`);
