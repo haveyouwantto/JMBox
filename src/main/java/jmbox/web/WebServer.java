@@ -3,6 +3,7 @@ package jmbox.web;
 import com.sun.net.httpserver.HttpServer;
 import jmbox.IOStream;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
@@ -12,9 +13,9 @@ public class WebServer {
     private HttpServer server;
     private final Logger logger = Logger.getLogger("Web");
 
-    public WebServer(InetSocketAddress address) throws IOException {
+    public WebServer(File rootDir, InetSocketAddress address) throws IOException {
         server = HttpServer.create(address, 1);
-        server.createContext("/api", new APIHandler());
+        server.createContext("/api", new APIHandler(rootDir));
         server.createContext("/", exchange -> {
             InputStream is = ClassLoader.getSystemResourceAsStream("index.html");
             exchange.getResponseHeaders().set("Content-Type", "Content-Type: text/html;charset=utf-8");

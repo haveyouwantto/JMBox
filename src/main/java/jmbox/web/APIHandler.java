@@ -24,9 +24,14 @@ import java.util.regex.Pattern;
 
 public class APIHandler implements HttpHandler {
     private HttpExchange exchange;
+    private File rootDir;
     private static final Pattern REGEX = Pattern.compile("(\\d+)?-(\\d+)?");
     private static final Logger logger = Logger.getLogger("API");
     private static final SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+
+    APIHandler(File rootDir) {
+        this.rootDir = rootDir;
+    }
 
     @Override
     public void handle(HttpExchange exchange) {
@@ -47,13 +52,13 @@ public class APIHandler implements HttpHandler {
                     if (args.length > 2) {
                         switch (args[2]) {
                             case "play":
-                                play(new File(buildPath(args)));
+                                play(buildPath(args));
                                 return;
                             case "list":
-                                list(new File(buildPath(args)));
+                                list(buildPath(args));
                                 return;
                             case "midi":
-                                midi(new File(buildPath(args)));
+                                midi(buildPath(args));
                                 return;
                             case "info":
                                 info();
@@ -177,7 +182,7 @@ public class APIHandler implements HttpHandler {
         }
     }
 
-    private String buildPath(String[] args) {
+    private File buildPath(String[] args) {
         StringBuilder builder = new StringBuilder("./");
         for (int i = 3; i < args.length; i++) {
             String path = args[i];
@@ -185,6 +190,6 @@ public class APIHandler implements HttpHandler {
                 builder.append(args[i]).append("/");
             }
         }
-        return builder.toString();
+        return new File(rootDir, builder.toString());
     }
 }
