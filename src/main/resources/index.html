@@ -9,10 +9,6 @@
 
 <body>
     <style>
-        a {
-            color: #00695c;
-            cursor: pointer;
-        }
 
         #bar {
             display: flex;
@@ -54,14 +50,9 @@
             background-color: #00796b;
             border: none;
             color: white;
-            padding: 5px 16px;
-            margin: 4px 2px;
             cursor: pointer;
             border-radius: 4px;
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            transition-duration: 0.4s;
-            display: flex;
-            align-items: center;
         }
 
         .button:hover {
@@ -69,6 +60,11 @@
         }
 
         .link {
+            padding: 5px 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            display: flex;
+            align-items: center;
             min-height: 40px;
         }
 
@@ -89,7 +85,7 @@
     </style>
     <div id="bar">
         <audio controls autoplay id="audio"></audio>
-        <a id="loop" class="icon">&#11119;</a> <a id="wav" class="icon">&#8767</a> <a id="mid" class="icon">&#9835;</a>
+        <a id="loop" class="icon button">&#11119;</a> <a id="wav" class="icon button">&#8767</a> <a id="mid" class="icon button">&#9835;</a>
     </div>
     <div id="content"></div>
     <script>
