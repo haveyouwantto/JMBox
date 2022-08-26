@@ -15,7 +15,7 @@
 
         #bar {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             position: fixed;
             bottom: 0;
@@ -24,6 +24,18 @@
             background-color: #e0f2f1;
             width: 100%;
             box-shadow: 0 -8px 16px 0 rgb(0 0 0 / 20%);
+        }
+
+        .icon {
+            font-size: 3vh;
+            text-decoration: none;
+            background-color: #00796b;
+            color: white;
+            border-radius: 4px;
+            width: 4vh;
+            height: 4vh;
+            text-align: center;
+            margin: 5px;
         }
 
         #audio {
@@ -39,7 +51,7 @@
         .button {
             background-color: #00796b;
             border: none;
-            color: #ffffff;
+            color: white;
             padding: 5px 16px;
             margin: 4px 2px;
             cursor: pointer;
@@ -75,7 +87,7 @@
     </style>
     <div id="bar">
         <audio controls autoplay id="audio"></audio>
-        <div id="control"><a id="wav">WAVE</a> <a id="mid">MIDI</a></div>
+        <a id="wav" class="icon">&#8767</a> <a id="mid" class="icon">&#9835;</a>
     </div>
     <div id="content"></div>
     <script>
