@@ -13,10 +13,21 @@
             color: #00695c;
         }
 
-        #page {
+        #bar {
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            background-color: #e0f2f1;
+            width: 100%;
+            box-shadow: 0 -8px 16px 0 rgb(0 0 0 / 20%);
+        }
+
+        #audio {
+            width: 100%;
         }
 
         #content {
@@ -62,7 +73,7 @@
             }
         }
     </style>
-    <div id="page">
+    <div id="bar">
         <audio controls autoplay id="audio"></audio>
         <div id="control"><a id="wav">WAVE</a> <a id="mid">MIDI</a></div>
     </div>
