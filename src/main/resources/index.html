@@ -187,6 +187,7 @@
 
         loop.addEventListener('click', function(e) {
             musicLoop = !musicLoop;
+            audio.loop = musicLoop;
             loop.style.backgroundColor = musicLoop ? '#00796b' : '#616161';
         });
 
