@@ -11,6 +11,7 @@
     <style>
         a {
             color: #00695c;
+            cursor: pointer;
         }
 
         #bar {
@@ -88,7 +89,7 @@
     </style>
     <div id="bar">
         <audio controls autoplay id="audio"></audio>
-        <a id="wav" class="icon">&#8767</a> <a id="mid" class="icon">&#9835;</a>
+        <a id="loop" class="icon">&#11119;</a> <a id="wav" class="icon">&#8767</a> <a id="mid" class="icon">&#9835;</a>
     </div>
     <div id="content"></div>
     <script>
@@ -99,8 +100,11 @@
         let audio = document.getElementById("audio");
         let wav = document.getElementById("wav");
         let mid = document.getElementById("mid");
+        let loop = document.getElementById("loop");
 
         let cd = [];
+
+        let musicLoop = true;
 
         function info() {
             fetch('api/info').then(r => r.json()).then(result => {
@@ -169,7 +173,8 @@
             console.log(file);
 
             document.title = serverName + " - " + file;
-            audio.setAttribute("src", url);
+            audio.src = url;
+            audio.loop = musicLoop;
             wav.setAttribute("href", "api/play/" + concatDir(file));
             mid.setAttribute("href", "api/midi/" + concatDir(file));
         }
@@ -183,6 +188,11 @@
                 }
             }
         }
+
+        loop.addEventListener('click', function(e) {
+            musicLoop = !musicLoop;
+            loop.style.backgroundColor = musicLoop ? '#00796b' : '#616161';
+        });
 
         let urlDir = location.href.split("#")[1];
         if (urlDir != null)
