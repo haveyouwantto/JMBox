@@ -28,6 +28,7 @@ public class APIHandler implements HttpHandler {
     private static final Pattern REGEX = Pattern.compile("(\\d+)?-(\\d+)?");
     private static final Logger logger = Logger.getLogger("API");
     private static final SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+    private static final FileFilter filter = pathname -> pathname.toString().toLowerCase().endsWith(".mid") || pathname.toString().toLowerCase().endsWith(".midi") || pathname.isDirectory();
 
     APIHandler(File rootDir) {
         this.rootDir = rootDir;
@@ -71,6 +72,9 @@ public class APIHandler implements HttpHandler {
                     exchange.sendResponseHeaders(200, 0);
                     exchange.close();
                 }
+            } catch (PermissionException e) {
+                logger.warning(e.toString());
+                send(403, "Access Denied");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -109,7 +113,7 @@ public class APIHandler implements HttpHandler {
     }
 
     private void list(File file) throws IOException {
-        File[] list = file.listFiles(pathname -> pathname.toString().toLowerCase().endsWith(".mid") || pathname.toString().toLowerCase().endsWith(".midi") || pathname.isDirectory());
+        File[] list = file.listFiles(filter);
         if (list == null) {
             send(404, "Not Found");
             return;
@@ -182,7 +186,7 @@ public class APIHandler implements HttpHandler {
         }
     }
 
-    private File buildPath(String[] args) {
+    private File buildPath(String[] args) throws PermissionException {
         StringBuilder builder = new StringBuilder("./");
         for (int i = 3; i < args.length; i++) {
             String path = args[i];
@@ -190,6 +194,11 @@ public class APIHandler implements HttpHandler {
                 builder.append(args[i]).append("/");
             }
         }
-        return new File(rootDir, builder.toString());
+        File out = new File(rootDir, builder.toString());
+        if (filter.accept(out)) {
+            return out;
+        } else {
+            throw new PermissionException(String.format("Access to %s is denied.", out.getPath()));
+        }
     }
 }
