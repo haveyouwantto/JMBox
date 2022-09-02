@@ -9,7 +9,6 @@
 
 <body>
     <style>
-
         #bar {
             display: flex;
             flex-direction: row;
@@ -85,7 +84,8 @@
     </style>
     <div id="bar">
         <audio controls autoplay id="audio"></audio>
-        <a id="loop" class="icon button">&#11119;</a> <a id="wav" class="icon button">&#8767</a> <a id="mid" class="icon button">&#9835;</a>
+        <a id="loop" class="icon button">&#11119;</a> <a id="wav" class="icon button">&#8767</a> <a id="mid"
+            class="icon button">&#9835;</a>
     </div>
     <div id="content"></div>
     <script>
@@ -99,6 +99,8 @@
         let loop = document.getElementById("loop");
 
         let cd = [];
+        let files = [];
+        let playing = [];
 
         let musicLoop = true;
 
@@ -106,6 +108,10 @@
             fetch('api/info').then(r => r.json()).then(result => {
                 serverName = result.serverName;
                 document.title = serverName;
+
+                if ('mediaSession' in navigator) {
+                    navigator.mediaSession.metadata.album = serverName;
+                }
             });
         }
 
@@ -113,11 +119,10 @@
             let cwd = concatDir(dir);
             fetch("api/list/" + cwd)
                 .then(response => response.json())
-                .then(files => {
+                .then(result => {
                     if (add && dir != "") {
                         cd.push(dir);
                     }
-                    console.log(files);
 
                     location.href = "/#/" + cwd;
                     content.innerHTML = '';
@@ -130,13 +135,15 @@
                         content.appendChild(updir);
                     }
 
-                    files.sort((a, b) => {
+                    result.sort((a, b) => {
                         let av = a.isDir ? -1000 : 0;
                         let bv = b.isDir ? -1000 : 0;
                         return a.name.localeCompare(b.name) + (av - bv);
                     });
 
-                    files.forEach(element => {
+                    files = [];
+
+                    result.forEach(element => {
                         let file = document.createElement("div");
                         file.setAttribute("class", "link button");
                         if (element.isDir) {
@@ -145,6 +152,7 @@
                         } else {
                             file.innerText = "\u266b " + element.name;
                             file.setAttribute("onclick", `play("${element.name}");`);
+                            files.push(element.name);
                         }
                         content.appendChild(file);
                     });
@@ -173,6 +181,33 @@
             audio.loop = musicLoop;
             wav.setAttribute("href", "api/play/" + concatDir(file));
             mid.setAttribute("href", "api/midi/" + concatDir(file));
+            playing = files.indexOf(file);
+
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: file,
+                    artwork: [
+                        { src: 'favicon.ico', type: 'image/x-icon' }
+                    ]
+                });
+                navigator.mediaSession.playbackState = 'playing';
+            }
+        }
+
+        function next() {
+            playing++;
+            if (playing >= files.length) {
+                playing = 0;
+            }
+            play(files[playing]);
+        }
+
+        function previous() {
+            playing--;
+            if (playing < 0) {
+                playing = files.length - 1;
+            }
+            play(files[playing]);
         }
 
         function goto(dir) {
@@ -185,11 +220,28 @@
             }
         }
 
-        loop.addEventListener('click', function(e) {
+        loop.addEventListener('click', function (e) {
             musicLoop = !musicLoop;
             audio.loop = musicLoop;
             loop.style.backgroundColor = musicLoop ? '#00796b' : '#616161';
         });
+
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.setActionHandler('play', () => {
+                audio.play();
+                navigator.mediaSession.playbackState = 'playing';
+            });
+            navigator.mediaSession.setActionHandler('pause', () => {
+                audio.pause();
+                navigator.mediaSession.playbackState = 'paused';
+            });
+            navigator.mediaSession.setActionHandler('stop', () => { audio.stop(); });
+            navigator.mediaSession.setActionHandler('seekbackward', () => { audio.currentTime -= 5; });
+            navigator.mediaSession.setActionHandler('seekforward', () => { audio.currentTime += 5; });
+            navigator.mediaSession.setActionHandler('seekto', () => { });
+            navigator.mediaSession.setActionHandler('nexttrack', next);
+            navigator.mediaSession.setActionHandler('previoustrack', previous);
+        }
 
         let urlDir = location.href.split("#")[1];
         if (urlDir != null)

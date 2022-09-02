@@ -12,7 +12,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Config.load();
         int port = 64000;
-        System.out.println(Arrays.toString(args));
         if (args.length >= 1) {
             port = Integer.parseInt(args[0]);
         }
