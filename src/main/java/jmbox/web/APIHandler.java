@@ -28,7 +28,6 @@ public class APIHandler implements HttpHandler {
     private static final Pattern REGEX = Pattern.compile("(\\d+)?-(\\d+)?");
     private static final Logger logger = Logger.getLogger("API");
     private static final SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
-    private static final FileFilter filter = pathname -> pathname.toString().toLowerCase().endsWith(".mid") || pathname.toString().toLowerCase().endsWith(".midi") || pathname.isDirectory();
 
     APIHandler(File rootDir) {
         this.rootDir = rootDir;
@@ -44,7 +43,7 @@ public class APIHandler implements HttpHandler {
                 Headers headers = exchange.getResponseHeaders();
                 headers.set("Access-Control-Allow-Origin", "*");
                 headers.set("Access-Control-Allow-Headers", "*");
-                headers.set("Server", "JMBox");
+                headers.set("Server", "JMBox API");
 
                 format.setTimeZone(TimeZone.getTimeZone("GMT"));
 
@@ -66,15 +65,13 @@ public class APIHandler implements HttpHandler {
                                 return;
                         }
                     }
-                    send(403, "");
                 } else if (exchange.getRequestMethod().equals("OPTIONS")) {
                     exchange.getResponseHeaders().set("Allow", "OPTIONS, GET");
                     exchange.sendResponseHeaders(200, 0);
                     exchange.close();
+                    return;
                 }
-            } catch (PermissionException e) {
-                logger.warning(e.toString());
-                send(403, "Access Denied");
+                send(501, "Not Implemented");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -113,7 +110,7 @@ public class APIHandler implements HttpHandler {
     }
 
     private void list(File file) throws IOException {
-        File[] list = file.listFiles(filter);
+        File[] list = file.listFiles(pathname -> pathname.toString().toLowerCase().endsWith(".mid") || pathname.toString().toLowerCase().endsWith(".midi") || pathname.isDirectory());
         if (list == null) {
             send(404, "Not Found");
             return;
@@ -186,7 +183,7 @@ public class APIHandler implements HttpHandler {
         }
     }
 
-    private File buildPath(String[] args) throws PermissionException {
+    private File buildPath(String[] args) {
         StringBuilder builder = new StringBuilder("./");
         for (int i = 3; i < args.length; i++) {
             String path = args[i];
@@ -194,11 +191,6 @@ public class APIHandler implements HttpHandler {
                 builder.append(args[i]).append("/");
             }
         }
-        File out = new File(rootDir, builder.toString());
-        if (filter.accept(out)) {
-            return out;
-        } else {
-            throw new PermissionException(String.format("Access to %s is denied.", out.getPath()));
-        }
+        return new File(rootDir, builder.toString());
     }
 }

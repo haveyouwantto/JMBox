@@ -104,6 +104,9 @@
 
         let musicLoop = true;
 
+        let prefix = location.pathname;
+        let urlDir = location.hash.substring(1);
+
         function info() {
             fetch('api/info').then(r => r.json()).then(result => {
                 serverName = result.serverName;
@@ -122,9 +125,10 @@
                 .then(result => {
                     if (add && dir != "") {
                         cd.push(dir);
+                        window.scrollTo(0, 0);
                     }
 
-                    location.href = "/#/" + cwd;
+                    location.href = prefix + "#/" + cwd;
                     content.innerHTML = '';
 
                     if (cd.length > 0) {
@@ -184,12 +188,7 @@
             playing = files.indexOf(file);
 
             if ('mediaSession' in navigator) {
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: file,
-                    artwork: [
-                        { src: 'favicon.ico', type: 'image/x-icon' }
-                    ]
-                });
+                navigator.mediaSession.metadata.title = file;
                 navigator.mediaSession.playbackState = 'playing';
             }
         }
@@ -227,6 +226,11 @@
         });
 
         if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                artwork: [
+                    { src: 'favicon.ico', type: 'image/x-icon' }
+                ]
+            });
             navigator.mediaSession.setActionHandler('play', () => {
                 audio.play();
                 navigator.mediaSession.playbackState = 'playing';
@@ -243,7 +247,6 @@
             navigator.mediaSession.setActionHandler('previoustrack', previous);
         }
 
-        let urlDir = location.href.split("#")[1];
         if (urlDir != null)
             goto(urlDir);
 
