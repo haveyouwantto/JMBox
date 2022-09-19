@@ -150,12 +150,13 @@
                     result.forEach(element => {
                         let file = document.createElement("div");
                         file.setAttribute("class", "link button");
+                        file.setAttribute("value",element.name);
                         if (element.isDir) {
                             file.innerText = "\u26D8 " + element.name;
-                            file.setAttribute("onclick", `list("${element.name}");`);
+                            file.setAttribute("onclick", `elist(this);`);
                         } else {
                             file.innerText = "\u266b " + element.name;
-                            file.setAttribute("onclick", `play("${element.name}");`);
+                            file.setAttribute("onclick", `eplay(this);`);
                             files.push(element.name);
                         }
                         content.appendChild(file);
@@ -174,6 +175,14 @@
         function back() {
             cd.pop();
             list('', false);
+        }
+
+        function elist(e){
+            list(e.getAttribute('value'));
+        }
+
+        function eplay(e){
+            play(e.getAttribute('value'));
         }
 
         function play(file) {
