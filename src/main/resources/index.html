@@ -147,10 +147,10 @@
 
                     files = [];
 
-                    result.forEach(element => {
+                    for (let element of result) {
                         let file = document.createElement("div");
                         file.setAttribute("class", "link button");
-                        file.setAttribute("value",element.name);
+                        file.setAttribute("value", element.name);
                         if (element.isDir) {
                             file.innerText = "\u26D8 " + element.name;
                             file.setAttribute("onclick", `elist(this);`);
@@ -160,7 +160,7 @@
                             files.push(element.name);
                         }
                         content.appendChild(file);
-                    });
+                    };
                 });
         }
 
@@ -177,11 +177,11 @@
             list('', false);
         }
 
-        function elist(e){
+        function elist(e) {
             list(e.getAttribute('value'));
         }
 
-        function eplay(e){
+        function eplay(e) {
             play(e.getAttribute('value'));
         }
 
