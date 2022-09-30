@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) throws IOException {
         Config.load();
-        int port = 64000;
+        int port = 60752;
         if (args.length >= 1) {
             port = Integer.parseInt(args[0]);
         }
