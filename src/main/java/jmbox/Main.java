@@ -10,13 +10,8 @@ import java.net.InetSocketAddress;
 public class Main {
     public static void main(String[] args) throws IOException {
         Config.load();
-        String property = Config.prop.getProperty("port");
-        int port;
-        if (property == null) {
-            port = 60752;
-        } else {
-            port = Integer.parseInt(property);
-        }
+        String property = Config.prop.getProperty("port", "60752");
+        int port = Integer.parseInt(property);
         WebServer server = new WebServer(new File("."), new InetSocketAddress(port));
         server.start();
     }
