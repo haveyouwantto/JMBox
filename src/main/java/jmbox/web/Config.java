@@ -22,6 +22,7 @@ public class Config {
     private static void create() throws IOException {
         prop = new Properties();
         prop.setProperty("server-name", "JMBox");
+        prop.setProperty("port", "60752");
 
         FileOutputStream fos = new FileOutputStream("server.properties");
         prop.store(fos, "JMBox server properties");

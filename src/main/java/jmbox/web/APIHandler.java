@@ -35,10 +35,10 @@ public class APIHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) {
+        logger.info(String.format("%s %s %s", exchange.getRemoteAddress(), exchange.getRequestMethod(), exchange.getRequestURI()));
         this.exchange = exchange;
         new Thread(() -> {
             try {
-                logger.info(String.format("%s %s %s", exchange.getRemoteAddress(), exchange.getRequestMethod(), exchange.getRequestURI()));
 
                 Headers headers = exchange.getResponseHeaders();
                 headers.set("Access-Control-Allow-Origin", "*");
@@ -52,13 +52,13 @@ public class APIHandler implements HttpHandler {
                     if (args.length > 2) {
                         switch (args[2]) {
                             case "play":
-                                play(buildPath(args));
+                                play(FilePath.buildPath(rootDir, args, 3));
                                 return;
                             case "list":
-                                list(buildPath(args));
+                                list(FilePath.buildPath(rootDir, args, 3));
                                 return;
                             case "midi":
-                                midi(buildPath(args));
+                                midi(FilePath.buildPath(rootDir, args, 3));
                                 return;
                             case "info":
                                 info();
@@ -183,14 +183,4 @@ public class APIHandler implements HttpHandler {
         }
     }
 
-    private File buildPath(String[] args) {
-        StringBuilder builder = new StringBuilder("./");
-        for (int i = 3; i < args.length; i++) {
-            String path = args[i];
-            if (!path.equals("..") && !path.equals("")) {
-                builder.append(args[i]).append("/");
-            }
-        }
-        return new File(rootDir, builder.toString());
-    }
 }
