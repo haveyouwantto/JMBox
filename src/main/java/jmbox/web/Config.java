@@ -23,6 +23,7 @@ public class Config {
         prop = new Properties();
         prop.setProperty("server-name", "JMBox");
         prop.setProperty("port", "60752");
+        prop.setProperty("max-file-size", "1048576");
 
         FileOutputStream fos = new FileOutputStream("server.properties");
         prop.store(fos, "JMBox server properties");

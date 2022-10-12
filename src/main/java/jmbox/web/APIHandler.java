@@ -131,6 +131,10 @@ public class APIHandler implements HttpHandler {
     }
 
     public void play(File file) {
+        if (file.length() > Long.parseLong(Config.prop.getProperty("max-file-size", "1048576"))) {
+            send(503, "File size exceeded.");
+            return;
+        }
         Converter c = new Converter(file);
         try (
                 AudioInputStream is = c.convert();
