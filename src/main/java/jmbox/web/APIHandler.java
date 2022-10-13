@@ -52,13 +52,13 @@ public class APIHandler implements HttpHandler {
                     if (args.length > 2) {
                         switch (args[2]) {
                             case "play":
-                                play(FilePath.buildPath(rootDir, args, 3));
+                                play(new File(rootDir, FilePath.buildPath(args, 3)));
                                 return;
                             case "list":
-                                list(FilePath.buildPath(rootDir, args, 3));
+                                list(new File(rootDir, FilePath.buildPath(args, 3)));
                                 return;
                             case "midi":
-                                midi(FilePath.buildPath(rootDir, args, 3));
+                                midi(new File(rootDir, FilePath.buildPath(args, 3)));
                                 return;
                             case "info":
                                 info();

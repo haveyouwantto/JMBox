@@ -20,6 +20,7 @@ public class WebServer {
         server.createContext("/api", new APIHandler(rootDir));
         server.createContext("/", new StaticHandler());
         logger.info(String.format("Listing on port %d", address.getPort()));
+        logger.info(String.format("http://127.0.0.1:%d", address.getPort()));
     }
 
     public void start() {
