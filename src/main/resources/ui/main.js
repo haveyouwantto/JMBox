@@ -7,6 +7,10 @@ let wav = document.getElementById("wav");
 let mid = document.getElementById("mid");
 let loop = document.getElementById("loop");
 
+let head = document.getElementById("head");
+let title = head.querySelector("#title");
+let backBtn = head.querySelector("#back");
+
 let cd = [];
 let files = [];
 let playing = [];
@@ -20,6 +24,7 @@ function info() {
     fetch('api/info').then(r => r.json()).then(result => {
         serverName = result.serverName;
         document.title = serverName;
+        title.innerText = serverName;
 
         if ('mediaSession' in navigator) {
             navigator.mediaSession.metadata.album = serverName;
@@ -42,10 +47,13 @@ function list(dir, add = true) {
 
             if (cd.length > 0) {
                 let updir = document.createElement("div");
-                updir.setAttribute("class", "link button");
+                updir.setAttribute("class", "link button shadow");
                 updir.innerText = "..";
                 updir.setAttribute("onclick", "back();");
                 content.appendChild(updir);
+                backBtn.classList.remove('hidden');
+            } else {
+                backBtn.classList.add('hidden');
             }
 
             result.sort((a, b) => {
@@ -58,7 +66,7 @@ function list(dir, add = true) {
 
             for (let element of result) {
                 let file = document.createElement("div");
-                file.setAttribute("class", "link button");
+                file.setAttribute("class", "link button shadow");
                 file.setAttribute("value", element.name);
                 if (element.isDir) {
                     file.innerText = "\u26D8 " + element.name;
@@ -141,6 +149,10 @@ loop.addEventListener('click', function (e) {
     musicLoop = !musicLoop;
     audio.loop = musicLoop;
     loop.style.backgroundColor = musicLoop ? '#00796b' : '#616161';
+});
+
+backBtn.addEventListener('click', function (e) {
+    back();
 });
 
 if ('mediaSession' in navigator) {
