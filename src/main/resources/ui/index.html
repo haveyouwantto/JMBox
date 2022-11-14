@@ -9,16 +9,20 @@
 </head>
 
 <body>
+    <div id="collapse" class="hidden"></div>
     <div class="nav shadow" id="head">
         <a id="back" class="icon button round hidden">&#60; </a>
         <a id="home" class="icon button round hidden">&#8962;</a>
         <div id="title">JMBox</div>
+        <a id="menu" class="icon button round">&#8285;</a>
+        <div class="menu shadow">
+            <a id="wav" class="menu-item">&#8767; WAV File</a>
+            <a id="mid" class="menu-item">&#9835; MIDI File</a>
+        </div>
     </div>
     <div id="bar">
         <audio controls autoplay id="audio"></audio>
-        <a id="loop" class="icon button shadow">&#11119;</a> 
-        <a id="wav" class="icon button shadow">&#8767</a> 
-        <a id="mid" class="icon button shadow">&#9835;</a>
+        <a id="loop" class="icon button shadow">&#11119;</a>
     </div>
     <div id="content"></div>
     <script src="main.js"></script>

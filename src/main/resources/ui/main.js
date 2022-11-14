@@ -11,6 +11,10 @@ let head = document.getElementById("head");
 let title = head.querySelector("#title");
 let backBtn = head.querySelector("#back");
 let homeBtn = head.querySelector("#home");
+let menuBtn = head.querySelector("#menu");
+
+let menu = head.querySelector(".menu");
+let collapse = document.querySelector("#collapse");
 
 let cd = [];
 let files = [];
@@ -35,7 +39,7 @@ function info() {
 
 function list(dir, add = true) {
     let cwd = concatDir(dir);
-    
+
     fetch("api/list/" + cwd)
         .then(response => response.json())
         .then(result => {
@@ -157,6 +161,29 @@ backBtn.addEventListener('click', function (e) {
 homeBtn.addEventListener('click', function (e) {
     cd = [];
     list('', false);
+});
+
+let menuDisplay = false;
+menuBtn.addEventListener('click', function (e) {
+    menuDisplay = !menuDisplay;
+    if (menuDisplay) {
+        menu.classList.add('menu-visible');
+        menu.classList.remove('menu-hidden');
+        collapse.classList.remove('hidden');
+    } else {
+        menu.classList.remove('menu-visible');
+        menu.classList.add('menu-hidden');
+        collapse.classList.add('hidden');
+    }
+});
+
+collapse.addEventListener('click', function (e) {
+    if (menuDisplay) {
+        menuDisplay = false;
+        menu.classList.remove('menu-visible');
+        menu.classList.add('menu-hidden');
+        collapse.classList.add('hidden');
+    }
 });
 
 if ('mediaSession' in navigator) {
