@@ -46,11 +46,6 @@ function list(dir, add = true) {
             content.innerHTML = '';
 
             if (cd.length > 0) {
-                let updir = document.createElement("div");
-                updir.setAttribute("class", "link button shadow");
-                updir.innerText = "..";
-                updir.setAttribute("onclick", "back();");
-                content.appendChild(updir);
                 backBtn.classList.remove('hidden');
             } else {
                 backBtn.classList.add('hidden');
