@@ -92,13 +92,28 @@ body {
     align-items: center;
 }
 
+.headerLeft, .headerRight {
+    display: flex;
+    align-items: center;
+}
+
+.headerLeft {
+    width: 100%;
+    overflow: hidden;
+}
+
+.headerRight {
+    margin-right: 16px;
+}
+
 #title {
     margin-left: 10px;
+    white-space: nowrap;
 }
 
 .menu {
     position: fixed;
-    top: 40px;
+    top: 50px;
     right: 8px;
     background-color: #f0f0f0;
     font-family: sans;
