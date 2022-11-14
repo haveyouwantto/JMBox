@@ -1,5 +1,8 @@
 :root {
     --theme-color: #00796b;
+    --text-color: black;
+    --bg-color: #f0f0f0;
+    --hover-color: #00000020;
 }
 
 #bar {
@@ -10,19 +13,18 @@
     bottom: 0;
     left: 0;
     z-index: 999;
-    background-color: #e0f2f1;
+    background-color: var(--bg-color);
     width: 100%;
     box-shadow: 0 -4px 8px 0 rgb(0 0 0 / 10%);
 }
 
 .icon {
-    font-size: 28px;
+    font-size: 26px;
     text-decoration: none;
     width: 40px;
     height: 40px;
     text-align: center;
     margin: 5px;
-    font-weight: bold;
     user-select: none;
 }
 
@@ -36,7 +38,7 @@
     flex-direction: column;
     align-items: stretch;
     margin-bottom: 60px;
-    margin-top: 65px;
+    margin-top: 58px;
 }
 
 .button {
@@ -48,6 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s;
 }
 
 .button:hover {
@@ -60,28 +63,29 @@
 
 .link {
     padding: 5px 16px;
-    transition-duration: 0.4s;
+    transition-duration: 0.3s;
     display: flex;
     align-items: center;
     min-height: 40px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--text-color);
     cursor: pointer;
+    color: var(--text-color);
 }
 
 .link:hover {
-    background-color: #00000020;
+    background-color: var(--hover-color);
 }
 
 body {
-    background-color: #f0f0f0;
+    background-color: var(--bg-color);
     font-family: sans;
     margin: unset;
+    transition: background-color 0.3s;
 }
 
 .nav {
     background-color: var(--theme-color);
-    height: 48px;
-    padding: 5px 8px 5px 8px;
+    padding: 4px 8px 4px 8px;
     font-size: 20px;
     color: white;
     position: fixed;
@@ -115,14 +119,12 @@ body {
     position: fixed;
     top: 50px;
     right: 8px;
-    background-color: #f0f0f0;
+    background-color: var(--bg-color);
     font-family: sans;
     font-size: 16px;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-    padding-top: 8px;
-    padding-bottom: 8px;
     visibility: hidden;
     overflow: hidden auto;
     max-height: 50vh;
@@ -130,7 +132,7 @@ body {
 
 .menu-item {
     text-decoration: none;
-    color: black;
+    color: var(--text-color);
     cursor: pointer;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -139,7 +141,7 @@ body {
 }
 
 .menu-item:hover {
-    background-color: #00000020;
+    background-color: var(--hover-color);
 }
 
 #collapse {

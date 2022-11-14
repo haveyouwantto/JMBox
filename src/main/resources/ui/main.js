@@ -1,12 +1,11 @@
 let serverName = "JMBox";
 
-
+// Main player Items
 let content = document.getElementById("content");
 let audio = document.getElementById("audio");
-let wav = document.getElementById("wav");
-let mid = document.getElementById("mid");
 let loop = document.getElementById("loop");
 
+// Header Items
 let head = document.getElementById("head");
 let title = head.querySelector("#title");
 let backBtn = head.querySelector("#back");
@@ -16,6 +15,11 @@ let menuBtn = head.querySelector("#menu");
 let menu = head.querySelector(".menu");
 let collapse = document.querySelector("#collapse");
 
+// Menu Items
+let wav = document.getElementById("wav");
+let mid = document.getElementById("mid");
+let dark = document.getElementById("dark");
+
 let cd = [];
 let files = [];
 let playing = [];
@@ -24,6 +28,10 @@ let musicLoop = true;
 
 let prefix = location.pathname;
 let urlDir = location.hash.substring(1);
+
+let config = {
+    dark: false
+}
 
 function info() {
     fetch('api/info').then(r => r.json()).then(result => {
@@ -196,6 +204,21 @@ collapse.addEventListener('click', function (e) {
 menu.addEventListener('click', e => {
     if (menuDisplay) {
         setMenuVisible(false);
+    }
+});
+
+dark.addEventListener('click', e => {
+    config.dark = !config.dark;
+
+    let root = document.documentElement.style;
+    if (config.dark) {
+        root.setProperty('--text-color', '#cccccc');
+        root.setProperty('--bg-color', '#101010');
+        root.setProperty('--hover-color', '#ffffff20');
+    } else {
+        root.setProperty('--text-color', 'black');
+        root.setProperty('--bg-color', '#f0f0f0');
+        root.setProperty('--hover-color', '#00000020');
     }
 });
 
