@@ -110,11 +110,12 @@ body {
     padding-top: 8px;
     padding-bottom: 8px;
     visibility: hidden;
+    overflow: hidden auto;
+    max-height: 50vh;
 }
 
 .menu-item {
     text-decoration: none;
-    overflow: hidden;
     color: black;
     cursor: pointer;
     padding-top: 8px;
@@ -141,8 +142,7 @@ body {
     from {
         opacity: 0;
         visibility: hidden;
-        width: 32px;
-        height: 32px;
+        transform: translate(50%, -50%) scale(0.1);
     }
 
     to {
