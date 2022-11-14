@@ -1,0 +1,142 @@
+html {
+    background-color: rgb(240, 240, 240);
+    font-family: sans-serif;
+}
+
+.side {
+    display: flex;
+    flex-direction: column;
+    width: 30vh;
+    padding: 5px;
+}
+
+.header {
+    background-color: #4caf50;
+    height: 48px;
+    padding: 5px;
+    font-size: 20px;
+    color: white;
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+}
+
+.name {
+    margin: 8px;
+}
+
+#title {
+    margin-left: 8px;
+    line-height: 48px
+}
+
+.span {
+    display: flex;
+    flex-direction: row;
+    padding-top: 70px;
+}
+
+.center {
+    text-align: center;
+}
+
+.content {
+    color: #424242;
+    margin: 5px 5px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+}
+
+.description {
+    color: #616161;
+    font-size: 15px;
+}
+
+.articles {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin: auto;
+}
+
+.article {
+    float: left;
+    max-height: min-content;
+    padding: 5px;
+}
+
+.blur {
+    filter: blur(3px);
+}
+
+.shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+nav.shadow {
+    box-shadow: 0px 0px 6px 0px #888;
+}
+
+a {
+    color: #388E3C;
+}
+
+a:visited {
+    color: #1B5E20;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #81C784;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: white;
+}
+
+.progress {
+    margin-top: 5px;
+    vertical-align: middle;
+    width: 100%;
+    height: 5px;
+    background-color: #e5e6ea;
+}
+
+.progress .done {
+    height: 5px;
+    background-color: #4caf50;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+@media (max-width: 640px) {
+    .side {
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+
+    .span {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .articles {
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        margin: unset;
+    }
+}
