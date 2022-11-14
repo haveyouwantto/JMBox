@@ -46,6 +46,9 @@
     color: white;
     cursor: pointer;
     border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .button:hover {
@@ -58,11 +61,17 @@
 
 .link {
     padding: 5px 16px;
-    margin: 4px 8px;
     transition-duration: 0.4s;
     display: flex;
     align-items: center;
     min-height: 40px;
+    border: 1px 1px 0px 0px;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+
+.link:hover {
+    background-color: #ffffff80;
 }
 
 body {

@@ -61,7 +61,7 @@ function list(dir, add = true) {
 
             for (let element of result) {
                 let file = document.createElement("div");
-                file.setAttribute("class", "link button shadow");
+                file.setAttribute("class", "link");
                 file.setAttribute("value", element.name);
                 if (element.isDir) {
                     file.innerText = "\u26D8 " + element.name;
