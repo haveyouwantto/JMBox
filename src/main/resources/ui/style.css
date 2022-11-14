@@ -65,17 +65,16 @@
     display: flex;
     align-items: center;
     min-height: 40px;
-    border: 1px 1px 0px 0px;
     border-bottom: 1px solid black;
     cursor: pointer;
 }
 
 .link:hover {
-    background-color: #ffffff80;
+    background-color: #00000020;
 }
 
 body {
-    background-color: #b2dfdb;
+    background-color: #f0f0f0;
     font-family: sans;
     margin: unset;
 }
