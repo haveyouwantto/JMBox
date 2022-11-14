@@ -165,8 +165,11 @@ homeBtn.addEventListener('click', function (e) {
 
 let menuDisplay = false;
 
-function setMenuVisible(visible) {
-    menuDisplay = visible;
+function setMenuVisible(visible, setState = true) {
+    if (setState) {
+        menuDisplay = visible;
+    }
+    
     if (visible) {
         menu.classList.add('menu-visible');
         menu.classList.remove('menu-hidden');
@@ -180,7 +183,7 @@ function setMenuVisible(visible) {
 
 menuBtn.addEventListener('click', function (e) {
     menuDisplay = !menuDisplay;
-    setMenuVisible(menuDisplay)
+    setMenuVisible(menuDisplay, false);
 });
 
 collapse.addEventListener('click', function (e) {
