@@ -164,9 +164,10 @@ homeBtn.addEventListener('click', function (e) {
 });
 
 let menuDisplay = false;
-menuBtn.addEventListener('click', function (e) {
-    menuDisplay = !menuDisplay;
-    if (menuDisplay) {
+
+function setMenuVisible(visible) {
+    menuDisplay = visible;
+    if (visible) {
         menu.classList.add('menu-visible');
         menu.classList.remove('menu-hidden');
         collapse.classList.remove('hidden');
@@ -175,15 +176,21 @@ menuBtn.addEventListener('click', function (e) {
         menu.classList.add('menu-hidden');
         collapse.classList.add('hidden');
     }
+}
+
+menuBtn.addEventListener('click', function (e) {
+    menuDisplay = !menuDisplay;
+    setMenuVisible(menuDisplay)
 });
 
 collapse.addEventListener('click', function (e) {
     if (menuDisplay) {
-        menuDisplay = false;
-        menu.classList.remove('menu-visible');
-        menu.classList.add('menu-hidden');
-        collapse.classList.add('hidden');
+        setMenuVisible(false);
     }
+});
+
+menu.addEventListener('click', e => {
+    setMenuVisible(false);
 });
 
 if ('mediaSession' in navigator) {
