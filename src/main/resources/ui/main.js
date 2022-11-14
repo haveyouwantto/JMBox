@@ -10,6 +10,7 @@ let loop = document.getElementById("loop");
 let head = document.getElementById("head");
 let title = head.querySelector("#title");
 let backBtn = head.querySelector("#back");
+let homeBtn = head.querySelector("#home");
 
 let cd = [];
 let files = [];
@@ -34,6 +35,7 @@ function info() {
 
 function list(dir, add = true) {
     let cwd = concatDir(dir);
+    
     fetch("api/list/" + cwd)
         .then(response => response.json())
         .then(result => {
@@ -42,13 +44,15 @@ function list(dir, add = true) {
                 window.scrollTo(0, 0);
             }
 
-            location.href = prefix + "#/" + cwd;
+            location.hash = "#/" + cwd;
             content.innerHTML = '';
 
             if (cd.length > 0) {
                 backBtn.classList.remove('hidden');
+                homeBtn.classList.remove('hidden');
             } else {
                 backBtn.classList.add('hidden');
+                homeBtn.classList.add('hidden');
             }
 
             result.sort((a, b) => {
@@ -148,6 +152,11 @@ loop.addEventListener('click', function (e) {
 
 backBtn.addEventListener('click', function (e) {
     back();
+});
+
+homeBtn.addEventListener('click', function (e) {
+    cd = [];
+    list('', false);
 });
 
 if ('mediaSession' in navigator) {
