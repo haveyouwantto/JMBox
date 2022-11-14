@@ -23,6 +23,7 @@
     text-align: center;
     margin: 5px;
     font-weight: bold;
+    user-select: none;
 }
 
 

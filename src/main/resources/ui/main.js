@@ -164,26 +164,27 @@ homeBtn.addEventListener('click', function (e) {
 });
 
 let menuDisplay = false;
+function setMenuVisible(visible) {
+    menuDisplay = visible;
+    let actual = menu.classList.contains('menu-visible');
 
-function setMenuVisible(visible, setState = true) {
-    if (setState) {
-        menuDisplay = visible;
+    if (visible != actual) {
+        if (visible) {
+            menu.classList.add('menu-visible');
+            menu.classList.remove('menu-hidden');
+            collapse.classList.remove('hidden');
+        } else {
+            menu.classList.remove('menu-visible');
+            menu.classList.add('menu-hidden');
+            collapse.classList.add('hidden')
+        }
     }
-    
-    if (visible) {
-        menu.classList.add('menu-visible');
-        menu.classList.remove('menu-hidden');
-        collapse.classList.remove('hidden');
-    } else {
-        menu.classList.remove('menu-visible');
-        menu.classList.add('menu-hidden');
-        collapse.classList.add('hidden');
-    }
+    menuDisplay = !actual;
 }
 
 menuBtn.addEventListener('click', function (e) {
     menuDisplay = !menuDisplay;
-    setMenuVisible(menuDisplay, false);
+    setMenuVisible(menuDisplay);
 });
 
 collapse.addEventListener('click', function (e) {
@@ -193,7 +194,9 @@ collapse.addEventListener('click', function (e) {
 });
 
 menu.addEventListener('click', e => {
-    setMenuVisible(false);
+    if (menuDisplay) {
+        setMenuVisible(false);
+    }
 });
 
 if ('mediaSession' in navigator) {
