@@ -1,9 +1,10 @@
 package jmbox.web;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jmbox.IOStream;
-import jmbox.LoggerUtil;
+import jmbox.logging.LoggerUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +19,7 @@ public class StaticHandler implements HttpHandler {
     private static final Logger logger = LoggerUtil.getLogger("Static");
     private ExecutorService executor;
 
-    public StaticHandler(){
+    public StaticHandler() {
         super();
         executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
@@ -26,7 +27,7 @@ public class StaticHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         logger.info(String.format("%s %s %s", exchange.getRemoteAddress(), exchange.getRequestMethod(), exchange.getRequestURI()));
-        executor.submit(()->process(exchange));
+        executor.submit(() -> process(exchange));
     }
 
     private void process(HttpExchange exchange) {
@@ -41,6 +42,7 @@ public class StaticHandler implements HttpHandler {
                 baseFile = FilePath.buildPath(args, 0);
             }
 
+            File file = null;
             InputStream is;
             if (ext == null) {
                 is = ClassLoader.getSystemResourceAsStream("ui/" + baseFile);
@@ -49,7 +51,7 @@ public class StaticHandler implements HttpHandler {
                     return;
                 }
             } else {
-                File file = new File(ext, baseFile);
+                file = new File(ext, baseFile);
                 if (!file.exists() || !file.isFile()) {
                     notFound(exchange);
                     return;
@@ -57,10 +59,16 @@ public class StaticHandler implements HttpHandler {
                 is = new FileInputStream(file);
             }
 
+            Headers response = exchange.getResponseHeaders();
+            if (file == null) {
+                response.set("Last-Modified", TimeFormatter.format(0));
+            } else {
+                response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
+            }
             exchange.sendResponseHeaders(200, is.available());
             IOStream.writeTo(is, exchange.getResponseBody());
             exchange.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

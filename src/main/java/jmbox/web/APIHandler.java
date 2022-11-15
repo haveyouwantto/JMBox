@@ -6,7 +6,7 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jmbox.IOStream;
-import jmbox.LoggerUtil;
+import jmbox.logging.LoggerUtil;
 import jmbox.audio.Converter;
 
 import javax.sound.sampled.AudioFileFormat;
@@ -21,7 +21,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,7 +29,6 @@ public class APIHandler implements HttpHandler {
     private File rootDir;
     private static final Pattern REGEX = Pattern.compile("(\\d+)?-(\\d+)?");
     private static final Logger logger = LoggerUtil.getLogger("API");
-    private static final SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
 
     private ExecutorService executor;
 
@@ -53,7 +51,6 @@ public class APIHandler implements HttpHandler {
             headers.set("Access-Control-Allow-Headers", "*");
             headers.set("Server", "JMBox API");
 
-            format.setTimeZone(TimeZone.getTimeZone("GMT"));
 
             if (exchange.getRequestMethod().equals("GET")) {
                 String[] args = URLDecoder.decode(exchange.getRequestURI().toString(), "UTF-8").split("/");
@@ -99,7 +96,7 @@ public class APIHandler implements HttpHandler {
         try {
             FileInputStream fis = new FileInputStream(file);
             exchange.getResponseHeaders().set("Content-Type", "audio/midi");
-            exchange.getResponseHeaders().set("Last-Modified", format.format(file.lastModified()));
+            exchange.getResponseHeaders().set("Last-Modified", TimeFormatter.format(file.lastModified()));
             exchange.sendResponseHeaders(200, fis.available());
             OutputStream os = exchange.getResponseBody();
 
@@ -149,7 +146,7 @@ public class APIHandler implements HttpHandler {
             long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
             Headers response = exchange.getResponseHeaders();
             response.set("Content-Type", "audio/x-wav");
-            response.set("Last-Modified", format.format(file.lastModified()));
+            response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
 
             Headers request = exchange.getRequestHeaders();
             if (request.get("Range") != null) {

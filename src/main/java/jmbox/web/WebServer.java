@@ -1,15 +1,11 @@
 package jmbox.web;
 
 import com.sun.net.httpserver.HttpServer;
-import jmbox.IOStream;
-import jmbox.LoggerUtil;
+import jmbox.logging.LoggerUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetSocketAddress;
-import java.net.URLDecoder;
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class WebServer {

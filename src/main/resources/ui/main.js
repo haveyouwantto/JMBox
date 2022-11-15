@@ -10,8 +10,8 @@ let prefix = location.pathname;
 let urlDir = location.hash.substring(1);
 
 
-async function info() {
-    return fetch('api/info').then(r => r.json()).then(result => {
+function info() {
+    fetch('api/info').then(r => r.json()).then(result => {
         serverName = result.serverName;
         document.title = serverName;
         title.innerText = serverName;
