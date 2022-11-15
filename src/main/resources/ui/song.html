@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<title>Song Player</title>
+
+<body>
+    <audio controls autoplay id="audio"></audio>
+    <a id="wav">WAVE</a> <a id="mid">MIDI</a>
+    <script>
+        let audio = document.getElementById("audio");
+        let wav = document.getElementById("wav");
+        let mid = document.getElementById("mid");
+
+        function play(file) {
+            let url = "api/play/" + concatDir(file);
+            console.log(file);
+
+            document.title = file;
+            audio.setAttribute("src", url);
+            wav.setAttribute("href", "api/play/" + concatDir(file));
+            mid.setAttribute("href", "api/midi/" + concatDir(file));
+        }
+
+        let urlDir = location.href.split("#")[1];
+    </script>
+</body>
+
+</html>

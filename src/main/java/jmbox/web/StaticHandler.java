@@ -3,6 +3,7 @@ package jmbox.web;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jmbox.IOStream;
+import jmbox.LoggerUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,30 +13,30 @@ import java.net.URLDecoder;
 import java.util.logging.Logger;
 
 public class StaticHandler implements HttpHandler {
-    private static final Logger logger = Logger.getLogger("Static");
+    private static final Logger logger = LoggerUtil.getLogger("Static");
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         logger.info(String.format("%s %s %s", exchange.getRemoteAddress(), exchange.getRequestMethod(), exchange.getRequestURI()));
         String[] args = URLDecoder.decode(exchange.getRequestURI().toString(), "UTF-8").split("/");
-        File baseFile;
+        String baseFile;
 
         String ext = Config.prop.getProperty("external-ui");
         if (args.length == 0) {
-            baseFile = new File("index.html");
+            baseFile = "index.html";
         } else {
-            baseFile = FilePath.buildPath(new File(""), args, 0);
+            baseFile = FilePath.buildPath(args, 0);
         }
 
         InputStream is;
         if (ext == null) {
-            is = ClassLoader.getSystemResourceAsStream(baseFile.getPath());
+            is = ClassLoader.getSystemResourceAsStream("ui/" + baseFile);
             if (is == null) {
                 notFound(exchange);
                 return;
             }
         } else {
-            File file = new File(ext, baseFile.getPath());
+            File file = new File(ext, baseFile);
             if (!file.exists() || !file.isFile()) {
                 notFound(exchange);
                 return;
