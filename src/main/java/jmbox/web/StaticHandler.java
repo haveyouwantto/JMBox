@@ -3,6 +3,7 @@ package jmbox.web;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jmbox.IOStream;
+import jmbox.LoggerUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +13,7 @@ import java.net.URLDecoder;
 import java.util.logging.Logger;
 
 public class StaticHandler implements HttpHandler {
-    private static final Logger logger = Logger.getLogger("Static");
+    private static final Logger logger = LoggerUtil.getLogger("Static");
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {

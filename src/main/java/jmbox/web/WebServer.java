@@ -2,6 +2,7 @@ package jmbox.web;
 
 import com.sun.net.httpserver.HttpServer;
 import jmbox.IOStream;
+import jmbox.LoggerUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
 
 public class WebServer {
     private HttpServer server;
-    private final Logger logger = Logger.getLogger("Web");
+    private final Logger logger = LoggerUtil.getLogger("Web");
 
     public WebServer(File rootDir, InetSocketAddress address) throws IOException {
         server = HttpServer.create(address, 1);
