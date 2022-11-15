@@ -6,6 +6,7 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jmbox.IOStream;
+import jmbox.LoggerUtil;
 import jmbox.audio.Converter;
 
 import javax.sound.sampled.AudioFileFormat;
@@ -26,7 +27,7 @@ public class APIHandler implements HttpHandler {
     private HttpExchange exchange;
     private File rootDir;
     private static final Pattern REGEX = Pattern.compile("(\\d+)?-(\\d+)?");
-    private static final Logger logger = Logger.getLogger("API");
+    private static final Logger logger = LoggerUtil.getLogger("API");
     private static final SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
 
     APIHandler(File rootDir) {
