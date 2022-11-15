@@ -43,6 +43,7 @@
 
 .button {
     background-color: var(--theme-color);
+    transition: background-color 0.3s;
     border: none;
     color: white;
     cursor: pointer;
@@ -50,7 +51,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s;
 }
 
 .button:hover {
@@ -63,13 +63,13 @@
 
 .link {
     padding: 5px 16px;
-    transition-duration: 0.3s;
     display: flex;
     align-items: center;
     min-height: 40px;
     border-bottom: 1px solid var(--text-color);
     cursor: pointer;
     color: var(--text-color);
+    transition: background-color 0.3s;
 }
 
 .link:hover {
@@ -80,7 +80,6 @@ body {
     background-color: var(--bg-color);
     font-family: sans;
     margin: unset;
-    transition: background-color 0.3s;
 }
 
 .nav {
@@ -133,6 +132,7 @@ body {
 .menu-item {
     text-decoration: none;
     color: var(--text-color);
+    transition: background-color 0.3s;
     cursor: pointer;
     padding-top: 8px;
     padding-bottom: 8px;

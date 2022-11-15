@@ -71,9 +71,14 @@ menu.addEventListener('click', e => {
 
 dark.addEventListener('click', e => {
     config.dark = !config.dark;
+    setDarkMode(config.dark);
+    save();
+});
 
+
+function setDarkMode(dark) {
     let root = document.documentElement.style;
-    if (config.dark) {
+    if (dark) {
         root.setProperty('--text-color', '#cccccc');
         root.setProperty('--bg-color', '#101010');
         root.setProperty('--hover-color', '#ffffff20');
@@ -82,4 +87,6 @@ dark.addEventListener('click', e => {
         root.setProperty('--bg-color', '#f0f0f0');
         root.setProperty('--hover-color', '#00000020');
     }
-});
+}
+
+setDarkMode(config.dark);

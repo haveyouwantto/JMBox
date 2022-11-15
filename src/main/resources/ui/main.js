@@ -1,7 +1,5 @@
 let serverName = "JMBox";
 
-
-
 let cd = [];
 let files = [];
 let playing = [];
@@ -11,9 +9,6 @@ let musicLoop = true;
 let prefix = location.pathname;
 let urlDir = location.hash.substring(1);
 
-let config = {
-    dark: false
-}
 
 function info() {
     fetch('api/info').then(r => r.json()).then(result => {
