@@ -82,8 +82,15 @@ dark.addEventListener('click', e => {
     update('dark', config.dark);
 });
 
+// let last = location.hash;
 // window.addEventListener('popstate', e => {
-//     console.log(navigator);
+//     if (location.hash != last) {
+//         goto(location.hash.substring(1));
+//     }
+//     console.log(last, location.hash);
+
+//     last = location.hash;
+//     list('', false)
 // });
 
 

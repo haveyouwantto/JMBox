@@ -95,7 +95,7 @@ function eplay(e) {
 
 function play(file) {
     let url = "api/play/" + concatDir(file);
-    console.log(file);
+    console.log(url);
 
     document.title = serverName + " - " + file;
     audio.src = url;

@@ -9,11 +9,10 @@ public class LogFormatter extends Formatter {
 
     @Override
     public String format(LogRecord record) {
-        return String.format("[%s][%s] <%s:%s> %s\n",
+        return String.format("[%s][%s]<%s> %s\n",
                 dateFormat.format(record.getMillis()),
                 record.getLevel(),
-                record.getSourceClassName(),
-                record.getSourceMethodName(),
+                record.getLoggerName(),
                 record.getMessage()
         );
     }
