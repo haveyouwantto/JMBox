@@ -19,6 +19,9 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,18 +32,21 @@ public class APIHandler implements HttpHandler {
     private static final Logger logger = LoggerUtil.getLogger("API");
     private static final SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
 
+    private ExecutorService executor;
+
     APIHandler(File rootDir) {
+        super();
         this.rootDir = rootDir;
+        executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
     @Override
     public void handle(HttpExchange exchange) {
         logger.info(String.format("%s %s %s", exchange.getRemoteAddress(), exchange.getRequestMethod(), exchange.getRequestURI()));
-        new Thread(() -> process(exchange)).start();
-
+        executor.submit(() -> process(exchange));
     }
 
-    public void process(HttpExchange exchange) {
+    private void process(HttpExchange exchange) {
         try {
             Headers headers = exchange.getResponseHeaders();
             headers.set("Access-Control-Allow-Origin", "*");
@@ -131,7 +137,7 @@ public class APIHandler implements HttpHandler {
         exchange.close();
     }
 
-    public void play(HttpExchange exchange, File file) {
+    private void play(HttpExchange exchange, File file) {
         if (file.length() > Long.parseLong(Config.prop.getProperty("max-file-size", "1048576"))) {
             send(exchange, 503, "File size exceeded.");
             return;

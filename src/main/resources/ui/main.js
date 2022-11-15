@@ -161,5 +161,5 @@ if ('mediaSession' in navigator) {
 if (urlDir != null)
     goto(urlDir);
 
-list('', false)
 info()
+list('', false)
