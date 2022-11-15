@@ -79,7 +79,7 @@ menu.addEventListener('click', e => {
 dark.addEventListener('click', e => {
     config.dark = !config.dark;
     setDarkMode(config.dark);
-    save();
+    update('dark', config.dark);
 });
 
 // window.addEventListener('popstate', e => {

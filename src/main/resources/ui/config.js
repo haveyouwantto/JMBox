@@ -40,4 +40,8 @@ function save() {
     }
 }
 
+function update(key, value){
+    window.localStorage.setItem(key, value);
+}
+
 load();

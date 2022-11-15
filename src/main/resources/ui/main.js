@@ -10,8 +10,8 @@ let prefix = location.pathname;
 let urlDir = location.hash.substring(1);
 
 
-function info() {
-    fetch('api/info').then(r => r.json()).then(result => {
+async function info() {
+    return fetch('api/info').then(r => r.json()).then(result => {
         serverName = result.serverName;
         document.title = serverName;
         title.innerText = serverName;
@@ -161,5 +161,5 @@ if ('mediaSession' in navigator) {
 if (urlDir != null)
     goto(urlDir);
 
-list('', false);
-setTimeout(info, 100);
+list('', false)
+info()

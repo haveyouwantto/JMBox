@@ -24,7 +24,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class APIHandler implements HttpHandler {
-    private HttpExchange exchange;
     private File rootDir;
     private static final Pattern REGEX = Pattern.compile("(\\d+)?-(\\d+)?");
     private static final Logger logger = LoggerUtil.getLogger("API");
@@ -37,50 +36,49 @@ public class APIHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) {
         logger.info(String.format("%s %s %s", exchange.getRemoteAddress(), exchange.getRequestMethod(), exchange.getRequestURI()));
-        this.exchange = exchange;
-        new Thread(() -> {
-            try {
-
-                Headers headers = exchange.getResponseHeaders();
-                headers.set("Access-Control-Allow-Origin", "*");
-                headers.set("Access-Control-Allow-Headers", "*");
-                headers.set("Server", "JMBox API");
-
-                format.setTimeZone(TimeZone.getTimeZone("GMT"));
-
-                if (exchange.getRequestMethod().equals("GET")) {
-                    String[] args = URLDecoder.decode(exchange.getRequestURI().toString(), "UTF-8").split("/");
-                    if (args.length > 2) {
-                        switch (args[2]) {
-                            case "play":
-                                play(new File(rootDir, FilePath.buildPath(args, 3)));
-                                return;
-                            case "list":
-                                list(new File(rootDir, FilePath.buildPath(args, 3)));
-                                return;
-                            case "midi":
-                                midi(new File(rootDir, FilePath.buildPath(args, 3)));
-                                return;
-                            case "info":
-                                info();
-                                return;
-                        }
-                    }
-                } else if (exchange.getRequestMethod().equals("OPTIONS")) {
-                    exchange.getResponseHeaders().set("Allow", "OPTIONS, GET");
-                    exchange.sendResponseHeaders(200, 0);
-                    exchange.close();
-                    return;
-                }
-                send(501, "Not Implemented");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
+        new Thread(() -> process(exchange)).start();
 
     }
 
-    private void info() throws IOException {
+    public void process(HttpExchange exchange) {
+        try {
+            Headers headers = exchange.getResponseHeaders();
+            headers.set("Access-Control-Allow-Origin", "*");
+            headers.set("Access-Control-Allow-Headers", "*");
+            headers.set("Server", "JMBox API");
+
+            format.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+            if (exchange.getRequestMethod().equals("GET")) {
+                String[] args = URLDecoder.decode(exchange.getRequestURI().toString(), "UTF-8").split("/");
+                if (args.length > 2) {
+                    switch (args[2]) {
+                        case "play":
+                            play(exchange, new File(rootDir, FilePath.buildPath(args, 3)));
+                            return;
+                        case "list":
+                            list(exchange, new File(rootDir, FilePath.buildPath(args, 3)));
+                            return;
+                        case "midi":
+                            midi(exchange, new File(rootDir, FilePath.buildPath(args, 3)));
+                            return;
+                        case "info":
+                            info(exchange);
+                    }
+                }
+            } else if (exchange.getRequestMethod().equals("OPTIONS")) {
+                exchange.getResponseHeaders().set("Allow", "OPTIONS, GET");
+                exchange.sendResponseHeaders(200, 0);
+                exchange.close();
+            } else {
+                send(exchange, 501, "Not Implemented");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void info(HttpExchange exchange) throws IOException {
         JsonObject obj = new JsonObject();
         obj.addProperty("serverName", Config.prop.getProperty("server-name", "JMBox"));
         obj.addProperty("themeColor", Config.prop.getProperty("theme-color", "#00796b"));
@@ -91,7 +89,7 @@ public class APIHandler implements HttpHandler {
         exchange.close();
     }
 
-    private void midi(File file) {
+    private void midi(HttpExchange exchange, File file) {
         try {
             FileInputStream fis = new FileInputStream(file);
             exchange.getResponseHeaders().set("Content-Type", "audio/midi");
@@ -103,7 +101,7 @@ public class APIHandler implements HttpHandler {
 
         } catch (FileNotFoundException e) {
             logger.warning(e.toString());
-            send(404, "Not Found");
+            send(exchange, 404, "Not Found");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -111,10 +109,11 @@ public class APIHandler implements HttpHandler {
         }
     }
 
-    private void list(File file) throws IOException {
+    private void list(HttpExchange exchange, File file) throws IOException {
         File[] list = file.listFiles(pathname -> pathname.toString().toLowerCase().endsWith(".mid") || pathname.toString().toLowerCase().endsWith(".midi") || pathname.isDirectory());
+
         if (list == null) {
-            send(404, "Not Found");
+            send(exchange, 404, "Not Found");
             return;
         }
         JsonArray arr = new JsonArray();
@@ -132,14 +131,14 @@ public class APIHandler implements HttpHandler {
         exchange.close();
     }
 
-    public void play(File file) {
+    public void play(HttpExchange exchange, File file) {
         if (file.length() > Long.parseLong(Config.prop.getProperty("max-file-size", "1048576"))) {
-            send(503, "File size exceeded.");
+            send(exchange, 503, "File size exceeded.");
             return;
         }
         Converter c = new Converter(file);
         try (
-                AudioInputStream is = c.convert();
+                AudioInputStream is = c.convert()
         ) {
             long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
             Headers response = exchange.getResponseHeaders();
@@ -168,10 +167,10 @@ public class APIHandler implements HttpHandler {
         } catch (UnsupportedAudioFileException e) {
             logger.warning(e.toString());
             e.printStackTrace();
-            send(500, "Internal Server Error");
+            send(exchange, 500, "Internal Server Error");
         } catch (FileNotFoundException e) {
             logger.warning(e.toString());
-            send(404, "Not Found");
+            send(exchange, 404, "Not Found");
         } catch (IOException e) {
             logger.warning(e.toString());
         } finally {
@@ -179,7 +178,7 @@ public class APIHandler implements HttpHandler {
         }
     }
 
-    private void send(int statusCode, String html) {
+    private void send(HttpExchange exchange, int statusCode, String html) {
         try {
             exchange.sendResponseHeaders(statusCode, html.getBytes().length);
             exchange.getResponseBody().write(html.getBytes());
