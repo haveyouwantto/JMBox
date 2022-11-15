@@ -19,6 +19,9 @@ function info() {
         if ('mediaSession' in navigator) {
             navigator.mediaSession.metadata.album = serverName;
         }
+
+        document.documentElement.style.setProperty('--theme-color', result.themeColor);
+        metaThemeColor.content = result.themeColor;
     });
 }
 
@@ -159,4 +162,4 @@ if (urlDir != null)
     goto(urlDir);
 
 list('', false);
-setTimeout(info, 1000);
+setTimeout(info, 100);

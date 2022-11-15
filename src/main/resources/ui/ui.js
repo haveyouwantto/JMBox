@@ -18,10 +18,17 @@ let wav = document.getElementById("wav");
 let mid = document.getElementById("mid");
 let dark = document.getElementById("dark");
 
+// Misc Items
+let metaThemeColor = document.getElementById("meta-theme-color");
+
 loop.addEventListener('click', function (e) {
     musicLoop = !musicLoop;
     audio.loop = musicLoop;
-    loop.style.backgroundColor = musicLoop ? 'var(--theme-color)' : '#616161';
+    if (musicLoop) {
+        loop.classList.remove('button-disabled');
+    } else {
+        loop.classList.add('button-disabled');
+    }
 });
 
 backBtn.addEventListener('click', function (e) {

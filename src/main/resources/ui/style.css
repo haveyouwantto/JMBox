@@ -42,7 +42,6 @@
 }
 
 .button {
-    background-color: var(--theme-color);
     transition: background-color 0.3s;
     border: none;
     color: white;
@@ -53,8 +52,16 @@
     align-items: center;
 }
 
+.colored {
+    background-color: var(--theme-color);
+}
+
 .button:hover {
-    background-color: #009688;
+    background-color: #ffffff40;
+}
+
+.button-disabled {
+    background-color: #616161;
 }
 
 .shadow {

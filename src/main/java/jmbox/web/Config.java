@@ -24,6 +24,7 @@ public class Config {
         prop.setProperty("server-name", "JMBox");
         prop.setProperty("port", "60752");
         prop.setProperty("max-file-size", "1048576");
+        prop.setProperty("theme-color", "#00796b");
 
         FileOutputStream fos = new FileOutputStream("server.properties");
         prop.store(fos, "JMBox server properties");
