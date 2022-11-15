@@ -21,7 +21,7 @@ let dark = document.getElementById("dark");
 loop.addEventListener('click', function (e) {
     musicLoop = !musicLoop;
     audio.loop = musicLoop;
-    loop.style.backgroundColor = musicLoop ? '#00796b' : '#616161';
+    loop.style.backgroundColor = musicLoop ? 'var(--theme-color)' : '#616161';
 });
 
 backBtn.addEventListener('click', function (e) {
@@ -74,6 +74,10 @@ dark.addEventListener('click', e => {
     setDarkMode(config.dark);
     save();
 });
+
+// window.addEventListener('popstate', e => {
+//     console.log(navigator);
+// });
 
 
 function setDarkMode(dark) {
