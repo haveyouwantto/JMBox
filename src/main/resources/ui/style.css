@@ -214,6 +214,17 @@ body {
     color: var(--theme-color);
 }
 
+#time {
+    display: flex;
+    font-size: 16px;
+    margin-left: 8px;
+}
+
+.seperater {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
 .controls:hover {
     background-color: var(--hover-color);
 }
@@ -262,9 +273,14 @@ body {
     display: none;
 }
 
+
 @media only screen and (max-width: 768px) {
     .link {
         width: unset;
+    }
+
+    .seperater, #durationDisplay {
+        display: none;
     }
 
     #content {
@@ -274,10 +290,16 @@ body {
 }
 
 @media only screen and (max-width: 512px) {
-    #controlsMiddle, #controlsRight {
+
+    #controlsMiddle,
+    #controlsRight {
         width: unset;
     }
-    
+
+    #time {
+        display: none;
+    }
+
     #prev {
         display: none;
     }

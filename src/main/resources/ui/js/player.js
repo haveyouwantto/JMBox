@@ -9,6 +9,8 @@ let progressBar = document.getElementById("progress");
 let progressBarInner = document.getElementById("playtime");
 
 let songTitle = document.getElementById('songTitle');
+let timeDisplay = document.getElementById('timeDisplay');
+let durationDisplay = document.getElementById('durationDisplay');
 
 let playButton = document.getElementById("play");
 let nextButton = document.getElementById('next');
@@ -102,6 +104,8 @@ let player = new AudioPlayer(audio);
 // Player action
 player.onupdate(e => {
     progressBarInner.style.width = (player.currentTime() / player.duration() * 100) + "%";
+    timeDisplay.innerText = formatTime(player.currentTime());
+    durationDisplay.innerText = formatTime(player.duration());
 });
 
 progressBar.addEventListener('click', e => {
