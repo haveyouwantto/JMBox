@@ -10,6 +10,8 @@ public class TimeFormatter {
 
     }
 
+    /** Format time to web standard
+     * */
     public static String format(long mills){
         format.setTimeZone(TimeZone.getTimeZone("GMT"));
         return format.format(mills);

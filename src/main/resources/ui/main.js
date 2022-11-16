@@ -9,7 +9,12 @@ let musicLoop = true;
 let prefix = location.pathname;
 let urlDir = location.hash.substring(1);
 
+// Main player Items
+let content = document.getElementById("content");
 
+/** 
+ * Gets server information
+ */
 function info() {
     fetch('api/info').then(r => r.json()).then(result => {
         serverName = result.serverName;
@@ -25,6 +30,11 @@ function info() {
     });
 }
 
+/** 
+ * Listing a directory (relative)
+ * @param {string} dir The directory to enter
+ * @param add Add this directory to stack
+ */
 function list(dir, add = true) {
     let cwd = concatDir(dir);
 
@@ -72,6 +82,9 @@ function list(dir, add = true) {
         });
 }
 
+/** Build absolute path
+ * @param {string} dir The directory to enter
+ */
 function concatDir(dir) {
     let base = cd.join('/');
     if (cd.length > 0) {
@@ -80,19 +93,34 @@ function concatDir(dir) {
     return base + encodeURIComponent(dir);
 }
 
+/**
+ * Back to parent directory
+ */
 function back() {
     cd.pop();
     list('', false);
 }
 
+/**
+ * 
+ * @param {HTMLElement} e 
+ */
 function elist(e) {
     list(e.getAttribute('value'));
 }
 
+/**
+ * 
+ * @param {HTMLElement} e 
+ */
 function eplay(e) {
     play(e.getAttribute('value'));
 }
 
+/**
+ * Loads a file and play it
+ * @param {string} file The absolute path to file
+ */
 function play(file) {
     let url = "api/play/" + concatDir(file);
     console.log(url);
@@ -110,6 +138,9 @@ function play(file) {
     }
 }
 
+/**
+ * Plays next file
+ */
 function next() {
     playing++;
     if (playing >= files.length) {
@@ -118,6 +149,9 @@ function next() {
     play(files[playing]);
 }
 
+/**
+ * Plays previous file
+ */
 function previous() {
     playing--;
     if (playing < 0) {
@@ -126,6 +160,10 @@ function previous() {
     play(files[playing]);
 }
 
+/**
+ * Go to absolute path
+ * @param {string} dir 
+ */
 function goto(dir) {
     let dirs = dir.split('/');
     cd = [];
@@ -136,11 +174,12 @@ function goto(dir) {
     }
 }
 
+// Set browser media control
 if ('mediaSession' in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({
-        artwork: [
-            { src: 'favicon.ico', type: 'image/x-icon' }
-        ]
+        // artwork: [
+        //     { src: 'favicon.ico', type: 'image/x-icon' }
+        // ]
     });
     navigator.mediaSession.setActionHandler('play', () => {
         audio.play();
@@ -158,8 +197,11 @@ if ('mediaSession' in navigator) {
     navigator.mediaSession.setActionHandler('previoustrack', previous);
 }
 
-if (urlDir != null)
+// Reads path from url (runs on initialize)
+if (urlDir != null) {
     goto(urlDir);
+}
 
+// Initialize view
 info()
 list('', false)

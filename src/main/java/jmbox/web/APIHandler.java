@@ -9,6 +9,7 @@ import jmbox.IOStream;
 import jmbox.logging.LoggerUtil;
 import jmbox.audio.Converter;
 
+import javax.sound.midi.MidiSystem;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -25,6 +26,8 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/** API processor
+ * */
 public class APIHandler implements HttpHandler {
     private File rootDir;
     private static final Pattern REGEX = Pattern.compile("(\\d+)?-(\\d+)?");
@@ -51,8 +54,8 @@ public class APIHandler implements HttpHandler {
             headers.set("Access-Control-Allow-Headers", "*");
             headers.set("Server", "JMBox API");
 
-
             if (exchange.getRequestMethod().equals("GET")) {
+                // GET api/<operation>/<params>
                 String[] args = URLDecoder.decode(exchange.getRequestURI().toString(), "UTF-8").split("/");
                 if (args.length > 2) {
                     switch (args[2]) {
@@ -81,10 +84,12 @@ public class APIHandler implements HttpHandler {
         }
     }
 
+    // api/info
     private void info(HttpExchange exchange) throws IOException {
         JsonObject obj = new JsonObject();
         obj.addProperty("serverName", Config.prop.getProperty("server-name", "JMBox"));
         obj.addProperty("themeColor", Config.prop.getProperty("theme-color", "#00796b"));
+
         byte[] b = obj.toString().getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().set("Content-Type", "application/json;charset=UTF-8");
         exchange.sendResponseHeaders(200, b.length);
@@ -113,20 +118,22 @@ public class APIHandler implements HttpHandler {
     }
 
     private void list(HttpExchange exchange, File file) throws IOException {
-        File[] list = file.listFiles(pathname -> pathname.toString().toLowerCase().endsWith(".mid") || pathname.toString().toLowerCase().endsWith(".midi") || pathname.isDirectory());
+        File[] filelist = file.listFiles(pathname -> pathname.toString().toLowerCase().endsWith(".mid") || pathname.toString().toLowerCase().endsWith(".midi") || pathname.isDirectory());
 
-        if (list == null) {
+        if (filelist == null) {
             send(exchange, 404, "Not Found");
             return;
         }
+
         JsonArray arr = new JsonArray();
-        for (File file1 : list) {
+        for (File file1 : filelist) {
             JsonObject fo = new JsonObject();
             fo.addProperty("name", file1.getName());
             fo.addProperty("size", file1.length());
             fo.addProperty("isDir", file1.isDirectory());
             arr.add(fo);
         }
+
         byte[] b = arr.toString().getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().set("Content-Type", "application/json;charset=UTF-8");
         exchange.sendResponseHeaders(200, b.length);
@@ -144,11 +151,14 @@ public class APIHandler implements HttpHandler {
                 AudioInputStream is = c.convert()
         ) {
             long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
+
             Headers response = exchange.getResponseHeaders();
             response.set("Content-Type", "audio/x-wav");
             response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
 
             Headers request = exchange.getRequestHeaders();
+
+            // Seeking
             if (request.get("Range") != null) {
                 String range = request.get("Range").get(0);
                 Matcher m = REGEX.matcher(range);

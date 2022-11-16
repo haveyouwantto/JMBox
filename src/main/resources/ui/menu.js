@@ -1,9 +1,6 @@
-// Main player Items
-let content = document.getElementById("content");
-let audio = document.getElementById("audio");
-let loop = document.getElementById("loop");
+// For top bar & menu
 
-// Header Items
+// Top bar Items
 let head = document.getElementById("head");
 let title = head.querySelector("#title");
 let backBtn = head.querySelector("#back");
@@ -31,15 +28,20 @@ loop.addEventListener('click', function (e) {
     }
 });
 
+// Top bar back button 
+// <
 backBtn.addEventListener('click', function (e) {
     back();
 });
 
+// Top bar home button
+// ⌂
 homeBtn.addEventListener('click', function (e) {
     cd = [];
     list('', false);
 });
 
+// menu display style changer
 let menuDisplay = false;
 function setMenuVisible(visible) {
     menuDisplay = visible;
@@ -59,40 +61,32 @@ function setMenuVisible(visible) {
     menuDisplay = !actual;
 }
 
+// Toggle menu button
 menuBtn.addEventListener('click', function (e) {
     menuDisplay = !menuDisplay;
     setMenuVisible(menuDisplay);
 });
 
+// Close on click outside of the menu
 collapse.addEventListener('click', function (e) {
     if (menuDisplay) {
         setMenuVisible(false);
     }
 });
 
+// Close on click on menu item
 menu.addEventListener('click', e => {
     if (menuDisplay) {
         setMenuVisible(false);
     }
 });
 
+// Dark mode
 dark.addEventListener('click', e => {
     config.dark = !config.dark;
     setDarkMode(config.dark);
     update('dark', config.dark);
 });
-
-// let last = location.hash;
-// window.addEventListener('popstate', e => {
-//     if (location.hash != last) {
-//         goto(location.hash.substring(1));
-//     }
-//     console.log(last, location.hash);
-
-//     last = location.hash;
-//     list('', false)
-// });
-
 
 function setDarkMode(dark) {
     let root = document.documentElement.style;
@@ -108,3 +102,16 @@ function setDarkMode(dark) {
 }
 
 setDarkMode(config.dark);
+
+// TODO: respond to browser back button
+
+// let last = location.hash;
+// window.addEventListener('popstate', e => {
+//     if (location.hash != last) {
+//         goto(location.hash.substring(1));
+//     }
+//     console.log(last, location.hash);
+
+//     last = location.hash;
+//     list('', false)
+// });

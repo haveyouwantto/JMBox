@@ -3,6 +3,8 @@ package jmbox.web;
 import java.io.File;
 
 public class FilePath {
+    /** Http url to local file url
+     * */
     public static String buildPath(String[] args, int off) {
         StringBuilder builder = new StringBuilder("");
         for (int i = off; i < args.length; i++) {

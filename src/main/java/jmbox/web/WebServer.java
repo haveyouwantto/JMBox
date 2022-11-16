@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.logging.Logger;
 
+/** The main class for web server
+ * */
 public class WebServer {
     private HttpServer server;
     private final Logger logger = LoggerUtil.getLogger("Web");

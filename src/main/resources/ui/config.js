@@ -1,9 +1,14 @@
+// For S&L configs
+
 let defaultValue = {
     dark: false
 }
 
 let config = {};
 
+/**
+ * Load configurations from disk
+ */
 function load() {
     const localStorage = window.localStorage;
     for (const key in defaultValue) {
@@ -30,6 +35,9 @@ function load() {
     }
 }
 
+/**
+ * Save configurations to disk
+ */
 function save() {
     const localStorage = window.localStorage;
     for (const key in config) {
@@ -40,6 +48,11 @@ function save() {
     }
 }
 
+/**
+ * Update a configuration to disk
+ * @param {string} key 
+ * @param {string} value 
+ */
 function update(key, value){
     window.localStorage.setItem(key, value);
 }
