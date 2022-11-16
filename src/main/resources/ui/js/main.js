@@ -9,8 +9,7 @@ let musicLoop = true;
 let prefix = location.pathname;
 let urlDir = location.hash.substring(1);
 
-// Main player Items
-let content = document.getElementById("content");
+
 
 /** 
  * Gets server information
@@ -125,11 +124,15 @@ function play(file) {
     let url = "api/play/" + concatDir(file);
     console.log(url);
 
+
     document.title = serverName + " - " + file;
-    audio.src = url;
-    audio.loop = musicLoop;
     wav.setAttribute("href", "api/play/" + concatDir(file));
     mid.setAttribute("href", "api/midi/" + concatDir(file));
+    songTitle.innerText = file
+    
+    player.load(url);
+    player.play();
+
     playing = files.indexOf(file);
 
     if ('mediaSession' in navigator) {
@@ -182,11 +185,11 @@ if ('mediaSession' in navigator) {
         // ]
     });
     navigator.mediaSession.setActionHandler('play', () => {
-        audio.play();
+        player.play();
         navigator.mediaSession.playbackState = 'playing';
     });
     navigator.mediaSession.setActionHandler('pause', () => {
-        audio.pause();
+        player.pause();
         navigator.mediaSession.playbackState = 'paused';
     });
     navigator.mediaSession.setActionHandler('stop', () => { audio.stop(); });

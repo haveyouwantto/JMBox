@@ -18,15 +18,15 @@ let dark = document.getElementById("dark");
 // Misc Items
 let metaThemeColor = document.getElementById("meta-theme-color");
 
-loop.addEventListener('click', function (e) {
-    musicLoop = !musicLoop;
-    audio.loop = musicLoop;
-    if (musicLoop) {
-        loop.classList.remove('button-disabled');
-    } else {
-        loop.classList.add('button-disabled');
-    }
-});
+// loop.addEventListener('click', function (e) {
+//     musicLoop = !musicLoop;
+//     audio.loop = musicLoop;
+//     if (musicLoop) {
+//         loop.classList.remove('button-disabled');
+//     } else {
+//         loop.classList.add('button-disabled');
+//     }
+// });
 
 // Top bar back button 
 // <
@@ -94,10 +94,12 @@ function setDarkMode(dark) {
         root.setProperty('--text-color', '#cccccc');
         root.setProperty('--bg-color', '#101010');
         root.setProperty('--hover-color', '#ffffff20');
+        root.setProperty('--bg-color-alt', '#202020');
     } else {
         root.setProperty('--text-color', 'black');
         root.setProperty('--bg-color', '#f0f0f0');
         root.setProperty('--hover-color', '#00000020');
+        root.setProperty('--bg-color-alt', '#e0e0e0');
     }
 }
 

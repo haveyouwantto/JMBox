@@ -22,14 +22,14 @@
 
         <!-- Left -->
         <div class="headerLeft">
-            <a id="back" class="icon button round hidden">&#60; </a>
-            <a id="home" class="icon button round hidden">&#8962;</a>
+            <a id="back" class="icon menu-button round hidden">&#60; </a>
+            <a id="home" class="icon menu-button round hidden">&#8962;</a>
             <div id="title">JMBox</div>
         </div>
 
         <!-- Right -->
         <div class="headerRight">
-            <a id="menu" class="icon button round">&#8285;</a>
+            <a id="menu" class="icon menu-button round">&#8285;</a>
             <div class="menu shadow">
                 <a id="dark" class="menu-item">&#9790; Dark Mode</a>
                 <a id="wav" class="menu-item">&#8767; WAV File</a>
@@ -40,18 +40,33 @@
     </div>
 
     <!-- Player control -->
-    <div id="bar">
-        <audio controls autoplay id="audio"></audio>
-        <a id="loop" class="icon button shadow colored">&#11119;</a>
+    <div id="bar" class="shadow">
+        <div id="progress">
+            <div id="playtime"></div>
+        </div>
+        <div id="controls">
+            <div id="controlsLeft">
+                <div id="songTitle"></div>
+            </div>
+            <div id="controlsMiddle">
+                <a id="prev" class="icon round controls">&#10073;&#9664;</a>
+                <a id="play" class="icon round controls">&#9654;</a>
+                <a id="next" class="icon round controls">&#9654;&#10073;</a>
+            </div>
+            <div id="controlsRight"></div>
+        </div>
+        <audio autoplay id="audio"></audio>
+        <!--<a id="loop" class="icon button shadow colored">&#11119;</a>-->
     </div>
 
     <!-- Files -->
     <div id="content"></div>
 
-    <script src="config.js"></script>
-    <script src="menu.js"></script>
-    <script src="player.js"></script>
-    <script src="main.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
