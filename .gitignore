@@ -171,3 +171,5 @@ gradle-app.setting
 
 *.mid
 server.properties
+
+bin/
