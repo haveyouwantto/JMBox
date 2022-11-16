@@ -42,7 +42,6 @@ function list(dir, add = true) {
         .then(result => {
             if (add && dir != "") {
                 cd.push(dir);
-                window.scrollTo(0, 0);
             }
 
             location.hash = "#/" + cwd;
@@ -78,6 +77,9 @@ function list(dir, add = true) {
                 }
                 content.appendChild(file);
             };
+
+            // Scroll to top
+            scrollTo(0, 0);
         });
 }
 
@@ -129,7 +131,7 @@ function play(file) {
     wav.setAttribute("href", "api/play/" + concatDir(file));
     mid.setAttribute("href", "api/midi/" + concatDir(file));
     songTitle.innerText = file
-    
+
     player.load(url);
     player.play();
 
