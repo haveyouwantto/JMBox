@@ -149,8 +149,9 @@ function play(file) {
     midiInfo.setAttribute("value", file);
     songTitle.innerText = filename;
 
-    player.load(file);
-    player.play();
+    player.load(file, () => {
+        player.play();
+    });
 
 
     if ('mediaSession' in navigator) {

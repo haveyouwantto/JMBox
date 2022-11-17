@@ -21,17 +21,18 @@ let midiInfo = document.getElementById('midiInfo');
 let paused = true;
 
 /**
- * HTML5 Audio Element
- * @param {HTMLAudioElement} audio
+ * Audio Player
  */
 let AudioPlayer = function () {
     this.audio = document.getElementById("audio");
     /**
      * Loads a url
      * @param {string} url 
+     * @param {Function} callback
      */
-    this.load = function (path) {
+    this.load = function (path, callback) {
         this.audio.src = "api/play/" + getURL(path);
+        callback();
     }
 
     /**
@@ -84,7 +85,7 @@ let AudioPlayer = function () {
         this.seek(this.audio.duration * percentage);
     }
 
-    this.destroy = function(){
+    this.destroy = function () {
         this.pause();
         this.audio.src = '';
     }
@@ -106,6 +107,109 @@ let AudioPlayer = function () {
         timeDisplay.innerText = formatTime(player.currentTime());
         durationDisplay.innerText = formatTime(player.duration());
     })
+}
+
+// singleton picoaudio
+let picoAudio = null;
+
+let PicoAudioPlayer = function () {
+    if (picoAudio == null) {
+        picoAudio = new PicoAudio();
+        picoAudio.init();
+    }
+    /**
+     * Loads a url
+     * @param {string} url 
+     * @param {Function} callback
+     */
+    this.load = function (path, callback) {
+        fetch("/api/midi/" + getURL(path)).then(r => {
+            if (r.ok) {
+                r.arrayBuffer().then(data => {
+                    const parsedData = picoAudio.parseSMF(data);
+                    picoAudio.setData(parsedData);
+                    callback();
+                })
+            }
+        });
+    }
+
+    /**
+     * Play the audio
+     */
+    this.play = function () {
+        if (this.isEnded()) this.seek(0);
+        playButton.innerText = '\u2759\u2759';
+        paused = false;
+        picoAudio.play();
+    }
+
+    /**
+     * Pause the audio
+     */
+    this.pause = function () {
+        playButton.innerText = '\u25B6';
+        paused = true;
+        picoAudio.pause();
+    }
+
+    /**
+     * Gets audio duration
+     * @returns duration in seconds
+     */
+    this.duration = function () {
+        return picoAudio.getTime(picoAudio.playData.songLength);
+    }
+
+    /**
+     * Gets current audio progress
+     * @returns progress in seconds
+     */
+    this.currentTime = function () {
+        return picoAudio.context.currentTime - picoAudio.states.startTime;
+    }
+
+    /**
+     * Seek audio in seconds
+     * @param {float} seconds 
+     */
+    this.seek = function (seconds) {
+        let playing = picoAudio.states.isPlaying;
+        picoAudio.stop();
+        picoAudio.initStatus(false, true);
+        picoAudio.setStartTime(seconds);
+        if (playing) picoAudio.play();
+    }
+
+    /**
+     * Seek audio by percentage
+     * @param {float} percentage 
+     */
+    this.seekPercentage = function (percentage) {
+        this.seek(this.duration() * percentage);
+    }
+
+    this.destroy = function () {
+        this.pause();
+    }
+
+    this.isPaused = function () {
+        return !picoAudio.states.isPlaying;
+    }
+
+    this.isEnded = function () {
+        return player.currentTime() >= player.duration();
+    }
+
+    picoAudio.addEventListener('noteOn', e => {
+        progressBarInner.style.width = (player.currentTime() / player.duration() * 100) + "%";
+        timeDisplay.innerText = formatTime(player.currentTime());
+        durationDisplay.innerText = formatTime(player.duration());
+    });
+
+    picoAudio.addEventListener('songEnd', e => {
+        this.pause();
+    });
 }
 
 
