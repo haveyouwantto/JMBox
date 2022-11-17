@@ -19,11 +19,13 @@ import java.util.logging.Logger;
  * */
 public class StaticHandler implements HttpHandler {
     private static final Logger logger = LoggerUtil.getLogger("Static");
+    private long bootTime;
     private ExecutorService executor;
 
     public StaticHandler() {
         super();
         executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        bootTime = System.currentTimeMillis();
     }
 
     @Override
@@ -69,7 +71,7 @@ public class StaticHandler implements HttpHandler {
 
             // Set Last-Modified header. If using internal UI it will be always 0
             if (file == null) {
-                response.set("Last-Modified", TimeFormatter.format(0));
+                response.set("Last-Modified", TimeFormatter.format(bootTime));
             } else {
                 response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
             }

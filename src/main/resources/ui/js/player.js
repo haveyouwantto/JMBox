@@ -17,6 +17,11 @@ let prevButton = document.getElementById('prev');
 let replayButton = document.getElementById('replay');
 let midiInfo = document.getElementById('midiInfo');
 
+// Menu player options
+
+let audioPlayer = document.getElementById('audioPlayer');
+let picoAudioPlayer = document.getElementById('picoAudioPlayer');
+
 // Player flags
 let paused = true;
 
@@ -294,4 +299,28 @@ bottomMenu.addEventListener('click', e => {
 
 midiInfo.addEventListener('click', e => {
     midiinfo(midiInfo.getAttribute('value'));
+});
+
+// Player switch
+
+audioPlayer.addEventListener('click', e => {
+    let playtime = player.currentTime();
+    let paused = player.isPaused();
+    player.destroy();
+    player = new AudioPlayer();
+    player.load(concatDir(filesMem[playing], cdMem), () => {
+        player.seek(playtime);
+        if (!paused) player.play();
+    });
+});
+
+picoAudioPlayer.addEventListener('click', e => {
+    let playtime = player.currentTime();
+    let paused = player.isPaused();
+    player.destroy();
+    player = new PicoAudioPlayer();
+    player.load(concatDir(filesMem[playing], cdMem), () => {
+        player.seek(playtime);
+        if (!paused) player.play();
+    });
 });

@@ -15,8 +15,6 @@ let wav = document.getElementById("wav");
 let mid = document.getElementById("mid");
 let dark = document.getElementById("dark");
 
-let audioPlayer = document.getElementById('audioPlayer');
-let picoAudioPlayer = document.getElementById('picoAudioPlayer');
 
 // Misc Items
 let metaThemeColor = document.getElementById("meta-theme-color");
@@ -122,13 +120,3 @@ setDarkMode(config.dark);
 //     last = location.hash;
 //     list('', false)
 // });
-
-audioPlayer.addEventListener('click', e => {
-    player.destroy();
-    player = new AudioPlayer();
-});
-
-picoAudioPlayer.addEventListener('click', e => {
-    player.destroy();
-    player = new PicoAudioPlayer();
-});
