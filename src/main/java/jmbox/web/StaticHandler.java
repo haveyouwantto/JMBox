@@ -68,11 +68,11 @@ public class StaticHandler implements HttpHandler {
             Headers response = exchange.getResponseHeaders();
 
             // Set Last-Modified header. If using internal UI it will be always 0
-//            if (file == null) {
-//                response.set("Last-Modified", TimeFormatter.format(0));
-//            } else {
-//                response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
-//            }
+            if (file == null) {
+                response.set("Last-Modified", TimeFormatter.format(0));
+            } else {
+                response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
+            }
 
             // Send file
             exchange.sendResponseHeaders(200, is.available());
