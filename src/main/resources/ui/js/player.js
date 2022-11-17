@@ -15,6 +15,7 @@ let durationDisplay = document.getElementById('durationDisplay');
 let playButton = document.getElementById("play");
 let nextButton = document.getElementById('next');
 let prevButton = document.getElementById('prev');
+let replayButton = document.getElementById('replay');
 
 // Player flags
 let paused = true;
@@ -138,6 +139,11 @@ nextButton.addEventListener('click', e => {
 
 prevButton.addEventListener('click', e => {
     previous();
+});
+
+replayButton.addEventListener('click',e=>{
+    player.seek(0);
+    player.play();
 });
 
 // Bottom Menu

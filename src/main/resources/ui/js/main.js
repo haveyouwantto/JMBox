@@ -12,6 +12,9 @@ let urlDir = location.hash.substring(1);
 let cdMem = [];
 let filesMem = [];
 
+
+// TODO: Reimplement api client
+
 /** 
  * Gets server information
  */
