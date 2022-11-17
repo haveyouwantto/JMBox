@@ -24,7 +24,7 @@ let paused = true;
  * HTML5 Audio Element
  * @param {HTMLAudioElement} audio
  */
-let AudioPlayer = function (audio) {
+let AudioPlayer = function () {
     this.audio = document.getElementById("audio");
     /**
      * Loads a url
@@ -84,14 +84,9 @@ let AudioPlayer = function (audio) {
         this.seek(this.audio.duration * percentage);
     }
 
-    /**
-     * Sets action on progress change
-     * @param {Function} callback 
-     */
-    this.onupdate = function (callback) {
-        this.audio.addEventListener('timeupdate', e => {
-            callback(e);
-        })
+    this.destroy = function(){
+        this.pause();
+        this.audio.src = '';
     }
 
     this.isPaused = function () {
@@ -105,20 +100,20 @@ let AudioPlayer = function (audio) {
     this.audio.addEventListener('play', e => {
         this.play();
     })
+
+    this.audio.addEventListener('timeupdate', e => {
+        progressBarInner.style.width = (player.currentTime() / player.duration() * 100) + "%";
+        timeDisplay.innerText = formatTime(player.currentTime());
+        durationDisplay.innerText = formatTime(player.duration());
+    })
 }
 
 
 let player = new AudioPlayer(audio);
 
 // Player action
-player.onupdate(e => {
-    progressBarInner.style.width = (player.currentTime() / player.duration() * 100) + "%";
-    timeDisplay.innerText = formatTime(player.currentTime());
-    durationDisplay.innerText = formatTime(player.duration());
-});
 
 progressBar.addEventListener('click', e => {
-
     progressBarInner.style.width = (e.clientX / progressBar.clientWidth * 100) + "%";
     player.seekPercentage(e.clientX / progressBar.clientWidth);
 });
