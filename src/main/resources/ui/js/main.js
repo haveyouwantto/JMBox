@@ -142,7 +142,6 @@ function play(file) {
 
     let split = file.split('/');
     let filename = split[split.length - 1];
-    let url = "api/play/" + getURL(file);
 
     document.title = serverName + " - " + filename;
     wav.setAttribute("href", "api/play/" + file);
@@ -150,7 +149,7 @@ function play(file) {
     midiInfo.setAttribute("value", file);
     songTitle.innerText = filename;
 
-    player.load(url);
+    player.load(file);
     player.play();
 
 
@@ -205,7 +204,8 @@ function midiinfo(file) {
                 "path: " + file + "\n" +
                 "name: " + data.name + "\n" +
                 "size: " + toSI(data.size, true) + "B\n" +
-                "last modified: " + new Date(data.lastModified).toLocaleString()
+                "last modified: " + new Date(data.lastModified).toLocaleString()+ "\n" +
+                "duration: " + formatTime(player.duration())
             )
         });
 }

@@ -31,8 +31,8 @@ let AudioPlayer = function (audio) {
      * Loads a url
      * @param {string} url 
      */
-    this.load = function (url) {
-        this.audio.src = url;
+    this.load = function (path) {
+        this.audio.src = "api/play/" + getURL(path);
     }
 
     /**

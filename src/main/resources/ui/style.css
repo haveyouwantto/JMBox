@@ -331,6 +331,8 @@ body {
 @media only screen and (max-width: 768px) {
     .link {
         width: unset;
+        overflow-x: hidden;
+        overflow-wrap: anywhere;
     }
 
     .seperater, #durationDisplay {
