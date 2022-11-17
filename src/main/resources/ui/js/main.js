@@ -147,6 +147,7 @@ function play(file) {
     document.title = serverName + " - " + filename;
     wav.setAttribute("href", "api/play/" + file);
     mid.setAttribute("href", "api/midi/" + file);
+    midiInfo.setAttribute("value", file);
     songTitle.innerText = filename;
 
     player.load(url);
@@ -193,6 +194,20 @@ function goto(dir) {
             cd.push(dir);
         }
     }
+}
+
+function midiinfo(file) {
+    let url = getURL(file);
+    fetch("api/midiinfo/" + url)
+        .then(response => response.json())
+        .then(data => {
+            alert(
+                "path: " + file + "\n" +
+                "name: " + data.name + "\n" +
+                "size: " + toSI(data.size, true) + "B\n" +
+                "last modified: " + new Date(data.lastModified).toLocaleString()
+            )
+        });
 }
 
 // Set browser media control

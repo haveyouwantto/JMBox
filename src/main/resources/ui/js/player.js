@@ -16,6 +16,7 @@ let playButton = document.getElementById("play");
 let nextButton = document.getElementById('next');
 let prevButton = document.getElementById('prev');
 let replayButton = document.getElementById('replay');
+let midiInfo = document.getElementById('midiInfo');
 
 // Player flags
 let paused = true;
@@ -141,7 +142,7 @@ prevButton.addEventListener('click', e => {
     previous();
 });
 
-replayButton.addEventListener('click',e=>{
+replayButton.addEventListener('click', e => {
     player.seek(0);
     player.play();
 });
@@ -179,9 +180,9 @@ bottomMenuBtn.addEventListener('click', function (e) {
 // Close on click outside of the menu
 collapse.addEventListener('click', function (e) {
     console.log(1, bottomMenuDisplay);
-    
+
     if (bottomMenuDisplay) {
-        
+
         setBottomMenuVisible(false);
     }
 });
@@ -191,4 +192,8 @@ bottomMenu.addEventListener('click', e => {
     if (bottomMenuDisplay) {
         setBottomMenuVisible(false);
     }
+});
+
+midiInfo.addEventListener('click', e => {
+    midiinfo(midiInfo.getAttribute('value'));
 });
