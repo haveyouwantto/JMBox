@@ -30,7 +30,7 @@ let AudioPlayer = function (audio) {
      * @param {string} url 
      */
     this.load = function (url) {
-        audio.src = url;
+        this.audio.src = url;
     }
 
     /**
@@ -39,7 +39,7 @@ let AudioPlayer = function (audio) {
     this.play = function () {
         playButton.innerText = '\u2759\u2759';
         paused = false;
-        audio.play();
+        this.audio.play();
     }
 
     /**
@@ -48,7 +48,7 @@ let AudioPlayer = function (audio) {
     this.pause = function () {
         playButton.innerText = '\u25B6';
         paused = true;
-        audio.pause();
+        this.audio.pause();
     }
 
     /**
@@ -56,7 +56,7 @@ let AudioPlayer = function (audio) {
      * @returns duration in seconds
      */
     this.duration = function () {
-        return audio.duration;
+        return this.audio.duration;
     }
 
     /**
@@ -64,7 +64,7 @@ let AudioPlayer = function (audio) {
      * @returns progress in seconds
      */
     this.currentTime = function () {
-        return audio.currentTime;
+        return this.audio.currentTime;
     }
 
     /**
@@ -72,7 +72,7 @@ let AudioPlayer = function (audio) {
      * @param {float} seconds 
      */
     this.seek = function (seconds) {
-        audio.currentTime = seconds;
+        this.audio.currentTime = seconds;
     }
 
     /**
@@ -80,7 +80,7 @@ let AudioPlayer = function (audio) {
      * @param {float} percentage 
      */
     this.seekPercentage = function (percentage) {
-        this.seek(audio.duration * percentage);
+        this.seek(this.audio.duration * percentage);
     }
 
     /**
@@ -88,14 +88,22 @@ let AudioPlayer = function (audio) {
      * @param {Function} callback 
      */
     this.onupdate = function (callback) {
-        audio.addEventListener('timeupdate', e => {
+        this.audio.addEventListener('timeupdate', e => {
             callback(e);
         })
     }
 
     this.isPaused = function () {
-        return audio.paused;
+        return this.audio.paused;
     }
+
+    this.audio.addEventListener('pause', e => {
+        this.pause();
+    });
+
+    this.audio.addEventListener('play', e => {
+        this.play();
+    })
 }
 
 
@@ -130,4 +138,51 @@ nextButton.addEventListener('click', e => {
 
 prevButton.addEventListener('click', e => {
     previous();
+});
+
+// Bottom Menu
+let bottomMenuBtn = document.getElementById('bottomMenu');
+let bottomMenu = document.querySelector(".bottom-menu");
+
+// menu display style changer
+let bottomMenuDisplay = false;
+function setBottomMenuVisible(visible) {
+    bottomMenuDisplay = visible;
+    let actual = bottomMenu.classList.contains('bottom-menu-visible');
+
+    if (visible != actual) {
+        if (visible) {
+            bottomMenu.classList.add('bottom-menu-visible');
+            bottomMenu.classList.remove('bottom-menu-hidden');
+            collapse.classList.remove('hidden');
+        } else {
+            bottomMenu.classList.remove('bottom-menu-visible');
+            bottomMenu.classList.add('bottom-menu-hidden');
+            collapse.classList.add('hidden')
+        }
+    }
+    bottomMenuDisplay = !actual;
+}
+
+// Toggle menu button
+bottomMenuBtn.addEventListener('click', function (e) {
+    bottomMenuDisplay = !bottomMenuDisplay;
+    setBottomMenuVisible(bottomMenuDisplay);
+});
+
+// Close on click outside of the menu
+collapse.addEventListener('click', function (e) {
+    console.log(1, bottomMenuDisplay);
+    
+    if (bottomMenuDisplay) {
+        
+        setBottomMenuVisible(false);
+    }
+});
+
+// Close on click on menu item
+bottomMenu.addEventListener('click', e => {
+    if (bottomMenuDisplay) {
+        setBottomMenuVisible(false);
+    }
 });

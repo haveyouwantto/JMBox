@@ -32,8 +32,6 @@
             <a id="menu" class="icon menu-button round">&#8285;</a>
             <div class="menu shadow">
                 <a id="dark" class="menu-item">&#9790; Dark Mode</a>
-                <a id="wav" class="menu-item">&#8767; WAV File</a>
-                <a id="mid" class="menu-item">&#9835; MIDI File</a>
             </div>
         </div>
 
@@ -49,16 +47,22 @@
                 <div id="songTitle"></div>
             </div>
             <div id="controlsMiddle">
-                <a id="prev" class="icon round controls">&#10073;&#9664;</a>
-                <a id="play" class="icon round controls">&#9654;</a>
-                <a id="next" class="icon round controls">&#9654;&#10073;</a>
+                <a id="prev" class="icon round bottom-button controls">&#10073;&#9664;</a>
+                <a id="play" class="icon round bottom-button controls">&#9654;</a>
+                <a id="next" class="icon round bottom-button controls">&#9654;&#10073;</a>
                 <div id="time">
-                    <div id="timeDisplay">--:--</div> 
-                    <div class="seperater">/</div> 
+                    <div id="timeDisplay">--:--</div>
+                    <div class="seperater">/</div>
                     <div id="durationDisplay">--:--</div>
                 </div>
             </div>
-            <div id="controlsRight"></div>
+            <div id="controlsRight">
+                <a id="bottomMenu" class="icon round bottom-button">&#8285;</a>
+                <div class="bottom-menu shadow">
+                    <a id="wav" class="menu-item">&#8767; WAV File</a>
+                    <a id="mid" class="menu-item">&#9835; MIDI File</a>
+                </div>
+            </div>
         </div>
         <audio autoplay id="audio"></audio>
         <!--<a id="loop" class="icon button shadow colored">&#11119;</a>-->

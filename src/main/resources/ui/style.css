@@ -2,9 +2,9 @@
     --theme-color: #00796b;
     --text-color: black;
     --bg-color: #f0f0f0;
-    --bg-color-alt: #e0e0e0;
+    --bg-color-alt: white;
     --hover-color: #00000020;
-    --bar-color: #ffffff;
+    --bar-color: #f0f0f0;
 }
 
 .icon {
@@ -14,7 +14,10 @@
     height: 40px;
     text-align: center;
     margin: 5px;
-    user-select: none;
+    user-select: none;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -26,7 +29,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 60px;
+    margin-bottom: 65px;
     margin-top: 58px;
 }
 
@@ -198,6 +201,10 @@ body {
     justify-content: center;
 }
 
+#controlsRight {
+    justify-content: right;
+}
+
 #songTitle {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -207,11 +214,16 @@ body {
     color: var(--text-color);
 }
 
-.controls {
+.bottom-button {
     transition: background-color 0.3s;
-    align-items: center;
-    display: block;
     cursor: pointer;
+}
+
+.bottom-button:hover {
+    background-color: var(--hover-color);
+}
+
+.controls {
     color: var(--theme-color);
 }
 
@@ -227,8 +239,25 @@ body {
     margin-left: 5px;
 }
 
-.controls:hover {
-    background-color: var(--hover-color);
+
+#bottomMenu {
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.bottom-menu {
+    position: fixed;
+    bottom: 50px;
+    right: 8px;
+    background-color: var(--bg-color);
+    font-family: sans;
+    font-size: 16px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    overflow: hidden auto;
+    max-height: 50vh;
 }
 
 /* Generic Attributes */
@@ -261,6 +290,19 @@ body {
     }
 }
 
+@keyframes bottomFadeIn {
+    from {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(50%, 50%) scale(0.1);
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
 .menu-hidden {
     animation: fadeOut 0.3s ease-in-out 0s;
     visibility: hidden;
@@ -268,6 +310,16 @@ body {
 
 .menu-visible {
     animation: fadeIn 0.3s ease-in-out 0s;
+    visibility: visible;
+}
+
+.bottom-menu-hidden {
+    animation: fadeOut 0.3s ease-in-out 0s;
+    visibility: hidden;
+}
+
+.bottom-menu-visible {
+    animation: bottomFadeIn 0.3s ease-in-out 0s;
     visibility: visible;
 }
 
