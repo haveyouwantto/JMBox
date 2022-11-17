@@ -6,10 +6,9 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import jmbox.IOStream;
-import jmbox.logging.LoggerUtil;
 import jmbox.audio.Converter;
+import jmbox.logging.LoggerUtil;
 
-import javax.sound.midi.MidiSystem;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -17,17 +16,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** API processor
- * */
+/**
+ * API processor
+ */
 public class APIHandler implements HttpHandler {
     private File rootDir;
     private static final Pattern REGEX = Pattern.compile("(\\d+)?-(\\d+)?");
@@ -68,6 +65,9 @@ public class APIHandler implements HttpHandler {
                         case "midi":
                             midi(exchange, new File(rootDir, FilePath.buildPath(args, 3)));
                             return;
+                        case "midiinfo":
+                            midiinfo(exchange, new File(rootDir, FilePath.buildPath(args, 3)));
+                            return;
                         case "info":
                             info(exchange);
                     }
@@ -82,6 +82,19 @@ public class APIHandler implements HttpHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void midiinfo(HttpExchange exchange, File file) throws IOException {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("name",file.getName());
+        obj.addProperty("size",file.length());
+        obj.addProperty("lastModified", file.lastModified());
+
+        byte[] b = obj.toString().getBytes(StandardCharsets.UTF_8);
+        exchange.getResponseHeaders().set("Content-Type", "application/json;charset=UTF-8");
+        exchange.sendResponseHeaders(200, b.length);
+        exchange.getResponseBody().write(b);
+        exchange.close();
     }
 
     // api/info

@@ -2,20 +2,9 @@
     --theme-color: #00796b;
     --text-color: black;
     --bg-color: #f0f0f0;
+    --bg-color-alt: white;
     --hover-color: #00000020;
-}
-
-#bar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 999;
-    background-color: var(--bg-color);
-    width: 100%;
-    box-shadow: 0 -4px 8px 0 rgb(0 0 0 / 10%);
+    --bar-color: #f0f0f0;
 }
 
 .icon {
@@ -25,7 +14,10 @@
     height: 40px;
     text-align: center;
     margin: 5px;
-    user-select: none;
+    user-select: none;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -36,12 +28,12 @@
 #content {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    margin-bottom: 60px;
+    align-items: center;
+    margin-bottom: 65px;
     margin-top: 58px;
 }
 
-.button {
+.menu-button {
     transition: background-color 0.3s;
     border: none;
     color: white;
@@ -52,23 +44,25 @@
     align-items: center;
 }
 
+.menu-button:hover {
+    background-color: #ffffff40;
+}
+
+.menu-button-disabled {
+    background-color: #616161;
+}
+
 .colored {
     background-color: var(--theme-color);
 }
 
-.button:hover {
-    background-color: #ffffff40;
-}
-
-.button-disabled {
-    background-color: #616161;
-}
 
 .shadow {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 16px 0 rgba(0, 0, 0, 0.19);
 }
 
 .link {
+    width: 50vw;
     padding: 5px 16px;
     display: flex;
     align-items: center;
@@ -102,7 +96,8 @@ body {
     align-items: center;
 }
 
-.headerLeft, .headerRight {
+.headerLeft,
+.headerRight {
     display: flex;
     align-items: center;
 }
@@ -157,6 +152,115 @@ body {
     height: 100vh;
 }
 
+/* Player Bar */
+#bar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    background-color: var(--bg-color-alt);
+    width: 100%;
+    height: 60px;
+    box-shadow: 0 -4px 8px 0 rgb(0 0 0 / 10%);
+}
+
+#progress {
+    width: 100%;
+    height: 8px;
+    /* margin: 0 5px 0 5px; */
+    cursor: pointer;
+    background-color: var(--bar-color);
+}
+
+#playtime {
+    width: 0;
+    height: 100%;
+    background-color: var(--theme-color);
+}
+
+#controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+#controlsLeft,
+#controlsMiddle,
+#controlsRight {
+    height: 50px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+#controlsMiddle {
+    justify-content: center;
+}
+
+#controlsRight {
+    justify-content: right;
+}
+
+#songTitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: anywhere;
+    font-size: 92%;
+    max-height: 100%;
+    color: var(--text-color);
+}
+
+.bottom-button {
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.bottom-button:hover {
+    background-color: var(--hover-color);
+}
+
+.controls {
+    color: var(--theme-color);
+}
+
+#time {
+    display: flex;
+    font-size: 16px;
+    margin-left: 8px;
+    color: var(--text-color);
+}
+
+.seperater {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+
+#bottomMenu {
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.bottom-menu {
+    position: fixed;
+    bottom: 50px;
+    right: 8px;
+    background-color: var(--bg-color);
+    font-family: sans;
+    font-size: 16px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    overflow: hidden auto;
+    max-height: 50vh;
+}
+
+/* Generic Attributes */
 .round {
     border-radius: 999px;
 }
@@ -186,6 +290,19 @@ body {
     }
 }
 
+@keyframes bottomFadeIn {
+    from {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(50%, 50%) scale(0.1);
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
 .menu-hidden {
     animation: fadeOut 0.3s ease-in-out 0s;
     visibility: hidden;
@@ -196,16 +313,58 @@ body {
     visibility: visible;
 }
 
+.bottom-menu-hidden {
+    animation: fadeOut 0.3s ease-in-out 0s;
+    visibility: hidden;
+}
+
+.bottom-menu-visible {
+    animation: bottomFadeIn 0.3s ease-in-out 0s;
+    visibility: visible;
+}
+
 .hidden {
     display: none;
 }
 
-@media only screen and (min-width: 768px) {
+
+@media only screen and (max-width: 768px) {
     .link {
-        width: 50vw;
+        width: unset;
+        overflow-x: hidden;
+        overflow-wrap: anywhere;
+    }
+
+    .seperater, #durationDisplay {
+        display: none;
     }
 
     #content {
-        align-items: center;
+        align-items: stretch;
     }
+
+}
+
+@media only screen and (max-width: 512px) {
+
+    #controlsMiddle,
+    #controlsRight {
+        width: unset;
+    }
+
+    #time {
+        display: none;
+    }
+
+    #prev {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 384px) {
+
+    #next {
+        display: none;
+    }
+
 }
