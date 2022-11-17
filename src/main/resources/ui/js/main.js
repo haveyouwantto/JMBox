@@ -48,8 +48,6 @@ function list(dir, add = true) {
             if (add && filename != "") {
                 cd.push(filename);
             }
-            console.log(cd);
-
 
             location.hash = "#/" + encodeURI(dir);
             content.innerHTML = '';

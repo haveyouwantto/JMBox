@@ -17,6 +17,8 @@ let prevButton = document.getElementById('prev');
 let replayButton = document.getElementById('replay');
 let midiInfo = document.getElementById('midiInfo');
 
+let locateFileBtn = document.getElementById('locate');
+
 // Menu player options
 
 let audioPlayer = document.getElementById('audioPlayer');
@@ -323,4 +325,10 @@ picoAudioPlayer.addEventListener('click', e => {
         player.seek(playtime);
         if (!paused) player.play();
     });
+});
+
+// Locate the file
+locateFileBtn.addEventListener('click', e => {
+    cd = [...cdMem];
+    list(concatDir('', cd), false);
 });
