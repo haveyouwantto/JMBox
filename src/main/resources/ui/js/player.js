@@ -110,9 +110,7 @@ let AudioPlayer = function () {
     })
 
     this.audio.addEventListener('timeupdate', e => {
-        progressBarInner.style.width = (player.currentTime() / player.duration() * 100) + "%";
-        timeDisplay.innerText = formatTime(player.currentTime());
-        durationDisplay.innerText = formatTime(player.duration());
+        updatePlayback();
     })
 }
 
@@ -149,6 +147,7 @@ let PicoAudioPlayer = function () {
         playButton.innerText = '\u2759\u2759';
         paused = false;
         picoAudio.play();
+        updatePlayback();
     }
 
     /**
@@ -158,6 +157,7 @@ let PicoAudioPlayer = function () {
         playButton.innerText = '\u25B6';
         paused = true;
         picoAudio.pause();
+        updatePlayback();
     }
 
     /**
@@ -209,18 +209,28 @@ let PicoAudioPlayer = function () {
     }
 
     picoAudio.addEventListener('noteOn', e => {
-        progressBarInner.style.width = (player.currentTime() / player.duration() * 100) + "%";
-        timeDisplay.innerText = formatTime(player.currentTime());
-        durationDisplay.innerText = formatTime(player.duration());
+        updatePlayback();
+    });
+
+    picoAudio.addEventListener('noteOff', e => {
+        updatePlayback();
     });
 
     picoAudio.addEventListener('songEnd', e => {
         this.pause();
+        updatePlayback();
     });
 }
 
 
 let player = new AudioPlayer(audio);
+
+
+function updatePlayback() {
+    progressBarInner.style.width = (player.currentTime() / player.duration() * 100) + "%";
+    timeDisplay.innerText = formatTime(player.currentTime());
+    durationDisplay.innerText = formatTime(player.duration());
+}
 
 // Player action
 
@@ -284,10 +294,7 @@ bottomMenuBtn.addEventListener('click', function (e) {
 
 // Close on click outside of the menu
 collapse.addEventListener('click', function (e) {
-    console.log(1, bottomMenuDisplay);
-
     if (bottomMenuDisplay) {
-
         setBottomMenuVisible(false);
     }
 });
