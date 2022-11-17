@@ -204,7 +204,7 @@ function midiinfo(file) {
                 "path: " + file + "\n" +
                 "name: " + data.name + "\n" +
                 "size: " + toSI(data.size, true) + "B\n" +
-                "last modified: " + new Date(data.lastModified).toLocaleString()+ "\n" +
+                "last modified: " + new Date(data.lastModified).toLocaleString() + "\n" +
                 "duration: " + formatTime(player.duration())
             )
         });
@@ -225,9 +225,9 @@ if ('mediaSession' in navigator) {
         player.pause();
         navigator.mediaSession.playbackState = 'paused';
     });
-    navigator.mediaSession.setActionHandler('stop', () => { audio.stop(); });
-    navigator.mediaSession.setActionHandler('seekbackward', () => { audio.currentTime -= 5; });
-    navigator.mediaSession.setActionHandler('seekforward', () => { audio.currentTime += 5; });
+    navigator.mediaSession.setActionHandler('stop', () => { player.stop(); });
+    navigator.mediaSession.setActionHandler('seekbackward', () => { player.seek(player.currentTime() + 5) });
+    navigator.mediaSession.setActionHandler('seekforward', () => { player.seek(player.currentTime() - 5) });
     navigator.mediaSession.setActionHandler('seekto', () => { });
     navigator.mediaSession.setActionHandler('nexttrack', next);
     navigator.mediaSession.setActionHandler('previoustrack', previous);

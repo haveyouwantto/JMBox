@@ -1,6 +1,5 @@
 // For audio player
 
-let audio = document.getElementById("audio");
 let loop = document.getElementById("loop");
 
 // Main player Items
@@ -26,7 +25,7 @@ let paused = true;
  * @param {HTMLAudioElement} audio
  */
 let AudioPlayer = function (audio) {
-    this.audio = audio;
+    this.audio = document.getElementById("audio");
     /**
      * Loads a url
      * @param {string} url 
