@@ -15,8 +15,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
-/** The http handler to delivery static content
- * */
+/**
+ * The http handler to delivery static content
+ */
 public class StaticHandler implements HttpHandler {
     private static final Logger logger = LoggerUtil.getLogger("Static");
     private long bootTime;
@@ -75,6 +76,7 @@ public class StaticHandler implements HttpHandler {
             } else {
                 response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
             }
+            response.set("Cache-Control", "max-age=3600");
 
             // Send file
             exchange.sendResponseHeaders(200, is.available());
