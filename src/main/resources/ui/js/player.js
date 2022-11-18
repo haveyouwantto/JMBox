@@ -217,7 +217,7 @@ let PicoAudioPlayer = function () {
     });
 
     picoAudio.addEventListener('songEnd', e => {
-        this.pause();
+        if (!picoAudio.isLoop()) this.pause();
         updatePlayback();
     });
 }
