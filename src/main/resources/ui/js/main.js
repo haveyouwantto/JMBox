@@ -48,8 +48,6 @@ function list(dir, add = true) {
             if (add && filename != "") {
                 cd.push(filename);
             }
-            console.log(cd);
-
 
             location.hash = "#/" + encodeURI(dir);
             content.innerHTML = '';
@@ -149,8 +147,9 @@ function play(file) {
     midiInfo.setAttribute("value", file);
     songTitle.innerText = filename;
 
-    player.load(file);
-    player.play();
+    player.load(file, () => {
+        player.play();
+    });
 
 
     if ('mediaSession' in navigator) {

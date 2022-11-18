@@ -15,6 +15,7 @@ let wav = document.getElementById("wav");
 let mid = document.getElementById("mid");
 let dark = document.getElementById("dark");
 
+
 // Misc Items
 let metaThemeColor = document.getElementById("meta-theme-color");
 

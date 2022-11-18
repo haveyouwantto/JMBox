@@ -17,21 +17,29 @@ let prevButton = document.getElementById('prev');
 let replayButton = document.getElementById('replay');
 let midiInfo = document.getElementById('midiInfo');
 
+let locateFileBtn = document.getElementById('locate');
+
+// Menu player options
+
+let audioPlayer = document.getElementById('audioPlayer');
+let picoAudioPlayer = document.getElementById('picoAudioPlayer');
+
 // Player flags
 let paused = true;
 
 /**
- * HTML5 Audio Element
- * @param {HTMLAudioElement} audio
+ * Audio Player
  */
 let AudioPlayer = function () {
     this.audio = document.getElementById("audio");
     /**
      * Loads a url
      * @param {string} url 
+     * @param {Function} callback
      */
-    this.load = function (path) {
+    this.load = function (path, callback) {
         this.audio.src = "api/play/" + getURL(path);
+        callback();
     }
 
     /**
@@ -84,7 +92,7 @@ let AudioPlayer = function () {
         this.seek(this.audio.duration * percentage);
     }
 
-    this.destroy = function(){
+    this.destroy = function () {
         this.pause();
         this.audio.src = '';
     }
@@ -102,14 +110,127 @@ let AudioPlayer = function () {
     })
 
     this.audio.addEventListener('timeupdate', e => {
-        progressBarInner.style.width = (player.currentTime() / player.duration() * 100) + "%";
-        timeDisplay.innerText = formatTime(player.currentTime());
-        durationDisplay.innerText = formatTime(player.duration());
+        updatePlayback();
     })
+}
+
+// singleton picoaudio
+let picoAudio = null;
+
+let PicoAudioPlayer = function () {
+    if (picoAudio == null) {
+        picoAudio = new PicoAudio();
+        picoAudio.init();
+    }
+    /**
+     * Loads a url
+     * @param {string} url 
+     * @param {Function} callback
+     */
+    this.load = function (path, callback) {
+        fetch("/api/midi/" + getURL(path)).then(r => {
+            if (r.ok) {
+                r.arrayBuffer().then(data => {
+                    const parsedData = picoAudio.parseSMF(data);
+                    picoAudio.setData(parsedData);
+                    callback();
+                })
+            }
+        });
+    }
+
+    /**
+     * Play the audio
+     */
+    this.play = function () {
+        if (this.isEnded()) this.seek(0);
+        playButton.innerText = '\u2759\u2759';
+        paused = false;
+        picoAudio.play();
+        updatePlayback();
+    }
+
+    /**
+     * Pause the audio
+     */
+    this.pause = function () {
+        playButton.innerText = '\u25B6';
+        paused = true;
+        picoAudio.pause();
+        updatePlayback();
+    }
+
+    /**
+     * Gets audio duration
+     * @returns duration in seconds
+     */
+    this.duration = function () {
+        return picoAudio.getTime(picoAudio.playData.songLength);
+    }
+
+    /**
+     * Gets current audio progress
+     * @returns progress in seconds
+     */
+    this.currentTime = function () {
+        return picoAudio.context.currentTime - picoAudio.states.startTime;
+    }
+
+    /**
+     * Seek audio in seconds
+     * @param {float} seconds 
+     */
+    this.seek = function (seconds) {
+        let playing = picoAudio.states.isPlaying;
+        picoAudio.stop();
+        picoAudio.initStatus(false, true);
+        picoAudio.setStartTime(seconds);
+        if (playing) picoAudio.play();
+    }
+
+    /**
+     * Seek audio by percentage
+     * @param {float} percentage 
+     */
+    this.seekPercentage = function (percentage) {
+        this.seek(this.duration() * percentage);
+    }
+
+    this.destroy = function () {
+        this.pause();
+    }
+
+    this.isPaused = function () {
+        return !picoAudio.states.isPlaying;
+    }
+
+    this.isEnded = function () {
+        return player.currentTime() >= player.duration();
+    }
+
+    picoAudio.addEventListener('noteOn', e => {
+        updatePlayback();
+    });
+
+    picoAudio.addEventListener('noteOff', e => {
+        updatePlayback();
+    });
+
+    picoAudio.addEventListener('songEnd', e => {
+        if (!picoAudio.isLoop()) this.pause();
+        updatePlayback();
+    });
 }
 
 
 let player = new AudioPlayer(audio);
+
+
+function updatePlayback() {
+    progressBarInner.style.width = (player.currentTime() / player.duration() * 100) + "%";
+    timeDisplay.innerText = formatTime(player.currentTime());
+    durationDisplay.innerText = formatTime(player.duration());
+}
 
 // Player action
 
@@ -173,10 +294,7 @@ bottomMenuBtn.addEventListener('click', function (e) {
 
 // Close on click outside of the menu
 collapse.addEventListener('click', function (e) {
-    console.log(1, bottomMenuDisplay);
-
     if (bottomMenuDisplay) {
-
         setBottomMenuVisible(false);
     }
 });
@@ -190,4 +308,34 @@ bottomMenu.addEventListener('click', e => {
 
 midiInfo.addEventListener('click', e => {
     midiinfo(midiInfo.getAttribute('value'));
+});
+
+// Player switch
+
+audioPlayer.addEventListener('click', e => {
+    let playtime = player.currentTime();
+    let paused = player.isPaused();
+    player.destroy();
+    player = new AudioPlayer();
+    player.load(concatDir(filesMem[playing], cdMem), () => {
+        player.seek(playtime);
+        if (!paused) player.play();
+    });
+});
+
+picoAudioPlayer.addEventListener('click', e => {
+    let playtime = player.currentTime();
+    let paused = player.isPaused();
+    player.destroy();
+    player = new PicoAudioPlayer();
+    player.load(concatDir(filesMem[playing], cdMem), () => {
+        player.seek(playtime);
+        if (!paused) player.play();
+    });
+});
+
+// Locate the file
+locateFileBtn.addEventListener('click', e => {
+    cd = [...cdMem];
+    list(concatDir('', cd), false);
 });
