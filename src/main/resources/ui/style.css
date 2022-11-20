@@ -14,7 +14,7 @@
     height: 40px;
     text-align: center;
     margin: 5px;
-    user-select: none;    
+    user-select: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -210,7 +210,8 @@ body {
 }
 
 #songTitle {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     text-overflow: ellipsis;
     overflow-wrap: anywhere;
     font-size: 92%;
@@ -339,34 +340,37 @@ body {
         overflow-wrap: anywhere;
     }
 
-    .seperater, #durationDisplay {
+    .seperater,
+    #durationDisplay {
         display: none;
     }
 
     #content {
         align-items: stretch;
     }
-
 }
 
-@media only screen and (max-width: 512px) {
+@media only screen and (max-width: 680px) {
 
     #controlsMiddle,
     #controlsRight {
         width: unset;
     }
+}
 
+@media only screen and (max-width: 512px) {
     #time {
         display: none;
     }
+}
 
+@media only screen and (max-width: 420px) {
     #prev {
         display: none;
     }
 }
 
 @media only screen and (max-width: 384px) {
-
     #next {
         display: none;
     }
