@@ -3,8 +3,6 @@ Simple MIDI File Server
 
 Currently is only intended for personal usage.
 
-There's no performance optimizations yet.
-
 
 server.properties properties
 |  property   | default  | comment |

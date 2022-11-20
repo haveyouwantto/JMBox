@@ -128,7 +128,7 @@ let PicoAudioPlayer = function () {
      * @param {Function} callback
      */
     this.load = function (path, callback) {
-        fetch("/api/midi/" + getURL(path)).then(r => {
+        fetch("api/midi/" + getURL(path)).then(r => {
             if (r.ok) {
                 r.arrayBuffer().then(data => {
                     const parsedData = picoAudio.parseSMF(data);
@@ -312,26 +312,23 @@ midiInfo.addEventListener('click', e => {
 
 // Player switch
 
-audioPlayer.addEventListener('click', e => {
+function createPlayer(playerClass){
     let playtime = player.currentTime();
     let paused = player.isPaused();
     player.destroy();
-    player = new AudioPlayer();
+    player = new playerClass();
     player.load(concatDir(filesMem[playing], cdMem), () => {
         player.seek(playtime);
         if (!paused) player.play();
     });
+}
+
+audioPlayer.addEventListener('click', e => {
+    createPlayer(AudioPlayer);
 });
 
 picoAudioPlayer.addEventListener('click', e => {
-    let playtime = player.currentTime();
-    let paused = player.isPaused();
-    player.destroy();
-    player = new PicoAudioPlayer();
-    player.load(concatDir(filesMem[playing], cdMem), () => {
-        player.seek(playtime);
-        if (!paused) player.play();
-    });
+    createPlayer(PicoAudioPlayer);
 });
 
 // Locate the file

@@ -176,7 +176,8 @@ public class APIHandler implements HttpHandler {
                 String range = request.get("Range").get(0);
                 Matcher m = REGEX.matcher(range);
                 if (m.find()) {
-                    long skiplen = Math.max(Long.parseLong(m.group(1)) - 44, 0);
+                    long start = Long.parseLong(m.group(1));
+                    long skiplen = Math.max(start - 44, 0);
                     is.skip(skiplen);
 
                     response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, length - 1, length));
