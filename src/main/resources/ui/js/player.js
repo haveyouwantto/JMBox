@@ -26,6 +26,7 @@ let picoAudioPlayer = document.getElementById('picoAudioPlayer');
 
 // Player flags
 let paused = true;
+let midi = false;
 
 /**
  * Audio Player
@@ -225,6 +226,23 @@ let PicoAudioPlayer = function () {
 
 let player = new AudioPlayer(audio);
 
+// PicoAudio MIDI initialize
+let midiBtn = document.getElementById("picoAudioMIDI");
+if (window.isSecureContext) {
+    midiBtn.style.display = 'block';
+    midiBtn.addEventListener('click', e => {
+        midi = !midi;
+        if (midi) {
+            navigator.requestMIDIAccess().then(access => {
+                picoAudio.setWebMIDI(true);
+            });
+        } else {
+            picoAudio.setWebMIDI(false);
+        }
+    });
+}
+
+
 
 function updatePlayback() {
     progressBarInner.style.width = (player.currentTime() / player.duration() * 100) + "%";
@@ -312,7 +330,7 @@ midiInfo.addEventListener('click', e => {
 
 // Player switch
 
-function createPlayer(playerClass){
+function createPlayer(playerClass) {
     let playtime = player.currentTime();
     let paused = player.isPaused();
     player.destroy();

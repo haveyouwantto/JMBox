@@ -146,6 +146,10 @@ body {
     background-color: var(--hover-color);
 }
 
+#picoAudioMIDI {
+    display: none;
+}
+
 #collapse {
     position: fixed;
     width: 100vw;
