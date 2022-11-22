@@ -38,8 +38,8 @@ backBtn.addEventListener('click', function (e) {
 // Top bar home button
 // ⌂
 homeBtn.addEventListener('click', function (e) {
-    cd = [];
-    list('', false);
+    pathman.home();
+    list();
 });
 
 // menu display style changer

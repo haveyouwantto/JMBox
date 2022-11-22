@@ -1,6 +1,5 @@
 let serverName = "JMBox";
 
-let cd = [];
 let files = [];
 let playing = [];
 
@@ -9,11 +8,11 @@ let musicLoop = true;
 let prefix = location.pathname;
 let urlDir = location.hash.substring(1);
 
-let cdMem = [];
+let cdMem = '';
 let filesMem = [];
 
 
-// TODO: Reimplement api client
+let pathman = new PathMan();
 
 /** 
  * Gets server information
@@ -38,29 +37,26 @@ function info() {
  * @param {string} dir The absolute path of directory to enter
  * @param add Add this directory to stack
  */
-function list(dir, add = true) {
-    let url = getURL(dir);
-    let split = dir.split('/');
-    let filename = split[split.length - 1];
-    fetch("api/list/" + url)
+function list() {
+    let path = pathman.getPath();
+    return fetch("api/list" + path)
         .then(response => response.json())
         .then(result => {
-            if (add && filename != "") {
-                cd.push(filename);
-            }
 
-            location.hash = "#/" + encodeURI(dir);
+            location.hash = "#" + path;
             content.innerHTML = '';
 
-            if (cd.length > 0) {
-                backBtn.classList.remove('hidden');
-                homeBtn.classList.remove('hidden');
-            } else {
+            if (pathman.isRoot()) {
                 backBtn.classList.add('hidden');
                 homeBtn.classList.add('hidden');
+            } else {
+                backBtn.classList.remove('hidden');
+                homeBtn.classList.remove('hidden');
             }
 
+            // Sorting files
             result.sort((a, b) => {
+                // Directories first
                 let av = a.isDir ? -1000 : 0;
                 let bv = b.isDir ? -1000 : 0;
                 return a.name.localeCompare(b.name) + (av - bv);
@@ -88,28 +84,12 @@ function list(dir, add = true) {
         });
 }
 
-/** Build absolute path
- * @param {string} file The new file
- * @param {string[]} cd1 The base dir
- */
-function concatDir(file, cd1 = cd) {
-    let base = cd1.join('/');
-    if (cd1.length > 0) {
-        base += "/";
-    }
-    return base + file;
-}
-
-function getURL(path) {
-    return encodeURIComponent(path);
-}
-
 /**
  * Back to parent directory
  */
 function back() {
-    cd.pop();
-    list(concatDir('', cd), false);
+    pathman.remove();
+    list();
 }
 
 /**
@@ -117,7 +97,8 @@ function back() {
  * @param {HTMLElement} e 
  */
 function elist(e) {
-    list(concatDir(e.getAttribute('value'), cd));
+    pathman.add(e.getAttribute('value'));
+    list();
 }
 
 /**
@@ -126,34 +107,33 @@ function elist(e) {
  */
 function eplay(e) {
     playing = files.indexOf(e.getAttribute('value'));
-    cdMem = [...cd];
+    cdMem = pathman.getPath();
     filesMem = [...files];
-    play(concatDir(e.getAttribute('value')));
+    play(cdMem, e.getAttribute('value'));
 }
 
 /**
  * Loads a file and play it
- * @param {string} file The absolute path to file
+ * @param {string} dir The url of parent dir
+ * @param {string} file The file name
  */
-function play(file) {
+function play(dir, file) {
     console.log(file);
+    let url = dir + "/" + encodeURIComponent(file);
 
-    let split = file.split('/');
-    let filename = split[split.length - 1];
+    document.title = serverName + " - " + file;
+    wav.setAttribute("href", "api/play" + url);
+    mid.setAttribute("href", "api/midi" + url);
+    midiInfo.setAttribute("value", url);
+    songTitle.innerText = file;
 
-    document.title = serverName + " - " + filename;
-    wav.setAttribute("href", "api/play/" + file);
-    mid.setAttribute("href", "api/midi/" + file);
-    midiInfo.setAttribute("value", file);
-    songTitle.innerText = filename;
-
-    player.load(file, () => {
+    player.load(url, () => {
         player.play();
     });
 
 
     if ('mediaSession' in navigator) {
-        navigator.mediaSession.metadata.title = filename;
+        navigator.mediaSession.metadata.title = file;
         navigator.mediaSession.playbackState = 'playing';
     }
 }
@@ -166,7 +146,7 @@ function next() {
     if (playing >= filesMem.length) {
         playing = 0;
     }
-    play(concatDir(filesMem[playing], cdMem));
+    play(cdMem, filesMem[playing]);
 }
 
 /**
@@ -177,31 +157,16 @@ function previous() {
     if (playing < 0) {
         playing = filesMem.length - 1;
     }
-    play(concatDir(filesMem[playing], cdMem));
+    play(cdMem, filesMem[playing]);
 }
 
-/**
- * Go to absolute path
- * @param {string} dir 
- */
-function goto(dir) {
-    let dirs = dir.split('/');
-    cd = [];
-    for (let dir of dirs) {
-        if (dir != '') {
-            cd.push(dir);
-        }
-    }
-}
-
-function midiinfo(file) {
-    let url = getURL(file);
-    fetch("api/midiinfo/" + url)
+function midiinfo(url) {
+    fetch("api/midiinfo" + url)
         .then(response => response.json())
         .then(data => {
             alert(
-                "path: " + file + "\n" +
                 "name: " + data.name + "\n" +
+                "path: " + url + "\n" +
                 "size: " + toSI(data.size, true) + "B\n" +
                 "last modified: " + new Date(data.lastModified).toLocaleString() + "\n" +
                 "duration: " + formatTime(player.duration())
@@ -234,9 +199,9 @@ if ('mediaSession' in navigator) {
 
 // Reads path from url (runs on initialize)
 if (urlDir != null) {
-    goto(decodeURI(urlDir));
+    pathman.setPath(urlDir);
 }
 
 // Initialize view
 info();
-list(concatDir('', cd), false);
+list();

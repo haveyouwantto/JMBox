@@ -1,7 +1,9 @@
 // For S&L configs
 
 let defaultValue = {
-    dark: false
+    dark: false,
+    webmidi: false,
+    midisrc :false
 }
 
 let config = {};
@@ -53,7 +55,7 @@ function save() {
  * @param {string} key 
  * @param {string} value 
  */
-function update(key, value){
+function update(key, value) {
     window.localStorage.setItem(key, value);
 }
 

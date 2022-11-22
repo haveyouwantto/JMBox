@@ -24,9 +24,12 @@ let locateFileBtn = document.getElementById('locate');
 let audioPlayer = document.getElementById('audioPlayer');
 let picoAudioPlayer = document.getElementById('picoAudioPlayer');
 
+
+let midiBtn = document.getElementById("picoAudioMIDI");
+let midiSrcBtn = document.getElementById("midiSrc");
+
 // Player flags
 let paused = true;
-let midi = false;
 
 /**
  * Audio Player
@@ -39,7 +42,7 @@ let AudioPlayer = function () {
      * @param {Function} callback
      */
     this.load = function (path, callback) {
-        this.audio.src = "api/play/" + getURL(path);
+        this.audio.src = (config.midisrc ? "api/midi" : "api/play") + path;
         callback();
     }
 
@@ -129,7 +132,7 @@ let PicoAudioPlayer = function () {
      * @param {Function} callback
      */
     this.load = function (path, callback) {
-        fetch("api/midi/" + getURL(path)).then(r => {
+        fetch("api/midi" + path).then(r => {
             if (r.ok) {
                 r.arrayBuffer().then(data => {
                     const parsedData = picoAudio.parseSMF(data);
@@ -227,12 +230,12 @@ let PicoAudioPlayer = function () {
 let player = new AudioPlayer(audio);
 
 // PicoAudio MIDI initialize
-let midiBtn = document.getElementById("picoAudioMIDI");
 if (window.isSecureContext) {
     midiBtn.style.display = 'block';
     midiBtn.addEventListener('click', e => {
-        midi = !midi;
-        if (midi) {
+        config.webmidi = !config.webmidi;
+        alert(config.webmidi);
+        if (config.webmidi) {
             navigator.requestMIDIAccess().then(access => {
                 picoAudio.setWebMIDI(true);
             });
@@ -242,6 +245,12 @@ if (window.isSecureContext) {
     });
 }
 
+
+// audio midi src toggle
+midiSrcBtn.addEventListener('click', e => {
+    config.midisrc = !config.midisrc;
+    alert(config.midisrc);
+});
 
 
 function updatePlayback() {
@@ -335,7 +344,7 @@ function createPlayer(playerClass) {
     let paused = player.isPaused();
     player.destroy();
     player = new playerClass();
-    player.load(concatDir(filesMem[playing], cdMem), () => {
+    player.load(cdMem + "/" + filesMem[playing], () => {
         player.seek(playtime);
         if (!paused) player.play();
     });
@@ -351,6 +360,11 @@ picoAudioPlayer.addEventListener('click', e => {
 
 // Locate the file
 locateFileBtn.addEventListener('click', e => {
-    cd = [...cdMem];
-    list(concatDir('', cd), false);
+    pathman.setPath(cdMem);
+    list().then(() => {
+        let element = document.querySelector("div[value=\"" + filesMem[playing] + "\"]");
+        element.scrollIntoView();
+        element.classList.add('link-locate');
+        window.scrollBy(0, -120);
+    });
 });
