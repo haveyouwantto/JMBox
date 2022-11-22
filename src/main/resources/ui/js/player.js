@@ -363,8 +363,7 @@ locateFileBtn.addEventListener('click', e => {
     pathman.setPath(cdMem);
     list().then(() => {
         let element = document.querySelector("div[value=\"" + filesMem[playing] + "\"]");
-        element.scrollIntoView();
+        element.scrollIntoView({block : "center"});
         element.classList.add('link-locate');
-        window.scrollBy(0, -120);
     });
 });
