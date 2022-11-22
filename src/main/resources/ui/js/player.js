@@ -169,6 +169,7 @@ let PicoAudioPlayer = function () {
      * @returns duration in seconds
      */
     this.duration = function () {
+        if (picoAudio.playData == null) return 0;
         return picoAudio.getTime(picoAudio.playData.songLength);
     }
 
@@ -224,32 +225,41 @@ let PicoAudioPlayer = function () {
         if (!picoAudio.isLoop()) this.pause();
         updatePlayback();
     });
+
+    setupWebMIDI();
 }
 
 
 let player = new AudioPlayer(audio);
 
 // PicoAudio MIDI initialize
+function setupWebMIDI() {
+    if (config.webmidi) {
+        navigator.requestMIDIAccess().then(access => {
+            picoAudio.setWebMIDI(true);
+        });
+    } else {
+        picoAudio.setWebMIDI(false);
+    }
+}
+
 if (window.isSecureContext) {
     midiBtn.style.display = 'block';
     midiBtn.addEventListener('click', e => {
         config.webmidi = !config.webmidi;
         alert(config.webmidi);
-        if (config.webmidi) {
-            navigator.requestMIDIAccess().then(access => {
-                picoAudio.setWebMIDI(true);
-            });
-        } else {
-            picoAudio.setWebMIDI(false);
-        }
+        setupWebMIDI();
+        save();
     });
 }
+
 
 
 // audio midi src toggle
 midiSrcBtn.addEventListener('click', e => {
     config.midisrc = !config.midisrc;
     alert(config.midisrc);
+    save();
 });
 
 
@@ -344,10 +354,12 @@ function createPlayer(playerClass) {
     let paused = player.isPaused();
     player.destroy();
     player = new playerClass();
-    player.load(cdMem + "/" + filesMem[playing], () => {
-        player.seek(playtime);
-        if (!paused) player.play();
-    });
+    if (filesMem.length > 0) {
+        player.load(cdMem + "/" + filesMem[playing], () => {
+            player.seek(playtime);
+            if (!paused) player.play();
+        });
+    }
 }
 
 audioPlayer.addEventListener('click', e => {
@@ -363,7 +375,7 @@ locateFileBtn.addEventListener('click', e => {
     pathman.setPath(cdMem);
     list().then(() => {
         let element = document.querySelector("div[value=\"" + filesMem[playing] + "\"]");
-        element.scrollIntoView({block : "center"});
+        element.scrollIntoView({ block: "center" });
         element.classList.add('link-locate');
     });
 });
