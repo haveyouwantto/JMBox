@@ -15,6 +15,8 @@ let playButton = document.getElementById("play");
 let nextButton = document.getElementById('next');
 let prevButton = document.getElementById('prev');
 let replayButton = document.getElementById('replay');
+let playModeButton = document.getElementById('playMode');
+let playModeAltButton = document.getElementById('playModeAlt');
 let midiInfo = document.getElementById('midiInfo');
 
 let locateFileBtn = document.getElementById('locate');
@@ -30,6 +32,14 @@ let midiSrcBtn = document.getElementById("midiSrc");
 
 // Player flags
 let paused = true;
+
+/**
+ * 0 = single
+ * 1 = single looped
+ * 2 = list
+ * 3 = list looped
+ */
+// let playMode = 0;
 
 /**
  * Audio Player
@@ -105,6 +115,10 @@ function AudioPlayer() {
         return this.audio.paused;
     }
 
+    this.setLoop = function (loop) {
+        this.audio.loop = loop;
+    }
+
     this.audio.addEventListener('pause', e => {
         this.pause();
     });
@@ -116,12 +130,14 @@ function AudioPlayer() {
     this.audio.addEventListener('timeupdate', e => {
         updatePlayback();
     })
+
+    this.audio.addEventListener('ended', onended);
 }
 
 // singleton picoaudio
 let picoAudio = null;
 
-function PicoAudioPlayer () {
+function PicoAudioPlayer() {
     if (picoAudio == null) {
         picoAudio = new PicoAudio();
         picoAudio.init();
@@ -213,6 +229,10 @@ function PicoAudioPlayer () {
         return player.currentTime() >= player.duration();
     }
 
+    this.setLoop = function (loop) {
+        picoAudio.setLoop(loop);
+    }
+
     picoAudio.addEventListener('noteOn', e => {
         updatePlayback();
     });
@@ -224,6 +244,7 @@ function PicoAudioPlayer () {
     picoAudio.addEventListener('songEnd', e => {
         if (!picoAudio.isLoop()) this.pause();
         updatePlayback();
+        onended();
     });
 
     setupWebMIDI();
@@ -353,6 +374,7 @@ function createPlayer(playerClass) {
     let paused = player.isPaused();
     player.destroy();
     player = new playerClass();
+    updatePlayer(config.playMode);
     if (filesMem.length > 0) {
         player.load(cdMem + "/" + filesMem[playing], () => {
             player.seek(playtime);
@@ -380,3 +402,64 @@ locateFileBtn.addEventListener('click', e => {
         element.classList.add('link-locate');
     });
 });
+
+// Play Mode Switch
+playModeButton.addEventListener('click', e => {
+    config.playMode++;
+    if (config.playMode == 4) config.playMode = 0;
+    updatePlayer(config.playMode);
+    save();
+});
+
+playModeAltButton.addEventListener('click', e => {
+    config.playMode++;
+    if (config.playMode == 4) config.playMode = 0;
+    updatePlayer(config.playMode);
+    save();
+});
+
+function updatePlayer(mode) {
+    switch (mode) {
+        case 0:
+            player.setLoop(false);
+            playModeButton.innerText = '\u2b72';
+            playModeAltButton.innerText = '\u2b72 Play Mode: Single';
+            break;
+        case 1:
+            player.setLoop(true);
+            playModeButton.innerText = '\u2b8c';
+            playModeAltButton.innerText = '\u2b8c Play Mode: Single Looped';
+            break;
+        case 2:
+            player.setLoop(false);
+            playModeButton.innerText = '\u2b86';
+            playModeAltButton.innerText = '\u2b86 Play Mode: List';
+            break;
+        case 3:
+            player.setLoop(false);
+            playModeButton.innerText = '\u2b94';
+            playModeAltButton.innerText = '\u2b94 Play Mode: List Looped';
+            break;
+        default:
+            break;
+    }
+}
+
+updatePlayer(config.playMode);
+
+function onended() {
+    switch (config.playMode) {
+        case 2:
+            if (playing == filesMem.length - 1) {
+                player.pause();
+            } else {
+                next();
+            }
+            break;
+        case 3:
+            next();
+            break;
+        default:
+            break;
+    }
+}

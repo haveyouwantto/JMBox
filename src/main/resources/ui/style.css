@@ -372,10 +372,17 @@ body {
     }
 }
 
+@media only screen and (max-width: 550px) {
+    #playMode {
+        display: none;
+    }
+}
+
 @media only screen and (max-width: 512px) {
     #time {
         display: none;
     }
+
 }
 
 @media only screen and (max-width: 420px) {
