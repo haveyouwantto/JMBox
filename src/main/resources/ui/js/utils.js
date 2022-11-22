@@ -15,7 +15,12 @@ function formatTime(seconds) {
     let sec = parseInt(seconds % 60);
     let minutes = seconds / 60;
     let min = parseInt(minutes % 60);
-    return padding(min) + ':' + padding(sec);
+    if (minutes < 60) {
+        return padding(min) + ':' + padding(sec);
+    } else {
+        let hours = minutes / 60;
+        return padding(parseInt(hours)) + ':' + padding(min) + ':' + padding(sec);
+    }
 }
 
 /**
