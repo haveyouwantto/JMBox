@@ -1,4 +1,4 @@
-let PathMan = function () {
+var PathMan = function () {
     this.stack = [];
     this.add = function (dir) {
         this.stack.push(dir);

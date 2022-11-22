@@ -34,7 +34,7 @@ let paused = true;
 /**
  * Audio Player
  */
-let AudioPlayer = function () {
+function AudioPlayer() {
     this.audio = document.getElementById("audio");
     /**
      * Loads a url
@@ -121,7 +121,7 @@ let AudioPlayer = function () {
 // singleton picoaudio
 let picoAudio = null;
 
-let PicoAudioPlayer = function () {
+function PicoAudioPlayer () {
     if (picoAudio == null) {
         picoAudio = new PicoAudio();
         picoAudio.init();
@@ -229,8 +229,7 @@ let PicoAudioPlayer = function () {
     setupWebMIDI();
 }
 
-
-let player = new AudioPlayer(audio);
+let player = new window[config.player];
 
 // PicoAudio MIDI initialize
 function setupWebMIDI() {
@@ -360,6 +359,8 @@ function createPlayer(playerClass) {
             if (!paused) player.play();
         });
     }
+    config.player = player.constructor.name;
+    save();
 }
 
 audioPlayer.addEventListener('click', e => {

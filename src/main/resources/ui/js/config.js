@@ -3,7 +3,8 @@
 let defaultValue = {
     dark: false,
     webmidi: false,
-    midisrc :false
+    midisrc :false,
+    player : "AudioPlayer"
 }
 
 let config = {};
