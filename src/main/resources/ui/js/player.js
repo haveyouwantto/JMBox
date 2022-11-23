@@ -19,7 +19,7 @@ let playModeButton = document.getElementById('playMode');
 
 let playModeAltButton = document.getElementById('playModeAlt');
 let altIcon = playModeAltButton.querySelector('icon');
-let altText = playModeAltButton.querySelector('a');
+let altText = playModeAltButton.querySelector('div');
 
 let midiInfo = document.getElementById('midiInfo');
 
