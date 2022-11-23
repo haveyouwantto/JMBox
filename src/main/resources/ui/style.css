@@ -140,7 +140,7 @@ body {
     position: fixed;
     top: 50px;
     right: 8px;
-    background-color: var(--bg-color);
+    background-color: var(--bg-color-alt);
     font-family: sans;
     font-size: 16px;
     border-radius: 4px;
@@ -274,7 +274,7 @@ body {
     position: fixed;
     bottom: 50px;
     right: 8px;
-    background-color: var(--bg-color);
+    background-color: var(--bg-color-alt);
     font-family: sans;
     font-size: 16px;
     border-radius: 4px;
