@@ -13,7 +13,7 @@
    version="1.1"
    id="svg1986"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
-   sodipodi:docname="e00a-midi.svg">
+   sodipodi:docname="e00a-midi-c.svg">
   <defs
      id="defs1980" />
   <sodipodi:namedview
@@ -45,7 +45,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -62,12 +62,9 @@
          transform="translate(-0.38531529,-1.1871077)">
         <path
            id="path1407"
-           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:23.1249;stroke-miterlimit:4;stroke-dasharray:none"
-           d="m 141.74233,185.50108 a 37.816185,20.807949 0 0 1 -37.81618,20.80795 37.816185,20.807949 0 0 1 -37.816186,-20.80795 37.816185,20.807949 0 0 1 37.816186,-20.80795 37.816185,20.807949 0 0 1 37.81618,20.80795 z" />
-        <path
-           style="fill:none;stroke:#000000;stroke-width:19.2707;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m 180.63683,69.279301 c -48.12766,0 -48.52215,0 -48.52215,0 0,116.374279 0,116.374279 0,116.374279"
-           id="path3168" />
+           style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:113.386;stroke-miterlimit:4;stroke-dasharray:none"
+           d="M 495.61133 140.43945 L 495.61133 668.63477 A 185.42005 102.02539 0 0 0 404.64648 655.51367 A 185.42005 102.02539 0 0 0 219.22656 757.53906 A 185.42005 102.02539 0 0 0 404.64648 859.56445 A 185.42005 102.02539 0 0 0 590.0625 758.28906 L 590.10352 758.28906 L 590.10352 234.92188 L 780.77344 234.92188 L 780.77344 140.43945 L 495.61133 140.43945 z "
+           transform="matrix(0.20394874,0,0,0.20394874,21.399027,31.00212)" />
       </g>
     </g>
   </g>

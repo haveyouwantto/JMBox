@@ -23,9 +23,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.51699467"
-     inkscape:cx="278.45775"
-     inkscape:cy="599.11022"
+     inkscape:zoom="1.0339893"
+     inkscape:cx="547.75876"
+     inkscape:cy="598.64229"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -53,19 +53,22 @@
      inkscape:label="图层 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <g
-       id="g9559"
-       transform="translate(0,-2.3472283)">
-      <circle
-         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:16.3741;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="path4493"
-         cx="135.91136"
-         cy="64.06662"
-         r="15" />
-      <path
-         style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 104.20451,114.10898 c 33.00915,0 33.00915,0 33.00915,0 0,106.10219 0,106.10219 0,106.10219"
-         id="path4497" />
-    </g>
+    <circle
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:16.374;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4493"
+       cx="132.80344"
+       cy="90.890381"
+       r="15" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 109.92558,130.16659 h 24.29531 l 0,59.8662"
+       id="path4497"
+       sodipodi:nodetypes="ccc" />
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       id="path2772"
+       cx="132.29167"
+       cy="132.29167"
+       r="92.6381" />
   </g>
 </svg>

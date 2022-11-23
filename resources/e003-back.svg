@@ -23,9 +23,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.73114088"
-     inkscape:cx="346.77304"
-     inkscape:cy="467.55869"
+     inkscape:zoom="0.5"
+     inkscape:cx="714.41419"
+     inkscape:cy="312.48388"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -54,12 +54,38 @@
      inkscape:groupmode="layer"
      id="layer1">
     <g
-       id="g6675"
-       transform="translate(-1.4521673,-5.8213468)">
+       id="g1563"
+       transform="translate(-18.642853,12.378017)">
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:25;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers fill stroke"
+         id="rect1520"
+         width="160"
+         height="25"
+         x="77.171608"
+         y="107.41365" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:21.6506;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers fill stroke"
+         id="rect1520-4"
+         width="120"
+         height="25"
+         x="-21.384354"
+         y="130.52148"
+         transform="rotate(-45)" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:21.6506;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers fill stroke"
+         id="rect1520-4-1"
+         width="120"
+         height="25"
+         x="148.19916"
+         y="14.062023"
+         transform="rotate(45)" />
       <path
-         id="rect3741"
-         style="fill:#000000;stroke-width:0.941705"
-         d="m 145.98753,38.260197 -84.852699,84.852703 -14.782043,15.00011 14.782043,15.00012 84.852699,84.8527 21.21318,-21.21317 -63.63953,-63.63953 h 117.5737 V 123.1129 H 103.5617 l 63.63901,-63.639528 z" />
+         id="path1556"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:25;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers fill stroke"
+         inkscape:transform-center-x="-1.1300561"
+         inkscape:transform-center-y="-0.58891067"
+         d="M 77.171608,132.41365 64.697431,120.10247 77.171605,107.41365 Z"
+         sodipodi:nodetypes="cccc" />
     </g>
   </g>
 </svg>
