@@ -32,6 +32,10 @@ icon {
     margin-right: 10px;
 }
 
+.icon-checked {
+    color: var(--theme-color);
+}
+
 
 #audio {
     width: 100%;

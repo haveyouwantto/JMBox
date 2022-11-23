@@ -13,7 +13,7 @@
    version="1.1"
    id="svg1986"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
-   sodipodi:docname="e005-more.svg">
+   sodipodi:docname="e014-synth.svg">
   <defs
      id="defs1980" />
   <sodipodi:namedview
@@ -23,11 +23,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.51699467"
-     inkscape:cx="327.71129"
-     inkscape:cy="611.65027"
+     inkscape:zoom="0.51699466"
+     inkscape:cx="164.19821"
+     inkscape:cy="533.10375"
      inkscape:document-units="mm"
-     inkscape:current-layer="g837"
+     inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      units="px"
@@ -53,34 +53,26 @@
      inkscape:label="图层 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <g
-       id="g7830"
-       transform="translate(2.2916667,2.1796843)">
-      <g
-         id="g837"
-         transform="translate(5,5)">
-        <g
-           id="g842">
-          <circle
-             style="fill:#000000;stroke-width:0.8976;stroke-miterlimit:4;stroke-dasharray:none"
-             id="path4378"
-             cx="125"
-             cy="55.11198"
-             r="20" />
-          <circle
-             style="fill:#000000;stroke-width:0.897737"
-             id="path4378-1"
-             cx="125"
-             cy="125.11198"
-             r="20" />
-          <circle
-             style="fill:#000000;stroke-width:0.897737"
-             id="path4378-1-3"
-             cx="125"
-             cy="195.11198"
-             r="20" />
-        </g>
-      </g>
-    </g>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:25;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1483"
+       width="154.57468"
+       height="154.57469"
+       x="55.00433"
+       y="55.004322" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:17.5482;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect2713"
+       width="25"
+       height="81.060524"
+       x="93.364365"
+       y="64" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:17.5482;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect3305-5"
+       width="25"
+       height="81.060524"
+       x="145.96954"
+       y="64" />
   </g>
 </svg>

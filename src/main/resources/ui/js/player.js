@@ -271,20 +271,36 @@ if (window.isSecureContext) {
     midiBtn.style.display = 'block';
     midiBtn.addEventListener('click', e => {
         config.webmidi = !config.webmidi;
-        alert(config.webmidi);
+        updateChecker(midiBtn, config.webmidi);
         setupWebMIDI();
         save();
     });
 }
+updateChecker(midiBtn, config.webmidi);
 
-
+/**
+ * Update a checker
+ * @param {HTMLElement} parent 
+ * @param {boolean} value 
+ */
+function updateChecker(parent, value) {
+    let checker = parent.querySelector('icon');
+    if (value) {
+        checker.classList.add('icon-checked');
+        checker.innerText = '\ue013';
+    } else {
+        checker.classList.remove('icon-checked');
+        checker.innerText = '\ue012';
+    }
+}
 
 // audio midi src toggle
 midiSrcBtn.addEventListener('click', e => {
     config.midisrc = !config.midisrc;
-    alert(config.midisrc);
+    updateChecker(midiSrcBtn, config.midisrc);
     save();
 });
+updateChecker(midiSrcBtn, config.midisrc);
 
 
 function updatePlayback() {
