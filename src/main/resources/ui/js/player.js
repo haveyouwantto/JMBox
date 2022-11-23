@@ -16,7 +16,11 @@ let nextButton = document.getElementById('next');
 let prevButton = document.getElementById('prev');
 let replayButton = document.getElementById('replay');
 let playModeButton = document.getElementById('playMode');
+
 let playModeAltButton = document.getElementById('playModeAlt');
+let altIcon = playModeAltButton.querySelector('icon');
+let altText = playModeAltButton.querySelector('a');
+
 let midiInfo = document.getElementById('midiInfo');
 
 let locateFileBtn = document.getElementById('locate');
@@ -60,7 +64,7 @@ function AudioPlayer() {
      * Play the audio
      */
     this.play = function () {
-        playButton.innerText = '\u2759\u2759';
+        playButton.innerText = '\ue00f';
         paused = false;
         this.audio.play();
     }
@@ -69,7 +73,7 @@ function AudioPlayer() {
      * Pause the audio
      */
     this.pause = function () {
-        playButton.innerText = '\u25B6';
+        playButton.innerText = '\ue000';
         paused = true;
         this.audio.pause();
     }
@@ -164,7 +168,7 @@ function PicoAudioPlayer() {
      */
     this.play = function () {
         if (this.isEnded()) this.seek(0);
-        playButton.innerText = '\u2759\u2759';
+        playButton.innerText = '\ue00f';
         paused = false;
         picoAudio.play();
         updatePlayback();
@@ -174,7 +178,7 @@ function PicoAudioPlayer() {
      * Pause the audio
      */
     this.pause = function () {
-        playButton.innerText = '\u25B6';
+        playButton.innerText = '\ue000';
         paused = true;
         picoAudio.pause();
         updatePlayback();
@@ -430,23 +434,27 @@ function updatePlayer(mode) {
     switch (mode) {
         case 0:
             player.setLoop(false);
-            playModeButton.innerText = '\u2b72';
-            playModeAltButton.innerText = '\u2b72 Play Mode: Single';
+            playModeButton.innerText = '\ue00b';
+            altIcon.innerText = '\ue00b';
+            altText.innerText = 'Single';
             break;
         case 1:
             player.setLoop(true);
-            playModeButton.innerText = '\u2b8c';
-            playModeAltButton.innerText = '\u2b8c Play Mode: Single Looped';
+            playModeButton.innerText = '\ue00c';
+            altIcon.innerText = '\ue00c';
+            altText.innerText = 'Single Looped';
             break;
         case 2:
             player.setLoop(false);
-            playModeButton.innerText = '\u2b86';
-            playModeAltButton.innerText = '\u2b86 Play Mode: List';
+            playModeButton.innerText = '\ue00d';
+            altIcon.innerText = '\ue00d';
+            altText.innerText = 'List';
             break;
         case 3:
             player.setLoop(false);
-            playModeButton.innerText = '\u2b94';
-            playModeAltButton.innerText = '\u2b94 Play Mode: List Looped';
+            playModeButton.innerText = '\ue00e';
+            altIcon.innerText = '\ue00e';
+            altText.innerText = 'List Looped';
             break;
         default:
             break;
