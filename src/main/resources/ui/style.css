@@ -314,10 +314,12 @@ body {
 
 @keyframes locate {
     from {
+        color: white;
         background-color: var(--theme-color);
     }
 
     to {
+        color: var(--text-color);
         background-color: unset;
     }
 }

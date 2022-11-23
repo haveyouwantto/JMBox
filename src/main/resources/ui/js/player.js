@@ -394,13 +394,21 @@ picoAudioPlayer.addEventListener('click', e => {
 });
 
 // Locate the file
+function highlight(name) {
+    let element = document.querySelector("div[value=\"" + name + "\"]");
+    element.classList.remove('link-locate');
+    element.scrollIntoView({ block: "center" });
+    element.classList.add('link-locate');
+}
 locateFileBtn.addEventListener('click', e => {
-    pathman.setPath(cdMem);
-    list().then(() => {
-        let element = document.querySelector("div[value=\"" + filesMem[playing] + "\"]");
-        element.scrollIntoView({ block: "center" });
-        element.classList.add('link-locate');
-    });
+    if (cdMem == pathman.getPath()) {
+        highlight(filesMem[playing]);
+    } else {
+        pathman.setPath(cdMem);
+        list().then(() => {
+            highlight(filesMem[playing]);
+        });
+    }
 });
 
 // Play Mode Switch
