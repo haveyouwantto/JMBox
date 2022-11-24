@@ -190,7 +190,7 @@ function PicoAudioPlayer() {
      */
     this.duration = function () {
         if (picoAudio.playData == null) return 0;
-        return picoAudio.getTime(picoAudio.playData.songLength);
+        else return picoAudio.getTime(picoAudio.playData.songLength);
     }
 
     /**
@@ -198,7 +198,8 @@ function PicoAudioPlayer() {
      * @returns progress in seconds
      */
     this.currentTime = function () {
-        return picoAudio.context.currentTime - picoAudio.states.startTime;
+        if (this.isPaused() || picoAudio.playData == null) return 0;
+        else return picoAudio.context.currentTime - picoAudio.states.startTime;
     }
 
     /**
@@ -242,6 +243,10 @@ function PicoAudioPlayer() {
     });
 
     picoAudio.addEventListener('noteOff', e => {
+        updatePlayback();
+    });
+
+    picoAudio.addEventListener('play', e => {
         updatePlayback();
     });
 

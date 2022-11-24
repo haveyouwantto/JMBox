@@ -22,7 +22,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 1
 CreationTime: 1669173039
-ModificationTime: 1669252540
+ModificationTime: 1669252555
 OS2TypoAscent: 0
 OS2TypoAOffset: 1
 OS2TypoDescent: 0
@@ -36,7 +36,6 @@ HheadAscent: 0
 HheadAOffset: 1
 HheadDescent: 0
 HheadDOffset: 1
-OS2Vendor: 'PfEd'
 DEI: 91125
 Encoding: Custom
 UnicodeInterp: none
@@ -130,7 +129,6 @@ SplineSet
  221 347 l 1
  221 253 l 1
 EndSplineSet
-Validated: 5
 EndChar
 
 StartChar: home
@@ -199,6 +197,7 @@ SplineSet
  421 -93 245 83 245 300 c 0
  245 517 420 693 637 693 c 4
 EndSplineSet
+Validated: 5
 EndChar
 
 StartChar: locate
@@ -231,7 +230,6 @@ SplineSet
  547 -118 l 1
  547 718 l 1
 EndSplineSet
-Validated: 5
 EndChar
 
 StartChar: info
@@ -475,7 +473,6 @@ SplineSet
  438 144 469 139 496 131 c 1
  496 660 l 1xd0
 EndSplineSet
-Validated: 1
 EndChar
 
 StartChar: pause
