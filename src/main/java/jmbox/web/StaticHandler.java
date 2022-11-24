@@ -89,7 +89,8 @@ public class StaticHandler implements HttpHandler {
     }
 
     private void notFound(HttpExchange exchange) throws IOException {
-        exchange.sendResponseHeaders(404, 0);
+        exchange.sendResponseHeaders(404, 3);
+        exchange.getResponseBody().write("404".getBytes());
         exchange.close();
     }
 }
