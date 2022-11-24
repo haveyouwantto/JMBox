@@ -198,6 +198,7 @@ function PicoAudioPlayer() {
      * @returns progress in seconds
      */
     this.currentTime = function () {
+        // FIXME: on pause
         if (picoAudio.playData == null) return 0;
         else return picoAudio.context.currentTime - picoAudio.states.startTime;
     }
