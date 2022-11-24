@@ -118,7 +118,6 @@ function eplay(e) {
  * @param {string} file The file name
  */
 function play(dir, file) {
-    console.log(file);
     let url = dir + "/" + encodeURIComponent(file);
 
     document.title = serverName + " - " + file;

@@ -19,6 +19,7 @@ var PathMan = function () {
         this.stack = [];
     }
     this.getPath = function () {
+        if (this.stack.length == 0) return '';
         let path = [];
         for (let dir of this.stack) {
             path.push(encodeURIComponent(dir))

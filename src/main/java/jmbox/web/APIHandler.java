@@ -70,8 +70,10 @@ public class APIHandler implements HttpHandler {
                             return;
                         case "info":
                             info(exchange);
+                            return;
                     }
                 }
+                send(exchange, 400, "Bad Request");
             } else if (exchange.getRequestMethod().equals("OPTIONS")) {
                 exchange.getResponseHeaders().set("Allow", "OPTIONS, GET");
                 exchange.sendResponseHeaders(200, 0);
