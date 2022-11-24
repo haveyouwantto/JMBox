@@ -198,7 +198,7 @@ function PicoAudioPlayer() {
      * @returns progress in seconds
      */
     this.currentTime = function () {
-        if (this.isPaused() || picoAudio.playData == null) return 0;
+        if (picoAudio.playData == null) return 0;
         else return picoAudio.context.currentTime - picoAudio.states.startTime;
     }
 
