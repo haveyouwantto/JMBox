@@ -22,7 +22,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 1
 CreationTime: 1669173039
-ModificationTime: 1669241052
+ModificationTime: 1669252540
 OS2TypoAscent: 0
 OS2TypoAOffset: 1
 OS2TypoDescent: 0
@@ -36,6 +36,7 @@ HheadAscent: 0
 HheadAOffset: 1
 HheadDescent: 0
 HheadDOffset: 1
+OS2Vendor: 'PfEd'
 DEI: 91125
 Encoding: Custom
 UnicodeInterp: none
@@ -129,6 +130,7 @@ SplineSet
  221 347 l 1
  221 253 l 1
 EndSplineSet
+Validated: 5
 EndChar
 
 StartChar: home
@@ -187,17 +189,16 @@ Flags: H
 LayerCount: 2
 Fore
 SplineSet
-636 688 m 0
- 675 688 714 682 751 670 c 1
- 579 626 459 471 459 294 c 0
- 459 124 569 -26 731 -76 c 1
- 700 -84 668 -88 636 -88 c 0
- 533 -88 435 -47 362 26 c 0
- 289 99 249 197 249 300 c 0
- 249 403 289 501 362 574 c 0
- 435 647 533 688 636 688 c 0
+637 693 m 4
+ 637 693 l 0
+ 638 693 l 0
+ 679 693 718 687 755 675 c 1
+ 596 625 480 476 480 300 c 0
+ 480 124 596 -25 755 -75 c 1
+ 718 -87 679 -93 638 -93 c 0
+ 421 -93 245 83 245 300 c 0
+ 245 517 420 693 637 693 c 4
 EndSplineSet
-Validated: 1
 EndChar
 
 StartChar: locate
@@ -230,6 +231,7 @@ SplineSet
  547 -118 l 1
  547 718 l 1
 EndSplineSet
+Validated: 5
 EndChar
 
 StartChar: info
@@ -473,6 +475,7 @@ SplineSet
  438 144 469 139 496 131 c 1
  496 660 l 1xd0
 EndSplineSet
+Validated: 1
 EndChar
 
 StartChar: pause
@@ -633,6 +636,7 @@ SplineSet
  353 545 l 1
  255 545 l 1
 EndSplineSet
+Validated: 1
 EndChar
 EndChars
 EndSplineFont
