@@ -189,7 +189,7 @@ function PicoAudioPlayer() {
      * @returns duration in seconds
      */
     this.duration = function () {
-        if (picoAudio.playData == null) return 0;
+        if (picoAudio.playData == null) return NaN;
         else return picoAudio.getTime(picoAudio.playData.songLength);
     }
 
@@ -198,8 +198,7 @@ function PicoAudioPlayer() {
      * @returns progress in seconds
      */
     this.currentTime = function () {
-        // FIXME: on pause
-        if (picoAudio.playData == null) return 0;
+        if (picoAudio.playData == null) return NaN;
         else return picoAudio.context.currentTime - picoAudio.states.startTime;
     }
 
@@ -310,9 +309,11 @@ updateChecker(midiSrcBtn, config.midisrc);
 
 
 function updatePlayback() {
-    progressBarInner.style.width = (player.currentTime() / player.duration() * 100) + "%";
+    let duration = player.duration();
+    if (isNaN(duration)) duration = Infinity;
+    progressBarInner.style.width = (player.currentTime() / duration * 100) + "%";
     timeDisplay.innerText = formatTime(player.currentTime());
-    durationDisplay.innerText = formatTime(player.duration());
+    durationDisplay.innerText = formatTime(duration);
 }
 
 // Player action

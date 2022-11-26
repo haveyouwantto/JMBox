@@ -1,6 +1,6 @@
 
 function padding(num) {
-    if (isNaN(num)) {
+    if (isNaN(num) || !isFinite(num)) {
         return '**';
     }
     if (num < 10) {
@@ -12,7 +12,7 @@ function padding(num) {
 }
 
 function formatTime(seconds) {
-    if (isNaN(seconds)) return "**:**";
+    if (isNaN(seconds) || !isFinite(seconds)) return "**:**";
 
     let sec = parseInt(seconds % 60);
     let minutes = seconds / 60;
