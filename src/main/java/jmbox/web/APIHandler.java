@@ -9,6 +9,7 @@ import jmbox.IOStream;
 import jmbox.audio.Converter;
 import jmbox.logging.LoggerUtil;
 
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -88,8 +89,8 @@ public class APIHandler implements HttpHandler {
 
     private void midiinfo(HttpExchange exchange, File file) throws IOException {
         JsonObject obj = new JsonObject();
-        obj.addProperty("name",file.getName());
-        obj.addProperty("size",file.length());
+        obj.addProperty("name", file.getName());
+        obj.addProperty("size", file.length());
         obj.addProperty("lastModified", file.lastModified());
 
         byte[] b = obj.toString().getBytes(StandardCharsets.UTF_8);
@@ -162,17 +163,12 @@ public class APIHandler implements HttpHandler {
             return;
         }
         Converter c = new Converter(file);
-        try (
-                AudioInputStream is = c.convert()
-        ) {
-            long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
+        try {
+            AudioInputStream is = c.convert();
+            long totalLength = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
 
             Headers response = exchange.getResponseHeaders();
-            response.set("Content-Type", "audio/x-wav");
-            response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
-
             Headers request = exchange.getRequestHeaders();
-
             // Seeking
             if (request.get("Range") != null) {
                 String range = request.get("Range").get(0);
@@ -180,14 +176,30 @@ public class APIHandler implements HttpHandler {
                 if (m.find()) {
                     long start = Long.parseLong(m.group(1));
                     long skiplen = Math.max(start - 44, 0);
-                    is.skip(skiplen);
 
-                    response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, length - 1, length));
-                    exchange.sendResponseHeaders(206, length - skiplen);
-                    AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
-                    return;
+                    if (skiplen > 44100 * 20) {
+                        double skipTime = skiplen / 4.0 / 44100;
+                        System.out.printf("API: skiplen = %d, skiptime=%f\n", skiplen, skipTime);
+
+                        is = c.convert(skipTime + 1);
+                        is.skip(44100 * 20);
+                        System.out.printf("Frame length= %d\n", is.getFrameLength());
+
+                        long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
+                        response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, totalLength - 1, totalLength));
+                        exchange.sendResponseHeaders(206, length);
+                        AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                        return;
+                    }
                 }
             }
+
+            // Send directly
+            long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
+
+            response.set("Content-Type", "audio/x-wav");
+            response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
+
 
             response.set("Content-Range", String.format("bytes %d-%d/%d", 0, length - 1, length));
             exchange.sendResponseHeaders(206, length);
@@ -202,6 +214,8 @@ public class APIHandler implements HttpHandler {
             send(exchange, 404, "Not Found");
         } catch (IOException e) {
             logger.warning(e.toString());
+        } catch (InvalidMidiDataException e) {
+            e.printStackTrace();
         } finally {
             exchange.close();
         }

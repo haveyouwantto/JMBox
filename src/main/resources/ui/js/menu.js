@@ -15,6 +15,8 @@ let wav = document.getElementById("wav");
 let mid = document.getElementById("mid");
 let dark = document.getElementById("dark");
 
+let refresh = document.getElementById('refresh');
+
 
 // Misc Items
 let metaThemeColor = document.getElementById("meta-theme-color");
@@ -105,6 +107,10 @@ function setDarkMode(dark) {
         root.setProperty('--bar-color', '#f0f0f0');
     }
 }
+
+refresh.addEventListener('click', e => {
+    list();
+});
 
 setDarkMode(config.dark);
 
