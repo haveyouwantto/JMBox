@@ -163,13 +163,15 @@ public class APIHandler implements HttpHandler {
             return;
         }
         Converter c = new Converter(file);
-        try {
+        try(
             AudioInputStream is = c.convert();
+            ) {
             long totalLength = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
 
             Headers response = exchange.getResponseHeaders();
             Headers request = exchange.getRequestHeaders();
-            // Seeking
+
+//            // Seeking
             if (request.get("Range") != null) {
                 String range = request.get("Range").get(0);
                 Matcher m = REGEX.matcher(range);
@@ -177,17 +179,12 @@ public class APIHandler implements HttpHandler {
                     long start = Long.parseLong(m.group(1));
                     long skiplen = Math.max(start - 44, 0);
 
-                    if (skiplen > 44100 * 20) {
-                        double skipTime = skiplen / 4.0 / 44100;
-                        System.out.printf("API: skiplen = %d, skiptime=%f\n", skiplen, skipTime);
-
-                        is = c.convert(skipTime + 1);
-                        is.skip(44100 * 20);
-                        System.out.printf("Frame length= %d\n", is.getFrameLength());
+                    if (skiplen > 0) {
+                        is.skip(skiplen);
 
                         long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
                         response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, totalLength - 1, totalLength));
-                        exchange.sendResponseHeaders(206, length);
+                        exchange.sendResponseHeaders(206, totalLength - skiplen);
                         AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
                         return;
                     }
@@ -214,8 +211,6 @@ public class APIHandler implements HttpHandler {
             send(exchange, 404, "Not Found");
         } catch (IOException e) {
             logger.warning(e.toString());
-        } catch (InvalidMidiDataException e) {
-            e.printStackTrace();
         } finally {
             exchange.close();
         }
