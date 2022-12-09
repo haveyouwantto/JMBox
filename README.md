@@ -10,10 +10,10 @@ One of the key advantages of JMBox is its versatility. It can be run on a smartp
 Some limitations of JMBox include the need to fully render audio files before seeking, as well as a significant delay when controlling MIDI devices. Despite this, JMBox offers a convenient and lightweight solution for MIDI playback and control. The developer of JMBox welcomes pull requests to address these limitations and improve the software.
 
 server.properties properties
-|  property   | default  | comment |
-| ---- | ---- | ---- |
-|  server-name  | JMBox | The displayed server name. |
-|  port  | 60752 | The server port. |
-|  external-ui | | Path to external ui. |
-|  max-file-size  | 1048576 | Maximum allowed MIDI file size. |
-|  theme-color | #00796b | Theme color for the ui. |
+| property | default | description |
+| --- | ------ | ----------- |
+| server-name | JMBox | The displayed server name. |
+| port | 60752 | The server port. |
+| external-ui | | Path to the external UI. |
+| max-file-size | 1048576 | The maximum allowed size for MIDI files in bytes. |
+| theme-color | #00796b | The theme color for the UI. |
