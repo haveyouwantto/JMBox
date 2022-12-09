@@ -1,6 +1,6 @@
 # JMBox
 Simple MIDI File Server
-
+![](resources/jmbox.png)
 Currently is only intended for personal usage.
 
 
