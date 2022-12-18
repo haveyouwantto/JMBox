@@ -1,7 +1,7 @@
-package jmbox.web;
+package hywt.jmbox.web;
 
 import com.sun.net.httpserver.HttpServer;
-import jmbox.logging.LoggerUtil;
+import hywt.jmbox.logging.LoggerUtil;
 
 import java.io.File;
 import java.io.IOException;

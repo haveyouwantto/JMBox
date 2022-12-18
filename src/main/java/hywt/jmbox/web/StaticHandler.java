@@ -1,10 +1,10 @@
-package jmbox.web;
+package hywt.jmbox.web;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import jmbox.IOStream;
-import jmbox.logging.LoggerUtil;
+import hywt.jmbox.IOStream;
+import hywt.jmbox.logging.LoggerUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,7 +40,7 @@ public class StaticHandler implements HttpHandler {
             String[] args = URLDecoder.decode(exchange.getRequestURI().toString(), "UTF-8").split("/");
             String baseFile;
 
-            String ext = Config.prop.getProperty("external-ui");
+            String ext = Config.get("external-ui");
 
             // if root path
             if (args.length == 0) {

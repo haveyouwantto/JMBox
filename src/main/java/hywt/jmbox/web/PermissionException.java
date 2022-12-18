@@ -1,4 +1,4 @@
-package jmbox.web;
+package hywt.jmbox.web;
 
 import java.io.IOException;
 

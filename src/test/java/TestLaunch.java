@@ -8,7 +8,7 @@ import java.net.InetSocketAddress;
 public class TestLaunch {
     public static void main(String[] args) throws IOException {
         Config.load();
-        String property = Config.prop.getProperty("port", "60752");
+        String property = Config.get("port");
         int port = Integer.parseInt(property);
 
         WebServer server = new WebServer(new File("."), new InetSocketAddress(port));

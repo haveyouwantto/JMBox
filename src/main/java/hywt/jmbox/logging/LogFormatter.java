@@ -1,4 +1,4 @@
-package jmbox.logging;
+package hywt.jmbox.logging;
 
 import java.text.SimpleDateFormat;
 import java.util.logging.Formatter;

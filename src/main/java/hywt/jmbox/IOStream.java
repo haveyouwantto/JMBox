@@ -1,4 +1,4 @@
-package jmbox;
+package hywt.jmbox;
 
 import java.io.IOException;
 import java.io.InputStream;

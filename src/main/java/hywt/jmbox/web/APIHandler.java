@@ -1,14 +1,13 @@
-package jmbox.web;
+package hywt.jmbox.web;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sun.media.sound.WaveFileWriter;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import jmbox.IOStream;
-import jmbox.audio.Converter;
-import jmbox.logging.LoggerUtil;
+import hywt.jmbox.IOStream;
+import hywt.jmbox.audio.Converter;
+import hywt.jmbox.logging.LoggerUtil;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.sampled.AudioFileFormat;
@@ -104,8 +103,8 @@ public class APIHandler implements HttpHandler {
     // api/info
     private void info(HttpExchange exchange) throws IOException {
         JsonObject obj = new JsonObject();
-        obj.addProperty("serverName", Config.prop.getProperty("server-name", "JMBox"));
-        obj.addProperty("themeColor", Config.prop.getProperty("theme-color", "#00796b"));
+        obj.addProperty("serverName", Config.get("server-name"));
+        obj.addProperty("themeColor", Config.get("theme-color"));
 
         byte[] b = obj.toString().getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().set("Content-Type", "application/json;charset=UTF-8");
@@ -159,7 +158,7 @@ public class APIHandler implements HttpHandler {
     }
 
     private void play(HttpExchange exchange, File file) {
-        if (file.length() > Long.parseLong(Config.prop.getProperty("max-file-size", "1048576"))) {
+        if (file.length() > Long.parseLong(Config.get("max-file-size"))) {
             send(exchange, 503, "File size exceeded.");
             return;
         }

@@ -1,4 +1,4 @@
-package jmbox.audio;
+package hywt.jmbox.audio;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

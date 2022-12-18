@@ -1,4 +1,4 @@
-package jmbox.logging;
+package hywt.jmbox.logging;
 
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Logger;
