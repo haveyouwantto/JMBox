@@ -376,13 +376,29 @@ body {
     display: none;
 }
 
+/* Scroll Bar*/
+::-webkit-scrollbar {
+    width: 10px;
+    height: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--theme-color);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bar-color);
+}
+
 @font-face {
     font-family: icon;
     src: url('icon.woff2');
 }
 
 @media only screen and (max-width: 850px) {
-    #volume, #volume-icon {
+
+    #volume,
+    #volume-icon {
         display: none;
     }
 }
