@@ -192,16 +192,27 @@ body {
 
 #progress {
     width: 100%;
+}
+
+#volume {
+    width: 9em;
+    margin-right: 5px;
+}
+
+#volume-inner {
+    width: 100%;
+}
+
+.slider {
     height: 8px;
-    /* margin: 0 5px 0 5px; */
     cursor: pointer;
     background-color: var(--bar-color);
 }
 
-#playtime {
+.slider-inner {
     width: 0;
-    height: 100%;
     background-color: var(--theme-color);
+    height: 100%;
 }
 
 #controls {
@@ -369,6 +380,11 @@ body {
     src: url('icon.woff2');
 }
 
+@media only screen and (max-width: 850px) {
+    #volume, #volume-icon {
+        display: none;
+    }
+}
 
 @media only screen and (max-width: 768px) {
     .link {
@@ -385,6 +401,7 @@ body {
     #content {
         align-items: stretch;
     }
+
 }
 
 @media only screen and (max-width: 680px) {
@@ -405,7 +422,6 @@ body {
     #time {
         display: none;
     }
-
 }
 
 @media only screen and (max-width: 420px) {
@@ -418,5 +434,4 @@ body {
     #next {
         display: none;
     }
-
 }

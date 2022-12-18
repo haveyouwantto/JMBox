@@ -5,7 +5,8 @@ let defaultValue = {
     webmidi: false,
     midisrc: false,
     player: "AudioPlayer",
-    playMode: 0
+    playMode: 0,
+    volume: 1
 }
 
 let config = {};

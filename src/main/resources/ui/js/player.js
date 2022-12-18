@@ -16,6 +16,8 @@ let nextButton = document.getElementById('next');
 let prevButton = document.getElementById('prev');
 let replayButton = document.getElementById('replay');
 let playModeButton = document.getElementById('playMode');
+let volumeControl = document.getElementById('volume');
+let volumeControlInner = document.getElementById('volume-inner');
 
 let playModeAltButton = document.getElementById('playModeAlt');
 let altIcon = playModeAltButton.querySelector('icon');
@@ -121,6 +123,14 @@ function AudioPlayer() {
 
     this.setLoop = function (loop) {
         this.audio.loop = loop;
+    }
+
+    this.getVolume = function () {
+        return this.audio.volume;
+    }
+
+    this.setVolume = function (volume) {
+        this.audio.volume = volume;
     }
 
     this.audio.addEventListener('pause', e => {
@@ -236,6 +246,14 @@ function PicoAudioPlayer() {
 
     this.setLoop = function (loop) {
         picoAudio.setLoop(loop);
+    }
+
+    this.getVolume = function () {
+        return picoAudio.getMasterVolume();
+    }
+
+    this.setVolume = function (volume) {
+        picoAudio.setMasterVolume(volume);
     }
 
     picoAudio.addEventListener('noteOn', e => {
@@ -399,8 +417,10 @@ midiInfo.addEventListener('click', e => {
 function createPlayer(playerClass) {
     let playtime = player.currentTime();
     let paused = player.isPaused();
+    let volume = player.getVolume();
     player.destroy();
     player = new playerClass();
+    player.setVolume(volume);
     updatePlayer(config.playMode);
     if (filesMem.length > 0) {
         player.load(cdMem + "/" + filesMem[playing], () => {
@@ -502,3 +522,24 @@ function onended() {
             break;
     }
 }
+
+// Volume control
+
+setVolume(config.volume);
+
+function setVolume(percentage){
+    volumeControlInner.style.width = (percentage * 100) + "%";
+    player.setVolume(percentage);
+    config.volume = percentage;
+    save();
+}
+
+volumeControl.addEventListener('pointermove', e => {
+    if (e.buttons > 0) {
+        setVolume(e.offsetX / volumeControl.clientWidth);
+    }
+});
+
+volumeControl.addEventListener('click', e => {
+    setVolume(e.offsetX / volumeControl.clientWidth);
+});

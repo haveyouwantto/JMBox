@@ -30,12 +30,24 @@
         <div class="headerRight">
             <a id="menu" class="icon menu-button round">&#57349;</a>
             <div class="menu shadow">
-                <a id="refresh" class="menu-item"><icon>&#57360;</icon>Refresh</a>
-                <a id="dark" class="menu-item"><icon>&#57350;</icon>Dark Mode</a>
-                <a id="audioPlayer" class="menu-item"><icon>&#57361;</icon>Use Audio Player</a>
-                <a id="picoAudioPlayer" class="menu-item"><icon>&#57364;</icon>Use PicoAudio Synthesizer</a>
-                <a id="midiSrc" class="menu-item"><icon>&#57362;</icon>Audio: Use MIDI as source</a>
-                <a id="picoAudioMIDI" class="menu-item"><icon>&#57362;</icon>PicoAudio: Use Web MIDI</a>
+                <a id="refresh" class="menu-item">
+                    <icon>&#57360;</icon>Refresh
+                </a>
+                <a id="dark" class="menu-item">
+                    <icon>&#57350;</icon>Dark Mode
+                </a>
+                <a id="audioPlayer" class="menu-item">
+                    <icon>&#57361;</icon>Use Audio Player
+                </a>
+                <a id="picoAudioPlayer" class="menu-item">
+                    <icon>&#57364;</icon>Use PicoAudio Synthesizer
+                </a>
+                <a id="midiSrc" class="menu-item">
+                    <icon>&#57362;</icon>Audio: Use MIDI as source
+                </a>
+                <a id="picoAudioMIDI" class="menu-item">
+                    <icon>&#57362;</icon>PicoAudio: Use Web MIDI
+                </a>
             </div>
         </div>
 
@@ -43,8 +55,8 @@
 
     <!-- Player control -->
     <div id="bar" class="shadow">
-        <div id="progress">
-            <div id="playtime"></div>
+        <div id="progress" class="slider">
+            <div id="playtime" class="slider-inner"></div>
         </div>
         <div id="controls">
             <div id="controlsLeft">
@@ -61,15 +73,32 @@
                 </div>
             </div>
             <div id="controlsRight">
+                <a class="icon round" id="volume-icon">&#57365;</a>
+                <div id="volume" class="slider">
+                    <div id="volume-inner" class="slider-inner"></div>
+                </div>
                 <a id="playMode" class="icon round bottom-button controls">&#11122;</a>
                 <a id="bottomMenu" class="icon round bottom-button">&#57349;</a>
                 <div class="bottom-menu shadow">
-                    <a id="locate" class="menu-item"><icon>&#57351;</icon>Locate File</a>
-                    <a id="midiInfo" class="menu-item"><icon>&#57352;</icon>MIDI Info</a>
-                    <a id="wav" class="menu-item"><icon>&#57353;</icon>WAV File</a>
-                    <a id="mid" class="menu-item"><icon>&#57354;</icon>MIDI File</a>
-                    <a id="playModeAlt" class="menu-item"><icon>&#57355;</icon><div style="display: inline;">Single</div></a>
-                    <a id="replay" class="menu-item"><icon>&#57360;</icon>Replay</a>
+                    <a id="locate" class="menu-item">
+                        <icon>&#57351;</icon>Locate File
+                    </a>
+                    <a id="midiInfo" class="menu-item">
+                        <icon>&#57352;</icon>MIDI Info
+                    </a>
+                    <a id="wav" class="menu-item">
+                        <icon>&#57353;</icon>WAV File
+                    </a>
+                    <a id="mid" class="menu-item">
+                        <icon>&#57354;</icon>MIDI File
+                    </a>
+                    <a id="playModeAlt" class="menu-item">
+                        <icon>&#57355;</icon>
+                        <div style="display: inline;">Single</div>
+                    </a>
+                    <a id="replay" class="menu-item">
+                        <icon>&#57360;</icon>Replay
+                    </a>
                 </div>
             </div>
         </div>
