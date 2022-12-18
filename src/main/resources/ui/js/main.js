@@ -39,20 +39,26 @@ function info() {
  */
 function list() {
     let path = pathman.getPath();
+    if (pathman.isRoot()) {
+        backBtn.classList.add('hidden');
+        homeBtn.classList.add('hidden');
+    } else {
+        backBtn.classList.remove('hidden');
+        homeBtn.classList.remove('hidden');
+    }
+
     return fetch("api/list" + path)
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+        })
         .then(result => {
 
             location.hash = "#" + path;
             content.innerHTML = '';
-
-            if (pathman.isRoot()) {
-                backBtn.classList.add('hidden');
-                homeBtn.classList.add('hidden');
-            } else {
-                backBtn.classList.remove('hidden');
-                homeBtn.classList.remove('hidden');
-            }
 
             // Sorting files
             result.sort((a, b) => {
