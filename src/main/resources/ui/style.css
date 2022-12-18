@@ -33,6 +33,19 @@ icon {
     margin-right: 10px;
 }
 
+file-icon {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-family: icon;
+    font-size: 26px;
+    user-select: none;
+    text-decoration: none;
+    height: 40px;
+    margin-right: 10px;
+    color: var(--theme-color);
+}
+
 .icon-checked {
     color: var(--theme-color);
 }
@@ -80,7 +93,7 @@ icon {
 
 .link {
     width: 50vw;
-    padding: 5px 16px;
+    padding: 5px 10px;
     display: flex;
     align-items: center;
     min-height: 40px;
@@ -377,17 +390,19 @@ body {
 }
 
 /* Scroll Bar*/
-::-webkit-scrollbar {
-    width: 10px;
-    height: 1px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--theme-color);
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bar-color);
+@media only screen and (min-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 1px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: var(--theme-color);
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: var(--bar-color);
+    }
 }
 
 @font-face {
@@ -395,11 +410,10 @@ body {
     src: url('icon.woff2');
 }
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 1000px) {
 
-    #volume,
-    #volume-icon {
-        display: none;
+    #volume {
+        width: 10vw;
     }
 }
 
@@ -422,6 +436,9 @@ body {
 }
 
 @media only screen and (max-width: 680px) {
+    #volume,#volume-icon {
+        display: none;
+    }
 
     #controlsMiddle,
     #controlsRight {

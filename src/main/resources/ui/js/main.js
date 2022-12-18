@@ -68,14 +68,18 @@ function list() {
                 let file = document.createElement("div");
                 file.setAttribute("class", "link");
                 file.setAttribute("value", element.name);
+
+                let icon = document.createElement('file-icon');
+                file.appendChild(icon);
                 if (element.isDir) {
-                    file.innerText = "\u26D8 " + element.name;
+                    icon.innerText = "\ue016";
                     file.setAttribute("onclick", `elist(this);`);
                 } else {
-                    file.innerText = "\u266b " + element.name;
+                    icon.innerText = "\ue00a";
                     file.setAttribute("onclick", `eplay(this);`);
                     files.push(element.name);
                 }
+                file.appendChild(document.createTextNode(element.name))
                 content.appendChild(file);
             };
 
