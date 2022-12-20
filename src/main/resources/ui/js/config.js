@@ -43,7 +43,8 @@ function load() {
 /**
  * Save configurations to disk
  */
-function save() {
+let saving = false;
+function saveNow() {
     const localStorage = window.localStorage;
     for (const key in config) {
         if (Object.hasOwnProperty.call(config, key)) {
@@ -51,6 +52,14 @@ function save() {
             localStorage.setItem(key, element);
         }
     }
+    console.log("Config saved.");
+
+    saving = false;
+}
+
+function save() {
+    if (!saving) setTimeout(saveNow, 1000);
+    saving = true;
 }
 
 /**

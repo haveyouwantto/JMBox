@@ -109,7 +109,7 @@ function setDarkMode(dark) {
 }
 
 refresh.addEventListener('click', e => {
-    list();
+    list(true);
 });
 
 setDarkMode(config.dark);

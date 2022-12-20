@@ -12,6 +12,12 @@ let cdMem = '';
 let filesMem = [];
 
 
+/**
+ * File list cache
+ */
+
+let cache = {};
+
 let pathman = new PathMan();
 
 /** 
@@ -37,7 +43,7 @@ function info() {
  * @param {string} dir The absolute path of directory to enter
  * @param add Add this directory to stack
  */
-function list() {
+function list(ignoreCache = false) {
     let path = pathman.getPath();
     if (pathman.isRoot()) {
         backBtn.classList.add('hidden');
@@ -47,51 +53,61 @@ function list() {
         homeBtn.classList.remove('hidden');
     }
 
-    return fetch("api/list" + path)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                alert(response.status + ": " + response.statusText);
-            }
-        })
-        .then(result => {
-
-            location.hash = "#" + path;
-            content.innerHTML = '';
-
-            // Sorting files
-            result.sort((a, b) => {
-                // Directories first
-                let av = a.isDir ? -1000 : 0;
-                let bv = b.isDir ? -1000 : 0;
-                return a.name.localeCompare(b.name) + (av - bv);
-            });
-
-            files = [];
-
-            for (let element of result) {
-                let file = document.createElement("div");
-                file.setAttribute("class", "link");
-                file.setAttribute("value", element.name);
-
-                let icon = document.createElement('file-icon');
-                file.appendChild(icon);
-                if (element.isDir) {
-                    icon.innerText = "\ue016";
-                    file.setAttribute("onclick", `elist(this);`);
+    if (cache[path] == null || ignoreCache) {
+        return fetch("api/list" + path)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
                 } else {
-                    icon.innerText = "\ue00a";
-                    file.setAttribute("onclick", `eplay(this);`);
-                    files.push(element.name);
+                    alert(response.status + ": " + response.statusText);
                 }
-                file.appendChild(document.createTextNode(element.name))
-                content.appendChild(file);
-            };
+            })
+            .then(result => {
+                updateList(path, result);
+                cache[path] = result;
+            });
+    }
+    else {
+        return updateList(path, cache[path]);
+    }
+}
 
-            // Scroll to top
-            scrollTo(0, 0);
-        });
+/** Update File list (UI) */
+async function updateList(path, result) {
+    location.hash = "#" + path;
+    content.innerHTML = '';
+
+    // Sorting files
+    result.sort((a, b) => {
+        // Directories first
+        let av = a.isDir ? -1000 : 0;
+        let bv = b.isDir ? -1000 : 0;
+        return a.name.localeCompare(b.name) + (av - bv);
+    });
+
+    files = [];
+
+    for (let element of result) {
+        let file = document.createElement("div");
+        file.setAttribute("class", "link");
+        file.setAttribute("value", element.name);
+
+        let icon = document.createElement('file-icon');
+        file.appendChild(icon);
+        if (element.isDir) {
+            icon.innerText = "\ue016";
+            file.setAttribute("onclick", `elist(this);`);
+        } else {
+            icon.innerText = "\ue00a";
+            file.setAttribute("onclick", `eplay(this);`);
+            files.push(element.name);
+        }
+        file.appendChild(document.createTextNode(element.name))
+        content.appendChild(file);
+    };
+
+    // Scroll to top
+    scrollTo(0, 0);
 }
 
 /**
