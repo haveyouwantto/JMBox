@@ -4,7 +4,7 @@
     --bg-color: #white;
     --bg-color-alt: white;
     --hover-color: #00000020;
-    --bar-color: #f0f0f0;
+    --bar-color: #e0e0e0;
 }
 
 .icon {
@@ -41,7 +41,6 @@ file-icon {
     font-size: 26px;
     user-select: none;
     text-decoration: none;
-    height: 40px;
     margin-right: 10px;
     color: var(--theme-color);
 }
