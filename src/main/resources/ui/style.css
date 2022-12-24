@@ -315,7 +315,8 @@ dialog {
     border: none;
     border-radius: 4px;
     overflow: hidden;
-    max-width: 500px;
+    width: 80%;
+    max-width: fit-content;
     flex-direction: column;
     font-family: sans-serif;
 }
