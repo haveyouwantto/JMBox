@@ -45,7 +45,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -55,7 +55,7 @@
      id="layer1">
     <g
        id="g1474"
-       transform="translate(-7.557712,3.1890718)">
+       transform="translate(-11.299485,3.1890718)">
       <rect
          style="fill:#000000;fill-rule:evenodd;stroke-width:18.0599"
          id="rect834"
