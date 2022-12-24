@@ -58,7 +58,7 @@ function setMenuVisible(visible) {
         } else {
             menu.classList.remove('menu-visible');
             menu.classList.add('menu-hidden');
-            collapse.classList.add('hidden')
+            collapse.classList.add('hidden');
         }
     }
     menuDisplay = !actual;
@@ -126,3 +126,20 @@ setDarkMode(config.dark);
 //     last = location.hash;
 //     list('', false)
 // });
+
+
+const openDialogButton = document.getElementById('open-dialog-button');
+const closeDialogButton = document.getElementById('close-dialog-button');
+const dialog = document.getElementById('settings-dialog');
+
+openDialogButton.addEventListener('click', () => {
+    dialog.classList.remove("fade-out");
+    dialog.classList.add("fade-in");
+    dialog.showModal();
+});
+
+closeDialogButton.addEventListener('click', () => {
+    dialog.classList.remove("fade-in");
+    dialog.classList.add("fade-out");
+    dialog.close();
+});

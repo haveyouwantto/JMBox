@@ -63,7 +63,7 @@ file-icon {
 }
 
 .menu-button {
-    transition: background-color 0.3s;
+    transition: background-color 0.15s;
     border: none;
     color: white;
     cursor: pointer;
@@ -99,7 +99,7 @@ file-icon {
     border-bottom: 1px solid var(--text-color);
     cursor: pointer;
     color: var(--text-color);
-    transition: background-color 0.3s;
+    transition: background-color 0.15s;
 }
 
 .link:hover {
@@ -167,12 +167,13 @@ body {
 .menu-item {
     text-decoration: none;
     color: var(--text-color);
-    transition: background-color 0.3s;
+    transition: background-color 0.15s;
     cursor: pointer;
     padding-top: 8px;
     padding-bottom: 8px;
     padding-left: 16px;
     padding-right: 16px;
+    user-select: none;
 }
 
 .menu-item:hover {
@@ -263,7 +264,7 @@ body {
 }
 
 .bottom-button {
-    transition: background-color 0.3s;
+    transition: background-color 0.15s;
     cursor: pointer;
 }
 
@@ -306,6 +307,74 @@ body {
     visibility: hidden;
     overflow: hidden auto;
     max-height: 50vh;
+}
+
+/* Dialog */
+dialog {
+    background-color: var(--bg-color-alt);
+    border: none;
+    border-radius: 4px;
+    overflow: hidden;
+    max-width: 500px;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+.dialog-container {
+    display: flex;
+    flex-direction: column;
+}
+
+dialog .title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 8px;
+    color: var(--text-color);
+}
+
+dialog.fade-in {
+    animation: dialogFadeIn 0.3s ease-in-out 0s;
+}
+
+dialog.fade-out {
+    animation: fadeOut 0.3s ease-in-out 0s;
+}
+
+.dialog-item {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: background-color 0.15s;
+    cursor: pointer;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    user-select: none;
+}
+
+.dialog-item:hover {
+    background-color: var(--hover-color);
+}
+
+.dialog-button {
+    color: var(--theme-color);
+    font-size: 16px;
+    margin: 4px;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.15s;
+}
+
+.dialog-button:hover {
+    background-color: var(--hover-color);
+}
+
+.dialog-button-container {
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 /* Generic Attributes */
@@ -351,6 +420,19 @@ body {
     }
 }
 
+@keyframes dialogFadeIn {
+    from {
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
 @keyframes locate {
     from {
         color: white;
@@ -364,22 +446,22 @@ body {
 }
 
 .menu-hidden {
-    animation: fadeOut 0.3s ease-in-out 0s;
+    animation: fadeOut 0.2s ease-in-out 0s;
     visibility: hidden;
 }
 
 .menu-visible {
-    animation: fadeIn 0.3s ease-in-out 0s;
+    animation: fadeIn 0.25s ease-in-out 0s;
     visibility: visible;
 }
 
 .bottom-menu-hidden {
-    animation: fadeOut 0.3s ease-in-out 0s;
+    animation: fadeOut 0.2s ease-in-out 0s;
     visibility: hidden;
 }
 
 .bottom-menu-visible {
-    animation: bottomFadeIn 0.3s ease-in-out 0s;
+    animation: bottomFadeIn 0.25s ease-in-out 0s;
     visibility: visible;
 }
 
@@ -393,11 +475,11 @@ body {
         width: 10px;
         height: 1px;
     }
-    
+
     html::-webkit-scrollbar-thumb {
         background: var(--theme-color);
     }
-    
+
     html::-webkit-scrollbar-track {
         background: var(--bar-color);
     }
@@ -434,7 +516,9 @@ body {
 }
 
 @media only screen and (max-width: 680px) {
-    #volume,#volume-icon {
+
+    #volume,
+    #volume-icon {
         display: none;
     }
 

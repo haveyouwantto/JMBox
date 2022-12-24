@@ -33,21 +33,8 @@
                 <a id="refresh" class="menu-item">
                     <icon>&#57360;</icon>Refresh
                 </a>
-                <a id="dark" class="menu-item">
-                    <icon>&#57350;</icon>Dark Mode
-                </a>
-                <a id="audioPlayer" class="menu-item">
-                    <icon>&#57361;</icon>Use Audio Player
-                </a>
-                <a id="picoAudioPlayer" class="menu-item">
-                    <icon>&#57364;</icon>Use PicoAudio Synthesizer
-                </a>
-                <a id="midiSrc" class="menu-item">
-                    <icon>&#57362;</icon>Audio: Use MIDI as source
-                </a>
-                <a id="picoAudioMIDI" class="menu-item">
-                    <icon>&#57362;</icon>PicoAudio: Use Web MIDI
-                </a>
+                
+                <a id="open-dialog-button" class="menu-item">Settings</a>
             </div>
         </div>
 
@@ -108,6 +95,34 @@
 
     <!-- Files -->
     <div id="content"></div>
+
+    <!-- Dialog -->
+    <dialog id="settings-dialog" class="shadow">
+        <div class="dialog-container">
+            <div class="title">Settings</div>
+    
+            <a id="dark" class="dialog-item">
+                <icon>&#57350;</icon>Dark Mode
+            </a>
+            <a id="audioPlayer" class="dialog-item">
+                <icon>&#57361;</icon>Use Audio Player
+            </a>
+            <a id="picoAudioPlayer" class="dialog-item">
+                <icon>&#57364;</icon>Use PicoAudio Synthesizer
+            </a>
+            <a id="midiSrc" class="dialog-item">
+                <icon>&#57362;</icon>Audio: Use MIDI as source
+            </a>
+            <a id="picoAudioMIDI" class="dialog-item">
+                <icon>&#57362;</icon>PicoAudio: Use Web MIDI
+            </a>
+            <div class="dialog-button-container">
+                <a class="dialog-button" id="close-dialog-button">Close</a>
+            </div>
+        </div>
+
+    </dialog>
+
 
     <script src="js/utils.js"></script>
     <script src="js/PicoAudio.min.js"></script>
