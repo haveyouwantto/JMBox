@@ -470,19 +470,17 @@ dialog.fade-out {
 }
 
 /* Scroll Bar*/
-@media only screen and (min-width: 768px) {
-    html::-webkit-scrollbar {
-        width: 10px;
-        height: 1px;
-    }
+html::-webkit-scrollbar {
+    width: 10px;
+    height: 1px;
+}
 
-    html::-webkit-scrollbar-thumb {
-        background: var(--theme-color);
-    }
+html::-webkit-scrollbar-thumb {
+    background: var(--theme-color);
+}
 
-    html::-webkit-scrollbar-track {
-        background: var(--bar-color);
-    }
+html::-webkit-scrollbar-track {
+    background: var(--bar-color);
 }
 
 @font-face {
