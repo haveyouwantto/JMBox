@@ -22,7 +22,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 1
 CreationTime: 1669173039
-ModificationTime: 1671369620
+ModificationTime: 1671870145
 OS2TypoAscent: 0
 OS2TypoAOffset: 1
 OS2TypoDescent: 0
@@ -36,6 +36,7 @@ HheadAscent: 0
 HheadAOffset: 1
 HheadDescent: 0
 HheadDOffset: 1
+OS2Vendor: 'PfEd'
 DEI: 91125
 Encoding: Custom
 UnicodeInterp: none
@@ -44,7 +45,7 @@ DisplaySize: -48
 AntiAlias: 1
 FitToEm: 0
 WinInfo: 0 16 6
-BeginChars: 23 23
+BeginChars: 24 24
 
 StartChar: play
 Encoding: 0 57344 0
@@ -690,6 +691,30 @@ SplineSet
  178 -15 154 -15 139 -1 c 0
  125 12 124 31 124 31 c 1
  123 551 l 2
+EndSplineSet
+EndChar
+
+StartChar: settings
+Encoding: 23 57367 23
+Width: 1000
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+227 -107 m 1
+ 95 25 l 1
+ 520 450 l 1
+ 652 318 l 1
+ 227 -107 l 1
+678 707 m 0
+ 706 707 734 702 759 692 c 1
+ 591 525 l 1
+ 723 393 l 1
+ 891 560 l 1
+ 900 535 905 508 905 480 c 0
+ 905 355 803 252 678 252 c 0
+ 553 252 451 355 451 480 c 0
+ 451 605 553 707 678 707 c 0
 EndSplineSet
 EndChar
 EndChars

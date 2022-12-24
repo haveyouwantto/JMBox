@@ -333,11 +333,11 @@ dialog .title {
 }
 
 dialog.fade-in {
-    animation: dialogFadeIn 0.3s ease-in-out 0s;
+    animation: dialogFadeIn 0.3s ease-out 0s;
 }
 
 dialog.fade-out {
-    animation: fadeOut 0.3s ease-in-out 0s;
+    animation: fadeOut 0.3s ease-out 0s;
 }
 
 .dialog-item {
@@ -446,22 +446,22 @@ dialog.fade-out {
 }
 
 .menu-hidden {
-    animation: fadeOut 0.2s ease-in-out 0s;
+    animation: fadeOut 0.2s ease-out 0s;
     visibility: hidden;
 }
 
 .menu-visible {
-    animation: fadeIn 0.25s ease-in-out 0s;
+    animation: fadeIn 0.25s ease-out 0s;
     visibility: visible;
 }
 
 .bottom-menu-hidden {
-    animation: fadeOut 0.2s ease-in-out 0s;
+    animation: fadeOut 0.2s ease-out 0s;
     visibility: hidden;
 }
 
 .bottom-menu-visible {
-    animation: bottomFadeIn 0.25s ease-in-out 0s;
+    animation: bottomFadeIn 0.25s ease-out 0s;
     visibility: visible;
 }
 
