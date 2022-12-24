@@ -328,10 +328,9 @@ dialog {
 }
 
 dialog .title {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin: 8px;
-    padding: 0 16px 9px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 9px 16px 9px;
     color: var(--text-color);
 }
 
