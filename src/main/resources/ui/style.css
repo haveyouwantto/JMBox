@@ -319,6 +319,7 @@ dialog {
     max-width: 80%;
     flex-direction: column;
     font-family: sans-serif;
+    padding: 8px;
 }
 
 .dialog-container {
@@ -330,6 +331,7 @@ dialog .title {
     font-size: 1.2em;
     font-weight: bold;
     margin: 8px;
+    padding: 0 16px 9px;
     color: var(--text-color);
 }
 
@@ -348,8 +350,8 @@ dialog.fade-out {
     cursor: pointer;
     padding-top: 8px;
     padding-bottom: 8px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
     user-select: none;
 }
 
@@ -369,7 +371,7 @@ dialog.fade-out {
     transition: background-color 0.15s;
 }
 
-.dialog-button:hover {
+.dialog-button:hover { 
     background-color: var(--hover-color);
 }
 
