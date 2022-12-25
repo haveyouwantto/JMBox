@@ -442,9 +442,9 @@ picoAudioPlayer.addEventListener('click', e => {
 // Locate the file
 function highlight(name) {
     let element = document.querySelector("div[value=\"" + name + "\"]");
-    element.classList.remove('link-locate');
+    element.classList.remove('file-locate');
     element.scrollIntoView({ block: "center" });
-    element.classList.add('link-locate');
+    element.classList.add('file-locate');
 }
 locateFileBtn.addEventListener('click', e => {
     if (cdMem == pathman.getPath()) {

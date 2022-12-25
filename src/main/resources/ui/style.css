@@ -90,7 +90,7 @@ file-icon {
     box-shadow: 0 4px 16px 0 rgb(0 0 0 / 40%);
 }
 
-.link {
+.file {
     width: 50vw;
     padding: 5px 10px;
     display: flex;
@@ -102,11 +102,11 @@ file-icon {
     transition: background-color 0.15s;
 }
 
-.link:hover {
+.file:hover {
     background-color: var(--hover-color);
 }
 
-.link-locate {
+.file-locate {
     animation: locate 1.5s ease-in-out 0s;
 }
 
@@ -383,6 +383,14 @@ dialog.fade-out {
 /* Generic Attributes */
 .round {
     border-radius: 999px;
+}
+
+.link {
+    color: var(--theme-color);
+}
+
+.link:visited {
+    color: var(--theme-color);
 }
 
 @keyframes fadeIn {

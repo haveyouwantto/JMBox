@@ -156,10 +156,10 @@ const aboutButton = document.getElementById('about-button');
 aboutButton.addEventListener('click', e=>{
     dialogTitle.innerText = 'About';
     dialogContent.innerHTML = '';
-    dialogContent.appendChild(createDialogItem('<a href="https://github.com/haveyouwantto/JMBox">JMBox</a>'));
+    dialogContent.appendChild(createDialogItem('<a href="https://github.com/haveyouwantto/JMBox" class="link">JMBox</a>'));
     dialogContent.appendChild(createDialogItem("(C) 2022 haveyouwantto"));
     dialogContent.appendChild(createDialogItem("Licensed under MIT License."));
     dialogContent.appendChild(createDialogItem("Library Used: "));
-    dialogContent.appendChild(createDialogItem('<a href="https://github.com/cagpie/PicoAudio.js">PicoAudio</a> (MIT License)'));
+    dialogContent.appendChild(createDialogItem('<a href="https://github.com/cagpie/PicoAudio.js" class="link">PicoAudio</a> (MIT License)'));
     dialog.showModal();
 });

@@ -102,7 +102,7 @@ async function updateList(path, result) {
 
     for (let element of result) {
         let file = document.createElement("div");
-        file.setAttribute("class", "link");
+        file.setAttribute("class", "file");
         file.setAttribute("value", element.name);
 
         let icon = document.createElement('file-icon');
