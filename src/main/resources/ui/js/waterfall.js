@@ -19,6 +19,7 @@ let spanDuration = 4;
 controlsLeft.addEventListener('click', e => {
     if (waterfall.classList.contains('hidden')) {
         waterfall.classList.remove('hidden');
+        requestAnimationFrame(draw);
     } else {
         waterfall.classList.add('hidden');
     }
@@ -27,7 +28,6 @@ controlsLeft.addEventListener('click', e => {
 
 
 function draw() {
-    requestAnimationFrame(draw);
     if (smfData != null && !waterfall.classList.contains('hidden')) {
         canvasCtx.fillStyle = fillColor;
         canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
@@ -46,9 +46,9 @@ function draw() {
                 canvasCtx.fillRect(x, canvas.height - endY, width, endY - startY)
             }
         }
+        requestAnimationFrame(draw);
     }
 }
-requestAnimationFrame(draw);
 
 function resizeCanvas() {
     let { width: cssWidth, height: cssHeight } = canvas.getBoundingClientRect();
