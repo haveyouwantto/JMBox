@@ -164,7 +164,7 @@ public class APIHandler implements HttpHandler {
         }
         Converter c = new Converter(file);
         try(
-            AudioInputStream is = c.convert();
+            AudioInputStream is = c.convert()
             ) {
             long totalLength = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
 
@@ -182,7 +182,6 @@ public class APIHandler implements HttpHandler {
                     if (skiplen > 0) {
                         is.skip(skiplen);
 
-                        long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
                         response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, totalLength - 1, totalLength));
                         exchange.sendResponseHeaders(206, totalLength - skiplen);
                         AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
