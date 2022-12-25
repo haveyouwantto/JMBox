@@ -96,7 +96,7 @@ file-icon {
     display: flex;
     align-items: center;
     min-height: 40px;
-    border-bottom: 1px solid var(--text-color);
+    border-bottom: 1px solid #808080;
     cursor: pointer;
     color: var(--text-color);
     transition: background-color 0.15s;
