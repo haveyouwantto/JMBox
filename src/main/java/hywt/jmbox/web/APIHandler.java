@@ -9,7 +9,6 @@ import hywt.jmbox.IOStream;
 import hywt.jmbox.audio.Converter;
 import hywt.jmbox.logging.LoggerUtil;
 
-import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -106,6 +105,12 @@ public class APIHandler implements HttpHandler {
         obj.addProperty("serverName", Config.get("server-name"));
         obj.addProperty("themeColor", Config.get("theme-color"));
 
+        JsonObject capabilities = new JsonObject();
+        capabilities.addProperty("midi", Config.getBoolean("enable-midi"));
+        capabilities.addProperty("play",Config.getBoolean("enable-play"));
+
+        obj.add("capabilities", capabilities);
+
         byte[] b = obj.toString().getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().set("Content-Type", "application/json;charset=UTF-8");
         exchange.sendResponseHeaders(200, b.length);
@@ -114,6 +119,10 @@ public class APIHandler implements HttpHandler {
     }
 
     private void midi(HttpExchange exchange, File file) {
+        if (!Config.getBoolean("enable-midi")) {
+            send(exchange, 406, "Not Enabled");
+            return;
+        }
         try {
             FileInputStream fis = new FileInputStream(file);
             exchange.getResponseHeaders().set("Content-Type", "audio/midi");
@@ -158,14 +167,18 @@ public class APIHandler implements HttpHandler {
     }
 
     private void play(HttpExchange exchange, File file) {
-        if (file.length() > Long.parseLong(Config.get("max-file-size"))) {
+        if (!Config.getBoolean("enable-play")) {
+            send(exchange, 406, "Not Enabled");
+            return;
+        }
+        if (file.length() > Config.getLong("max-file-size")) {
             send(exchange, 503, "File size exceeded.");
             return;
         }
         Converter c = new Converter(file);
-        try(
-            AudioInputStream is = c.convert()
-            ) {
+        try (
+                AudioInputStream is = c.convert()
+        ) {
             long totalLength = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
 
             Headers response = exchange.getResponseHeaders();

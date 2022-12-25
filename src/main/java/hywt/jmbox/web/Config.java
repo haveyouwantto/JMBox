@@ -19,6 +19,8 @@ public class Config {
         defaults.put("external-ui", null);
         defaults.put("max-file-size", "1048576");
         defaults.put("theme-color", "#00796b");
+        defaults.put("enable-midi", "true");
+        defaults.put("enable-play", "true");
         load();
     }
 
@@ -44,5 +46,37 @@ public class Config {
     public static String get(String key) {
         String value = prop.getProperty(key);
         return value != null ? value : defaults.get(key);
+    }
+
+    public static byte getByte(String key) {
+        return Byte.parseByte(get(key));
+    }
+
+    public static short getShort(String key) {
+        return Short.parseShort(get(key));
+    }
+
+    public static int getInteger(String key) {
+        return Integer.parseInt(get(key));
+    }
+
+    public static long getLong(String key) {
+        return Long.parseLong(get(key));
+    }
+
+    public static float getFloat(String key) {
+        return Float.parseFloat(get(key));
+    }
+
+    public static double getDouble(String key) {
+        return Double.parseDouble(get(key));
+    }
+
+    public static boolean getBoolean(String key) {
+        return Boolean.parseBoolean(get(key));
+    }
+
+    public static char getChar(String key) {
+        return get(key).charAt(0);
     }
 }

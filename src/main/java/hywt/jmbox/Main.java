@@ -11,8 +11,7 @@ import java.net.InetSocketAddress;
 public class Main {
     public static void main(String[] args) throws IOException {
         Config.init();
-        String property = Config.get("port");
-        int port = Integer.parseInt(property);
+        int port = Config.getInteger("port");
 
         WebServer server = new WebServer(new File("."), new InetSocketAddress(port));
         server.start();
