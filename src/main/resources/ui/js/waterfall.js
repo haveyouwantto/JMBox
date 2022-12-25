@@ -1,6 +1,7 @@
 let waterfall = document.getElementById('waterfall');
 let canvas = document.getElementById('canvas');
 let canvasCtx = canvas.getContext('2d');
+let dpr = window.devicePixelRatio;
 let smfData = null;
 
 let fillColor = 'white';
@@ -50,7 +51,8 @@ function draw() {
 requestAnimationFrame(draw);
 
 function resizeCanvas() {
-    canvas.width = waterfall.clientWidth;
-    canvas.height = waterfall.clientHeight;
+    let { width: cssWidth, height: cssHeight } = canvas.getBoundingClientRect();
+    canvas.width = dpr * cssWidth;
+    canvas.height =  dpr * cssHeight;
 }
 onresize = resizeCanvas;
