@@ -232,8 +232,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 8px;
-    margin-right: 8px;
+    padding-right: 8px;
 }
 
 #controlsLeft,
@@ -243,6 +242,9 @@ body {
     display: flex;
     width: 100%;
     align-items: center;
+}
+#controlsLeft {
+    padding-left: 8px;
 }
 
 #controlsMiddle {
