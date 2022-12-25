@@ -152,6 +152,8 @@ function AudioPlayer() {
 let picoAudio = null;
 
 function PicoAudioPlayer() {
+    this.paused = true;
+    this.lastPausedTime = 0;
     if (picoAudio == null) {
         picoAudio = new PicoAudio();
         picoAudio.init();
@@ -181,6 +183,7 @@ function PicoAudioPlayer() {
         if (this.isEnded()) this.seek(0);
         playButton.innerText = '\ue00f';
         paused = false;
+        this.paused = false;
         picoAudio.play();
         updatePlayback();
     }
@@ -190,7 +193,12 @@ function PicoAudioPlayer() {
      */
     this.pause = function () {
         playButton.innerText = '\ue000';
+        console.log(this.currentTime());
+        this.lastPausedTime = this.currentTime();
+        console.log(paused);
+
         paused = true;
+        this.paused = true;
         picoAudio.pause();
         updatePlayback();
     }
@@ -209,7 +217,8 @@ function PicoAudioPlayer() {
      * @returns progress in seconds
      */
     this.currentTime = function () {
-        if (picoAudio.playData == null) return NaN;
+        if (picoAudio.playData == null) return 0;
+        else if (this.paused) return this.lastPausedTime;
         else return picoAudio.context.currentTime - picoAudio.states.startTime;
     }
 
@@ -523,7 +532,7 @@ function onended() {
 
 // Volume control
 
-function setVolume(percentage){
+function setVolume(percentage) {
     volumeControlInner.style.width = (percentage * 100) + "%";
     player.setVolume(percentage);
     config.volume = percentage;

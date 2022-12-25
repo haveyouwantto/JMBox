@@ -1,9 +1,8 @@
 #waterfall {
-    position: absolute;
+    position: fixed;
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 120px);
     background-color: white;
-    
 }
 
 #waterfall canvas {
