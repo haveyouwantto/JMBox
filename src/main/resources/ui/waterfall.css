@@ -1,7 +1,9 @@
 #waterfall {
     position: fixed;
-    width: 100%;
-    height: calc(100% - 118px);
+    width: 100%;    
+    top: 0;
+    z-index: 3;
+    height: calc(100% - 60px);
     background-color: white;
 }
 

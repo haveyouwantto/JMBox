@@ -6,9 +6,9 @@ let smfData = null;
 let fillColor = 'white';
 
 let palette = [
-    '#f44336', '#ff5722', '#ff9800', '#ffc107',
-    '#ffeb3b', '#cddc39', '#8bc34a', '#4caf50',
-    '#009688', '#9e9e9e', '#03a9f4', '#2196f3',
+    '#f44336', '#ff9800', '#ffc107', '#ffeb3b',
+    '#cddc39', '#8bc34a', '#4caf50', '#009688',
+    '#00bcd4', '#9e9e9e', '#03a9f4', '#2196f3',
     '#3f51b5', '#673ab7', '#9c27b0', '#e91e63'
 ]
 
@@ -34,9 +34,9 @@ function draw() {
 
         for (let i = 0; i < 16; i++) {
             canvasCtx.fillStyle = palette[i];
-            for (let note of smfData.channels[i].notes.filter(item => 
+            for (let note of smfData.channels[i].notes.filter(item =>
                 (item.startTime >= playTime && item.startTime <= playTime + spanDuration) || (item.startTime < playTime && item.stopTime > playTime)
-                )) {
+            )) {
                 let startY = (note.startTime - playTime) / spanDuration * canvas.height;
                 let endY = (note.stopTime - playTime) / spanDuration * canvas.height;
                 let width = canvas.width / 128;
