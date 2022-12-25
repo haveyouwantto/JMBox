@@ -17,3 +17,5 @@ server.properties properties
 | external-ui | | Path to the external UI. |
 | max-file-size | 1048576 | The maximum allowed size for MIDI files in bytes. |
 | theme-color | #00796b | The theme color for the UI. |
+| enable-midi | true | Whether to enable MIDI API. |
+| enable-play | true | Whether to enable WAVE playback API. |
