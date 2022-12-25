@@ -11,6 +11,7 @@ let urlDir = location.hash.substring(1);
 let cdMem = '';
 let filesMem = [];
 
+let player = null;
 
 /**
  * File list cache
@@ -28,6 +29,18 @@ function info() {
         serverName = result.serverName;
         document.title = serverName;
         title.innerText = serverName;
+
+        if (!result.capabilities.play) {
+            player = new PicoAudioPlayer();
+            audioPlayer.style.display = 'none';
+            picoAudioPlayer.style.display = 'none';
+            midiSrcBtn.style.display = 'none';
+        } else {
+            player = new window[config.player]();
+        }
+        
+        player.setVolume(config.volume);
+        updatePlayer(config.playMode);
 
         if ('mediaSession' in navigator) {
             navigator.mediaSession.metadata.album = serverName;

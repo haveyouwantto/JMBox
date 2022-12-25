@@ -277,7 +277,6 @@ function PicoAudioPlayer() {
     setupWebMIDI();
 }
 
-let player = new window[config.player];
 
 // PicoAudio MIDI initialize
 function setupWebMIDI() {
@@ -504,8 +503,6 @@ function updatePlayer(mode) {
     }
 }
 
-updatePlayer(config.playMode);
-
 function onended() {
     switch (config.playMode) {
         case 2:
@@ -524,8 +521,6 @@ function onended() {
 }
 
 // Volume control
-
-setVolume(config.volume);
 
 function setVolume(percentage){
     volumeControlInner.style.width = (percentage * 100) + "%";
