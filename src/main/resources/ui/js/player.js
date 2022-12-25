@@ -7,6 +7,7 @@ let content = document.getElementById("content");
 let progressBar = document.getElementById("progress");
 let progressBarInner = document.getElementById("playtime");
 
+let controlsLeft = document.getElementById('controlsLeft');
 let songTitle = document.getElementById('songTitle');
 let timeDisplay = document.getElementById('timeDisplay');
 let durationDisplay = document.getElementById('durationDisplay');

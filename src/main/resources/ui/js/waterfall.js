@@ -15,7 +15,7 @@ let palette = [
 let spanDuration = 5;
 
 // Entrance to waterfall
-songTitle.addEventListener('click', e => {
+controlsLeft.addEventListener('click', e => {
     if (waterfall.classList.contains('hidden')) {
         waterfall.classList.remove('hidden');
     } else {
