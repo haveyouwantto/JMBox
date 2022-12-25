@@ -99,12 +99,14 @@ function setDarkMode(dark) {
         root.setProperty('--hover-color', '#ffffff20');
         root.setProperty('--bg-color-alt', '#202020');
         root.setProperty('--bar-color', '#303030');
+        fillColor = '#202020';
     } else {
         root.setProperty('--text-color', '#202020');
         root.setProperty('--bg-color', 'white');
         root.setProperty('--hover-color', '#00000020');
         root.setProperty('--bg-color-alt', 'white');
         root.setProperty('--bar-color', '#e0e0e0');
+        fillColor = 'white';
     }
 }
 

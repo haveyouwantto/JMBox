@@ -3,6 +3,8 @@ let canvas = document.getElementById('canvas');
 let canvasCtx = canvas.getContext('2d');
 let smfData = null;
 
+let fillColor = 'white';
+
 let palette = [
     '#f44336', '#ff5722', '#ff9800', '#ffc107',
     '#ffeb3b', '#cddc39', '#8bc34a', '#4caf50',
@@ -26,7 +28,7 @@ songTitle.addEventListener('click', e => {
 function draw() {
     requestAnimationFrame(draw);
     if (smfData != null && !waterfall.classList.contains('hidden')) {
-        canvasCtx.fillStyle = '#ffffff';
+        canvasCtx.fillStyle = fillColor;
         canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
         let playTime = player.currentTime();
 
