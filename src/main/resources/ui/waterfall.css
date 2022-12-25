@@ -1,0 +1,12 @@
+#waterfall {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 60px);
+    background-color: white;
+    
+}
+
+#waterfall canvas {
+    width: 100%;
+    height: 100%;
+}

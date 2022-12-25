@@ -166,6 +166,7 @@ function PicoAudioPlayer() {
             if (r.ok) {
                 r.arrayBuffer().then(data => {
                     const parsedData = picoAudio.parseSMF(data);
+                    smfData = parsedData;
                     picoAudio.setData(parsedData);
                     callback();
                 })
