@@ -13,7 +13,7 @@ let palette = [
     '#3f51b5', '#673ab7', '#9c27b0', '#e91e63'
 ]
 
-let spanDuration = 5;
+let spanDuration = 4;
 
 // Entrance to waterfall
 controlsLeft.addEventListener('click', e => {
