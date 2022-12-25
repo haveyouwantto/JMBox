@@ -162,6 +162,7 @@ body {
     visibility: hidden;
     overflow: hidden auto;
     max-height: 50vh;
+    z-index: 6;
 }
 
 .menu-item {
@@ -189,7 +190,6 @@ body {
     width: 100vw;
     height: 100vh;
     top: 0;
-    z-index: 999;
 }
 
 /* Player Bar */
@@ -294,6 +294,7 @@ body {
 
 
 #bottomMenu {
+    z-index: 6;
     cursor: pointer;
     color: var(--text-color);
 }
