@@ -507,7 +507,7 @@ html::-webkit-scrollbar-track {
 }
 
 @media only screen and (max-width: 768px) {
-    .link {
+    .file {
         width: unset;
         overflow-x: hidden;
         overflow-wrap: anywhere;
