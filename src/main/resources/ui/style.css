@@ -333,7 +333,7 @@ dialog .title {
     color: var(--text-color);
 }
 
-dialog.fade-in {
+dialog[open] {
     animation: dialogFadeIn 0.25s ease-out 0s;
 }
 

@@ -128,18 +128,38 @@ setDarkMode(config.dark);
 // });
 
 
-const openDialogButton = document.getElementById('open-dialog-button');
-const closeDialogButton = document.getElementById('close-dialog-button');
-const dialog = document.getElementById('settings-dialog');
+const openSettingsButton = document.getElementById('open-settings-button');
+const closeSettingsButton = document.getElementById('close-settings-button');
+const settingsDialog = document.getElementById('settings-dialog');
 
-openDialogButton.addEventListener('click', () => {
-    dialog.classList.remove("fade-out");
-    dialog.classList.add("fade-in");
-    dialog.showModal();
+openSettingsButton.addEventListener('click', () => {
+    settingsDialog.classList.remove("fade-out");
+    settingsDialog.showModal();
 });
 
+closeSettingsButton.addEventListener('click', () => {
+    settingsDialog.classList.add("fade-out");
+    settingsDialog.close();
+});
+
+
+const dialog = document.getElementById('common-dialog');
+const dialogTitle = dialog.querySelector('.title');
+const dialogContent = dialog.querySelector('.dialog-container');
+const closeDialogButton = document.getElementById('close-dialog-button');
+
 closeDialogButton.addEventListener('click', () => {
-    dialog.classList.remove("fade-in");
-    dialog.classList.add("fade-out");
     dialog.close();
+});
+
+const aboutButton = document.getElementById('about-button');
+aboutButton.addEventListener('click', e=>{
+    dialogTitle.innerText = 'About';
+    dialogContent.innerHTML = '';
+    dialogContent.appendChild(createDialogItem('<a href="https://github.com/haveyouwantto/JMBox">JMBox</a>'));
+    dialogContent.appendChild(createDialogItem("(C) 2022 haveyouwantto"));
+    dialogContent.appendChild(createDialogItem("Licensed under MIT License."));
+    dialogContent.appendChild(createDialogItem("Library Used: "));
+    dialogContent.appendChild(createDialogItem('<a href="https://github.com/cagpie/PicoAudio.js">PicoAudio</a> (MIT License)'));
+    dialog.showModal();
 });

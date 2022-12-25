@@ -33,8 +33,13 @@
                 <a id="refresh" class="menu-item">
                     <icon>&#57360;</icon>Refresh
                 </a>
-                
-                <a id="open-dialog-button" class="menu-item"><icon>&#57367;</icon>Settings</a>
+
+                <a id="open-settings-button" class="menu-item">
+                    <icon>&#57367;</icon>Settings
+                </a>
+                <a id="about-button" class="menu-item">
+                    <icon>&#57352;</icon>About
+                </a>
             </div>
         </div>
 
@@ -98,9 +103,9 @@
 
     <!-- Dialog -->
     <dialog id="settings-dialog" class="shadow">
-            <div class="title">Settings</div>
-    
-            <div class="dialog-container">
+        <div class="title">Settings</div>
+
+        <div class="dialog-container">
             <a id="dark" class="dialog-item">
                 <icon>&#57350;</icon>Dark Mode
             </a>
@@ -118,9 +123,16 @@
             </a>
         </div>
         <div class="dialog-button-container">
-            <a class="dialog-button" id="close-dialog-button">Close</a>
+            <a class="dialog-button" id="close-settings-button">Close</a>
         </div>
 
+    </dialog>
+    <dialog id="common-dialog" class="shadow">
+        <div class="title">Dialog</div>
+        <div class="dialog-container"></div>
+        <div class="dialog-button-container">
+            <a class="dialog-button" id="close-dialog-button">Close</a>
+        </div>
     </dialog>
 
 

@@ -38,7 +38,7 @@ function info() {
         } else {
             player = new window[config.player]();
         }
-        
+
         player.setVolume(config.volume);
         updatePlayer(config.playMode);
 
@@ -199,17 +199,24 @@ function previous() {
     play(cdMem, filesMem[playing]);
 }
 
+function createDialogItem(content) {
+    let a = document.createElement('a');
+    a.classList.add('dialog-item');
+    a.innerHTML = content;
+    return a;
+}
+
 function midiinfo(url) {
     fetch("api/midiinfo" + url)
         .then(response => response.json())
         .then(data => {
-            alert(
-                "name: " + data.name + "\n" +
-                "path: " + url + "\n" +
-                "size: " + toSI(data.size, true) + "B\n" +
-                "last modified: " + new Date(data.lastModified).toLocaleString() + "\n" +
-                "duration: " + formatTime(player.duration())
-            )
+            dialogTitle.innerText = 'MIDI Info';
+            dialogContent.innerHTML = '';
+            dialogContent.appendChild(createDialogItem("Name: " + data.name));
+            dialogContent.appendChild(createDialogItem("Size: " + toSI(data.size, true) + "B"));
+            dialogContent.appendChild(createDialogItem("Last modified: " + new Date(data.lastModified).toLocaleString()));
+            dialogContent.appendChild(createDialogItem("Duration: " + formatTime(player.duration())));
+            dialog.showModal();
         });
 }
 
