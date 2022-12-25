@@ -12,7 +12,7 @@ let palette = [
     '#3f51b5', '#673ab7', '#9c27b0', '#e91e63'
 ]
 
-const spanDuration = 5;
+let spanDuration = 5;
 
 // Entrance to waterfall
 songTitle.addEventListener('click', e => {
