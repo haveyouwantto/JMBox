@@ -59,6 +59,18 @@ function AudioPlayer() {
      */
     this.load = function (path, callback) {
         this.audio.src = (config.midisrc ? "api/midi" : "api/play") + path;
+        fetch("api/midi" + path).then(r => {
+            if (r.ok) {
+                if (picoAudio == null) {
+                    picoAudio = new PicoAudio();
+                    picoAudio.init();
+                }
+                r.arrayBuffer().then(data => {
+                    const parsedData = picoAudio.parseSMF(data);
+                    smfData = parsedData;
+                })
+            }
+        });
         callback();
     }
 
