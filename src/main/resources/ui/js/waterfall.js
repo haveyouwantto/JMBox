@@ -32,9 +32,11 @@ const whiteKeyNumbers = [0, 2, 4, 5, 7, 9, 11];
 controlsLeft.addEventListener('click', e => {
     if (smfData != null && waterfall.classList.contains('hidden')) {
         waterfall.classList.remove('hidden');
+        waterfall.classList.add('open');
         requestAnimationFrame(draw);
     } else {
         waterfall.classList.add('hidden');
+        waterfall.classList.remove('open');
     }
     resizeCanvas();
 });
