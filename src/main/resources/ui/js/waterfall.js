@@ -23,7 +23,7 @@ let notes = Array(128);
 
 // Entrance to waterfall
 controlsLeft.addEventListener('click', e => {
-    if (waterfall.classList.contains('hidden')) {
+    if (smfData != null && waterfall.classList.contains('hidden')) {
         waterfall.classList.remove('hidden');
         requestAnimationFrame(draw);
     } else {
@@ -49,7 +49,7 @@ function getWhiteKeyNumber(midiNoteNumber) {
     const whiteKeyNumbers = [0, 2, 4, 5, 7, 9, 11];
     // 返回白键的编号（从 1 开始）
     return whiteKeyNumbers.indexOf(noteNameNumber) + mul * 7;
-  }
+}
 
 
 function draw() {
