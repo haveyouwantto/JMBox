@@ -98,7 +98,7 @@ function fastSpan(list, startTime, duration) {
     // 向左线性搜索
     i = left - 1;
     while (i >= 0) {
-        if (list[i].stopTime >= startTime) result.push(list[i]);
+        if (getStopTime(list[i]) >= startTime) result.push(list[i]);
         i--;
     }
 
