@@ -14,9 +14,9 @@ let palette = [
 ]
 
 let spanDuration = 4;
-let noteWidth = canvas.width / 128;
-let keyboardHeight = noteWidth * 10;
-let blackKeyHeight = noteWidth * 6;
+let noteWidth = 0;
+let keyboardHeight = 0;
+let blackKeyHeight = 0;
 const shiftval = 2 - 12 / 7;
 
 let notes = Array(128);
@@ -117,7 +117,7 @@ function resizeCanvas() {
     canvas.height = dpr * cssHeight;
 
     noteWidth = canvas.width / 128;
-    keyboardHeight = noteWidth * 10;
-    blackKeyHeight = noteWidth * 6;
+    keyboardHeight = noteWidth * 9;
+    blackKeyHeight = noteWidth * 5.5;
 }
 onresize = resizeCanvas;
