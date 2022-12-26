@@ -17,9 +17,16 @@ let spanDuration = 4;
 let noteWidth = 0;
 let keyboardHeight = 0;
 let blackKeyHeight = 0;
+
 const shiftval = 2 - 12 / 7;
+const bwr = 12 / 7;  // White key = n black key
 
 let notes = Array(128);
+
+// 定义一个包含所有黑键的数组
+const blackKeys = [1, 3, 6, 8, 10];
+// 定义一个数组，包含所有白键的音符名称的编号
+const whiteKeyNumbers = [0, 2, 4, 5, 7, 9, 11];
 
 // Entrance to waterfall
 controlsLeft.addEventListener('click', e => {
@@ -33,8 +40,6 @@ controlsLeft.addEventListener('click', e => {
 });
 
 function isBlackKey(midiNoteNumber) {
-    // 定义一个包含所有黑键的数组
-    const blackKeys = [1, 3, 6, 8, 10];
     // 计算 MIDI 音高编号对应的音符名称的编号（0-11）
     const noteNameNumber = midiNoteNumber % 12;
     // 如果音符名称的编号在 blackKeys 数组中，则该音符为黑键
@@ -45,8 +50,6 @@ function getWhiteKeyNumber(midiNoteNumber) {
     // 计算 MIDI 音高编号对应的音符名称的编号（0-11）
     const noteNameNumber = midiNoteNumber % 12;
     const mul = parseInt(midiNoteNumber / 12);
-    // 定义一个数组，包含所有白键的音符名称的编号
-    const whiteKeyNumbers = [0, 2, 4, 5, 7, 9, 11];
     // 返回白键的编号（从 1 开始）
     return whiteKeyNumbers.indexOf(noteNameNumber) + mul * 7;
 }
@@ -82,8 +85,8 @@ function draw() {
                     canvasCtx.fillStyle = palette[notes[i]];
                     notes[i] = null;
                 }
-                let x = getWhiteKeyNumber(i) * (12 / 7);
-                canvasCtx.fillRect(noteWidth * x, canvas.height - keyboardHeight, noteWidth * (12 / 7), keyboardHeight);
+                let x = getWhiteKeyNumber(i) * bwr;
+                canvasCtx.fillRect(noteWidth * x, canvas.height - keyboardHeight, noteWidth * bwr, keyboardHeight);
 
                 canvasCtx.fillStyle = 'gray';
                 canvasCtx.fillRect(noteWidth * x, canvas.height - keyboardHeight, 1, keyboardHeight);   // Draw Seam
