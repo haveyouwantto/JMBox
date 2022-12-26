@@ -28,15 +28,37 @@ const blackKeys = [1, 3, 6, 8, 10];
 // 定义一个数组，包含所有白键的音符名称的编号
 const whiteKeyNumbers = [0, 2, 4, 5, 7, 9, 11];
 
+let wakeLockSupported = 'wakeLock' in navigator;
+
+// Create a reference for the Wake Lock.
+let wakeLock = null;
+
 // Entrance to waterfall
 controlsLeft.addEventListener('click', e => {
     if (smfData != null && waterfall.classList.contains('hidden')) {
         waterfall.classList.remove('hidden');
         waterfall.classList.add('open');
         requestAnimationFrame(draw);
+        if (wakeLockSupported) {
+            try {
+                navigator.wakeLock.request('screen').then(lock => {
+                    wakeLock = lock;
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }
     } else {
         waterfall.classList.add('hidden');
         waterfall.classList.remove('open');
+        if (wakeLockSupported) {
+            wakeLock.release()
+                .then(() => {
+                    wakeLock = null;
+                    console.log("wakelock released");
+
+                });
+        }
     }
     resizeCanvas();
 });
