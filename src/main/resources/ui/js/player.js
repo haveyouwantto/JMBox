@@ -304,6 +304,11 @@ function setupWebMIDI() {
     if (config.webmidi) {
         navigator.requestMIDIAccess().then(access => {
             picoAudio.setWebMIDI(true);
+
+            // TODO: select midi device
+            for (let device of access.outputs) {
+                console.log(device[1].name);
+            }
         });
     } else {
         picoAudio.setWebMIDI(false);
