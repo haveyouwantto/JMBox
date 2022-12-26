@@ -106,7 +106,7 @@ function setDarkMode(dark) {
         root.setProperty('--hover-color', '#00000020');
         root.setProperty('--bg-color-alt', 'white');
         root.setProperty('--bar-color', '#e0e0e0');
-        fillColor = 'white';
+        fillColor = '#f0f0f0';
     }
 }
 
