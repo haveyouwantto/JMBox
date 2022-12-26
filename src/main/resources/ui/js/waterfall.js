@@ -18,8 +18,8 @@ let noteWidth = 0;
 let keyboardHeight = 0;
 let blackKeyHeight = 0;
 
-const shiftval = 2 - 12 / 7;
 const bwr = 12 / 7;  // White key = n black key
+const shiftval = 2 - bwr;
 
 let notes = Array(128);
 
