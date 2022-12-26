@@ -56,6 +56,11 @@ function getWhiteKeyNumber(midiNoteNumber) {
     return whiteKeyNumbers.indexOf(noteNameNumber) + mul * 7;
 }
 
+function getStopTime(note) {
+    if (note.holdBeforeStop != null && note.holdBeforeStop.length > 0) {
+        return note.holdBeforeStop[0].time;
+    } else return note.stopTime;
+}
 
 function draw() {
     if (smfData != null && !waterfall.classList.contains('hidden')) {
@@ -66,15 +71,16 @@ function draw() {
         for (let i = 0; i < 16; i++) {
             canvasCtx.fillStyle = palette[i];
             for (let note of smfData.channels[i].notes.filter(item =>
-                (item.startTime >= playTime && item.startTime <= playTime + spanDuration) || (item.startTime < playTime && item.stopTime > playTime)
+                (item.startTime >= playTime && item.startTime <= playTime + spanDuration) || (item.startTime < playTime && getStopTime(item) > playTime)
             )) {
+                let stopTime = getStopTime(note);
                 let startY = (note.startTime - playTime) / spanDuration * canvas.height;
-                let endY = (note.stopTime - playTime) / spanDuration * canvas.height;
+                let endY = (stopTime - playTime) / spanDuration * canvas.height;
                 let x = note.pitch * noteWidth;
 
                 canvasCtx.fillRect(x, canvas.height - endY - keyboardHeight, noteWidth, endY - startY);
 
-                if (note.startTime < playTime && note.stopTime > playTime) {
+                if (note.startTime < playTime && stopTime > playTime) {
                     notes[note.pitch] = i;
                 }
             }

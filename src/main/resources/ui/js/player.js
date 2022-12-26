@@ -206,9 +206,7 @@ function PicoAudioPlayer() {
      */
     this.pause = function () {
         playButton.innerText = '\ue000';
-        console.log(this.currentTime());
         this.lastPausedTime = this.currentTime();
-        console.log(paused);
 
         paused = true;
         this.paused = true;
