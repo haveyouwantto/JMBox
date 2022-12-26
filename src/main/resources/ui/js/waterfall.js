@@ -62,6 +62,49 @@ function getStopTime(note) {
     } else return note.stopTime;
 }
 
+function fastSpan(list, startTime, duration) {
+    if (list.length == 0) return [];
+    // 定义搜索区间的左端点和右端点
+    let left = 0;
+    let right = list.length - 1;
+
+    // 使用迭代法实现二分搜索
+    while (left <= right) {
+        // 计算中间索引
+        const mid = Math.floor((left + right) / 2);
+
+        // 如果中间元素的 startTime 小于等于 startTime，则搜索右半部分
+        if (list[mid].startTime <= startTime) {
+            left = mid + 1;
+        }
+        // 否则搜索左半部分
+        else {
+            right = mid - 1;
+        }
+    }
+
+    // 返回符合条件的元素列表
+    const result = [];
+
+    // 定位到的位置即为第一个 startTime 大于 startTime 的元素的位置
+    let i = left;
+
+    // 向右线性搜索，直到startTime大于当前窗口
+    while (i < list.length && list[i].startTime < startTime + duration) {
+        result.push(list[i]);
+        i++;
+    }
+
+    // 向左线性搜索
+    i = left - 1;
+    while (i >= 0) {
+        if (list[i].stopTime >= startTime) result.push(list[i]);
+        i--;
+    }
+
+    return result;
+}
+
 function draw() {
     if (smfData != null && !waterfall.classList.contains('hidden')) {
         canvasCtx.fillStyle = fillColor;
@@ -70,9 +113,7 @@ function draw() {
 
         for (let i = 0; i < 16; i++) {
             canvasCtx.fillStyle = palette[i];
-            for (let note of smfData.channels[i].notes.filter(item =>
-                (item.startTime >= playTime && item.startTime <= playTime + spanDuration) || (item.startTime < playTime && getStopTime(item) > playTime)
-            )) {
+            for (let note of fastSpan(smfData.channels[i].notes, playTime, spanDuration)) {
                 let stopTime = getStopTime(note);
                 let startY = (note.startTime - playTime) / spanDuration * canvas.height;
                 let endY = (stopTime - playTime) / spanDuration * canvas.height;
