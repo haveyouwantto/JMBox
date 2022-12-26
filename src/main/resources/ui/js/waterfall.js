@@ -84,8 +84,10 @@ function draw() {
                 }
                 let x = getWhiteKeyNumber(i) * (12 / 7);
                 canvasCtx.fillRect(noteWidth * x, canvas.height - keyboardHeight, noteWidth * (12 / 7), keyboardHeight);
+
                 canvasCtx.fillStyle = 'gray';
-                canvasCtx.fillRect(noteWidth * x, canvas.height - keyboardHeight, 1, keyboardHeight);
+                canvasCtx.fillRect(noteWidth * x, canvas.height - keyboardHeight, 1, keyboardHeight);   // Draw Seam
+
                 canvasCtx.fillStyle = 'white';
             }
         }
