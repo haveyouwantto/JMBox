@@ -22,7 +22,7 @@ public class WebServer {
     public WebServer(File rootDir, InetSocketAddress address, boolean test) throws IOException {
         server = HttpServer.create(address, 1);
         server.createContext("/api", new APIHandler(rootDir));
-        server.createContext("/", new StaticHandler());
+        server.createContext("/", new StaticHandler(test));
         logger.info(String.format("Listing on port %d", address.getPort()));
         logger.info(String.format("http://127.0.0.1:%d", address.getPort()));
     }

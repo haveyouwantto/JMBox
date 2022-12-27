@@ -32,6 +32,7 @@ public class StaticHandler implements HttpHandler {
         super();
         executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         bootTime = System.currentTimeMillis();
+        this.test = test;
     }
 
     @Override
