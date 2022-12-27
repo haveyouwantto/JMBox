@@ -156,7 +156,8 @@ const aboutButton = document.getElementById('about-button');
 aboutButton.addEventListener('click', e=>{
     dialogTitle.innerText = 'About';
     dialogContent.innerHTML = '';
-    dialogContent.appendChild(createDialogItem('<a href="https://github.com/haveyouwantto/JMBox" class="link">JMBox</a>'));
+    dialogContent.appendChild(createDialogItem('<a href="https://github.com/haveyouwantto/JMBox" class="link">JMBox Web App</a>'));
+    dialogContent.appendChild(createDialogItem('version Alpha 1.0'));
     dialogContent.appendChild(createDialogItem("(C) 2022 haveyouwantto"));
     dialogContent.appendChild(createDialogItem("Licensed under MIT License."));
     dialogContent.appendChild(createDialogItem("Library Used: "));
