@@ -366,15 +366,21 @@ progressBar.addEventListener('click', e => {
     player.seekPercentage(e.clientX / progressBar.clientWidth);
 });
 
-
-playButton.addEventListener('click', e => {
+function togglePause(){
     paused = !paused;
     if (paused) {
         player.pause();
     } else {
         player.play();
     }
-});
+}
+
+playButton.addEventListener('click', togglePause);
+document.addEventListener("keypress", function(event) {
+    if (event.key === " ") {
+      togglePause();
+    }
+  });
 
 nextButton.addEventListener('click', e => {
     next();
