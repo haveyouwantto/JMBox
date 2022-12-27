@@ -1,13 +1,13 @@
 package hywt.jmbox.web;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import hywt.jmbox.IOStream;
 import hywt.jmbox.audio.Converter;
 import hywt.jmbox.logging.LoggerUtil;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -87,10 +87,10 @@ public class APIHandler implements HttpHandler {
     }
 
     private void midiinfo(HttpExchange exchange, File file) throws IOException {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("name", file.getName());
-        obj.addProperty("size", file.length());
-        obj.addProperty("lastModified", file.lastModified());
+        JSONObject obj = new JSONObject();
+        obj.put("name", file.getName());
+        obj.put("size", file.length());
+        obj.put("lastModified", file.lastModified());
 
         byte[] b = obj.toString().getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().set("Content-Type", "application/json;charset=UTF-8");
@@ -101,15 +101,15 @@ public class APIHandler implements HttpHandler {
 
     // api/info
     private void info(HttpExchange exchange) throws IOException {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("serverName", Config.get("server-name"));
-        obj.addProperty("themeColor", Config.get("theme-color"));
+        JSONObject obj = new JSONObject();
+        obj.put("serverName", Config.get("server-name"));
+        obj.put("themeColor", Config.get("theme-color"));
 
-        JsonObject capabilities = new JsonObject();
-        capabilities.addProperty("midi", Config.getBoolean("enable-midi"));
-        capabilities.addProperty("play",Config.getBoolean("enable-play"));
+        JSONObject capabilities = new JSONObject();
+        capabilities.put("midi", Config.getBoolean("enable-midi"));
+        capabilities.put("play",Config.getBoolean("enable-play"));
 
-        obj.add("capabilities", capabilities);
+        obj.put("capabilities", capabilities);
 
         byte[] b = obj.toString().getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().set("Content-Type", "application/json;charset=UTF-8");
@@ -150,13 +150,13 @@ public class APIHandler implements HttpHandler {
             return;
         }
 
-        JsonArray arr = new JsonArray();
+        JSONArray arr = new JSONArray();
         for (File file1 : filelist) {
-            JsonObject fo = new JsonObject();
-            fo.addProperty("name", file1.getName());
-            fo.addProperty("size", file1.length());
-            fo.addProperty("isDir", file1.isDirectory());
-            arr.add(fo);
+            JSONObject fo = new JSONObject();
+            fo.put("name", file1.getName());
+            fo.put("size", file1.length());
+            fo.put("isDir", file1.isDirectory());
+            arr.put(fo);
         }
 
         byte[] b = arr.toString().getBytes(StandardCharsets.UTF_8);
