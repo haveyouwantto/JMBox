@@ -17,6 +17,7 @@ public class Config {
         defaults.put("server-name", "JMBox");
         defaults.put("port", "60752");
         defaults.put("external-ui", null);
+        defaults.put("streaming-file-size", "786432");
         defaults.put("max-file-size", "1048576");
         defaults.put("theme-color", "#00796b");
         defaults.put("enable-midi", "true");

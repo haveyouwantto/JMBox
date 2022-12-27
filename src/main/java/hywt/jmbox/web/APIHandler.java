@@ -107,7 +107,7 @@ public class APIHandler implements HttpHandler {
 
         JSONObject capabilities = new JSONObject();
         capabilities.put("midi", Config.getBoolean("enable-midi"));
-        capabilities.put("play",Config.getBoolean("enable-play"));
+        capabilities.put("play", Config.getBoolean("enable-play"));
 
         obj.put("capabilities", capabilities);
 
@@ -184,34 +184,39 @@ public class APIHandler implements HttpHandler {
             Headers response = exchange.getResponseHeaders();
             Headers request = exchange.getRequestHeaders();
 
-//            // Seeking
-            if (request.get("Range") != null) {
-                String range = request.get("Range").get(0);
-                Matcher m = REGEX.matcher(range);
-                if (m.find()) {
-                    long start = Long.parseLong(m.group(1));
-                    long skiplen = Math.max(start - 44, 0);
-
-                    if (skiplen > 0) {
-                        is.skip(skiplen);
-
-                        response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, totalLength - 1, totalLength));
-                        exchange.sendResponseHeaders(206, totalLength - skiplen);
-                        AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
-                        return;
-                    }
-                }
-            }
-
             // Send directly
             long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
 
             response.set("Content-Type", "audio/x-wav");
             response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
 
+            // Streaming Mode
+            if (file.length() > Config.getLong("streaming-file-size")) {
+                exchange.sendResponseHeaders(200, length);
+            } else {
 
-            response.set("Content-Range", String.format("bytes %d-%d/%d", 0, length - 1, length));
-            exchange.sendResponseHeaders(206, length);
+                // Seeking
+                if (request.get("Range") != null) {
+                    String range = request.get("Range").get(0);
+                    Matcher m = REGEX.matcher(range);
+                    if (m.find()) {
+                        long start = Long.parseLong(m.group(1));
+                        long skiplen = Math.max(start - 44, 0);
+
+                        if (skiplen > 0) {
+                            is.skip(skiplen);
+
+                            response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, totalLength - 1, totalLength));
+                            exchange.sendResponseHeaders(206, totalLength - skiplen);
+                            AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                            return;
+                        }
+                    }
+                }
+
+                response.set("Content-Range", String.format("bytes %d-%d/%d", 0, length - 1, length));
+                exchange.sendResponseHeaders(206, length);
+            }
 
             AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
         } catch (UnsupportedAudioFileException e) {
