@@ -8,13 +8,18 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.logging.Logger;
 
-/** The main class for web server
- * */
+/**
+ * The main class for web server
+ */
 public class WebServer {
     private HttpServer server;
     private final Logger logger = LoggerUtil.getLogger("Web");
 
     public WebServer(File rootDir, InetSocketAddress address) throws IOException {
+        this(rootDir, address, false);
+    }
+
+    public WebServer(File rootDir, InetSocketAddress address, boolean test) throws IOException {
         server = HttpServer.create(address, 1);
         server.createContext("/api", new APIHandler(rootDir));
         server.createContext("/", new StaticHandler());
