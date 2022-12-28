@@ -20,6 +20,7 @@ let blackKeyHeight = 0;
 
 const bwr = 12 / 7;  // White key = n black key
 const shiftval = 2 - bwr;
+let maxNoteDuration = 30;
 
 let notes = Array(128);
 
@@ -79,9 +80,13 @@ function getWhiteKeyNumber(midiNoteNumber) {
 }
 
 function getStopTime(note) {
+    let time;
     if (note.holdBeforeStop != null && note.holdBeforeStop.length > 0) {
-        return note.holdBeforeStop[0].time;
-    } else return note.stopTime;
+        time = note.holdBeforeStop[0].time;
+    } else {
+        time = note.stopTime;
+    }
+    return Math.min(time, note.startTime + maxNoteDuration);
 }
 
 function fastSpan(list, startTime, duration) {
@@ -119,10 +124,16 @@ function fastSpan(list, startTime, duration) {
 
     // 向左线性搜索
     i = left - 1;
+    let stopTime = 0;
     while (i >= 0) {
-        if (getStopTime(list[i]) >= startTime) result.push(list[i]);
+        if (startTime - list[i].startTime > maxNoteDuration) {
+            break;
+        }
+        stopTime = getStopTime(list[i]);
+        if (stopTime >= startTime) result.push(list[i]);
         i--;
     }
+
 
     return result;
 }

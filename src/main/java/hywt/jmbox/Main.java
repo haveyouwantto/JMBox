@@ -14,7 +14,7 @@ public class Main {
         // Setup gervill config
         Preferences gervillPerf = Preferences.userRoot().node("/com/sun/media/sound/softsynthesizer");
 
-        // Use interpolation (best quality, slowest)
+        // Use sinc interpolation (best quality, slowest)
         gervillPerf.put("interpolation","sinc");
         // Max polyphony
         gervillPerf.put("max polyphony","500");
