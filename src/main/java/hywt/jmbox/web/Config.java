@@ -22,6 +22,7 @@ public class Config {
         defaults.put("theme-color", "#00796b");
         defaults.put("enable-midi", "true");
         defaults.put("enable-play", "true");
+        defaults.put("scan-for-audio", "false");
         load();
     }
 

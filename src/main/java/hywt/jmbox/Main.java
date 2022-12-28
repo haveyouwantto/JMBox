@@ -11,13 +11,13 @@ import java.util.prefs.Preferences;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        // Setup gervill config
+        // Gervill hacks
         Preferences gervillPerf = Preferences.userRoot().node("/com/sun/media/sound/softsynthesizer");
 
         // Use sinc interpolation (best quality, slowest)
-        gervillPerf.put("interpolation","sinc");
+        gervillPerf.put("interpolation", "sinc");
         // Max polyphony
-        gervillPerf.put("max polyphony","500");
+        gervillPerf.put("max polyphony", "256");
 
         Config.init();
         int port = Config.getInteger("port");

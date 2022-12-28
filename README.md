@@ -21,3 +21,4 @@ server.properties properties
 | theme-color | #00796b | The theme color for the UI. |
 | enable-midi | true | Whether to enable MIDI API. |
 | enable-play | true | Whether to enable WAVE playback API. |
+| scan-for-audio | false | Whether to enable the server to scan for audio files. |
