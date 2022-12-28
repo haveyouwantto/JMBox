@@ -57,7 +57,7 @@ public class StaticHandler implements HttpHandler {
 
             File file = null;
             InputStream is;
-            if (ext.length()==0) {
+            if (ext.length() == 0) {
                 // Use internal ui
                 is = ClassLoader.getSystemResourceAsStream("ui/" + baseFile);
                 if (is == null) {
@@ -82,7 +82,7 @@ public class StaticHandler implements HttpHandler {
             } else {
                 response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
             }
-            if(!test) response.set("Cache-Control", "max-age=3600");
+            if (!test) response.set("Cache-Control", "max-age=3600");
 
             // Send file
             exchange.sendResponseHeaders(200, is.available());
