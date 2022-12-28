@@ -57,7 +57,7 @@ public class StaticHandler implements HttpHandler {
 
             File file = null;
             InputStream is;
-            if (ext == null) {
+            if (ext.length()==0) {
                 // Use internal ui
                 is = ClassLoader.getSystemResourceAsStream("ui/" + baseFile);
                 if (is == null) {
