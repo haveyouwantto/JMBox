@@ -22,3 +22,15 @@ server.properties properties
 | enable-midi | true | Whether to enable MIDI API. |
 | enable-play | true | Whether to enable WAVE playback API. |
 | scan-for-audio | false | Whether to enable the server to scan for audio files. |
+
+
+## Building
+
+Building a pure Java software is simple, just follow these steps:
+  1. Clone this repository 
+  2. Navigate to the project directory
+  3. Build the project using Gradle: 
+  ```
+  ./gradlew jar
+  ```
+  4. The compiled software will be located in the `build/libs` directory.
