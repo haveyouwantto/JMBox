@@ -65,17 +65,17 @@ controlsLeft.addEventListener('click', e => {
 });
 
 function isBlackKey(midiNoteNumber) {
-    // 计算 MIDI 音高编号对应的音符名称的编号（0-11）
+    // Calculate the number (0-11) of the note name corresponding to the MIDI pitch number
     const noteNameNumber = midiNoteNumber % 12;
-    // 如果音符名称的编号在 blackKeys 数组中，则该音符为黑键
+    // If the note name number is in the blackKeys array, the note is a black key
     return blackKeys.includes(noteNameNumber);
 }
 
 function getWhiteKeyNumber(midiNoteNumber) {
-    // 计算 MIDI 音高编号对应的音符名称的编号（0-11）
+    // Calculate the number (0-11) of the note name corresponding to the MIDI pitch number
     const noteNameNumber = midiNoteNumber % 12;
     const mul = parseInt(midiNoteNumber / 12);
-    // 返回白键的编号（从 1 开始）
+    // Return the number of the white key
     return whiteKeyNumbers.indexOf(noteNameNumber) + mul * 7;
 }
 
@@ -91,49 +91,51 @@ function getStopTime(note) {
 
 function fastSpan(list, startTime, duration) {
     if (list.length == 0) return [];
-    // 定义搜索区间的左端点和右端点
+    // Define the left and right boundaries of the search interval
     let left = 0;
     let right = list.length - 1;
 
-    // 使用迭代法实现二分搜索
+    // Use iterative method to implement binary search
     while (left <= right) {
-        // 计算中间索引
+        // Calculate the middle index
         const mid = Math.floor((left + right) / 2);
 
-        // 如果中间元素的 startTime 小于等于 startTime，则搜索右半部分
+        // If the startTime of the middle element is less than or equal to startTime, search the right half
         if (list[mid].startTime <= startTime) {
             left = mid + 1;
         }
-        // 否则搜索左半部分
+        // Otherwise, search the left half
         else {
             right = mid - 1;
         }
     }
 
-    // 返回符合条件的元素列表
+    // Return the list of elements that meet the conditions
     const result = [];
 
-    // 定位到的位置即为第一个 startTime 大于 startTime 的元素的位置
+    // The located position is the position of the first element whose startTime is greater than startTime
     let i = left;
 
-    // 向右线性搜索，直到startTime大于当前窗口
+    // Linear search to the right until startTime is greater than the current window
     while (i < list.length && list[i].startTime < startTime + duration) {
         result.push(list[i]);
         i++;
     }
 
-    // 向左线性搜索
+    // Linear search to the left (for searching currently playing notes)
     i = left - 1;
     let stopTime = 0;
+    let note;
     while (i >= 0) {
-        if (startTime - list[i].startTime > maxNoteDuration) {
+        note = list[i];
+        // If the searched startTime is less than startTime-maxNoteDuration, ignore all previous notes
+        if (startTime - note.startTime > maxNoteDuration) {
             break;
         }
-        stopTime = getStopTime(list[i]);
-        if (stopTime >= startTime) result.push(list[i]);
+        stopTime = getStopTime(note);
+        if (stopTime >= startTime) result.push(note);
         i--;
     }
-
 
     return result;
 }
@@ -144,22 +146,26 @@ function draw() {
         canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
         let playTime = player.currentTime();
 
+        let scaling = canvas.height / spanDuration;
+
         for (let i = 0; i < 16; i++) {
             canvasCtx.fillStyle = palette[i];
             for (let note of fastSpan(smfData.channels[i].notes, playTime, spanDuration)) {
                 let stopTime = getStopTime(note);
-                let startY = (note.startTime - playTime) / spanDuration * canvas.height;
-                let endY = (stopTime - playTime) / spanDuration * canvas.height;
+                let startY = (note.startTime - playTime) * scaling;
+                let endY = (stopTime - playTime) * scaling;
                 let x = note.pitch * noteWidth;
 
                 canvasCtx.fillRect(x, canvas.height - endY - keyboardHeight, noteWidth, endY - startY);
 
+                // Pressed key
                 if (note.startTime < playTime && stopTime > playTime) {
                     notes[note.pitch] = i;
                 }
             }
         }
 
+        // Draw white keys
         canvasCtx.fillStyle = 'white';
         for (let i = 0; i < 128; i++) {
             if (!isBlackKey(i)) {
@@ -177,6 +183,7 @@ function draw() {
             }
         }
 
+        // Draw black keys
         canvasCtx.fillStyle = 'black';
         for (let i = 0; i < 128; i++) {
             if (isBlackKey(i)) {
