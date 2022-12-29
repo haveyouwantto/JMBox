@@ -162,7 +162,11 @@ aboutButton.addEventListener('click', e=>{
     dialogContent.appendChild(createDialogItem('version Alpha 1.1'));
     dialogContent.appendChild(createDialogItem("\u00a9 2022 haveyouwantto"));
     dialogContent.appendChild(createDialogItem("Licensed under MIT License."));
-    dialogContent.appendChild(createDialogItem("Library Used: "));
+
+    let section = document.createElement("a");
+    section.classList.add('dialog-section');
+    section.innerText = 'Libraries';
+    dialogContent.appendChild(section);
     dialogContent.appendChild(createDialogItem('<a href="https://github.com/cagpie/PicoAudio.js" class="link">PicoAudio</a> \u00a9 cagpie (MIT License)'));
     dialog.showModal();
 });
