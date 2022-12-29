@@ -13,7 +13,6 @@ let palette = [
     '#3f51b5', '#673ab7', '#9c27b0', '#e91e63'
 ]
 
-let spanDuration = 4;
 let noteWidth = 0;
 let keyboardHeight = 0;
 let blackKeyHeight = 0;
@@ -33,6 +32,7 @@ let wakeLockSupported = 'wakeLock' in navigator;
 
 // Create a reference for the Wake Lock.
 let wakeLock = null;
+
 
 // Entrance to waterfall
 controlsLeft.addEventListener('click', e => {
@@ -147,11 +147,11 @@ function draw() {
         canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
         let playTime = player.currentTime();
 
-        let scaling = canvas.height / spanDuration;
+        let scaling = canvas.height / config.spanDuration;
 
         for (let i = 0; i < 16; i++) {
             canvasCtx.fillStyle = palette[i];
-            for (let note of fastSpan(smfData.channels[i].notes, playTime, spanDuration)) {
+            for (let note of fastSpan(smfData.channels[i].notes, playTime, config.spanDuration)) {
                 let stopTime = getStopTime(note);
                 let startY = (note.startTime - playTime) * scaling;
                 let endY = (stopTime - playTime) * scaling;
@@ -214,3 +214,13 @@ function resizeCanvas() {
     blackKeyHeight = noteWidth * 5.5;
 }
 onresize = resizeCanvas;
+
+
+let spanDurationEdit = document.getElementById("spanDuration");
+spanDurationEdit.value = config.spanDuration;
+spanDurationEdit.addEventListener('change', e => {
+    let value = parseFloat(spanDurationEdit.value);
+    spanDuration = value
+    config.spanDuration = value;
+    save();
+});

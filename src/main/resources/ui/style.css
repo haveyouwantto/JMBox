@@ -112,7 +112,7 @@ file-icon {
 
 body {
     background-color: var(--bg-color);
-    font-family: sans;
+    font-family: sans-serif;
     margin: unset;
 }
 
@@ -154,7 +154,7 @@ body {
     top: 50px;
     right: 8px;
     background-color: var(--bg-color-alt);
-    font-family: sans;
+    font-family: sans-serif;
     font-size: 16px;
     border-radius: 4px;
     display: flex;
@@ -205,6 +205,14 @@ dialog select {
 select option {
     color: var(--text-color);
     background-color: var(--bg-color-alt);
+}
+
+input[type=number] {
+    border: none;
+    background-color: #0000;
+    font-size: 1rem;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--theme-color);
 }
 
 #collapse {
@@ -339,7 +347,7 @@ select option {
     bottom: 50px;
     right: 8px;
     background-color: var(--bg-color-alt);
-    font-family: sans;
+    font-family: sans-serif;
     font-size: 16px;
     border-radius: 4px;
     display: flex;

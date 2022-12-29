@@ -116,6 +116,7 @@
             <a id="dark" class="dialog-item">
                 <icon>&#57350;</icon>Dark Mode
             </a>
+
             <a class="dialog-section">Players</a>
             <a id="audioPlayer" class="dialog-item">
                 <icon>&#57361;</icon>Use Audio Player
@@ -123,16 +124,23 @@
             <a id="picoAudioPlayer" class="dialog-item">
                 <icon>&#57364;</icon>Use PicoAudio Synthesizer
             </a>
+
             <a class="dialog-section">Audio</a>
             <a id="midiSrc" class="dialog-item">
                 <icon>&#57362;</icon>Use MIDI as source
             </a>
+
             <a class="dialog-section">PicoAudio</a>
             <a id="picoAudioMIDI" class="dialog-item">
                 <icon>&#57362;</icon>Use Web MIDI
             </a>
             <a id="picoAudioMIDIDevice" class="dialog-item">
                 <icon>&#57368;</icon>MIDI Device <select id="devices"></select>
+            </a>
+
+            <a class="dialog-section">Waterfall</a>
+            <a id="spanDurationSetting" class="dialog-item">
+                <icon>&#57368;</icon>Span Duration <input id="spanDuration" type="number" min="0" max="10" step="0.1" value="4"></input>
             </a>
         </div>
         <div class="dialog-button-container">

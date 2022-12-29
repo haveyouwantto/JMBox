@@ -6,7 +6,8 @@ let defaultValue = {
     midisrc: false,
     player: "AudioPlayer",
     playMode: 0,
-    volume: 1
+    volume: 1,
+    spanDuration: 4
 }
 
 let config = {};
