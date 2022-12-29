@@ -241,6 +241,7 @@ public class APIHandler implements HttpHandler {
                 // Detect Streaming Mode (disables seeking)
                 if (file.length() > Config.getLong("streaming-file-size")) {
                     exchange.sendResponseHeaders(200, length);
+                    AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
                 } else {
 
                     // Seeking
