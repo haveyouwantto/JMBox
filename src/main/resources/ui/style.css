@@ -185,6 +185,28 @@ body {
     display: none;
 }
 
+select {
+    /* style the select element */
+    display: block;
+    border: none;
+    font-family: sans-serif;
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: #00000000;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+dialog select {
+    padding-left: 36px;
+}
+
+select option {
+    color: var(--text-color);
+    background-color: var(--bg-color-alt);
+}
+
 #collapse {
     position: fixed;
     width: 100vw;
@@ -369,6 +391,13 @@ dialog.fade-out {
     padding-left: 12px;
     padding-right: 16px;
     user-select: none;
+}
+
+.dialog-section {
+    padding-top: 12px;
+    padding-left: 12px;
+    padding-right: 16px;
+    color: var(--theme-color);
 }
 
 .dialog-item:hover {

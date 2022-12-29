@@ -41,6 +41,7 @@ let midiSrcBtn = document.getElementById("midiSrc");
 // Player flags
 let paused = true;
 
+let midiDeviceList = {};
 /**
  * 0 = single
  * 1 = single looped
@@ -313,7 +314,16 @@ function setupWebMIDI() {
 
             // TODO: select midi device
             for (let device of access.outputs) {
+                console.log(device);
+
+                midiDeviceList[device[1].name] = device[1];
                 console.log(device[1].name);
+                var option = document.createElement('option');
+
+                option.text = device[1].name;
+                option.value = device[1].name;
+
+                deviceSelection.add(option);
             }
         });
     } else {
@@ -579,4 +589,10 @@ volumeControl.addEventListener('pointermove', e => {
 
 volumeControl.addEventListener('click', e => {
     setVolume(e.offsetX / volumeControl.clientWidth);
+});
+
+let deviceSelection = document.getElementById("devices");
+deviceSelection.addEventListener('change', e => {
+    console.log(midiDeviceList[deviceSelection.value]);
+    picoAudio.settings.WebMIDIPortOutput = midiDeviceList[deviceSelection.value];
 });
