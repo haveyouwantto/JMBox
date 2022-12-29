@@ -212,7 +212,7 @@ body {
 
 #progress #bufferedtime {
     width: 0;
-    background-color: #80808080;
+    background-color: #80808060;
     height: 100%;
     position: absolute;
 }
