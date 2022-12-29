@@ -312,12 +312,12 @@ function setupWebMIDI() {
         navigator.requestMIDIAccess().then(access => {
             picoAudio.setWebMIDI(true);
 
+            midiDeviceList = {};
+            deviceSelection.innerHTML = '';
+
             // TODO: select midi device
             for (let device of access.outputs) {
-                console.log(device);
-
                 midiDeviceList[device[1].name] = device[1];
-                console.log(device[1].name);
                 var option = document.createElement('option');
 
                 option.text = device[1].name;

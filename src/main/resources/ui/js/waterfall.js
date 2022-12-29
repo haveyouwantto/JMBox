@@ -44,6 +44,9 @@ controlsLeft.addEventListener('click', e => {
             try {
                 navigator.wakeLock.request('screen').then(lock => {
                     wakeLock = lock;
+                    lock.addEventListener('release', e => {
+                        console.log("wakelock released");
+                    })
                 });
             } catch (error) {
                 console.error(error);
@@ -56,8 +59,6 @@ controlsLeft.addEventListener('click', e => {
             wakeLock.release()
                 .then(() => {
                     wakeLock = null;
-                    console.log("wakelock released");
-
                 });
         }
     }
