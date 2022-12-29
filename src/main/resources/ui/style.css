@@ -207,6 +207,18 @@ body {
 
 #progress {
     width: 100%;
+    position: relative;
+}
+
+#progress #bufferedtime {
+    width: 0;
+    background-color: #80808080;
+    height: 100%;
+    position: absolute;
+}
+
+#progress #playtime {
+    position: absolute;
 }
 
 #volume {
@@ -245,6 +257,7 @@ body {
     width: 100%;
     align-items: center;
 }
+
 #controlsLeft {
     padding-left: 8px;
 }
@@ -376,7 +389,7 @@ dialog.fade-out {
     user-select: none;
 }
 
-.dialog-button:hover { 
+.dialog-button:hover {
     background-color: var(--hover-color);
 }
 

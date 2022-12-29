@@ -6,6 +6,7 @@ let loop = document.getElementById("loop");
 let content = document.getElementById("content");
 let progressBar = document.getElementById("progress");
 let progressBarInner = document.getElementById("playtime");
+let bufferedBar = document.getElementById("bufferedtime");
 
 let controlsLeft = document.getElementById('controlsLeft');
 let songTitle = document.getElementById('songTitle');
@@ -60,6 +61,7 @@ function AudioPlayer() {
      */
     this.load = function (path, callback) {
         this.audio.src = (config.midisrc ? "api/midi" : "api/play") + path;
+        updateBuffer(0, 1);
         fetch("api/midi" + path).then(r => {
             if (r.ok) {
                 if (picoAudio == null) {
@@ -128,6 +130,7 @@ function AudioPlayer() {
     this.destroy = function () {
         this.pause();
         this.audio.src = '';
+        updateBuffer(0, 1);
     }
 
     this.isPaused = function () {
@@ -156,6 +159,9 @@ function AudioPlayer() {
 
     this.audio.addEventListener('timeupdate', e => {
         updatePlayback();
+        if (this.audio.buffered.length > 0) {
+            updateBuffer(this.audio.buffered.end(0), this.audio.duration);
+        }
     })
 
     this.audio.addEventListener('ended', onended);
@@ -351,6 +357,10 @@ midiSrcBtn.addEventListener('click', e => {
 updateChecker(midiSrcBtn, config.midisrc);
 
 
+function updateBuffer(value, duration) {
+    bufferedBar.style.width = (value / duration * 100) + "%";
+}
+
 function updatePlayback() {
     let duration = player.duration();
     if (isNaN(duration)) duration = Infinity;
@@ -366,7 +376,7 @@ progressBar.addEventListener('click', e => {
     player.seekPercentage(e.clientX / progressBar.clientWidth);
 });
 
-function togglePause(){
+function togglePause() {
     paused = !paused;
     if (paused) {
         player.pause();
@@ -376,11 +386,11 @@ function togglePause(){
 }
 
 playButton.addEventListener('click', togglePause);
-document.addEventListener("keypress", function(event) {
+document.addEventListener("keypress", function (event) {
     if (event.key === " ") {
-      togglePause();
+        togglePause();
     }
-  });
+});
 
 nextButton.addEventListener('click', e => {
     next();
