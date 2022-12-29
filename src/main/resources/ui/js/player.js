@@ -189,7 +189,11 @@ function PicoAudioPlayer() {
                 r.arrayBuffer().then(data => {
                     const parsedData = picoAudio.parseSMF(data);
                     smfData = parsedData;
-                    picoAudio.setData(parsedData);
+                    try {
+                        picoAudio.setData(parsedData);
+                    } catch (error) {
+                        console.warn(error);
+                    }
                     callback();
                 })
             }
@@ -312,16 +316,14 @@ function setupWebMIDI() {
         navigator.requestMIDIAccess().then(access => {
             picoAudio.setWebMIDI(true);
 
-            midiDeviceList = {};
             deviceSelection.innerHTML = '';
 
-            // TODO: select midi device
+            midiDeviceList = access.outputs;
             for (let device of access.outputs) {
-                midiDeviceList[device[1].name] = device[1];
                 var option = document.createElement('option');
 
                 option.text = device[1].name;
-                option.value = device[1].name;
+                option.value = device[0];
 
                 deviceSelection.add(option);
             }
@@ -593,6 +595,5 @@ volumeControl.addEventListener('click', e => {
 
 let deviceSelection = document.getElementById("devices");
 deviceSelection.addEventListener('change', e => {
-    console.log(midiDeviceList[deviceSelection.value]);
-    picoAudio.settings.WebMIDIPortOutput = midiDeviceList[deviceSelection.value];
+    picoAudio.settings.WebMIDIPortOutput = midiDeviceList.get(deviceSelection.value);
 });
