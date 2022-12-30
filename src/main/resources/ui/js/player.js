@@ -160,8 +160,12 @@ function AudioPlayer() {
 
     this.audio.addEventListener('timeupdate', e => {
         updatePlayback();
-        if (this.audio.buffered.length > 0) {
-            updateBuffer(this.audio.buffered.end(0), this.audio.duration);
+        for (let i = 0; i < this.audio.buffered.length; i++) {
+            let endTime = this.audio.buffered.end(i);
+            if (endTime > this.audio.currentTime) {
+                updateBuffer(endTime, this.audio.duration);
+                break;
+            }
         }
     })
 
