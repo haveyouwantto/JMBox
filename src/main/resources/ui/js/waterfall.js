@@ -160,7 +160,7 @@ function draw() {
                 canvasCtx.fillRect(x, canvas.height - endY - keyboardHeight, noteWidth, endY - startY);
 
                 // Pressed key
-                if (note.startTime < playTime && stopTime > playTime) {
+                if (note.startTime < playTime) {
                     notes[note.pitch] = i;
                 }
             }
