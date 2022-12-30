@@ -164,7 +164,7 @@ function play(dir, file) {
     midiInfo.setAttribute("value", url);
     songTitle.innerText = file;
 
-    player.pause();
+    player.stop();
     player.load(url, () => {
         player.play();
     });

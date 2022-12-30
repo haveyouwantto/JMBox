@@ -128,7 +128,7 @@ function AudioPlayer() {
         this.seek(this.audio.duration * percentage);
     }
 
-    this.destroy = function () {
+    this.stop = function () {
         this.pause();
         this.audio.src = '';
         updateBuffer(0, 1);
@@ -268,8 +268,8 @@ function PicoAudioPlayer() {
         this.seek(this.duration() * percentage);
     }
 
-    this.destroy = function () {
-        this.pause();
+    this.stop = function () {
+        picoAudio.stop();
     }
 
     this.isPaused = function () {
@@ -475,7 +475,7 @@ function createPlayer(playerClass) {
     let playtime = player.currentTime();
     let paused = player.isPaused();
     let volume = player.getVolume();
-    player.destroy();
+    player.stop();
     player = new playerClass();
     player.setVolume(volume);
     updatePlayer(config.playMode);
