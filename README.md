@@ -25,7 +25,9 @@ JMBox will automatically generate a `server.properties` in the current folder on
 | enable-midi | true | Whether to enable MIDI API. |
 | enable-play | true | Whether to enable WAVE playback API. |
 | scan-for-audio | false | Whether to enable the server to scan for audio files. |
-
+| gervill-max-polyphony | 256 | Max polyphony. |
+| gervill-interpolation | sinc | Audio interpolation algorithm. |
+| gervill-large-mode | false | Use large mode. |
 
 ## Building
 

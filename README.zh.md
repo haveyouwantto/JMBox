@@ -27,6 +27,9 @@ server.properties相关配置
 | enable-midi | true | 是否启用MIDI功能 |
 | enable-play | true | 是否启用WAVE播放功能 |
 | scan-for-audio | false | 是否扫描同名音频文件 |
+| gervill-max-polyphony | 256 | 最大同时弹奏音符数 |
+| gervill-interpolation | sinc | 音频采样插值算法 |
+| gervill-large-mode | false | 使用大音色库模式 |
 
 
 ## 编译
