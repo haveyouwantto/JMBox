@@ -23,6 +23,9 @@ public class Config {
         defaults.put("enable-midi", "true");
         defaults.put("enable-play", "true");
         defaults.put("scan-for-audio", "false");
+        defaults.put("gervill-max-polyphony", "256");
+        defaults.put("gervill-interpolation", "sinc");
+        defaults.put("gervill-large-mode", "false");
         load();
     }
 

@@ -251,7 +251,7 @@ input[type="number"]:focus {
     background-color: #80808060;
     height: 100%;
     position: absolute;
-    transition: width 0.25s;
+    transition: width 0.2s;
 }
 
 #progress #playtime {
