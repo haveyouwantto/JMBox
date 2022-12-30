@@ -87,7 +87,7 @@ function getStopTime(note) {
     } else {
         time = note.stopTime;
     }
-    return Math.min(time, note.startTime + maxNoteDuration);
+    return Math.min(time, note.startTime + config.maxNoteDuration);
 }
 
 function fastSpan(list, startTime, duration) {
@@ -219,8 +219,13 @@ onresize = resizeCanvas;
 let spanDurationEdit = document.getElementById("spanDuration");
 spanDurationEdit.value = config.spanDuration;
 spanDurationEdit.addEventListener('change', e => {
-    let value = parseFloat(spanDurationEdit.value);
-    spanDuration = value
-    config.spanDuration = value;
+    config.spanDuration = parseFloat(spanDurationEdit.value);
+    save();
+});
+
+let maxNoteDurationEdit = document.getElementById("maxNoteDuration");
+maxNoteDurationEdit.value = config.maxNoteDuration;
+maxNoteDurationEdit.addEventListener('change', e => {
+    config.maxNoteDuration = parseFloat(maxNoteDurationEdit.value);
     save();
 });

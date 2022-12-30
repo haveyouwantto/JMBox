@@ -7,7 +7,8 @@ let defaultValue = {
     player: "AudioPlayer",
     playMode: 0,
     volume: 1,
-    spanDuration: 4
+    spanDuration: 4,
+    maxNoteDuration: 30
 }
 
 let config = {};

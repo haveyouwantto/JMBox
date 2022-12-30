@@ -212,8 +212,14 @@ input[type=number] {
     background-color: #0000;
     font-size: 1rem;
     color: var(--text-color);
-    border-bottom: 2px solid var(--theme-color);
+    border-bottom: 1px solid #80808060;
+    transition: border-bottom 0.25s;
 }
+
+input[type="number"]:focus {
+    outline: none;
+    border-bottom: 2px solid var(--theme-color);
+  }
 
 #collapse {
     position: fixed;
@@ -245,6 +251,7 @@ input[type=number] {
     background-color: #80808060;
     height: 100%;
     position: absolute;
+    transition: width 0.25s;
 }
 
 #progress #playtime {
