@@ -409,10 +409,16 @@ dialog.fade-out {
 }
 
 .dialog-section {
+    display: flex;
+    flex-direction: column;
     padding-top: 12px;
     padding-left: 12px;
     padding-right: 16px;
     color: var(--theme-color);
+}
+
+.dialog-section .dialog-item {
+    padding-left: 0;
 }
 
 .dialog-item:hover {

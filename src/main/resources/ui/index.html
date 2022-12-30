@@ -104,7 +104,7 @@
     <div id="waterfall" class="hidden">
         <canvas id="canvas"></canvas>
     </div>
-    
+
     <!-- Files -->
     <div id="content"></div>
 
@@ -113,38 +113,46 @@
         <div class="title">Settings</div>
 
         <div class="dialog-container">
-            <a id="dark" class="dialog-item">
-                <icon>&#57350;</icon>Dark Mode
-            </a>
+            <div class="dialog-section" id="general-section">General
+                <a id="dark" class="dialog-item">
+                    <icon>&#57350;</icon>Dark Mode
+                </a>
+            </div>
 
-            <a class="dialog-section">Players</a>
-            <a id="audioPlayer" class="dialog-item">
-                <icon>&#57361;</icon>Use Audio Player
-            </a>
-            <a id="picoAudioPlayer" class="dialog-item">
-                <icon>&#57364;</icon>Use PicoAudio Synthesizer
-            </a>
+            <div class="dialog-section" id="player-section">Players
+                <a id="audioPlayer" class="dialog-item">
+                    <icon>&#57361;</icon>Use Audio Player
+                </a>
+                <a id="picoAudioPlayer" class="dialog-item">
+                    <icon>&#57364;</icon>Use PicoAudio Synthesizer
+                </a>
+            </div>
 
-            <a class="dialog-section">Audio</a>
-            <a id="midiSrc" class="dialog-item">
-                <icon>&#57362;</icon>Use MIDI as source
-            </a>
+            <div class="dialog-section" id="audio-section">Audio
+                <a id="midiSrc" class="dialog-item">
+                    <icon>&#57362;</icon>Use MIDI as source
+                </a>
+            </div>
 
-            <a class="dialog-section">PicoAudio</a>
-            <a id="picoAudioMIDI" class="dialog-item">
-                <icon>&#57362;</icon>Use Web MIDI
-            </a>
-            <a id="picoAudioMIDIDevice" class="dialog-item">
-                <icon>&#57368;</icon>MIDI Device <select id="devices"></select>
-            </a>
+            <div class="dialog-section" id="picoaudio-section">PicoAudio
+                <a id="picoAudioMIDI" class="dialog-item">
+                    <icon>&#57362;</icon>Use Web MIDI
+                </a>
+                <a id="picoAudioMIDIDevice" class="dialog-item">
+                    <icon>&#57368;</icon>MIDI Device <select id="devices"></select>
+                </a>
+            </div>
 
-            <a class="dialog-section">Waterfall</a>
-            <a id="spanDurationSetting" class="dialog-item">
-                <icon>&#57367;</icon>Span Duration <input id="spanDuration" type="number" min="0" max="10" step="0.1" value="4"></input>
-            </a>
-            <a id="maxNoteDurationSetting" class="dialog-item">
-                <icon>&#57367;</icon>Max Note Duration <input id="maxNoteDuration" type="number" min="1" max="60" step="1" value="30"></input>
-            </a>
+            <div class="dialog-section">Waterfall
+                <a id="spanDurationSetting" class="dialog-item">
+                    <icon>&#57367;</icon>Span Duration <input id="spanDuration" type="number" min="0" max="10"
+                        step="0.1" value="4"></input>
+                </a>
+                <a id="maxNoteDurationSetting" class="dialog-item">
+                    <icon>&#57367;</icon>Max Note Duration <input id="maxNoteDuration" type="number" min="1" max="60"
+                        step="1" value="30"></input>
+                </a>
+            </div>
         </div>
         <div class="dialog-button-container">
             <a class="dialog-button" id="close-settings-button">Close</a>

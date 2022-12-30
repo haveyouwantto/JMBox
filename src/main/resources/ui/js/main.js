@@ -32,9 +32,8 @@ function info() {
 
         if (!result.capabilities.play) {
             player = new PicoAudioPlayer();
-            audioPlayer.style.display = 'none';
-            picoAudioPlayer.style.display = 'none';
-            midiSrcBtn.style.display = 'none';
+            document.getElementById('player-section').style.display = 'none';
+            document.getElementById('audio-section').style.display = 'none';
         } else {
             player = new window[config.player]();
         }
