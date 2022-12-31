@@ -13,7 +13,7 @@ JMBox甚至包含一个高性能的钢琴瀑布功能，使用户能够以更直
 JMBox的一些限制包括在拖动进度条时需要完全渲染音频文件，以及控制MIDI设备时的显着延迟。尽管如此，JMBox仍然提供了一种方便且轻量级的MIDI播放和控制解决方案。 JMBox的开发人员欢迎拉取请求来解决这些限制并改进软件。
 
 ## 下载
-下载 [Releases](releases) 里的jar文件
+下载 [Releases](https://github.com/haveyouwantto/JMBox/releases) 里的jar文件
 
 ## 服务器配置
 第一次运行时，JMBox会在当前文件夹下自动生成一个 `server.properties`。

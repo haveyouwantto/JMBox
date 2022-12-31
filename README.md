@@ -16,7 +16,7 @@ Some limitations of JMBox include the need to fully render audio files before se
 
 
 ## Download
-Download jar file in [Releases](releases)
+Download jar file in [Releases](https://github.com/haveyouwantto/JMBox/releases)
 
 ## Server Properties
 JMBox will automatically generate a `server.properties` in the current folder on first run.
