@@ -1,5 +1,5 @@
-let waterfall = document.getElementById('waterfall');
-let canvas = document.getElementById('canvas');
+let waterfall = $("#waterfall");
+let canvas = $("#canvas");
 let canvasCtx = canvas.getContext('2d');
 let dpr = window.devicePixelRatio;
 let smfData = null;
@@ -216,14 +216,14 @@ function resizeCanvas() {
 onresize = resizeCanvas;
 
 
-let spanDurationEdit = document.getElementById("spanDuration");
+let spanDurationEdit = $("#spanDuration");
 spanDurationEdit.value = config.spanDuration;
 spanDurationEdit.addEventListener('change', e => {
     config.spanDuration = parseFloat(spanDurationEdit.value);
     save();
 });
 
-let maxNoteDurationEdit = document.getElementById("maxNoteDuration");
+let maxNoteDurationEdit = $("#maxNoteDuration");
 maxNoteDurationEdit.value = config.maxNoteDuration;
 maxNoteDurationEdit.addEventListener('change', e => {
     config.maxNoteDuration = parseFloat(maxNoteDurationEdit.value);

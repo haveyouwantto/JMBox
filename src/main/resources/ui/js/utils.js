@@ -1,3 +1,11 @@
+function $(e) {
+    if (e instanceof HTMLElement) return e;
+    if (e.startsWith("#")) return document.getElementById(e.slice(1));
+    let l = document.querySelectorAll(e);
+    if (l.length == 1) return l[0];
+    else return l;
+}
+
 
 function padding(num) {
     if (isNaN(num) || !isFinite(num)) {

@@ -1,42 +1,42 @@
 // For audio player
 
-let loop = document.getElementById("loop");
+let loop = $("#loop");
 
 // Main player Items
-let content = document.getElementById("content");
-let progressBar = document.getElementById("progress");
-let progressBarInner = document.getElementById("playtime");
-let bufferedBar = document.getElementById("bufferedtime");
+let content = $("#content");
+let progressBar = $("#progress");
+let progressBarInner = $("#playtime");
+let bufferedBar = $("#bufferedtime");
 
-let controlsLeft = document.getElementById('controlsLeft');
-let songTitle = document.getElementById('songTitle');
-let timeDisplay = document.getElementById('timeDisplay');
-let durationDisplay = document.getElementById('durationDisplay');
+let controlsLeft = $("#controlsLeft");
+let songTitle = $("#songTitle");
+let timeDisplay = $("#timeDisplay");
+let durationDisplay = $("#durationDisplay");
 
-let playButton = document.getElementById("play");
-let nextButton = document.getElementById('next');
-let prevButton = document.getElementById('prev');
-let replayButton = document.getElementById('replay');
-let playModeButton = document.getElementById('playMode');
-let volumeControl = document.getElementById('volume');
-let volumeControlInner = document.getElementById('volume-inner');
+let playButton = $("#play");
+let nextButton = $("#next");
+let prevButton = $("#prev");
+let replayButton = $("#replay");
+let playModeButton = $("#playMode");
+let volumeControl = $("#volume");
+let volumeControlInner = $("#volume-inner");
 
-let playModeAltButton = document.getElementById('playModeAlt');
+let playModeAltButton = $("#playModeAlt");
 let altIcon = playModeAltButton.querySelector('icon');
 let altText = playModeAltButton.querySelector('div');
 
-let midiInfo = document.getElementById('midiInfo');
+let midiInfo = $("#midiInfo");
 
-let locateFileBtn = document.getElementById('locate');
+let locateFileBtn = $("#locate");
 
 // Menu player options
 
-let audioPlayer = document.getElementById('audioPlayer');
-let picoAudioPlayer = document.getElementById('picoAudioPlayer');
+let audioPlayer = $("#audioPlayer");
+let picoAudioPlayer = $("#picoAudioPlayer");
 
 
-let midiBtn = document.getElementById("picoAudioMIDI");
-let midiSrcBtn = document.getElementById("midiSrc");
+let midiBtn = $("#picoAudioMIDI");
+let midiSrcBtn = $("#midiSrc");
 
 // Player flags
 let paused = true;
@@ -54,7 +54,7 @@ let midiDeviceList = {};
  * Audio Player
  */
 function AudioPlayer() {
-    this.audio = document.getElementById("audio");
+    this.audio = $("#audio");
     /**
      * Loads a url
      * @param {string} url 
@@ -422,8 +422,8 @@ replayButton.addEventListener('click', e => {
 });
 
 // Bottom Menu
-let bottomMenuBtn = document.getElementById('bottomMenu');
-let bottomMenu = document.querySelector(".bottom-menu");
+let bottomMenuBtn = $("#bottomMenu");
+let bottomMenu = $(".bottom-menu");
 
 // menu display style changer
 let bottomMenuDisplay = false;
@@ -499,7 +499,7 @@ picoAudioPlayer.addEventListener('click', e => {
 
 // Locate the file
 function highlight(name) {
-    let element = document.querySelector("div[value=\"" + name + "\"]");
+    let element = $("div[value=\"" + name + "\"]");
     element.classList.remove('file-locate');
     element.scrollIntoView({ block: "center" });
     element.classList.add('file-locate');
@@ -597,7 +597,7 @@ volumeControl.addEventListener('click', e => {
     setVolume(e.offsetX / volumeControl.clientWidth);
 });
 
-let deviceSelection = document.getElementById("devices");
+let deviceSelection = $("#devices");
 deviceSelection.addEventListener('change', e => {
     picoAudio.settings.WebMIDIPortOutput = midiDeviceList.get(deviceSelection.value);
 });

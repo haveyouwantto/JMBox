@@ -1,25 +1,25 @@
 // For top bar & menu
 
 // Top bar Items
-let head = document.getElementById("head");
+let head = $("#head");
 let title = head.querySelector("#title");
 let backBtn = head.querySelector("#back");
 let homeBtn = head.querySelector("#home");
 let menuBtn = head.querySelector("#menu");
 
 let menu = head.querySelector(".menu");
-let collapse = document.querySelector("#collapse");
+let collapse = $("#collapse");
 
 // Menu Items
-let wav = document.getElementById("wav");
-let mid = document.getElementById("mid");
-let dark = document.getElementById("dark");
+let wav = $("#wav");
+let mid = $("#mid");
+let dark = $("#dark");
 
-let refresh = document.getElementById('refresh');
+let refresh = $("#refresh");
 
 
 // Misc Items
-let metaThemeColor = document.getElementById("meta-theme-color");
+let metaThemeColor = $("#meta-theme-color");
 
 // loop.addEventListener('click', function (e) {
 //     musicLoop = !musicLoop;
@@ -130,9 +130,9 @@ setDarkMode(config.dark);
 // });
 
 
-const openSettingsButton = document.getElementById('open-settings-button');
-const closeSettingsButton = document.getElementById('close-settings-button');
-const settingsDialog = document.getElementById('settings-dialog');
+const openSettingsButton = $("#open-settings-button");
+const closeSettingsButton = $("#close-settings-button");
+const settingsDialog = $("#settings-dialog");
 
 openSettingsButton.addEventListener('click', () => {
     settingsDialog.classList.remove("fade-out");
@@ -145,16 +145,16 @@ closeSettingsButton.addEventListener('click', () => {
 });
 
 
-const dialog = document.getElementById('common-dialog');
+const dialog = $("#common-dialog");
 const dialogTitle = dialog.querySelector('.title');
 const dialogContent = dialog.querySelector('.dialog-container');
-const closeDialogButton = document.getElementById('close-dialog-button');
+const closeDialogButton = $("#close-dialog-button");
 
 closeDialogButton.addEventListener('click', () => {
     dialog.close();
 });
 
-const aboutButton = document.getElementById('about-button');
+const aboutButton = $("#about-button");
 aboutButton.addEventListener('click', e=>{
     dialogTitle.innerText = 'About';
     dialogContent.innerHTML = '';
