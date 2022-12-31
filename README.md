@@ -1,4 +1,7 @@
 # JMBox
+
+## [中文说明](README.zh.md)
+
 Simple MIDI File Server
 
 ![](resources/jmbox.png)

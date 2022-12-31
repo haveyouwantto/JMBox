@@ -231,7 +231,7 @@ if ('mediaSession' in navigator) {
     navigator.mediaSession.setActionHandler('pause', () => {
         player.pause();
     });
-    navigator.mediaSession.setActionHandler('stop', () => { player.stop(); });
+    navigator.mediaSession.setActionHandler('stop', () => player.stop);
     navigator.mediaSession.setActionHandler('seekbackward', () => { player.seek(player.currentTime() + 5) });
     navigator.mediaSession.setActionHandler('seekforward', () => { player.seek(player.currentTime() - 5) });
     navigator.mediaSession.setActionHandler('seekto', action => { player.seek(action.seekTime) });
