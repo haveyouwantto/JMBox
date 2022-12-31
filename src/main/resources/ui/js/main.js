@@ -172,7 +172,6 @@ function play(dir, file) {
 
     if ('mediaSession' in navigator) {
         navigator.mediaSession.metadata.title = file;
-        navigator.mediaSession.playbackState = 'playing';
     }
 }
 
@@ -228,16 +227,14 @@ if ('mediaSession' in navigator) {
     });
     navigator.mediaSession.setActionHandler('play', () => {
         player.play();
-        navigator.mediaSession.playbackState = 'playing';
     });
     navigator.mediaSession.setActionHandler('pause', () => {
         player.pause();
-        navigator.mediaSession.playbackState = 'paused';
     });
     navigator.mediaSession.setActionHandler('stop', () => { player.stop(); });
     navigator.mediaSession.setActionHandler('seekbackward', () => { player.seek(player.currentTime() + 5) });
     navigator.mediaSession.setActionHandler('seekforward', () => { player.seek(player.currentTime() - 5) });
-    navigator.mediaSession.setActionHandler('seekto', () => { });
+    navigator.mediaSession.setActionHandler('seekto', action => { player.seek(action.seekTime) });
     navigator.mediaSession.setActionHandler('nexttrack', next);
     navigator.mediaSession.setActionHandler('previoustrack', previous);
 }
