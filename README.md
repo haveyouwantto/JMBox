@@ -14,6 +14,10 @@ JMBox even includes a high-performance piano roll feature, allowing users to vis
 
 Some limitations of JMBox include the need to fully render audio files before seeking, as well as a significant delay when controlling MIDI devices. Despite this, JMBox offers a convenient and lightweight solution for MIDI playback and control. The developer of JMBox welcomes pull requests to address these limitations and improve the software.
 
+
+## Download
+Download jar file in [Releases](releases)
+
 ## Server Properties
 JMBox will automatically generate a `server.properties` in the current folder on first run.
 
