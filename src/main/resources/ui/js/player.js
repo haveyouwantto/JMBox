@@ -349,6 +349,8 @@ if (window.isSecureContext) {
         setupWebMIDI();
         save();
     });
+}else {
+    $("#picoaudio-section").style.display = "none";
 }
 updateChecker(midiBtn, config.webmidi);
 
