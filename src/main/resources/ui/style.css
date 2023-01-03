@@ -374,6 +374,7 @@ dialog {
     max-width: 500px;
     font-family: sans-serif;
     padding: 8px;
+    z-index: 25;
 }
 
 .dialog-container {
