@@ -191,92 +191,98 @@ public class APIHandler implements HttpHandler {
             }
         }
 
-        try {
-            // Find for existing audio file
-            FileResult fr = null;
-            if (Config.getBoolean("scan-for-audio")) {
-                fr = FileFinder.findAudioFile(file);
-            }
-            if (fr != null) {
-                File audio = fr.getFile();
-                String mimeType = fr.getMimeType();
-                long totalLength = fr.getFile().length();
-
-                response.set("Content-Type", mimeType);
-                response.set("Last-Modified", TimeFormatter.format(audio.lastModified()));
-
-                FileInputStream fis = new FileInputStream(audio);
-
-                // Send existing audio
-                if (seeking) {
-                    response.set("Content-Range", String.format("bytes %d-%d/%d", start, totalLength - 1, totalLength));
-                    exchange.sendResponseHeaders(206, totalLength - start);
-
-                    fis.skip(start);
-                    IOStream.writeTo(fis, exchange.getResponseBody());
-                } else {
-                    response.set("Content-Range", String.format("bytes 0-%d/%d", totalLength - 1, totalLength));
-                    exchange.sendResponseHeaders(206, totalLength);
-                    IOStream.writeTo(fis, exchange.getResponseBody());
+        boolean finalSeeking = seeking;
+        long finalStart = start;
+        Runnable r = () -> {
+            try {
+                // Find for existing audio file
+                FileResult fr = null;
+                if (Config.getBoolean("scan-for-audio")) {
+                    fr = FileFinder.findAudioFile(file);
                 }
-                fis.close();
-            } else {
+                if (fr != null) {
+                    File audio = fr.getFile();
+                    String mimeType = fr.getMimeType();
+                    long totalLength = fr.getFile().length();
 
-                // Convert midi file to wave
-                if (file.length() > Config.getLong("max-file-size")) {
-                    send(exchange, 503, "File size exceeded.");
-                    return;
-                }
+                    response.set("Content-Type", mimeType);
+                    response.set("Last-Modified", TimeFormatter.format(audio.lastModified()));
 
-                Converter c = new Converter(file);
-                AudioInputStream is = c.convert();
-                long totalLength = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
+                    FileInputStream fis = new FileInputStream(audio);
 
-                // Send directly
-                long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
+                    // Send existing audio
+                    if (finalSeeking) {
+                        response.set("Content-Range", String.format("bytes %d-%d/%d", finalStart, totalLength - 1, totalLength));
+                        exchange.sendResponseHeaders(206, totalLength - finalStart);
 
-                response.set("Content-Type", "audio/x-wav");
-                response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
-
-                // Detect Streaming Mode (disables seeking)
-                if (file.length() > Config.getLong("streaming-file-size")) {
-                    exchange.sendResponseHeaders(200, length);
-                    AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                        fis.skip(finalStart);
+                        IOStream.writeTo(fis, exchange.getResponseBody());
+                    } else {
+                        response.set("Content-Range", String.format("bytes 0-%d/%d", totalLength - 1, totalLength));
+                        exchange.sendResponseHeaders(206, totalLength);
+                        IOStream.writeTo(fis, exchange.getResponseBody());
+                    }
+                    fis.close();
                 } else {
 
-                    // Seeking
-                    if (seeking) {
-                        long skiplen = Math.max(start - 44, 0);
-
-                        if (skiplen > 0) {
-                            is.skip(skiplen);
-
-                            response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, totalLength - 1, totalLength));
-                            exchange.sendResponseHeaders(206, totalLength - skiplen);
-                            AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
-                            return;
-                        }
+                    // Convert midi file to wave
+                    if (file.length() > Config.getLong("max-file-size")) {
+                        send(exchange, 503, "File size exceeded.");
+                        return;
                     }
 
-                    // Non-streaming mode
-                    response.set("Content-Range", String.format("bytes 0-%d/%d", length - 1, length));
-                    exchange.sendResponseHeaders(206, length);
-                    AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
-                }
-            }
+                    Converter c = new Converter(file);
+                    AudioInputStream is = c.convert();
+                    long totalLength = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
 
-        } catch (UnsupportedAudioFileException e) {
-            logger.warning(e.toString());
-            e.printStackTrace();
-            send(exchange, 500, "Internal Server Error");
-        } catch (FileNotFoundException e) {
-            logger.warning(e.toString());
-            send(exchange, 404, "Not Found");
-        } catch (IOException e) {
-            logger.warning(e.toString());
-        } finally {
-            exchange.close();
-        }
+                    // Send directly
+                    long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
+
+                    response.set("Content-Type", "audio/x-wav");
+                    response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
+
+                    // Detect Streaming Mode (disables seeking)
+                    if (file.length() > Config.getLong("streaming-file-size")) {
+                        exchange.sendResponseHeaders(200, length);
+                        AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                    } else {
+
+                        // Seeking
+                        if (finalSeeking) {
+                            long skiplen = Math.max(finalStart - 44, 0);
+
+                            if (skiplen > 0) {
+                                is.skip(skiplen);
+
+                                response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, totalLength - 1, totalLength));
+                                exchange.sendResponseHeaders(206, totalLength - skiplen);
+                                AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                                return;
+                            }
+                        }
+
+                        // Non-streaming mode
+                        response.set("Content-Range", String.format("bytes 0-%d/%d", length - 1, length));
+                        exchange.sendResponseHeaders(206, length);
+                        AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                    }
+                }
+
+            } catch (UnsupportedAudioFileException e) {
+                logger.warning(e.toString());
+                e.printStackTrace();
+                send(exchange, 500, "Internal Server Error");
+            } catch (FileNotFoundException e) {
+                logger.warning(e.toString());
+                send(exchange, 404, "Not Found");
+            } catch (IOException e) {
+                logger.warning(e.toString());
+            } finally {
+                exchange.close();
+            }
+        };
+
+        new Thread(r).start();
     }
 
     private void send(HttpExchange exchange, int statusCode, String html) {
