@@ -391,6 +391,8 @@ dialog .title {
 
 dialog[open] {
     animation: dialogFadeIn 0.25s ease-out 0s;
+    display: flex;
+    flex-direction: column;
 }
 
 dialog.fade-out {
