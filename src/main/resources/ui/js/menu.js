@@ -159,7 +159,7 @@ aboutButton.addEventListener('click', e=>{
     dialogTitle.innerText = 'About';
     dialogContent.innerHTML = '';
     dialogContent.appendChild(createDialogItem('<a href="https://github.com/haveyouwantto/JMBox" class="link">JMBox</a> Web App '));
-    dialogContent.appendChild(createDialogItem('version Alpha 1.1'));
+    dialogContent.appendChild(createDialogItem('version Alpha 1.1.1'));
     dialogContent.appendChild(createDialogItem("\u00a9 2022 haveyouwantto"));
     dialogContent.appendChild(createDialogItem("Licensed under MIT License."));
 
