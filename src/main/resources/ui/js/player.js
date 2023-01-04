@@ -84,7 +84,9 @@ function AudioPlayer() {
      * Play the audio
      */
     this.play = function () {
-        navigator.mediaSession.playbackState = 'playing';
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = 'playing';
+        }
         playButton.innerText = '\ue00f';
         paused = false;
         this.audio.play();
@@ -94,7 +96,9 @@ function AudioPlayer() {
      * Pause the audio
      */
     this.pause = function () {
-        navigator.mediaSession.playbackState = 'paused';
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = 'paused';
+        }
         playButton.innerText = '\ue000';
         paused = true;
         this.audio.pause();
@@ -217,7 +221,9 @@ function PicoAudioPlayer() {
      * Play the audio
      */
     this.play = function () {
-        navigator.mediaSession.playbackState = 'playing';
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = 'playing';
+        }
         if (this.isEnded()) this.seek(0);
         playButton.innerText = '\ue00f';
         paused = false;
@@ -230,14 +236,16 @@ function PicoAudioPlayer() {
      * Pause the audio
      */
     this.pause = function () {
-        navigator.mediaSession.playbackState = 'paused';
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = 'paused';
+        }
         playButton.innerText = '\ue000';
         this.lastPausedTime = this.currentTime();
 
         paused = true;
         this.paused = true;
         picoAudio.pause();
-        
+
         clearInterval(this.intervalId);
     }
 
