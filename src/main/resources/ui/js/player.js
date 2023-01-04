@@ -187,8 +187,6 @@ function AudioPlayer() {
         this.audio.addEventListener('ended', onended);
 
         this.audio.addEventListener('error', e => {
-            console.log(this.audio.src);
-
             if (this.audio.src != '') {
                 dialogTitle.innerText = 'Failed to play';
                 dialogContent.innerHTML = '';
