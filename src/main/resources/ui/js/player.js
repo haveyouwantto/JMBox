@@ -63,7 +63,12 @@ function AudioPlayer() {
      * @param {Function} callback
      */
     this.load = function (path, callback) {
-        this.audio.src = (config.midisrc ? "api/midi" : "api/play") + path;
+        bufferedBar.style.display = 'block';
+        try {
+            this.audio.src = (config.midisrc ? "api/midi" : "api/play") + path;
+        } catch (error) {
+            console.log(error.message);
+        }
         updateBuffer(0, 1);
         fetch("api/midi" + path).then(r => {
             if (r.ok) {
@@ -138,8 +143,8 @@ function AudioPlayer() {
 
     this.stop = function () {
         this.pause();
-        this.audio.src = '';
-        updateBuffer(0, 1);
+        this.audio.removeAttribute('src');
+        bufferedBar.style.display = 'none';
     }
 
     this.isPaused = function () {
@@ -181,10 +186,14 @@ function AudioPlayer() {
         this.audio.addEventListener('ended', onended);
 
         this.audio.addEventListener('error', e => {
-            dialogTitle.innerText = 'Failed to play';
-            dialogContent.innerHTML = '';
-            dialogContent.appendChild(createDialogItem("The server didn't send the requested format."));
-            dialog.showModal();
+            console.log(this.audio.src);
+
+            if (this.audio.src != '') {
+                dialogTitle.innerText = 'Failed to play';
+                dialogContent.innerHTML = '';
+                dialogContent.appendChild(createDialogItem("The server didn't send the requested format."));
+                dialog.showModal();
+            }
         })
 
         audioInit = true;
