@@ -66,6 +66,7 @@ function AudioPlayer() {
         bufferedBar.style.display = 'block';
         try {
             this.audio.src = (config.midisrc ? "api/midi" : "api/play") + path;
+            this.seek(0);
         } catch (error) {
             console.log(error.message);
         }
@@ -217,6 +218,7 @@ function PicoAudioPlayer() {
      * @param {Function} callback
      */
     this.load = function (path, callback) {
+        this.seek(0);
         fetch("api/midi" + path).then(r => {
             if (r.ok) {
                 r.arrayBuffer().then(data => {
