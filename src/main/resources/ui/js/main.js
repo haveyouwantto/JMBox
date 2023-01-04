@@ -205,16 +205,16 @@ function createDialogItem(content) {
 }
 
 function midiinfo(url) {
+    dialogTitle.innerText = 'MIDI Info';
+    dialogContent.innerHTML = '';
+    dialog.showModal();
     fetch("api/midiinfo" + url)
         .then(response => response.json())
         .then(data => {
-            dialogTitle.innerText = 'MIDI Info';
-            dialogContent.innerHTML = '';
             dialogContent.appendChild(createDialogItem("Name: " + data.name));
             dialogContent.appendChild(createDialogItem("Size: " + toSI(data.size, true) + "B"));
             dialogContent.appendChild(createDialogItem("Last modified: " + new Date(data.lastModified).toLocaleString()));
             dialogContent.appendChild(createDialogItem("Duration: " + formatTime(player.duration())));
-            dialog.showModal();
         });
 }
 

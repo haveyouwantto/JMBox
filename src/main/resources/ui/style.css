@@ -95,8 +95,8 @@ file-icon {
     padding: 5px 10px;
     display: flex;
     align-items: center;
-    min-height: 40px;
-    border-bottom: 1px solid #808080;
+    min-height: 40px;    
+    border-bottom: 1px solid #80808060;
     cursor: pointer;
     color: var(--text-color);
     transition: background-color 0.15s;
@@ -412,6 +412,10 @@ dialog.fade-out {
     user-select: none;
 }
 
+.dialog-item-line {
+    border-bottom: 1px solid #80808060;
+}
+
 .dialog-section {
     display: flex;
     flex-direction: column;
@@ -627,7 +631,7 @@ html::-webkit-scrollbar-track {
     }
 }
 
-@media only screen and (max-width: 384px) {
+@media only screen and (max-width: 380px) {
     #next {
         display: none;
     }
