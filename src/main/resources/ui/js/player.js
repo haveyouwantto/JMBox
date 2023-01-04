@@ -180,6 +180,13 @@ function AudioPlayer() {
 
         this.audio.addEventListener('ended', onended);
 
+        this.audio.addEventListener('error', e => {
+            dialogTitle.innerText = 'Failed to play';
+            dialogContent.innerHTML = '';
+            dialogContent.appendChild(createDialogItem("The server didn't send the requested format."));
+            dialog.showModal();
+        })
+
         audioInit = true;
     }
 }
@@ -213,6 +220,11 @@ function PicoAudioPlayer() {
                     }
                     callback();
                 })
+            } else {
+                dialogTitle.innerText = 'Failed to play';
+                dialogContent.innerHTML = '';
+                dialogContent.appendChild(createDialogItem("The server didn't send the requested format."));
+                dialog.showModal();
             }
         });
     }
