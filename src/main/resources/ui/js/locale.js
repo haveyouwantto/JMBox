@@ -43,7 +43,8 @@ let defaultLocale = {
     "midi-info.last-modified": "Last modified",
     "midi-info.duration": "Duration",
 
-    "languages.title": "Languages"
+    "languages.title": "Languages",
+    "languages.auto": "Automatic"
 };
 
 let currentLocale = {};
@@ -57,7 +58,11 @@ const localeList = {
 
 async function localeInit() {
     // 检查用户的语言设置
-    const lang = navigator.language;
+    let lang;
+    
+    if (config.language == "auto") { lang = navigator.language; }
+    else { lang = config.language }
+
     if (lang !== 'en-US') {
         // 如果用户的语言不是英语，尝试加载对应的语言文件
         try {
@@ -94,7 +99,7 @@ function updateHTML() {
     });
 }
 
-function setLocale(language) {
+function setLocale(language = 'en-US') {
     if (language == 'en-US') {
         currentLocale = defaultLocale;
         updateHTML();

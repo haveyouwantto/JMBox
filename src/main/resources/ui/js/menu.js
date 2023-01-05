@@ -174,16 +174,23 @@ aboutButton.addEventListener('click', e => {
 const languageButton = $("#language-button");
 
 languageButton.addEventListener('click', e => {
-    let locale = document.createElement('locale');
-    locale.setAttribute('key','languages.title');
-    locale.innerText = getLocale('languages.title');
     dialogTitle.innerHTML = '';
-    dialogTitle.appendChild(locale);
+    dialogTitle.appendChild(createLocaleItem('languages.title'));
     dialogContent.innerHTML = '';
+
+    let item = createDialogItem();
+    item.appendChild(createLocaleItem('languages.auto'));
+    item.addEventListener('click', e => {
+        setLocale(navigator.language);
+        config.language = "auto";
+    });
+    dialogContent.appendChild(item);
+
     for (let language in localeList) {
         let item = createDialogItem(localeList[language]);
         item.addEventListener('click', e => {
             setLocale(language);
+            config.language = language;
         });
         dialogContent.appendChild(item);
     } 

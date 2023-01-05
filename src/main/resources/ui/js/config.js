@@ -8,7 +8,8 @@ let defaultValue = {
     playMode: 0,
     volume: 1,
     spanDuration: 4,
-    maxNoteDuration: 30
+    maxNoteDuration: 30,
+    language: "auto"
 }
 
 let config = {};

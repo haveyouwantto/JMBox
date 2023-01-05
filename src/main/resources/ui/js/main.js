@@ -200,8 +200,16 @@ function previous() {
 function createDialogItem(content) {
     let a = document.createElement('a');
     a.classList.add('dialog-item');
-    a.innerHTML = content;
+    if (content != null)
+        a.innerHTML = content;
     return a;
+}
+
+function createLocaleItem(key) {
+    let locale = document.createElement('locale');
+    locale.setAttribute('key', key);
+    locale.innerText = getLocale(key);
+    return locale;
 }
 
 function midiinfo(url) {

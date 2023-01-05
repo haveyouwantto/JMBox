@@ -43,5 +43,6 @@
     "midi-info.last-modified": "更新日時",
     "midi-info.duration": "再生時間",
 
-    "languages.title":"言語"
+    "languages.title":"言語",
+    "languages.auto":"自動"
   }
