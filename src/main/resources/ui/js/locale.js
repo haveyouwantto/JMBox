@@ -45,6 +45,12 @@ let defaultLocale = {
 
 let currentLocale = {};
 
+const localeList = {
+    "en-US": "English",
+    "zh-CN": "简体中文",
+    "zh-TW": "繁體中文",
+    "ja-JP": "日本語"
+  };
 
 async function localeInit() {
     // 检查用户的语言设置
@@ -87,7 +93,8 @@ function updateHTML() {
 
 function setLocale(language) {
     if (language == 'en-US') {
-        currentLocale = defaultLocale
+        currentLocale = defaultLocale;
+        updateHTML();
     }
     else {
         fetch("lang/" + language + ".json").then(r => {
