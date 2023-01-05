@@ -183,6 +183,7 @@ languageButton.addEventListener('click', e => {
     item.addEventListener('click', e => {
         setLocale(navigator.language);
         config.language = "auto";
+        save();
     });
     dialogContent.appendChild(item);
 
@@ -191,6 +192,7 @@ languageButton.addEventListener('click', e => {
         item.addEventListener('click', e => {
             setLocale(language);
             config.language = language;
+            save();
         });
         dialogContent.appendChild(item);
     } 
