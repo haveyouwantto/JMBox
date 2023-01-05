@@ -170,3 +170,22 @@ aboutButton.addEventListener('click', e => {
     dialogContent.appendChild(createDialogItem('<a href="https://github.com/cagpie/PicoAudio.js" class="link">PicoAudio</a> \u00a9 cagpie (MIT License)'));
     dialog.showModal();
 });
+
+const languageButton = $("#language-button");
+
+languageButton.addEventListener('click', e => {
+    let locale = document.createElement('locale');
+    locale.setAttribute('key','languages.title');
+    locale.innerText = getLocale('languages.title');
+    dialogTitle.innerHTML = '';
+    dialogTitle.appendChild(locale);
+    dialogContent.innerHTML = '';
+    for (let language in localeList) {
+        let item = createDialogItem(localeList[language]);
+        item.addEventListener('click', e => {
+            setLocale(language);
+        });
+        dialogContent.appendChild(item);
+    } 
+    dialog.showModal();
+});

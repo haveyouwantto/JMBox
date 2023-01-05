@@ -12,6 +12,7 @@
     "menu.play-mode.list": "列表播放",
     "menu.play-mode.list-looped": "列表循环",
     "menu.replay": "重播",
+    "menu.languages":"语言",
 
     "settings.title":"设置",
     "settings.general":"通用",
@@ -40,5 +41,7 @@
     "midi-info.name":"名称",
     "midi-info.size":"大小",
     "midi-info.last-modified":"修改日期",
-    "midi-info.duration":"时长"
+    "midi-info.duration":"时长",
+
+    "languages.title":"语言"
 }

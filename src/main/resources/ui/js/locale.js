@@ -12,6 +12,7 @@ let defaultLocale = {
     "menu.play-mode.list": "List",
     "menu.play-mode.list-looped": "List Looped",
     "menu.replay": "Replay",
+    "menu.languages": "Languages",
 
     "settings.title": "Settings",
     "settings.general": "General",
@@ -40,16 +41,18 @@ let defaultLocale = {
     "midi-info.name": "Name",
     "midi-info.size": "Size",
     "midi-info.last-modified": "Last modified",
-    "midi-info.duration": "Duration"
+    "midi-info.duration": "Duration",
+
+    "languages.title": "Languages"
 };
 
 let currentLocale = {};
 
 const localeList = {
     "en-US": "English",
-    "zh-CN": "简体中文",
-    "zh-TW": "繁體中文",
-    "ja-JP": "日本語"
+    "zh-CN": "\u7b80\u4f53\u4e2d\u6587",
+    "zh-TW": "\u7e41\u9ad4\u4e2d\u6587",
+    "ja-JP": "\u65e5\u672c\u8a9e"
 };
 
 async function localeInit() {

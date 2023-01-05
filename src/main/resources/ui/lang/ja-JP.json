@@ -12,6 +12,7 @@
     "menu.play-mode.list": "リスト再生",
     "menu.play-mode.list-looped": "リストループ",
     "menu.replay": "再生",
+    "menu.languages":"言語",
   
     "settings.title": "設定",
     "settings.general": "一般",
@@ -40,5 +41,7 @@
     "midi-info.name": "名前",
     "midi-info.size": "サイズ",
     "midi-info.last-modified": "更新日時",
-    "midi-info.duration": "再生時間"
+    "midi-info.duration": "再生時間",
+
+    "languages.title":"言語"
   }
