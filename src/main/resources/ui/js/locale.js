@@ -50,7 +50,7 @@ const localeList = {
     "zh-CN": "简体中文",
     "zh-TW": "繁體中文",
     "ja-JP": "日本語"
-  };
+};
 
 async function localeInit() {
     // 检查用户的语言设置

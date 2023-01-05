@@ -346,11 +346,11 @@ function PicoAudioPlayer() {
     //     updatePlayback();
     // });
 
-    // picoAudio.addEventListener('songEnd', e => {
-    //     if (!picoAudio.isLoop()) this.pause();
-    //     updatePlayback();
-    //     onended();
-    // });
+    picoAudio.addEventListener('songEnd', e => {
+        if (!picoAudio.isLoop()) this.pause();
+        updatePlayback();
+        onended();
+    });
 
     setupWebMIDI();
 }
