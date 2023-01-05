@@ -580,25 +580,25 @@ function updatePlayer(mode) {
             player.setLoop(false);
             playModeButton.innerText = '\ue00b';
             altIcon.innerText = '\ue00b';
-            altText.innerText = 'Single';
+            altText.innerText = getLocale('menu.play-mode.single');
             break;
         case 1:
             player.setLoop(true);
             playModeButton.innerText = '\ue00c';
             altIcon.innerText = '\ue00c';
-            altText.innerText = 'Single Looped';
+            altText.innerText = getLocale('menu.play-mode.single-looped');
             break;
         case 2:
             player.setLoop(false);
             playModeButton.innerText = '\ue00d';
             altIcon.innerText = '\ue00d';
-            altText.innerText = 'List';
+            altText.innerText = getLocale('menu.play-mode.list');
             break;
         case 3:
             player.setLoop(false);
             playModeButton.innerText = '\ue00e';
             altIcon.innerText = '\ue00e';
-            altText.innerText = 'List Looped';
+            altText.innerText = getLocale('menu.play-mode.list-looped');
             break;
         default:
             break;

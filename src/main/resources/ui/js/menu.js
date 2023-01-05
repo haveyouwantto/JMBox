@@ -156,16 +156,16 @@ closeDialogButton.addEventListener('click', () => {
 
 const aboutButton = $("#about-button");
 aboutButton.addEventListener('click', e => {
-    dialogTitle.innerText = 'About';
+    dialogTitle.innerText = getLocale('about.title');
     dialogContent.innerHTML = '';
-    dialogContent.appendChild(createDialogItem('<a href="https://github.com/haveyouwantto/JMBox" class="link">JMBox</a> Web App '));
-    dialogContent.appendChild(createDialogItem('version Alpha 1.1.3'));
+    dialogContent.appendChild(createDialogItem('<a href="https://github.com/haveyouwantto/JMBox" class="link">JMBox</a> ' + getLocale("about.name")));
+    dialogContent.appendChild(createDialogItem(getLocale("about.version") + 'Alpha 1.1.3'));
     dialogContent.appendChild(createDialogItem("\u00a9 2022 haveyouwantto"));
     dialogContent.appendChild(createDialogItem("Licensed under MIT License."));
 
     let section = document.createElement("a");
     section.classList.add('dialog-section');
-    section.innerText = 'Libraries';
+    section.innerText = getLocale("about.libraries");
     dialogContent.appendChild(section);
     dialogContent.appendChild(createDialogItem('<a href="https://github.com/cagpie/PicoAudio.js" class="link">PicoAudio</a> \u00a9 cagpie (MIT License)'));
     dialog.showModal();

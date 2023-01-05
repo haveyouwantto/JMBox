@@ -32,14 +32,14 @@
             <a id="menu" class="icon menu-button round">&#57349;</a>
             <div class="menu shadow">
                 <a id="refresh" class="menu-item">
-                    <icon>&#57360;</icon>Refresh
+                    <icon>&#57360;</icon><locale key="menu.refresh">Refresh</locale>
                 </a>
 
                 <a id="open-settings-button" class="menu-item">
-                    <icon>&#57367;</icon>Settings
+                    <icon>&#57367;</icon><locale key="menu.settings">Settings</locale>
                 </a>
                 <a id="about-button" class="menu-item">
-                    <icon>&#57352;</icon>About
+                    <icon>&#57352;</icon><locale key="menu.about">About</locale>
                 </a>
             </div>
         </div>
@@ -75,23 +75,23 @@
                 <a id="bottomMenu" class="icon round bottom-button">&#57349;</a>
                 <div class="bottom-menu shadow">
                     <a id="locate" class="menu-item">
-                        <icon>&#57351;</icon>Locate File
+                        <icon>&#57351;</icon><locale key="menu.locate">Locate File</locale>
                     </a>
                     <a id="midiInfo" class="menu-item">
-                        <icon>&#57352;</icon>MIDI Info
+                        <icon>&#57352;</icon><locale key="menu.midi-info">MIDI Info</locale>
                     </a>
                     <a id="wav" class="menu-item">
-                        <icon>&#57353;</icon>Audio File
+                        <icon>&#57353;</icon><locale key="menu.audio-file">Audio File</locale>
                     </a>
                     <a id="mid" class="menu-item">
-                        <icon>&#57354;</icon>MIDI File
+                        <icon>&#57354;</icon><locale key="menu.midi-file">MIDI File</locale>
                     </a>
                     <a id="playModeAlt" class="menu-item">
                         <icon>&#57355;</icon>
-                        <div style="display: inline;">Single</div>
+                        <div style="display: inline;"><locale key="menu.play-mode">Single</locale></div>
                     </a>
                     <a id="replay" class="menu-item">
-                        <icon>&#57360;</icon>Replay
+                        <icon>&#57360;</icon><locale key="menu.replay">Replay</locale>
                     </a>
                 </div>
             </div>
@@ -110,52 +110,52 @@
 
     <!-- Dialog -->
     <dialog id="settings-dialog" class="shadow">
-        <div class="title">Settings</div>
+        <div class="title"><locale key="settings.title">Settings</locale></div>
 
         <div class="dialog-container">
-            <section class="dialog-section" id="general-section">General
+            <section class="dialog-section" id="general-section"><locale key="settings.general">General</locale>
                 <a id="dark" class="dialog-item">
-                    <icon>&#57350;</icon>Dark Mode
+                    <icon>&#57350;</icon><locale key="settings.general.dark-mode">Dark Mode</locale>
                 </a>
             </section>
 
-            <section class="dialog-section" id="player-section">Players
+            <section class="dialog-section" id="player-section"><locale key="settings.players">Players</locale>
                 <a id="audioPlayer" class="dialog-item">
-                    <icon>&#57361;</icon>Use Audio Player
+                    <icon>&#57361;</icon><locale key="settings.players.audio">Use Audio Player</locale>
                 </a>
                 <a id="picoAudioPlayer" class="dialog-item">
-                    <icon>&#57364;</icon>Use PicoAudio Synthesizer
+                    <icon>&#57364;</icon><locale key="settings.players.picoaudio">Use PicoAudio Synthesizer</locale>
                 </a>
             </section>
 
-            <section class="dialog-section" id="audio-section">Audio
+            <section class="dialog-section" id="audio-section"><locale key="settings.audio">Audio Player</locale>
                 <a id="midiSrc" class="dialog-item">
-                    <icon>&#57362;</icon>Use MIDI as source
+                    <icon>&#57362;</icon><locale key="settings.audio.midi-src">Use MIDI as source</locale>
                 </a>
             </section>
 
-            <section class="dialog-section" id="picoaudio-section">PicoAudio
+            <section class="dialog-section" id="picoaudio-section"><locale key="settings.picoaudio">PicoAudio</locale>
                 <a id="picoAudioMIDI" class="dialog-item">
-                    <icon>&#57362;</icon>Use Web MIDI
+                    <icon>&#57362;</icon><locale key="settings.picoaudio.web-midi">Use Web MIDI</locale>
                 </a>
                 <a id="picoAudioMIDIDevice" class="dialog-item">
-                    <icon>&#57368;</icon>MIDI Device <select id="devices"></select>
+                    <icon>&#57368;</icon><locale key="settings.picoaudio.midi-devices">MIDI Devices</locale><select id="devices"></select>
                 </a>
             </section>
 
-            <section class="dialog-section">Piano Roll
+            <section class="dialog-section"><locale key="settings.piano-roll">Piano Roll</locale>
                 <a id="spanDurationSetting" class="dialog-item">
-                    <icon>&#57367;</icon>Span Duration <input id="spanDuration" type="number" min="0" max="10"
-                        step="0.1" value="4"></input>
+                    <icon>&#57367;</icon><locale key="settings.piano-roll.span-duration">Span Duration</locale>
+                    <input id="spanDuration" type="number" min="0" max="10" step="0.1" value="4"></input>
                 </a>
                 <a id="maxNoteDurationSetting" class="dialog-item">
-                    <icon>&#57367;</icon>Max Note Duration <input id="maxNoteDuration" type="number" min="1" max="60"
-                        step="1" value="30"></input>
+                    <icon>&#57367;</icon><locale key="settings.piano-roll.max-note-duration">Max Note Duration</locale>
+                    <input id="maxNoteDuration" type="number" min="1" max="60" step="1" value="30"></input>
                 </a>
             </section>
         </div>
         <div class="dialog-button-container">
-            <a class="dialog-button" id="close-settings-button">Close</a>
+            <a class="dialog-button" id="close-settings-button"><locale key="settings.close-btn">Close</locale></a>
         </div>
 
     </dialog>
@@ -163,12 +163,13 @@
         <div class="title">Dialog</div>
         <div class="dialog-container"></div>
         <div class="dialog-button-container">
-            <a class="dialog-button" id="close-dialog-button">Close</a>
+            <a class="dialog-button" id="close-dialog-button"><locale key="dialog.close-btn">Close</locale></a>
         </div>
     </dialog>
 
 
     <script src="js/utils.js"></script>
+    <script src="js/locale.js"></script>
     <script src="js/PicoAudio.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/waterfall.js"></script>

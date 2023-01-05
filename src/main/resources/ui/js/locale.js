@@ -1,0 +1,104 @@
+let defaultLocale = {
+    "menu.refresh": "Refresh",
+    "menu.settings": "Settings",
+    "menu.about": "About",
+    "menu.locate": "Locate File",
+    "menu.midi-info": "MIDI Info",
+    "menu.audio-file": "Audio File",
+    "menu.midi-file": "MIDI File",
+    "menu.play-mode": "Play Mode",
+    "menu.play-mode.single": "Single",
+    "menu.play-mode.single-looped": "Single Looped",
+    "menu.play-mode.list": "List",
+    "menu.play-mode.list-looped": "List Looped",
+    "menu.replay": "Replay",
+
+    "settings.title": "Settings",
+    "settings.general": "General",
+    "settings.general.dark-mode": "Dark Mode",
+    "settings.players": "Players",
+    "settings.players.audio": "Use Audio Player",
+    "settings.players.picoaudio": "Use PicoAudio Synthesizer",
+    "settings.audio": "Audio Player",
+    "settings.audio.midi-src": "Use MIDI as source",
+    "settings.picoaudio": "PicoAudio",
+    "settings.picoaudio.web-midi": "Use Web MIDI",
+    "settings.picoaudio.midi-devices": "MIDI Devices",
+    "settings.piano-roll": "Piano Roll",
+    "settings.piano-roll.span-duration": "Span Duration",
+    "settings.piano-roll.max-note-duration": "Max Note Duration",
+    "settings.close-btn": "Close",
+
+    "dialog.close-btn": "Close",
+
+    "about.title": "About",
+    "about.name": "Web App",
+    "about.version": "Version",
+    "about.libraries": "Libraries",
+
+    "midi-info.title": "MIDI Info",
+    "midi-info.name": "Name",
+    "midi-info.size": "Size",
+    "midi-info.last-modified": "Last modified",
+    "midi-info.duration": "Duration"
+};
+
+let currentLocale = {};
+
+
+async function localeInit() {
+    // 检查用户的语言设置
+    const lang = navigator.language;
+    if (lang !== 'en-US') {
+        // 如果用户的语言不是英语，尝试加载对应的语言文件
+        try {
+            const response = await fetch(`lang/${lang}.json`);
+            currentLocale = await response.json();
+            updateHTML();
+        } catch (err) {
+            // 如果对应的语言文件加载失败，则使用默认的 en-US.json
+            currentLocale = defaultLocale;
+        }
+    } else {
+        // 如果用户的语言是英语，则使用默认的 en-US.json
+        currentLocale = defaultLocale;
+    }
+}
+
+function getLocale(key) {
+    // 先在当前语言文件中查找本地化字符串
+    let value = currentLocale[key];
+    if (value === undefined) {
+        // 如果找不到，则在默认语言文件中查找
+        value = defaultLocale[key];
+        if (value === undefined) {
+            // 如果还是找不到，则直接返回 key
+            value = key;
+        }
+    }
+    return value;
+}
+
+function updateHTML() {
+    $("locale").forEach(element => {
+        element.innerText = getLocale(element.getAttribute('key'));
+    });
+}
+
+function setLocale(language) {
+    if (language == 'en-US') {
+        currentLocale = defaultLocale
+    }
+    else {
+        fetch("lang/" + language + ".json").then(r => {
+            if (r.ok) {
+                r.json().then(json => {
+                    currentLocale = json;
+                    updateHTML();
+                })
+            }
+        })
+    }
+}
+
+localeInit();
