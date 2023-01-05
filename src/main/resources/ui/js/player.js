@@ -580,25 +580,29 @@ function updatePlayer(mode) {
             player.setLoop(false);
             playModeButton.innerText = '\ue00b';
             altIcon.innerText = '\ue00b';
-            altText.innerText = getLocale('menu.play-mode.single');
+            altText.innerHTML = '';
+            altText.appendChild(createLocaleItem('menu.play-mode.single'));
             break;
         case 1:
             player.setLoop(true);
             playModeButton.innerText = '\ue00c';
             altIcon.innerText = '\ue00c';
-            altText.innerText = getLocale('menu.play-mode.single-looped');
+            altText.innerHTML = '';
+            altText.appendChild(createLocaleItem('menu.play-mode.single-looped'));
             break;
         case 2:
             player.setLoop(false);
             playModeButton.innerText = '\ue00d';
             altIcon.innerText = '\ue00d';
-            altText.innerText = getLocale('menu.play-mode.list');
+            altText.innerHTML = '';
+            altText.appendChild(createLocaleItem('menu.play-mode.list'));
             break;
         case 3:
             player.setLoop(false);
             playModeButton.innerText = '\ue00e';
             altIcon.innerText = '\ue00e';
-            altText.innerText = getLocale('menu.play-mode.list-looped');
+            altText.innerHTML = '';
+            altText.appendChild(createLocaleItem('menu.play-mode.list-looped'));
             break;
         default:
             break;
