@@ -377,9 +377,11 @@ function setupWebMIDI() {
             }
         });
     } else {
+        let state = picoAudio.states.isPlaying;
         picoAudio.pause();
         picoAudio.setWebMIDI(false);
-        picoAudio.play();
+        if (state)
+            picoAudio.play();
     }
 }
 
