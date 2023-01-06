@@ -201,7 +201,7 @@ function AudioPlayer() {
 
 // singleton picoaudio
 let picoAudio = null;
-
+let picoAudioInit = false;
 function PicoAudioPlayer() {
     this.paused = true;
     this.lastPausedTime = 0;
@@ -346,11 +346,14 @@ function PicoAudioPlayer() {
     //     updatePlayback();
     // });
 
-    picoAudio.addEventListener('songEnd', e => {
-        if (!picoAudio.isLoop()) this.pause();
-        updatePlayback();
-        onended();
-    });
+    if (!picoAudioInit) {
+        picoAudio.addEventListener('songEnd', e => {
+            if (!picoAudio.isLoop()) this.pause();
+            updatePlayback();
+            onended();
+        });
+        picoAudioInit = true;
+    }
 
     setupWebMIDI();
 }
