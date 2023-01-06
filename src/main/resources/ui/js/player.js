@@ -157,11 +157,11 @@ function AudioPlayer() {
     }
 
     this.getVolume = function () {
-        return Math.sqrt(this.audio.volume);
+        return this.audio.volume;
     }
 
     this.setVolume = function (volume) {
-        this.audio.volume = Math.pow(volume, 2);
+        this.audio.volume = volume;
     }
 
     if (!audioInit) {
@@ -630,7 +630,7 @@ function onended() {
 
 function setVolume(percentage) {
     volumeControlInner.style.width = (percentage * 100) + "%";
-    player.setVolume(percentage);
+    player.setVolume(Math.pow(percentage, 2));
     config.volume = percentage;
     save();
 }
