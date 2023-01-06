@@ -164,7 +164,7 @@ aboutButton.addEventListener('click', e => {
     dialogContent.appendChild(createDialogItem("Licensed under MIT License."));
 
     let section = document.createElement("a");
-    section.classList.add('dialog-section');
+    section.classList.add('dialog-subtitle');
     section.innerText = getLocale("about.libraries");
     dialogContent.appendChild(section);
     dialogContent.appendChild(createDialogItem('<a href="https://github.com/cagpie/PicoAudio.js" class="link">PicoAudio</a> \u00a9 cagpie (MIT License)'));

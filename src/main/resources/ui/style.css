@@ -95,7 +95,7 @@ file-icon {
     padding: 5px 10px;
     display: flex;
     align-items: center;
-    min-height: 40px;    
+    min-height: 40px;
     border-bottom: 1px solid #80808060;
     cursor: pointer;
     color: var(--text-color);
@@ -221,7 +221,7 @@ input[type=number] {
 input[type="number"]:focus {
     outline: none;
     border-bottom: 2px solid var(--theme-color);
-  }
+}
 
 #collapse {
     position: fixed;
@@ -434,14 +434,13 @@ dialog.fade-out {
 .dialog-section {
     display: flex;
     flex-direction: column;
+}
+
+.dialog-subtitle {
+    color: var(--theme-color);
     padding-top: 12px;
     padding-left: 12px;
     padding-right: 16px;
-    color: var(--theme-color);
-}
-
-.dialog-section .dialog-item {
-    padding-left: 0;
 }
 
 .dialog-item:hover {
