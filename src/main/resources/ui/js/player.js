@@ -361,7 +361,6 @@ function setupWebMIDI() {
     if (config.webmidi) {
         navigator.requestMIDIAccess().then(access => {
             picoAudio.setWebMIDI(true);
-
             deviceSelection.innerHTML = '';
 
             midiDeviceList = access.outputs;
@@ -375,7 +374,9 @@ function setupWebMIDI() {
             }
         });
     } else {
+        picoAudio.pause();
         picoAudio.setWebMIDI(false);
+        picoAudio.play();
     }
 }
 
