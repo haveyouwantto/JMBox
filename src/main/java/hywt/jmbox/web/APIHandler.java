@@ -271,7 +271,7 @@ public class APIHandler implements HttpHandler {
             } catch (UnsupportedAudioFileException e) {
                 logger.warning(e.toString());
                 e.printStackTrace();
-                send(exchange, 500, "Internal Server Error");
+                send(exchange, 500, e.toString());
             } catch (FileNotFoundException e) {
                 logger.warning(e.toString());
                 send(exchange, 404, "Not Found");

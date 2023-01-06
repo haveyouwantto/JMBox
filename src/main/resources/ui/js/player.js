@@ -157,11 +157,11 @@ function AudioPlayer() {
     }
 
     this.getVolume = function () {
-        return this.audio.volume;
+        return Math.sqrt(this.audio.volume);
     }
 
     this.setVolume = function (volume) {
-        this.audio.volume = volume;
+        this.audio.volume = Math.pow(volume, 2);
     }
 
     if (!audioInit) {

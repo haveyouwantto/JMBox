@@ -38,7 +38,7 @@ function info() {
             player = new window[config.player]();
         }
 
-        player.setVolume(config.volume);
+        setVolume(config.volume);
         updatePlayer(config.playMode);
 
         if ('mediaSession' in navigator) {
