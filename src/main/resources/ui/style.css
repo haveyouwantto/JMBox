@@ -406,13 +406,17 @@ dialog .title {
 }
 
 dialog[open] {
-    animation: dialogFadeIn 0.25s ease-out 0s;
+    animation: dialogFadeIn 0.2s ease-out 0s;
     display: flex;
     flex-direction: column;
 }
 
 dialog.fade-out {
-    animation: fadeOut 0.2s ease-out 0s;
+    animation: fadeOut 100ms ease-out 0s;
+}
+
+dialog.fade-out::backdrop {
+    animation: fadeOut 100ms ease-out 0s;
 }
 
 .dialog-item {
@@ -497,12 +501,12 @@ dialog.fade-out {
 }
 
 @keyframes fadeOut {
-    0% {
+    from {
         opacity: 1;
         visibility: visible;
     }
 
-    100% {
+    to {
         opacity: 0;
         visibility: hidden;
     }

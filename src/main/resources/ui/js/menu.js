@@ -134,6 +134,13 @@ const openSettingsButton = $("#open-settings-button");
 const closeSettingsButton = $("#close-settings-button");
 const settingsDialog = $("#settings-dialog");
 
+settingsDialog.addEventListener('animationend', function () {
+    if (settingsDialog.classList.contains('fade-out')) {
+        settingsDialog.classList.remove('fade-out')
+        settingsDialog.close();
+    }
+});
+
 openSettingsButton.addEventListener('click', () => {
     settingsDialog.classList.remove("fade-out");
     settingsDialog.showModal();
@@ -141,7 +148,6 @@ openSettingsButton.addEventListener('click', () => {
 
 closeSettingsButton.addEventListener('click', () => {
     settingsDialog.classList.add("fade-out");
-    settingsDialog.close();
 });
 
 
@@ -150,8 +156,15 @@ const dialogTitle = dialog.querySelector('.title');
 const dialogContent = dialog.querySelector('.dialog-container');
 const closeDialogButton = $("#close-dialog-button");
 
+dialog.addEventListener('animationend', function () {
+    if (dialog.classList.contains('fade-out')) {
+        dialog.classList.remove('fade-out')
+        dialog.close();
+    }
+});
+
 closeDialogButton.addEventListener('click', () => {
-    dialog.close();
+    dialog.classList.add('fade-out')
 });
 
 const aboutButton = $("#about-button");
@@ -195,6 +208,6 @@ languageButton.addEventListener('click', e => {
             save();
         });
         dialogContent.appendChild(item);
-    } 
+    }
     dialog.showModal();
 });
