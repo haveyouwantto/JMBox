@@ -412,11 +412,11 @@ dialog[open] {
 }
 
 dialog.fade-out {
-    animation: fadeOut 100ms ease-out 0s;
+    animation: fadeOut 150ms ease-out 0s;
 }
 
 dialog.fade-out::backdrop {
-    animation: fadeOut 100ms ease-out 0s;
+    animation: fadeOut 150ms ease-out 0s;
 }
 
 .dialog-item {
