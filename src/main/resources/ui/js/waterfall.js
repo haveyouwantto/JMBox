@@ -90,6 +90,14 @@ function getStopTime(note) {
     return Math.min(time, note.startTime + config.maxNoteDuration);
 }
 
+function getNoteTransparency(velocity) {
+    let transparency = Math.round(velocity * 255).toString(16);
+    if (transparency.length < 2) {
+        transparency = "0" + transparency;
+    }
+    return transparency;
+}
+
 function fastSpan(list, startTime, duration) {
     if (list.length == 0) return [];
     // Define the left and right boundaries of the search interval
@@ -157,6 +165,9 @@ function draw() {
                 let endY = (stopTime - playTime) * scaling;
                 let x = note.pitch * noteWidth;
 
+                if (config.noteTransparency) {
+                    canvasCtx.fillStyle = palette[i] + getNoteTransparency(note.velocity);
+                }
                 canvasCtx.fillRect(x, canvas.height - endY - keyboardHeight, noteWidth, endY - startY);
 
                 // Pressed key
@@ -227,5 +238,13 @@ let maxNoteDurationEdit = $("#maxNoteDuration");
 maxNoteDurationEdit.value = config.maxNoteDuration;
 maxNoteDurationEdit.addEventListener('change', e => {
     config.maxNoteDuration = parseFloat(maxNoteDurationEdit.value);
+    save();
+});
+
+let noteTransparencyBtn = $("#noteTransparency");
+updateChecker(noteTransparencyBtn, config.noteTransparency);
+noteTransparencyBtn.addEventListener('click', e => {
+    config.noteTransparency = !config.noteTransparency;
+    updateChecker(noteTransparencyBtn, config.noteTransparency);
     save();
 });

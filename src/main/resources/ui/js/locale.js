@@ -28,6 +28,7 @@ let defaultLocale = {
     "settings.piano-roll": "Piano Roll",
     "settings.piano-roll.span-duration": "Span Duration",
     "settings.piano-roll.max-note-duration": "Max Note Duration",
+    "settings.piano-roll.note-transparency": "Note translucence to velocity",
     "settings.close-btn": "Close",
 
     "dialog.close-btn": "Close",

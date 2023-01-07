@@ -193,6 +193,7 @@ select {
     font-size: 1rem;
     color: var(--text-color);
     background-color: #00000000;
+    min-width: 5rem;
 }
 
 select:focus {
@@ -215,7 +216,7 @@ input[type=number] {
     color: var(--text-color);
     border-bottom: 1px solid #80808060;
     transition: border-bottom 0.25s;
-    width: 5rem;
+    min-width: 5rem;
 }
 
 input[type="number"]:focus {

@@ -9,7 +9,8 @@ let defaultValue = {
     volume: 1,
     spanDuration: 4,
     maxNoteDuration: 30,
-    language: "auto"
+    language: "auto",
+    noteTransparency: false
 }
 
 let config = {};
