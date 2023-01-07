@@ -188,9 +188,9 @@ function AudioPlayer() {
 
         this.audio.addEventListener('error', e => {
             if (this.audio.src != '') {
-                dialogTitle.innerText = 'Failed to play';
+                dialogTitle.innerText = getLocale("player.failed");
                 dialogContent.innerHTML = '';
-                dialogContent.appendChild(createDialogItem("The server didn't send the requested format."));
+                dialogContent.appendChild(createDialogItem(getLocale("player.failed.description")));
                 dialog.showModal();
             }
         })
@@ -514,7 +514,7 @@ function createPlayer(playerClass) {
     player.setVolume(volume);
     updatePlayer(config.playMode);
     updatePlayerChecker(playerClass);
-    
+
     if (filesMem.length > 0) {
         player.load(cdMem + "/" + filesMem[playing], () => {
             player.seek(playtime);

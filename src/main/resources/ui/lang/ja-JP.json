@@ -42,7 +42,11 @@
     "midi-info.size": "サイズ",
     "midi-info.last-modified": "更新日時",
     "midi-info.duration": "再生時間",
+    "midi-info.failed": "MIDI情報の取得に失敗しました。",
 
     "languages.title":"言語",
-    "languages.auto":"自動"
+    "languages.auto":"自動",
+
+    "player.failed":"再生に失敗しました",
+    "player.failed.description":"このファイルを再生する際にエラーが発生しました。"
   }

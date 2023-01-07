@@ -216,14 +216,21 @@ function createLocaleItem(key) {
 function midiinfo(url) {
     dialogTitle.innerText = getLocale("midi-info.title");
     dialogContent.innerHTML = '';
-    dialog.showModal();
     fetch("api/midiinfo" + url)
-        .then(response => response.json())
-        .then(data => {
-            dialogContent.appendChild(createDialogItem(getLocale("midi-info.name") + ": " + data.name));
-            dialogContent.appendChild(createDialogItem(getLocale("midi-info.size") + ": " + toSI(data.size, true) + "B"));
-            dialogContent.appendChild(createDialogItem(getLocale("midi-info.last-modified") + ": " + new Date(data.lastModified).toLocaleString()));
-            dialogContent.appendChild(createDialogItem(getLocale("midi-info.duration") + ": " + formatTime(player.duration())));
+        .then(response => {
+            if (response.ok) {
+                response.json()
+                    .then(data => {
+                        dialogContent.appendChild(createDialogItem(getLocale("midi-info.name") + ": " + data.name));
+                        dialogContent.appendChild(createDialogItem(getLocale("midi-info.size") + ": " + toSI(data.size, true) + "B"));
+                        dialogContent.appendChild(createDialogItem(getLocale("midi-info.last-modified") + ": " + new Date(data.lastModified).toLocaleString()));
+                        dialogContent.appendChild(createDialogItem(getLocale("midi-info.duration") + ": " + formatTime(player.duration())));
+                        dialog.showModal();
+                    })
+            } else {
+                dialogContent.appendChild(createDialogItem(getLocale("midi-info.failed")));
+                dialog.showModal();
+            }
         });
 }
 

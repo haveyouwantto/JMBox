@@ -42,7 +42,11 @@
     "midi-info.size": "大小",
     "midi-info.last-modified": "修改日期",
     "midi-info.duration": "時長",
+    "midi-info.failed": "無法取得MIDI資訊。",
     
     "languages.title":"語言",
-    "languages.auto":"自動"
+    "languages.auto":"自動",
+    
+    "player.failed":"無法播放",
+    "player.failed.description":"播放這個檔案時發生錯誤。"
 }  

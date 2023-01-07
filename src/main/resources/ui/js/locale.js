@@ -42,9 +42,13 @@ let defaultLocale = {
     "midi-info.size": "Size",
     "midi-info.last-modified": "Last modified",
     "midi-info.duration": "Duration",
+    "midi-info.failed": "Failed to fetch MIDI information.",
 
     "languages.title": "Languages",
-    "languages.auto": "Automatic"
+    "languages.auto": "Automatic",
+
+    "player.failed":"Failed to play",
+    "player.failed.description":"There's an error in playing this file."
 };
 
 let currentLocale = {};
