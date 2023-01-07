@@ -230,9 +230,9 @@ function PicoAudioPlayer() {
                     callback();
                 })
             } else {
-                dialogTitle.innerText = 'Failed to play';
+                dialogTitle.innerText = getLocale("player.failed");
                 dialogContent.innerHTML = '';
-                dialogContent.appendChild(createDialogItem("The server didn't send the requested format."));
+                dialogContent.appendChild(createDialogItem(getLocale("player.failed.description")));
                 dialog.showModal();
             }
         });
