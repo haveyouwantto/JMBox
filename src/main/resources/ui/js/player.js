@@ -228,6 +228,9 @@ function PicoAudioPlayer() {
                     smfData = parsedData;
                     try {
                         picoAudio.setData(parsedData);
+                        if (config.webmidi) {
+                            resetMIDI(picoAudio.settings.WebMIDIPortOutput);
+                        }
                     } catch (error) {
                         console.warn(error);
                     }
@@ -370,7 +373,8 @@ function PicoAudioPlayer() {
 // PicoAudio MIDI initialize
 function setupWebMIDI() {
     if (config.webmidi) {
-        navigator.requestMIDIAccess().then(access => {
+        navigator.requestMIDIAccess({ sysex: true }).then(access => {
+
             picoAudio.setWebMIDI(true);
             deviceSelection.innerHTML = '';
 
@@ -390,6 +394,12 @@ function setupWebMIDI() {
         picoAudio.setWebMIDI(false);
         if (state)
             picoAudio.play();
+    }
+}
+
+function resetMIDI(output) {
+    for (let i = 0; i < 16; i++) {
+        output.send([0xb0 | i, 121, 0]);
     }
 }
 
