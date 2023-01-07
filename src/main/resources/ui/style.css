@@ -33,8 +33,7 @@ icon {
 
 .right {
     margin-right: 0;
-    margin-left: 16px;
-    float: right;
+    margin-left: auto;
 }
 
 file-icon {
@@ -184,10 +183,6 @@ body {
 
 .menu-item:hover {
     background-color: var(--hover-color);
-}
-
-#picoAudioMIDI {
-    display: none;
 }
 
 select {
@@ -436,6 +431,11 @@ dialog.fade-out::backdrop {
     user-select: none;
 }
 
+#settings-dialog .dialog-item {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .dialog-item-line {
     border-bottom: 1px solid #80808060;
 }
@@ -621,9 +621,6 @@ html::-webkit-scrollbar-track {
         align-items: stretch;
     }
 
-    dialog[open] {
-        animation: dialogFadeIn 250ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
-    }
 }
 
 @media only screen and (max-width: 680px) {

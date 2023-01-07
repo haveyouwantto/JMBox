@@ -386,7 +386,6 @@ function setupWebMIDI() {
 }
 
 if (window.isSecureContext) {
-    midiBtn.style.display = 'block';
     midiBtn.addEventListener('click', e => {
         config.webmidi = !config.webmidi;
         updateChecker(midiBtn, config.webmidi);
@@ -394,6 +393,7 @@ if (window.isSecureContext) {
         save();
     });
 } else {
+    midiBtn.style.display = 'none';
     $("#picoaudio-section").style.display = "none";
 }
 updateChecker(midiBtn, config.webmidi);
@@ -507,17 +507,18 @@ midiInfo.addEventListener('click', e => {
 
 function createPlayer(playerClass) {
     let playtime = player.currentTime();
-    let paused = player.isPaused();
+    let lastPaused = player.isPaused();
     let volume = player.getVolume();
     player.stop();
     player = new playerClass();
     player.setVolume(volume);
     updatePlayer(config.playMode);
     updatePlayerChecker(playerClass);
+    
     if (filesMem.length > 0) {
         player.load(cdMem + "/" + filesMem[playing], () => {
             player.seek(playtime);
-            if (!paused) player.play();
+            if (!lastPaused) player.play();
         });
     }
     config.player = player.constructor.name;
