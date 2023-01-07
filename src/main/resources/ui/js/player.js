@@ -166,6 +166,7 @@ function AudioPlayer() {
 
     this.replay = function () {
         this.seek(0);
+        this.play();
     }
 
     if (!audioInit) {
@@ -343,6 +344,7 @@ function PicoAudioPlayer() {
 
     this.replay = function () {
         this.seek(0);
+        this.play();
     }
 
     // picoAudio.addEventListener('noteOn', e => {
