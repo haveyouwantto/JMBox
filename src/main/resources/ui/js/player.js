@@ -164,6 +164,10 @@ function AudioPlayer() {
         this.audio.volume = volume;
     }
 
+    this.replay = function () {
+        this.seek(0);
+    }
+
     if (!audioInit) {
         this.audio.addEventListener('pause', e => {
             this.pause();
@@ -334,6 +338,10 @@ function PicoAudioPlayer() {
         picoAudio.setMasterVolume(volume);
     }
 
+    this.replay = function () {
+        this.seek(0);
+    }
+
     // picoAudio.addEventListener('noteOn', e => {
     //     updatePlayback();
     // });
@@ -451,8 +459,7 @@ prevButton.addEventListener('click', e => {
 });
 
 replayButton.addEventListener('click', e => {
-    player.seek(0);
-    player.play();
+    player.replay();
 });
 
 // Bottom Menu
