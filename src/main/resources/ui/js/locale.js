@@ -23,7 +23,7 @@ let defaultLocale = {
     "settings.audio": "Audio Player",
     "settings.audio.midi-src": "Use MIDI as source",
     "settings.picoaudio": "PicoAudio",
-    "settings.picoaudio.web-midi": "Use Web MIDI",
+    "settings.picoaudio.web-midi": "Use Web MIDI Output",
     "settings.picoaudio.midi-devices": "MIDI Devices",
     "settings.piano-roll": "Piano Roll",
     "settings.piano-roll.span-duration": "Span Duration",

@@ -59,11 +59,14 @@ function toSI(n, bin = false) {
  */
 function updateChecker(parent, value) {
     let checker = $('icon[checker]', parent);
+    let isRadio = checker.classList.contains("radio");
+    console.log(isRadio);
+    
     if (value) {
         checker.classList.add('icon-checked');
-        checker.innerText = '\ue013';
+        checker.innerText = isRadio ? '\ue01c' : '\ue013';
     } else {
         checker.classList.remove('icon-checked');
-        checker.innerText = '\ue012';
+        checker.innerText = isRadio ? '\ue01b' : '\ue012';
     }
 }

@@ -22,7 +22,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 1
 CreationTime: 1669173039
-ModificationTime: 1673046663
+ModificationTime: 1673068959
 OS2TypoAscent: 0
 OS2TypoAOffset: 1
 OS2TypoDescent: 0
@@ -36,7 +36,6 @@ HheadAscent: 0
 HheadAOffset: 1
 HheadDescent: 0
 HheadDOffset: 1
-OS2Vendor: 'PfEd'
 DEI: 91125
 Encoding: Custom
 UnicodeInterp: none
@@ -45,7 +44,7 @@ DisplaySize: -48
 AntiAlias: 1
 FitToEm: 0
 WinInfo: 0 38 14
-BeginChars: 26 26
+BeginChars: 29 29
 
 StartChar: play
 Encoding: 0 57344 0
@@ -768,6 +767,90 @@ SplineSet
  283 11 230 -38 179 -63 c 1
  184 -59 202 -38 208 -27 c 0
  227 5 247 81 253 216 c 0
+EndSplineSet
+EndChar
+
+StartChar: output
+Encoding: 26 57370 26
+Width: 1000
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+161 639 m 1
+ 340 639 l 1
+ 340 545 l 1
+ 255 545 l 1
+ 255 55 l 1
+ 745 55 l 1
+ 745 545 l 1
+ 660 545 l 1
+ 660 639 l 1
+ 839 639 l 1
+ 839 -39 l 1
+ 161 -39 l 1
+ 161 592 l 1
+ 161 639 l 1
+538 478 m 1
+ 462 478 l 1
+ 462 155 l 1
+ 538 155 l 1
+ 538 478 l 1
+385 310 m 1
+ 553 478 l 1
+ 500 532 l 1
+ 331 363 l 1
+ 385 310 l 1
+669 363 m 1
+ 500 532 l 1
+ 447 478 l 1
+ 615 310 l 1
+ 669 363 l 1
+EndSplineSet
+EndChar
+
+StartChar: radio
+Encoding: 27 57371 27
+Width: 1000
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+229 304 m 0
+ 229 452 350 573 498 573 c 0
+ 646 573 767 452 767 304 c 0
+ 767 156 646 36 498 36 c 0
+ 350 36 229 156 229 304 c 0
+134 304 m 0
+ 134 103 297 -59 498 -59 c 0
+ 699 -59 861 103 861 304 c 0
+ 861 505 699 668 498 668 c 0
+ 297 668 134 505 134 304 c 0
+EndSplineSet
+EndChar
+
+StartChar: radioactive
+Encoding: 28 57372 28
+Width: 1000
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+229 304 m 0
+ 229 452 350 573 498 573 c 0
+ 646 573 767 452 767 304 c 0
+ 767 156 646 36 498 36 c 0
+ 350 36 229 156 229 304 c 0
+134 304 m 0
+ 134 103 297 -59 498 -59 c 0
+ 699 -59 861 103 861 304 c 0
+ 861 505 699 668 498 668 c 0
+ 297 668 134 505 134 304 c 0
+344 300 m 0
+ 344 386 414 456 500 456 c 0
+ 586 456 656 386 656 300 c 0
+ 656 214 586 144 500 144 c 0
+ 414 144 344 214 344 300 c 0
 EndSplineSet
 EndChar
 EndChars
