@@ -372,7 +372,7 @@ dialog {
     background-color: var(--bg-color-alt);
     border: none;
     border-radius: 4px;
-    max-height: 70%;
+    max-height: 90%;
     max-width: 500px;
     min-width: 200px;
     font-family: sans-serif;
@@ -438,7 +438,6 @@ dialog.fade-out::backdrop {
 
 #settings-dialog .dialog-item {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
 }
 
@@ -678,5 +677,15 @@ html::-webkit-scrollbar-track {
 
     dialog {
         min-width: 80%;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    input[type=number] {
+        min-width: unset;
+    }
+
+    select {
+        min-width: unset;
     }
 }
