@@ -28,9 +28,13 @@ icon {
     font-size: 26px;
     user-select: none;
     text-decoration: none;
-    width: 40px;
-    height: 40px;
     margin-right: 10px;
+}
+
+.right {
+    margin-right: 0;
+    margin-left: 16px;
+    float: right;
 }
 
 file-icon {
@@ -216,6 +220,7 @@ input[type=number] {
     color: var(--text-color);
     border-bottom: 1px solid #80808060;
     transition: border-bottom 0.25s;
+    width: 5rem;
 }
 
 input[type="number"]:focus {
@@ -406,7 +411,7 @@ dialog .title {
 }
 
 dialog[open] {
-    animation: dialogFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    animation: dialogFadeIn 200ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
     display: flex;
     flex-direction: column;
 }
@@ -599,6 +604,7 @@ html::-webkit-scrollbar-track {
     }
 }
 
+/* Start from this, treat as mobile phone */
 @media only screen and (max-width: 768px) {
     .file {
         width: unset;
@@ -615,6 +621,9 @@ html::-webkit-scrollbar-track {
         align-items: stretch;
     }
 
+    dialog[open] {
+        animation: dialogFadeIn 250ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    }
 }
 
 @media only screen and (max-width: 680px) {

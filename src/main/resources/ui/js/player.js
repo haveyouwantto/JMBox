@@ -398,22 +398,6 @@ if (window.isSecureContext) {
 }
 updateChecker(midiBtn, config.webmidi);
 
-/**
- * Update a checker
- * @param {HTMLElement} parent 
- * @param {boolean} value 
- */
-function updateChecker(parent, value) {
-    let checker = parent.querySelector('icon');
-    if (value) {
-        checker.classList.add('icon-checked');
-        checker.innerText = '\ue013';
-    } else {
-        checker.classList.remove('icon-checked');
-        checker.innerText = '\ue012';
-    }
-}
-
 // audio midi src toggle
 midiSrcBtn.addEventListener('click', e => {
     config.midisrc = !config.midisrc;
@@ -529,6 +513,7 @@ function createPlayer(playerClass) {
     player = new playerClass();
     player.setVolume(volume);
     updatePlayer(config.playMode);
+    updatePlayerChecker(playerClass);
     if (filesMem.length > 0) {
         player.load(cdMem + "/" + filesMem[playing], () => {
             player.seek(playtime);
@@ -537,6 +522,19 @@ function createPlayer(playerClass) {
     }
     config.player = player.constructor.name;
     save();
+}
+
+function updatePlayerChecker(player) {
+    switch (player) {
+        case AudioPlayer:
+            updateChecker(audioPlayer, true);
+            updateChecker(picoAudioPlayer, false);
+            break;
+        case PicoAudioPlayer:
+            updateChecker(audioPlayer, false);
+            updateChecker(picoAudioPlayer, true);
+            break;
+    }
 }
 
 audioPlayer.addEventListener('click', e => {

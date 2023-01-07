@@ -13,7 +13,7 @@ let collapse = $("#collapse");
 // Menu Items
 let wav = $("#wav");
 let mid = $("#mid");
-let dark = $("#dark");
+let darkModeBtn = $("#dark");
 
 let refresh = $("#refresh");
 
@@ -85,7 +85,7 @@ menu.addEventListener('click', e => {
 });
 
 // Dark mode
-dark.addEventListener('click', e => {
+darkModeBtn.addEventListener('click', e => {
     config.dark = !config.dark;
     setDarkMode(config.dark);
     update('dark', config.dark);
@@ -108,6 +108,7 @@ function setDarkMode(dark) {
         root.setProperty('--bar-color', '#e0e0e0');
         fillColor = '#f0f0f0';
     }
+    updateChecker(darkModeBtn, config.dark);
 }
 
 refresh.addEventListener('click', e => {

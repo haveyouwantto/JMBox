@@ -32,14 +32,15 @@ function info() {
 
         if (!result.capabilities.play) {
             player = new PicoAudioPlayer();
-            document.getElementById('player-section').style.display = 'none';
-            document.getElementById('audio-section').style.display = 'none';
+            $('#player-section').style.display = 'none';
+            $('#audio-section').style.display = 'none';
         } else {
             player = new window[config.player]();
         }
 
         setVolume(config.volume);
         updatePlayer(config.playMode);
+        updatePlayerChecker(player.constructor);
 
         if ('mediaSession' in navigator) {
             navigator.mediaSession.metadata.album = serverName;
