@@ -431,6 +431,10 @@ dialog.fade-out::backdrop {
     user-select: none;
 }
 
+.dialog-item locale {
+    margin-right: 16px;
+}
+
 #settings-dialog .dialog-item {
     display: flex;
     flex-wrap: wrap;
