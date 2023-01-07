@@ -60,7 +60,6 @@ function toSI(n, bin = false) {
 function updateChecker(parent, value) {
     let checker = $('icon[checker]', parent);
     let isRadio = checker.classList.contains("radio");
-    console.log(isRadio);
     
     if (value) {
         checker.classList.add('icon-checked');
