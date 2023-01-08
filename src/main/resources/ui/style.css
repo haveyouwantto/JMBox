@@ -165,7 +165,7 @@ body {
     flex-direction: column;
     visibility: hidden;
     overflow: hidden auto;
-    max-height: 50vh;
+    max-height: 70%;
     z-index: 6;
 }
 
@@ -198,10 +198,6 @@ select {
 
 select:focus {
     outline: 2px solid var(--theme-color);
-}
-
-dialog select {
-    margin-left: 36px;
 }
 
 select option {
@@ -364,7 +360,7 @@ input[type="number"]:focus {
     flex-direction: column;
     visibility: hidden;
     overflow: hidden auto;
-    max-height: 50vh;
+    max-height: 70%;
 }
 
 /* Dialog */
@@ -678,6 +674,10 @@ html::-webkit-scrollbar-track {
     dialog {
         min-width: 80%;
     }
+
+    .dialog-item {
+        overflow-wrap: anywhere;
+    }
 }
 
 @media only screen and (max-width: 300px) {
@@ -687,5 +687,17 @@ html::-webkit-scrollbar-track {
 
     select {
         min-width: unset;
+    }
+
+    .right {
+        max-width: 40vw;
+    }
+
+    .dialog-item locale {
+        margin-right: unset;
+    }
+
+    dialog{
+        max-height: 100%;
     }
 }
