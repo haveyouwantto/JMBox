@@ -7,7 +7,7 @@ let backBtn = head.querySelector("#back");
 let homeBtn = head.querySelector("#home");
 let menuBtn = head.querySelector("#menu");
 
-let menu = head.querySelector(".menu");
+let menu = $("#topMenu");
 let collapse = $("#collapse");
 
 // Menu Items

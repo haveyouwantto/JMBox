@@ -505,7 +505,7 @@ replayButton.addEventListener('click', e => {
 });
 
 // Bottom Menu
-let bottomMenuBtn = $("#bottomMenu");
+let bottomMenuBtn = $("#bottomMenuBtn");
 let bottomMenu = $(".bottom-menu");
 
 // menu display style changer

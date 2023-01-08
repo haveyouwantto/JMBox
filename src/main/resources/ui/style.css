@@ -166,7 +166,7 @@ body {
     visibility: hidden;
     overflow: hidden auto;
     max-height: 70%;
-    z-index: 6;
+    z-index: 7;
 }
 
 .menu-item {
@@ -225,6 +225,7 @@ input[type="number"]:focus {
     width: 100vw;
     height: 100vh;
     top: 0;
+    z-index: 6;
 }
 
 /* Player Bar */
@@ -341,13 +342,6 @@ input[type="number"]:focus {
     margin-left: 5px;
 }
 
-
-#bottomMenu {
-    z-index: 6;
-    cursor: pointer;
-    color: var(--text-color);
-}
-
 .bottom-menu {
     position: fixed;
     bottom: 50px;
@@ -361,6 +355,9 @@ input[type="number"]:focus {
     visibility: hidden;
     overflow: hidden auto;
     max-height: 70%;
+    z-index: 7;
+    cursor: pointer;
+    color: var(--text-color);
 }
 
 /* Dialog */
