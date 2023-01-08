@@ -701,6 +701,8 @@ volumeControl.addEventListener('click', e => {
 
 let deviceSelection = $("#devices");
 deviceSelection.addEventListener('change', e => {
-    resetMIDI(picoAudio.settings.WebMIDIPortOutput, true);
-    picoAudio.settings.WebMIDIPortOutput = midiDeviceList.get(deviceSelection.value);
+    resetMIDI(picoAudio.settings.WebMIDIPortOutput, true);  // reset previous device
+    let device = midiDeviceList.get(deviceSelection.value);
+    resetMIDI(device, true);  // reset current device
+    picoAudio.settings.WebMIDIPortOutput = device;
 });
