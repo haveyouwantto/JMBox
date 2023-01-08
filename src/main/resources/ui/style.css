@@ -7,6 +7,8 @@
     --bar-color: #e0e0e0;
 
     --theme-color-80: #00796b80;
+    --theme-color-60: #00796b60;
+    --theme-color-40: #00796b40;
     --theme-color-20: #00796b20;
 }
 
@@ -259,7 +261,7 @@ input[type="number"]:focus {
 
 #progress #bufferedtime {
     width: 0;
-    background-color: #80808060;
+    background-color: var(--theme-color-40);
     height: 100%;
     position: absolute;
     transition: width 0.2s;
