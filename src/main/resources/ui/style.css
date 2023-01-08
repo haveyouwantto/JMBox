@@ -332,7 +332,6 @@ input[type="number"]:focus {
 
 .bottom-button {
     transition: background-color 0.15s;
-    transition: color 0.15s;
     cursor: pointer;
 }
 
