@@ -5,6 +5,13 @@
     --bg-color-alt: white;
     --hover-color: #00000020;
     --bar-color: #e0e0e0;
+
+    --theme-color-80: #00796b80;
+    --theme-color-20: #00796b20;
+}
+
+::selection {
+    background-color: var(--theme-color-80);
 }
 
 .icon {
@@ -106,7 +113,7 @@ file-icon {
 }
 
 .file:hover {
-    background-color: var(--hover-color);
+    background-color: var(--theme-color-20);
 }
 
 .file-locate {
@@ -323,11 +330,12 @@ input[type="number"]:focus {
 
 .bottom-button {
     transition: background-color 0.15s;
+    transition: color 0.15s;
     cursor: pointer;
 }
 
 .bottom-button:hover {
-    background-color: var(--hover-color);
+    background-color: var(--theme-color-20);
 }
 
 .controls {
@@ -362,6 +370,10 @@ input[type="number"]:focus {
     z-index: 7;
     cursor: pointer;
     color: var(--text-color);
+}
+
+#bottomMenuBtn:hover{
+    color: var(--theme-color);
 }
 
 /* Dialog */
@@ -473,7 +485,7 @@ dialog.fade-out::backdrop {
 }
 
 .dialog-button:hover {
-    background-color: var(--hover-color);
+    background-color: var(--theme-color-20);
 }
 
 .dialog-button-container {

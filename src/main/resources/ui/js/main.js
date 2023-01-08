@@ -47,6 +47,8 @@ function info() {
         }
 
         document.documentElement.style.setProperty('--theme-color', result.themeColor);
+        document.documentElement.style.setProperty('--theme-color-80', result.themeColor + "80");
+        document.documentElement.style.setProperty('--theme-color-20', result.themeColor + "20");
         metaThemeColor.content = result.themeColor;
     });
 }
