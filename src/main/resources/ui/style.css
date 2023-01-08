@@ -194,6 +194,10 @@ select {
     color: var(--text-color);
     background-color: #00000000;
     min-width: 5rem;
+    outline: 1px solid #80808060;
+    transition: outline 0.2s;
+    padding: 3px;
+    border-radius: 3px;
 }
 
 select:focus {
@@ -211,7 +215,7 @@ input[type=number] {
     font-size: 1rem;
     color: var(--text-color);
     border-bottom: 1px solid #80808060;
-    transition: border-bottom 0.25s;
+    transition: border-bottom 0.2s;
     min-width: 5rem;
 }
 
