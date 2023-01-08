@@ -144,7 +144,7 @@ function AudioPlayer() {
 
     this.stop = function () {
         this.pause();
-        this.audio.removeAttribute('src');
+        this.audio.src = "null:"
         bufferedBar.style.display = 'none';
     }
 
@@ -192,7 +192,7 @@ function AudioPlayer() {
         this.audio.addEventListener('ended', onended);
 
         this.audio.addEventListener('error', e => {
-            if (this.audio.src != '') {
+            if (this.audio.src != 'null:') {
                 dialogTitle.innerText = getLocale("player.failed");
                 dialogContent.innerHTML = '';
                 dialogContent.appendChild(createDialogItem(getLocale("player.failed.description")));
@@ -400,8 +400,36 @@ function setupWebMIDI() {
 }
 
 function resetMIDI(output) {
-    for (let i = 0; i < 16; i++) {
-        output.send([0xb0 | i, 121, 0]);
+    if (output != null) {
+        for (let i = 0; i < 16; i++) {
+            // 发送 "All Controllers Off" 事件
+            output.send([0xB0 | i, 0x7A, 0x00]);  // All Notes Off
+            output.send([0xB0 | i, 0x7B, 0x00]);  // All Controllers Off
+
+            // 发送额外的重置控制器事件
+            output.send([0xB0 | i, 0x01, 0x00]);  // Modulation Wheel
+            output.send([0xB0 | i, 0x0B, 0x7F]);  // Expression
+            output.send([0xB0 | i, 0x40, 0x00]);  // Hold Pedal
+            output.send([0xB0 | i, 0x41, 0x00]);  // Portamento
+            output.send([0xB0 | i, 0x42, 0x00]);  // Sustenuto
+            output.send([0xB0 | i, 0x43, 0x00]);  // Soft
+            output.send([0xB0 | i, 0x44, 0x00]);  // Legato
+            output.send([0xB0 | i, 0x45, 0x00]);  // Hold 2
+            output.send([0xB0 | i, 0x07, 0x64]);  // Volume
+            output.send([0xB0 | i, 0x0A, 0x40]);  // Pan
+            output.send([0xB0 | i, 0x65, 0x00]);  // Non-Registered Parameter (coarse)
+            output.send([0xB0 | i, 0x64, 0x00]);  // Non-Registered Parameter (fine)
+            output.send([0xB0 | i, 0x06, 0x02]);  // Registered Parameter (coarse)
+            output.send([0xB0 | i, 0x26, 0x01]);  // Registered Parameter (fine)
+            output.send([0xB0 | i, 0x5B, 0x28]);  // Reverb
+            output.send([0xB0 | i, 0x5D, 0x00]);  // Chorus
+
+            // 发送 "Pitch Wheel" 和 "Channel Pressure" 事件
+            output.send([0xE0 | i, 0x40, 0x40]);  // Pitch Wheel
+            output.send([0xD0 | i, 0x00]);        // Channel Pressure
+
+            output.send([0xC0 | i, 0x00]);  // Program Change
+        }
     }
 }
 
@@ -671,5 +699,6 @@ volumeControl.addEventListener('click', e => {
 
 let deviceSelection = $("#devices");
 deviceSelection.addEventListener('change', e => {
+    resetMIDI(picoAudio.settings.WebMIDIPortOutput);
     picoAudio.settings.WebMIDIPortOutput = midiDeviceList.get(deviceSelection.value);
 });

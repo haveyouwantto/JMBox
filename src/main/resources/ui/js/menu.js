@@ -174,7 +174,7 @@ aboutButton.addEventListener('click', e => {
     dialogContent.innerHTML = '';
     dialogContent.appendChild(createDialogItem('<a href="https://github.com/haveyouwantto/JMBox" class="link">JMBox</a> ' + getLocale("about.name")));
     dialogContent.appendChild(createDialogItem(getLocale("about.version") + " " + version));
-    dialogContent.appendChild(createDialogItem("\u00a9 2022 haveyouwantto"));
+    dialogContent.appendChild(createDialogItem("\u00a9 2023 haveyouwantto"));
     dialogContent.appendChild(createDialogItem("Licensed under MIT License."));
 
     let section = document.createElement("a");
