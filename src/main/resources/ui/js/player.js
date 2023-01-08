@@ -399,11 +399,13 @@ function setupWebMIDI() {
     }
 }
 
-function resetMIDI(output) {
+function resetMIDI(output, mute = false) {
     if (output != null) {
         for (let i = 0; i < 16; i++) {
+            if (mute)
+                output.send([0xB0 | i, 0x7A, 0x00]);  // All Notes Off
+
             // 发送 "All Controllers Off" 事件
-            output.send([0xB0 | i, 0x7A, 0x00]);  // All Notes Off
             output.send([0xB0 | i, 0x7B, 0x00]);  // All Controllers Off
 
             // 发送额外的重置控制器事件
@@ -699,6 +701,6 @@ volumeControl.addEventListener('click', e => {
 
 let deviceSelection = $("#devices");
 deviceSelection.addEventListener('change', e => {
-    resetMIDI(picoAudio.settings.WebMIDIPortOutput);
+    resetMIDI(picoAudio.settings.WebMIDIPortOutput, true);
     picoAudio.settings.WebMIDIPortOutput = midiDeviceList.get(deviceSelection.value);
 });
