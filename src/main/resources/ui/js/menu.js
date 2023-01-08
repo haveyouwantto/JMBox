@@ -192,7 +192,7 @@ languageButton.addEventListener('click', e => {
     dialogTitle.appendChild(createLocaleItem('languages.title'));
     dialogContent.innerHTML = '';
 
-    let item = createDialogItem();
+    let item = createDialogItem(null, true);
     item.appendChild(createLocaleItem('languages.auto'));
     item.addEventListener('click', e => {
         setLocale(navigator.language);
@@ -202,7 +202,7 @@ languageButton.addEventListener('click', e => {
     dialogContent.appendChild(item);
 
     for (let language in localeList) {
-        let item = createDialogItem(localeList[language]);
+        let item = createDialogItem(localeList[language], true);
         item.addEventListener('click', e => {
             setLocale(language);
             config.language = language;

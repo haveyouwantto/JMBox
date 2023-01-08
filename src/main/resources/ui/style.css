@@ -42,7 +42,6 @@ button:focus-visible {
     height: 40px;
     text-align: center;
     margin: 5px;
-    user-select: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -209,7 +208,6 @@ body {
     padding-bottom: 8px;
     padding-left: 12px;
     padding-right: 16px;
-    user-select: none;
 }
 
 .menu-item:hover {
@@ -466,7 +464,6 @@ dialog.fade-out::backdrop {
     padding-bottom: 8px;
     padding-left: 12px;
     padding-right: 16px;
-    user-select: none;
 }
 
 .dialog-item locale {
@@ -509,7 +506,6 @@ dialog.fade-out::backdrop {
     cursor: pointer;
     text-transform: uppercase;
     transition: background-color 0.15s;
-    user-select: none;
 }
 
 .dialog-button:hover {

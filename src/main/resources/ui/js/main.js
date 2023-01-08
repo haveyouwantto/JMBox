@@ -203,8 +203,8 @@ function previous() {
     play(cdMem, filesMem[playing]);
 }
 
-function createDialogItem(content) {
-    let a = document.createElement('a');
+function createDialogItem(content, button = false) {
+    let a = document.createElement(button ? 'button' : 'a');
     a.classList.add('dialog-item');
     if (content != null)
         a.innerHTML = content;
