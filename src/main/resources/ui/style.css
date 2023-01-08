@@ -11,6 +11,8 @@
     --theme-color-50: #00796b50;
     --theme-color-40: #00796b40;
     --theme-color-20: #00796b20;
+
+    overflow-x: hidden;
 }
 
 ::selection {
@@ -374,7 +376,7 @@ input[type="number"]:focus {
     color: var(--text-color);
 }
 
-#bottomMenuBtn:hover{
+#bottomMenuBtn:hover {
     color: var(--theme-color);
 }
 
@@ -644,7 +646,7 @@ html::-webkit-scrollbar-track {
     dialog.fade-out {
         animation-duration: 200ms;
     }
-    
+
     dialog.fade-out::backdrop {
         animation-duration: 200ms;
     }
@@ -712,7 +714,35 @@ html::-webkit-scrollbar-track {
         margin-right: unset;
     }
 
-    dialog{
+    dialog {
         max-height: 100%;
     }
+}
+
+@media only screen and (max-height:400px) {
+
+    #controlsLeft,
+    #controlsMiddle,
+    #controlsRight {
+        height: 48px;
+    }
+
+    #bar {
+        height: 56px;
+    }
+
+    #waterfall {
+        height: calc(100% - 56px);
+    }
+
+    .nav {
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: 16px;
+    }
+
+    #content {
+        margin-top: 50px;
+    }
+
 }

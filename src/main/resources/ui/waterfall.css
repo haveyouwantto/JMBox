@@ -27,3 +27,9 @@
         opacity: 1;
     }
 }
+
+@media only screen and (max-height:400px) {
+    #waterfall {
+    height: calc(100% - 56px);
+    }
+}
