@@ -19,6 +19,17 @@
     -webkit-tap-highlight-color: var(--theme-color-80);
 }
 
+button {
+    background-color: transparent;
+    border: none;
+    font: unset;
+    text-align: unset;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--theme-color);
+}
+
 ::selection {
     background-color: var(--theme-color-80);
 }
@@ -114,7 +125,7 @@ file-icon {
     padding: 5px 10px;
     display: flex;
     align-items: center;
-    min-height: 40px;
+    min-height: 50px;
     border-bottom: 1px solid #80808060;
     cursor: pointer;
     color: var(--text-color);
@@ -147,6 +158,10 @@ body {
     display: flex;
     align-items: center;
     box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+}
+
+.nav button:focus-visible {
+    outline-color: white;
 }
 
 .headerLeft,
@@ -384,7 +399,8 @@ input[type="number"]:focus {
     color: var(--theme-color);
 }
 
-.menu, .bottom-menu {
+.menu,
+.bottom-menu {
     -webkit-tap-highlight-color: transparent;
 }
 

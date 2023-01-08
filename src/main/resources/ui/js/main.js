@@ -106,7 +106,7 @@ async function updateList(path, result) {
     files = [];
 
     for (let element of result) {
-        let file = document.createElement("div");
+        let file = document.createElement("button");
         file.setAttribute("class", "file");
         file.setAttribute("value", element.name);
 
