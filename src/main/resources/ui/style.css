@@ -16,7 +16,7 @@
 }
 
 * {
-    -webkit-tap-highlight-color: var(--theme-color-80);
+    -webkit-tap-highlight-color: transparent;
 }
 
 button {
@@ -129,6 +129,8 @@ file-icon {
     cursor: pointer;
     color: var(--text-color);
     transition: background-color 0.15s;
+
+    -webkit-tap-highlight-color: var(--theme-color-80);
 }
 
 .file:hover {
@@ -395,11 +397,6 @@ input[type="number"]:focus {
 
 #bottomMenuBtn:hover {
     color: var(--theme-color);
-}
-
-.menu,
-.bottom-menu {
-    -webkit-tap-highlight-color: transparent;
 }
 
 /* Dialog */
