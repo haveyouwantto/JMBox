@@ -484,19 +484,17 @@ dialog.fade-out::backdrop {
 }
 
 /* Ripple effect */
-.ripple {
+.button-flash {
     background-position: center;
 }
 
-.ripple:hover {
-    /* animation: ripple 10s ease-in-out 0s; */
-    transition: background 0.3s ease-out;
-    background: radial-gradient(circle, var(--hover-color) 1%, transparent 1%) center/15000%;
+.button-flash:hover {
+    background-color: var(--hover-color);
 }
 
-.ripple:active {
-    background-size: 100%;
-    transition: background 0s;
+.button-flash:active {
+    background-color: var(--theme-color-60);
+    transition: background-color 0s;
 }
 
 .dialog-button {
