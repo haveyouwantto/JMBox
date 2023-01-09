@@ -125,7 +125,7 @@ file-icon {
     display: flex;
     align-items: center;
     min-height: 50px;
-    border-bottom: 1px solid #80808060;
+    border-bottom: 1px solid var(--hover-color);
     color: var(--text-color);
     transition: background-color 0.15s;
 
@@ -223,7 +223,7 @@ select {
     color: var(--text-color);
     background-color: #00000000;
     min-width: 5rem;
-    outline: 1px solid #80808060;
+    outline: 1px solid var(--hover-color);
     transition: outline 0.2s;
     padding: 3px;
     border-radius: 3px;
@@ -243,7 +243,7 @@ input[type=number] {
     background-color: #0000;
     font-size: 1rem;
     color: var(--text-color);
-    border-bottom: 1px solid #80808060;
+    border-bottom: 1px solid var(--hover-color);
     transition: border-bottom 0.2s;
     min-width: 5rem;
 }
@@ -468,7 +468,7 @@ dialog.fade-out::backdrop {
 }
 
 .dialog-item-line {
-    border-bottom: 1px solid #80808060;
+    border-bottom: 1px solid var(--hover-color);
 }
 
 .dialog-section {
@@ -643,6 +643,18 @@ html::-webkit-scrollbar-thumb {
 
 html::-webkit-scrollbar-track {
     background: var(--bar-color);
+}
+
+.seperater {
+    margin: 0;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--hover-color);
+}
+
+.seperater-margin {
+    margin-top: 3.7px;
+    margin-bottom: 3.7px;
 }
 
 @font-face {
