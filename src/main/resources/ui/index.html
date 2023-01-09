@@ -147,17 +147,17 @@
                 <button id="picoAudioMIDI" class="dialog-item ripple">
                     <icon>&#57370;</icon><locale key="settings.picoaudio.web-midi">Use Web MIDI Output</locale><icon class="right" checker>&#57362;</icon>
                 </button>
-                <button id="picoAudioMIDIDevice" class="dialog-item">
+                <a id="picoAudioMIDIDevice" class="dialog-item">
                     <icon>&#57368;</icon><locale key="settings.picoaudio.midi-devices">MIDI Devices</locale><select id="devices" class="right"></select>
-                </button>
+                </a>
             </section>
 
             <section class="dialog-section"><locale class="dialog-subtitle" key="settings.piano-roll">Piano Roll</locale>
-                <button id="spanDurationSetting" class="dialog-item">
+                <a id="spanDurationSetting" class="dialog-item">
                     <icon>&#57367;</icon><locale key="settings.piano-roll.span-duration">Span Duration</locale>
                     <input class="right" id="spanDuration" type="number" min="0" max="10" step="0.1" value="4"></input>
                 </a>
-                <button id="maxNoteDurationSetting" class="dialog-item">
+                <a id="maxNoteDurationSetting" class="dialog-item">
                     <icon>&#57367;</icon><locale key="settings.piano-roll.max-note-duration">Max Note Duration</locale>
                     <input class="right" id="maxNoteDuration" type="number" min="1" max="60" step="1" value="30"></input>
                 </a>
