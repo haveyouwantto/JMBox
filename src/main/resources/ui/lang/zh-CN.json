@@ -49,5 +49,9 @@
     "languages.auto":"自动",
     
     "player.failed":"无法播放",
-    "player.failed.description":"播放此文件时出错。"
+    "player.failed.description":"播放此文件时出错。",
+
+    "general.error":"错误",
+
+    "browser.not-found":"文件夹未找到。"
 }

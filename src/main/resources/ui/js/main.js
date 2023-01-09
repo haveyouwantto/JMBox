@@ -75,9 +75,11 @@ function list(ignoreCache = false) {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    dialogTitle.innerText = getLocale('general.error');
+                    dialogTitle.innerHTML = '';
+                    dialogTitle.appendChild(createLocaleItem('general.error'));
                     dialogContent.innerHTML = '';
-                    let item = createDialogItem(getLocale('browser.not-found'));
+                    let item = createDialogItem();
+                    item.appendChild(createLocaleItem('browser.not-found'))
                     dialogContent.appendChild(item);
                     dialog.showModal();
                 }
