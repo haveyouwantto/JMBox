@@ -37,17 +37,17 @@
     <!-- Top Menu -->
 
     <div class="menu shadow no-select" id="topMenu">
-        <button id="refresh" class="menu-item">
+        <button id="refresh" class="menu-item ripple">
             <icon>&#57360;</icon><locale key="menu.refresh">Refresh</locale>
         </button>
 
-        <button id="open-settings-button" class="menu-item">
+        <button id="open-settings-button" class="menu-item ripple">
             <icon>&#57367;</icon><locale key="menu.settings">Settings</locale>
         </button>
-        <button id="about-button" class="menu-item">
+        <button id="about-button" class="menu-item ripple">
             <icon>&#57352;</icon><locale key="menu.about">About</locale>
         </button>
-        <button id="language-button" class="menu-item">
+        <button id="language-button" class="menu-item ripple">
             <icon>&#57369;</icon><locale key="menu.languages">Languages</locale>
         </button>
     </div>
@@ -87,23 +87,23 @@
 
     <!-- Bottom Menu -->
     <div class="bottom-menu shadow no-select" id="bottomMenu">
-        <button id="locate" class="menu-item">
+        <button id="locate" class="menu-item ripple">
             <icon>&#57351;</icon><locale key="menu.locate">Locate File</locale>
         </button>
-        <button id="midiInfo" class="menu-item">
+        <button id="midiInfo" class="menu-item ripple">
             <icon>&#57352;</icon><locale key="menu.midi-info">MIDI Info</locale>
         </button>
-        <button id="wav" class="menu-item">
+        <button id="wav" class="menu-item ripple">
             <icon>&#57353;</icon><locale key="menu.audio-file">Audio File</locale>
         </button>
-        <button id="mid" class="menu-item">
+        <button id="mid" class="menu-item ripple">
             <icon>&#57354;</icon><locale key="menu.midi-file">MIDI File</locale>
         </button>
-        <button id="playModeAlt" class="menu-item">
+        <button id="playModeAlt" class="menu-item ripple">
             <icon>&#57355;</icon>
             <div style="display: inline;"><locale key="menu.play-mode">Single</locale></div>
         </button>
-        <button id="replay" class="menu-item">
+        <button id="replay" class="menu-item ripple">
             <icon>&#57360;</icon><locale key="menu.replay">Replay</locale>
         </button>
     </div>
@@ -123,28 +123,28 @@
 
         <div class="dialog-container">
             <section class="dialog-section" id="general-section"><locale class="dialog-subtitle" key="settings.general">General</locale>
-                <button id="dark" class="dialog-item">
+                <button id="dark" class="dialog-item ripple">
                     <icon>&#57350;</icon><locale key="settings.general.dark-mode">Dark Mode</locale><icon class="right" checker>&#57362;</icon>
                 </button>
             </section>
 
             <section class="dialog-section" id="player-section"><locale class="dialog-subtitle" key="settings.players">Players</locale>
-                <button id="audioPlayer" class="dialog-item">
+                <button id="audioPlayer" class="dialog-item ripple">
                     <icon>&#57361;</icon><locale key="settings.players.audio">Use Audio Player</locale><icon class="right radio" checker>&#57362;</icon>
                 </button>
-                <button id="picoAudioPlayer" class="dialog-item">
+                <button id="picoAudioPlayer" class="dialog-item ripple">
                     <icon>&#57364;</icon><locale key="settings.players.picoaudio">Use PicoAudio Synthesizer</locale><icon class="right radio" checker>&#57362;</icon>
                 </button>
             </section>
 
             <section class="dialog-section" id="audio-section"><locale class="dialog-subtitle" key="settings.audio">Audio Player</locale>
-                <button id="midiSrc" class="dialog-item">
+                <button id="midiSrc" class="dialog-item ripple">
                     <icon>&#57354;</icon><locale key="settings.audio.midi-src">Use MIDI as source</locale><icon class="right" checker>&#57362;</icon>
                 </button>
             </section>
 
             <section class="dialog-section" id="picoaudio-section"><locale class="dialog-subtitle" key="settings.picoaudio">PicoAudio</locale>
-                <button id="picoAudioMIDI" class="dialog-item">
+                <button id="picoAudioMIDI" class="dialog-item ripple">
                     <icon>&#57370;</icon><locale key="settings.picoaudio.web-midi">Use Web MIDI Output</locale><icon class="right" checker>&#57362;</icon>
                 </button>
                 <button id="picoAudioMIDIDevice" class="dialog-item">
@@ -161,7 +161,7 @@
                     <icon>&#57367;</icon><locale key="settings.piano-roll.max-note-duration">Max Note Duration</locale>
                     <input class="right" id="maxNoteDuration" type="number" min="1" max="60" step="1" value="30"></input>
                 </a>
-                <button id="noteTransparency" class="dialog-item">
+                <button id="noteTransparency" class="dialog-item ripple">
                     <icon>&#57367;</icon><locale key="settings.piano-roll.note-transparency">Note translucence to velocity</locale>
                     <icon class="right" checker>&#57362;</icon>
                 </button>
