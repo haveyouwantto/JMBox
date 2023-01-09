@@ -58,8 +58,6 @@ function info() {
 
 /** 
  * Listing a directory
- * @param {string} dir The absolute path of directory to enter
- * @param add Add this directory to stack
  */
 function list(ignoreCache = false) {
     let path = pathman.getPath();
@@ -77,7 +75,11 @@ function list(ignoreCache = false) {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    alert(response.status + ": " + response.statusText);
+                    dialogTitle.innerText = getLocale('general.error');
+                    dialogContent.innerHTML = '';
+                    let item = createDialogItem(getLocale('browser.not-found'));
+                    dialogContent.appendChild(item);
+                    dialog.showModal();
                 }
             })
             .then(result => {
@@ -203,6 +205,12 @@ function previous() {
     play(cdMem, filesMem[playing]);
 }
 
+/**
+ * 
+ * @param {string} content 
+ * @param {boolean} button default false
+ * @returns 
+ */
 function createDialogItem(content, button = false) {
     let a = document.createElement(button ? 'button' : 'a');
     a.classList.add('dialog-item');

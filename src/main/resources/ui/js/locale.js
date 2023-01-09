@@ -49,7 +49,11 @@ let defaultLocale = {
     "languages.auto": "Automatic",
 
     "player.failed":"Failed to play",
-    "player.failed.description":"There's an error in playing this file."
+    "player.failed.description":"There's an error in playing this file.",
+
+    "general.error":"Error",
+
+    "browser.not-found":"Directory not found."
 };
 
 let currentLocale = {};
