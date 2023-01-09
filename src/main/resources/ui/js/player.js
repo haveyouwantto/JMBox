@@ -597,7 +597,7 @@ picoAudioPlayer.addEventListener('click', e => {
 
 // Locate the file
 function highlight(name) {
-    let element = $("div[value=\"" + name + "\"]");
+    let element = $(".file[value=\"" + name + "\"]");
     element.classList.remove('file-locate');
     element.scrollIntoView({ block: "center" });
     element.classList.add('file-locate');
