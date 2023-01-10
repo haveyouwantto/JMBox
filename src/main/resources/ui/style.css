@@ -645,14 +645,14 @@ html::-webkit-scrollbar-track {
     background: var(--bar-color);
 }
 
-.seperater {
+.line-seperater {
     margin: 0;
     width: 100%;
     border: none;
     border-bottom: 1px solid var(--hover-color);
 }
 
-.seperater-margin {
+.line-seperater-margin {
     margin-top: 3.7px;
     margin-bottom: 3.7px;
 }
