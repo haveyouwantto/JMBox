@@ -179,19 +179,20 @@ function draw() {
 
         // Draw white keys
         canvasCtx.fillStyle = 'white';
+        canvasCtx.fillRect(0,canvas.height - keyboardHeight,canvas.width,keyboardHeight);
+        
+        canvasCtx.fillStyle = 'gray';
         for (let i = 0; i < 128; i++) {
             if (!isBlackKey(i)) {
+                let x = getWhiteKeyNumber(i) * bwr;
                 if (notes[i] != null) {
                     canvasCtx.fillStyle = palette[notes[i]];
+                    canvasCtx.fillRect(noteWidth * x, canvas.height - keyboardHeight, noteWidth * bwr, keyboardHeight);
+                    canvasCtx.fillStyle = 'gray';
                     notes[i] = null;
                 }
-                let x = getWhiteKeyNumber(i) * bwr;
-                canvasCtx.fillRect(noteWidth * x, canvas.height - keyboardHeight, noteWidth * bwr, keyboardHeight);
 
-                canvasCtx.fillStyle = 'gray';
                 canvasCtx.fillRect(noteWidth * x, canvas.height - keyboardHeight, 1, keyboardHeight);   // Draw Seam
-
-                canvasCtx.fillStyle = 'white';
             }
         }
 
