@@ -23,7 +23,7 @@ let volumeControlInner = $("#volume-inner");
 
 let playModeAltButton = $("#playModeAlt");
 let altIcon = playModeAltButton.querySelector('icon');
-let altText = playModeAltButton.querySelector('div');
+let altText = playModeAltButton.querySelector('locale');
 
 let midiInfo = $("#midiInfo");
 
@@ -488,6 +488,7 @@ function togglePause() {
 playButton.addEventListener('click', togglePause);
 document.addEventListener("keypress", function (event) {
     if (event.key === " ") {
+        event.preventDefault();
         togglePause();
     }
 });
