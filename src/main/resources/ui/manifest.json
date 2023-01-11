@@ -1,0 +1,14 @@
+{
+    "short_name": "JMBox",
+    "name": "JMBox",
+    "description":"JMBox MIDI Player",
+    "icons": [
+        {
+            "src": "favicon.ico",
+            "sizes": "128x128"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "orientation": "portrait"
+}

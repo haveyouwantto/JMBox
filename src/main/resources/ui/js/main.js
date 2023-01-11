@@ -6,7 +6,7 @@ let playing = [];
 let musicLoop = true;
 
 let prefix = location.pathname;
-let urlDir = location.hash.substring(1);
+let urlDir = location.hash.substring(2);
 
 let cdMem = '';
 let filesMem = [];
@@ -96,7 +96,7 @@ function list(ignoreCache = false) {
 
 /** Update File list (UI) */
 async function updateList(path, result) {
-    location.hash = "#" + path;
+    location.hash = "#!" + path;
     content.innerHTML = '';
 
     // Sorting files
