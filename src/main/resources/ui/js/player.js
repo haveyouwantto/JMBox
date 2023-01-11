@@ -96,6 +96,7 @@ function AudioPlayer() {
         playButton.innerText = '\ue00f';
         paused = false;
         this.audio.play();
+        startAnimation();
     }
 
     /**
@@ -108,6 +109,7 @@ function AudioPlayer() {
         playButton.innerText = '\ue000';
         paused = true;
         this.audio.pause();
+        endAnimation();
     }
 
     /**
@@ -259,6 +261,7 @@ function PicoAudioPlayer() {
         this.paused = false;
         picoAudio.play();
         this.intervalId = setInterval(updatePlayback, 100);
+        startAnimation();
     }
 
     /**
@@ -276,6 +279,7 @@ function PicoAudioPlayer() {
         picoAudio.pause();
 
         clearInterval(this.intervalId);
+        endAnimation();
     }
 
     /**
