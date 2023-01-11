@@ -92,6 +92,11 @@ file-icon {
     margin-top: 56px;
 }
 
+#content locale {
+    color: var(--text-color);
+    margin: auto;
+}
+
 .menu-button {
     transition: background-color 0.15s;
     border: none;
