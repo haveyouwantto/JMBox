@@ -51,7 +51,6 @@ controlsLeft.addEventListener('click', e => {
     if (waterfall.classList.contains('hidden')) {
         waterfall.classList.remove('hidden');
         waterfall.classList.add('open');
-        console.log(animationId);
 
         startAnimation();
         if (wakeLockSupported) {

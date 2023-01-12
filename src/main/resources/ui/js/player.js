@@ -109,7 +109,6 @@ function AudioPlayer() {
         playButton.innerText = '\ue000';
         paused = true;
         this.audio.pause();
-        endAnimation();
     }
 
     /**
@@ -224,6 +223,7 @@ function PicoAudioPlayer() {
      */
     this.load = function (path, callback) {
         this.seek(0);
+        endAnimation();
         fetch("api/midi" + path).then(r => {
             if (r.ok) {
                 r.arrayBuffer().then(data => {
@@ -279,7 +279,6 @@ function PicoAudioPlayer() {
         picoAudio.pause();
 
         clearInterval(this.intervalId);
-        endAnimation();
     }
 
     /**
@@ -297,7 +296,7 @@ function PicoAudioPlayer() {
      */
     this.currentTime = function () {
         if (picoAudio.playData == null) return 0;
-        else if (this.paused) return this.lastPausedTime;
+        else if (!picoAudio.states.isPlaying) return this.lastPausedTime;
         else return picoAudio.context.currentTime - picoAudio.states.startTime;
     }
 
@@ -306,6 +305,7 @@ function PicoAudioPlayer() {
      * @param {float} seconds 
      */
     this.seek = function (seconds) {
+        this.lastPausedTime = seconds;
         let playing = picoAudio.states.isPlaying;
         picoAudio.stop();
         picoAudio.initStatus(false, true);
@@ -327,7 +327,7 @@ function PicoAudioPlayer() {
     }
 
     this.isPaused = function () {
-        return !picoAudio.states.isPlaying;
+        return this.paused;
     }
 
     this.isEnded = function () {
