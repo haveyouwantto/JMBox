@@ -476,8 +476,8 @@ function updatePlayback() {
 // Player action
 
 progressBar.addEventListener('click', e => {
-    progressBarInner.style.width = (e.clientX / progressBar.clientWidth * 100) + "%";
     player.seekPercentage(e.clientX / progressBar.clientWidth);
+    updatePlayback();
 });
 
 function togglePause() {
