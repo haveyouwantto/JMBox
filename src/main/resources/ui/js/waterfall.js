@@ -188,6 +188,11 @@ function draw() {
                     // Pressed key
                     if (note.startTime < playTime) {
                         notes[note.pitch] = i;
+                        if(config.highlightNotes){
+                            canvasCtx.fillStyle = "#ffffff60";
+                            canvasCtx.fillRect(x, canvas.height - endY - keyboardHeight, noteWidth, endY - startY);
+                            canvasCtx.fillStyle = palette[i];
+                        }
                     }
                 }
             }
@@ -268,5 +273,13 @@ updateChecker(noteTransparencyBtn, config.noteTransparency);
 noteTransparencyBtn.addEventListener('click', e => {
     config.noteTransparency = !config.noteTransparency;
     updateChecker(noteTransparencyBtn, config.noteTransparency);
+    save();
+});
+
+let highlightNotes = $("#highlightNotes");
+updateChecker(highlightNotes, config.highlightNotes);
+highlightNotes.addEventListener('click', e => {
+    config.highlightNotes = !config.highlightNotes;
+    updateChecker(highlightNotes, config.highlightNotes);
     save();
 });

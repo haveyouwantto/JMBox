@@ -10,7 +10,8 @@ let defaultValue = {
     spanDuration: 4,
     maxNoteDuration: 30,
     language: "auto",
-    noteTransparency: false
+    noteTransparency: false,
+    highlightNotes: true
 }
 
 let config = {};

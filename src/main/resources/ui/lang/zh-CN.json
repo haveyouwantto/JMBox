@@ -29,6 +29,7 @@
     "settings.piano-roll.span-duration":"区间长度",
     "settings.piano-roll.max-note-duration":"最大音符长度",
     "settings.piano-roll.note-transparency": "根据音符力度设置透明度",
+    "settings.piano-roll.highlight-playing-notes":"高亮弹奏中的音符",
     "settings.close-btn":"关闭",
 
     "dialog.close-btn":"关闭",
