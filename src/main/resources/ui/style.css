@@ -127,8 +127,6 @@ file-icon {
 .file {
     width: 50vw;
     padding: 5px 10px;
-    display: flex;
-    align-items: center;
     min-height: 50px;
     border-bottom: 1px solid var(--hover-color);
     color: var(--text-color);
@@ -136,13 +134,24 @@ file-icon {
 
     -webkit-tap-highlight-color: var(--theme-color-80);
 }
-
 .file:hover {
     background-color: var(--theme-color-20);
 }
 
 .file-locate {
     animation: locate 1.5s ease-in-out 0s;
+}
+
+.filename {
+    display: flex;
+    align-items: center;
+}
+
+.fileprops {
+    margin-top: 2px;
+    text-align: end;
+    font-size: 0.8rem;
+    color: gray;
 }
 
 body {

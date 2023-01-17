@@ -215,6 +215,16 @@ languageButton.addEventListener('click', e => {
     dialog.showModal();
 });
 
+// Show Info
+let showInfoBtn = $('#showInfo');
+showInfoBtn.addEventListener('click', e => {
+    config.showInfo = !config.showInfo;
+    list();
+    save();
+    updateChecker(showInfoBtn, config.showInfo);
+});
+updateChecker(showInfoBtn, config.showInfo);
+
 window.onpopstate = event => {
     back();
 }

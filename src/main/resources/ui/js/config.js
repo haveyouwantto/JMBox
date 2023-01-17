@@ -2,6 +2,7 @@
 
 let defaultValue = {
     dark: false,
+    showInfo: false,
     webmidi: false,
     midisrc: false,
     player: "AudioPlayer",

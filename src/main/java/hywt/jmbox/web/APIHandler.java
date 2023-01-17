@@ -157,6 +157,7 @@ public class APIHandler implements HttpHandler {
             JSONObject fo = new JSONObject();
             fo.put("name", file1.getName());
             fo.put("size", file1.length());
+            fo.put("date", file1.lastModified());
             fo.put("isDir", file1.isDirectory());
             arr.put(fo);
         }

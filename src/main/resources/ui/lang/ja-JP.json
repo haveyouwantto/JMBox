@@ -17,6 +17,7 @@
     "settings.title": "設定",
     "settings.general": "一般",
     "settings.general.dark-mode": "ダークモード",
+    "settings.general.show-info": "ファイル情報を表示",
     "settings.players": "プレーヤー",
     "settings.players.audio": "ブラウザオーディオ",
     "settings.players.picoaudio": "PicoAudioシンセサイザー",

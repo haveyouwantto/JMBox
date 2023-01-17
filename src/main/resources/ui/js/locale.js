@@ -17,6 +17,7 @@ let defaultLocale = {
     "settings.title": "Settings",
     "settings.general": "General",
     "settings.general.dark-mode": "Dark Mode",
+    "settings.general.show-info": "Show file information",
     "settings.players": "Players",
     "settings.players.audio": "Sampled Audio",
     "settings.players.picoaudio": "PicoAudio Synthesizer",

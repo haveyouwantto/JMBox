@@ -112,11 +112,14 @@ async function updateList(path, result, back = false) {
 
     for (let element of result) {
         let file = document.createElement("button");
-        file.setAttribute("class", "file");
+        file.classList.add('file');
         file.setAttribute("value", element.name);
 
+        let fileName = document.createElement('div');
+        fileName.classList.add('filename');
+
         let icon = document.createElement('file-icon');
-        file.appendChild(icon);
+        fileName.appendChild(icon);
         if (element.isDir) {
             icon.innerText = "\ue016";
             file.setAttribute("onclick", `elist(this);`);
@@ -125,7 +128,28 @@ async function updateList(path, result, back = false) {
             file.setAttribute("onclick", `eplay(this);`);
             files.push(element.name);
         }
-        file.appendChild(document.createTextNode(element.name))
+        fileName.appendChild(document.createTextNode(element.name))
+        file.appendChild(fileName);
+
+        if (config.showInfo) {
+            let props = document.createElement('div');
+            props.classList.add('fileprops');
+
+            if (element.date > 0) {
+                let date = document.createElement('span');
+                date.innerText = new Date(element.date).toLocaleString();
+                date.style.float = 'left';
+                props.appendChild(date);
+            }
+
+            if (!element.isDir) {
+                let size = document.createElement('span');
+                size.innerText = toSI(element.size) + "B";
+                props.appendChild(size);
+            }
+            file.appendChild(props);
+        }
+
         content.appendChild(file);
     };
 
