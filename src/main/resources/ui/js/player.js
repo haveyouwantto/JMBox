@@ -560,10 +560,15 @@ midiInfo.addEventListener('click', e => {
 // Player switch
 
 function createPlayer(playerClass) {
-    let playtime = player.currentTime();
-    let lastPaused = player.isPaused();
-    let volume = player.getVolume();
-    player.stop();
+    let playtime = 0;
+    let lastPaused = 0;
+    let volume = config.volume;
+    if (player != null) {
+        playtime = player.currentTime();
+        lastPaused = player.isPaused();
+        volume = player.getVolume();
+        player.stop();
+    }
     player = new playerClass();
     player.setVolume(volume);
     updatePlayer(config.playMode);
@@ -707,7 +712,7 @@ volumeControl.addEventListener('click', e => {
 let deviceSelection = $("#devices");
 deviceSelection.addEventListener('change', e => {
     console.log(deviceSelection.value);
-    
+
     resetMIDI(picoAudio.settings.WebMIDIPortOutput, true);  // reset previous device
     let device = midiDeviceList.get(deviceSelection.value);
     resetMIDI(device, true);  // reset current device
