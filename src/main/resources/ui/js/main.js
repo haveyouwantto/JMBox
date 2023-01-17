@@ -96,7 +96,7 @@ function list(ignoreCache = false) {
 
 /** Update File list (UI) */
 async function updateList(path, result) {
-    location.hash = "#!" + path;
+    history.pushState({ page: 1 }, "title 1", "#!" + path);
     content.innerHTML = '';
 
     // Sorting files

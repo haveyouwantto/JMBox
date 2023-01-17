@@ -214,3 +214,7 @@ languageButton.addEventListener('click', e => {
     }
     dialog.showModal();
 });
+
+window.onpopstate = event => {
+    back();
+}
