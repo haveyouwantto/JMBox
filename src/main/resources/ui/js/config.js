@@ -11,7 +11,7 @@ let defaultValue = {
     maxNoteDuration: 30,
     language: "auto",
     noteTransparency: false,
-    highlightNotes: true
+    highlightNotes: false
 }
 
 let config = {};
