@@ -34,7 +34,7 @@ let metaThemeColor = $("#meta-theme-color");
 // Top bar back button 
 // <
 backBtn.addEventListener('click', function (e) {
-    back();
+    history.go(-1);
 });
 
 // Top bar home button

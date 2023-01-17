@@ -59,7 +59,7 @@ function info() {
 /** 
  * Listing a directory
  */
-function list(ignoreCache = false) {
+function list(ignoreCache = false, back = false) {
     let path = pathman.getPath();
     if (pathman.isRoot()) {
         backBtn.classList.add('hidden');
@@ -85,18 +85,19 @@ function list(ignoreCache = false) {
                 }
             })
             .then(result => {
-                updateList(path, result);
+                updateList(path, result, back);
                 cache[path] = result;
             });
     }
     else {
-        return updateList(path, cache[path]);
+        return updateList(path, cache[path], back);
     }
 }
 
 /** Update File list (UI) */
-async function updateList(path, result) {
-    history.pushState({ page: 1 }, "title 1", "#!" + path);
+async function updateList(path, result, back = false) {
+    if (!back && !pathman.isRoot()) history.pushState({ page: 1 }, serverName, "#!" + path);
+
     content.innerHTML = '';
 
     // Sorting files
@@ -137,7 +138,7 @@ async function updateList(path, result) {
  */
 function back() {
     pathman.remove();
-    list();
+    list(false, true);
 }
 
 /**
