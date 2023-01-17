@@ -96,7 +96,7 @@ function list(ignoreCache = false, back = false) {
 
 /** Update File list (UI) */
 async function updateList(path, result, back = false) {
-    if (!back && !pathman.isRoot()) history.pushState({ page: 1 }, serverName, "#!" + path);
+    if (!back) history.pushState({ page: 1 }, serverName, "#!" + path);
 
     content.innerHTML = '';
 

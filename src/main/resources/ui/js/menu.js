@@ -226,5 +226,7 @@ showInfoBtn.addEventListener('click', e => {
 updateChecker(showInfoBtn, config.showInfo);
 
 window.onpopstate = event => {
-    back();
+    console.log(location.hash.substring(2));
+    pathman.setPath(location.hash.substring(2));
+    list(false, true);
 }
