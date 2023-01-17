@@ -30,7 +30,7 @@ let defaultLocale = {
     "settings.piano-roll.span-duration": "Span Duration",
     "settings.piano-roll.max-note-duration": "Max Note Duration",
     "settings.piano-roll.note-transparency": "Note translucence to velocity",
-    "settings.piano-roll.highlight-playing-notes":"Highlight playing notes",
+    "settings.piano-roll.highlight-playing-notes": "Highlight playing notes",
     "settings.close-btn": "Close",
 
     "dialog.close-btn": "Close",
@@ -50,12 +50,12 @@ let defaultLocale = {
     "languages.title": "Languages",
     "languages.auto": "Automatic",
 
-    "player.failed":"Failed to play",
-    "player.failed.description":"There's an error in playing this file.",
+    "player.failed": "Failed to play",
+    "player.failed.description": "There's an error in playing this file.",
 
-    "general.error":"Error",
+    "general.error": "Error",
 
-    "browser.not-found":"Directory not found."
+    "browser.not-found": "Directory not found."
 };
 
 let currentLocale = {};
@@ -70,7 +70,7 @@ const localeList = {
 async function localeInit() {
     // 检查用户的语言设置
     let lang;
-    
+
     if (config.language == "auto") { lang = navigator.language; }
     else { lang = config.language }
 
@@ -79,14 +79,16 @@ async function localeInit() {
         try {
             const response = await fetch(`lang/${lang}.json`);
             currentLocale = await response.json();
-            updateHTML();
         } catch (err) {
             // 如果对应的语言文件加载失败，则使用默认的 en-US.json
             currentLocale = defaultLocale;
+        } finally {
+            updateHTML();
         }
     } else {
         // 如果用户的语言是英语，则使用默认的 en-US.json
         currentLocale = defaultLocale;
+        updateHTML();
     }
 }
 
