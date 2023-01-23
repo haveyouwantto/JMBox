@@ -60,7 +60,7 @@ function toSI(n, bin = false) {
 function updateChecker(parent, value) {
     let checker = $('icon[checker]', parent);
     let isRadio = checker.classList.contains("radio");
-    
+
     if (value) {
         checker.classList.add('icon-checked');
         checker.innerText = isRadio ? '\ue01c' : '\ue013';
@@ -68,4 +68,35 @@ function updateChecker(parent, value) {
         checker.classList.remove('icon-checked');
         checker.innerText = isRadio ? '\ue01b' : '\ue012';
     }
+}
+
+/** File sorting functions */
+function sortName(a, b) {
+    // Directories first
+    if (a.isDir && !b.isDir) {
+        return -1;
+    } else if (!a.isDir && b.isDir) {
+        return 1;
+    }
+    return a.name.localeCompare(b.name);
+}
+
+function sortSize(a, b) {
+    if (a.isDir && !b.isDir) {
+        return -1;
+    } else if (!a.isDir && b.isDir) {
+        return 1;
+    } else if (a.isDir && b.isDir) {
+        return a.name.localeCompare(b.name);
+    }
+    return a.size - b.size;
+}
+
+function sortMtime(a, b) {
+    if (a.isDir && !b.isDir) {
+        return -1;
+    } else if (!a.isDir && b.isDir) {
+        return 1;
+    }
+    return a.date - b.date;
 }

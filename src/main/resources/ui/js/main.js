@@ -21,6 +21,9 @@ let cache = {};
 
 let pathman = new PathMan();
 
+let sortFunc = sortName;
+let sortReversed = false;
+
 /** 
  * Gets server information
  */
@@ -37,6 +40,9 @@ function info() {
         } else {
             player = new window[config.player]();
         }
+        
+        select.value = config.sortFunc;
+        updateSorting(config.sortFunc);
 
         setVolume(config.volume);
         updatePlayer(config.playMode);
@@ -101,12 +107,8 @@ async function updateList(path, result, back = false) {
     content.innerHTML = '';
 
     // Sorting files
-    result.sort((a, b) => {
-        // Directories first
-        let av = a.isDir ? -1000 : 0;
-        let bv = b.isDir ? -1000 : 0;
-        return a.name.localeCompare(b.name) + (av - bv);
-    });
+    result.sort(sortFunc);
+    if(sortReversed) result.reverse();
 
     files = [];
 

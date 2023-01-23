@@ -188,7 +188,9 @@ function draw() {
                     // Pressed key
                     if (note.startTime < playTime) {
                         notes[note.pitch] = i;
-                        if(config.highlightNotes){
+
+                        // Highlight notes
+                        if (config.highlightNotes) {
                             canvasCtx.fillStyle = "#ffffff60";
                             canvasCtx.fillRect(x, canvas.height - endY - keyboardHeight, noteWidth, endY - startY);
                             canvasCtx.fillStyle = palette[i];

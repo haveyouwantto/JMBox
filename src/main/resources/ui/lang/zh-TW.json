@@ -18,6 +18,7 @@
     "settings.general": "通用",
     "settings.general.dark-mode": "深色模式",
     "settings.general.show-info": "顯示檔案資訊",
+    "settings.general.sort": "檔案順序",
     "settings.players": "播放模式",
     "settings.players.audio": "瀏覽器音頻",
     "settings.players.picoaudio": "PicoAudio合成器",

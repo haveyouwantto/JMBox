@@ -12,7 +12,8 @@ let defaultValue = {
     maxNoteDuration: 30,
     language: "auto",
     noteTransparency: false,
-    highlightNotes: false
+    highlightNotes: false,
+    sortFunc : "sortName"
 }
 
 let config = {};

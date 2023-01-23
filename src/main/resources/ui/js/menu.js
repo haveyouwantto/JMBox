@@ -230,3 +230,22 @@ window.onpopstate = event => {
     pathman.setPath(location.hash.substring(2));
     list(false, true);
 }
+
+var select = document.getElementById("sort-select");
+select.addEventListener("change", function () {
+    var selectedOption = select.options[select.selectedIndex].value;
+    updateSorting(selectedOption);
+});
+
+function updateSorting(func) {
+    config.sortFunc = func;
+    if (func.startsWith("-")) {
+        func = func.substr(1);
+        sortReversed = true;
+    } else {
+        sortReversed = false;
+    }
+    save()
+    sortFunc = window[func];
+    list();
+}

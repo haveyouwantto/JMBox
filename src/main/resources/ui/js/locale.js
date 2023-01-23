@@ -18,6 +18,7 @@ let defaultLocale = {
     "settings.general": "General",
     "settings.general.dark-mode": "Dark Mode",
     "settings.general.show-info": "Show file information",
+    "settings.general.sort": "File Order",
     "settings.players": "Players",
     "settings.players.audio": "Browser Audio",
     "settings.players.picoaudio": "PicoAudio Synthesizer",
