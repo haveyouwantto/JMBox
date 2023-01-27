@@ -137,7 +137,7 @@ async function updateList(path, result, back = false) {
             let props = document.createElement('div');
             props.classList.add('fileprops');
 
-            if (element.date > 0) {
+            if (element.date != null) {
                 let date = document.createElement('span');
                 date.innerText = new Date(element.date).toLocaleString();
                 date.style.float = 'left';
