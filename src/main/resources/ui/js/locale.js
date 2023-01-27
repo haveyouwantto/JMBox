@@ -72,8 +72,8 @@ async function localeInit() {
     // 检查用户的语言设置
     let lang;
 
-    if (config.language == "auto") { lang = navigator.language; }
-    else { lang = config.language }
+    if (settings.language == "auto") { lang = navigator.language; }
+    else { lang = settings.language }
 
     if (lang !== 'en-US') {
         // 如果用户的语言不是英语，尝试加载对应的语言文件

@@ -16,7 +16,7 @@ let defaultValue = {
     sortFunc : "sortName"
 }
 
-let config = {};
+let settings = {};
 
 /**
  * Load configurations from disk
@@ -27,20 +27,20 @@ function load() {
         if (Object.hasOwnProperty.call(defaultValue, key)) {
             const element = localStorage.getItem(key);
             if (element == null) {
-                config[key] = defaultValue[key];
+                settings[key] = defaultValue[key];
             } else {
                 switch (typeof defaultValue[key]) {
                     case 'string':
-                        config[key] = element;
+                        settings[key] = element;
                         break;
                     case 'number':
-                        config[key] = parseFloat(element);
+                        settings[key] = parseFloat(element);
                         break;
                     case 'boolean':
-                        config[key] = element == 'true';
+                        settings[key] = element == 'true';
                         break;
                     default:
-                        config[key] = element;
+                        settings[key] = element;
                 }
             }
         }
@@ -53,13 +53,13 @@ function load() {
 let saving = false;
 function saveNow() {
     const localStorage = window.localStorage;
-    for (const key in config) {
-        if (Object.hasOwnProperty.call(config, key)) {
-            const element = config[key];
+    for (const key in settings) {
+        if (Object.hasOwnProperty.call(settings, key)) {
+            const element = settings[key];
             localStorage.setItem(key, element);
         }
     }
-    console.log("Config saved.");
+    console.log("Settings saved.");
 
     saving = false;
 }

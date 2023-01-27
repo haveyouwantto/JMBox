@@ -38,14 +38,14 @@ function info() {
             $('#player-section').style.display = 'none';
             $('#audio-section').style.display = 'none';
         } else {
-            player = new window[config.player]();
+            player = new window[settings.player]();
         }
         
-        select.value = config.sortFunc;
-        updateSorting(config.sortFunc);
+        select.value = settings.sortFunc;
+        updateSorting(settings.sortFunc);
 
-        setVolume(config.volume);
-        updatePlayer(config.playMode);
+        setVolume(settings.volume);
+        updatePlayer(settings.playMode);
         updatePlayerChecker(player.constructor);
 
         if ('mediaSession' in navigator) {
@@ -133,7 +133,7 @@ async function updateList(path, result, back = false) {
         fileName.appendChild(document.createTextNode(element.name))
         file.appendChild(fileName);
 
-        if (config.showInfo) {
+        if (settings.showInfo) {
             let props = document.createElement('div');
             props.classList.add('fileprops');
 

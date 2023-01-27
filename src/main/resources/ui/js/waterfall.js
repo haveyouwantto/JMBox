@@ -101,7 +101,7 @@ function getStopTime(note) {
     } else {
         time = note.stopTime;
     }
-    return Math.min(time, note.startTime + config.maxNoteDuration);
+    return Math.min(time, note.startTime + settings.maxNoteDuration);
 }
 
 function getNoteTransparency(velocity) {
@@ -169,18 +169,18 @@ function draw() {
         canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
         let playTime = player.currentTime();
 
-        let scaling = canvas.height / config.spanDuration;
+        let scaling = canvas.height / settings.spanDuration;
 
         if (smfData != null) {
             for (let i = 0; i < 16; i++) {
                 canvasCtx.fillStyle = palette[i];
-                for (let note of fastSpan(smfData.channels[i].notes, playTime, config.spanDuration)) {
+                for (let note of fastSpan(smfData.channels[i].notes, playTime, settings.spanDuration)) {
                     let stopTime = getStopTime(note);
                     let startY = (note.startTime - playTime) * scaling;
                     let endY = (stopTime - playTime) * scaling;
                     let x = note.pitch * noteWidth;
 
-                    if (config.noteTransparency) {
+                    if (settings.noteTransparency) {
                         canvasCtx.fillStyle = palette[i] + getNoteTransparency(note.velocity);
                     }
                     canvasCtx.fillRect(x, canvas.height - endY - keyboardHeight, noteWidth, endY - startY);
@@ -190,7 +190,7 @@ function draw() {
                         notes[note.pitch] = i;
 
                         // Highlight notes
-                        if (config.highlightNotes) {
+                        if (settings.highlightNotes) {
                             canvasCtx.fillStyle = "#ffffff60";
                             canvasCtx.fillRect(x, canvas.height - endY - keyboardHeight, noteWidth, endY - startY);
                             canvasCtx.fillStyle = palette[i];
@@ -257,31 +257,31 @@ onresize = resizeCanvas;
 
 
 let spanDurationEdit = $("#spanDuration");
-spanDurationEdit.value = config.spanDuration;
+spanDurationEdit.value = settings.spanDuration;
 spanDurationEdit.addEventListener('change', e => {
-    config.spanDuration = parseFloat(spanDurationEdit.value);
+    settings.spanDuration = parseFloat(spanDurationEdit.value);
     save();
 });
 
 let maxNoteDurationEdit = $("#maxNoteDuration");
-maxNoteDurationEdit.value = config.maxNoteDuration;
+maxNoteDurationEdit.value = settings.maxNoteDuration;
 maxNoteDurationEdit.addEventListener('change', e => {
-    config.maxNoteDuration = parseFloat(maxNoteDurationEdit.value);
+    settings.maxNoteDuration = parseFloat(maxNoteDurationEdit.value);
     save();
 });
 
 let noteTransparencyBtn = $("#noteTransparency");
-updateChecker(noteTransparencyBtn, config.noteTransparency);
+updateChecker(noteTransparencyBtn, settings.noteTransparency);
 noteTransparencyBtn.addEventListener('click', e => {
-    config.noteTransparency = !config.noteTransparency;
-    updateChecker(noteTransparencyBtn, config.noteTransparency);
+    settings.noteTransparency = !settings.noteTransparency;
+    updateChecker(noteTransparencyBtn, settings.noteTransparency);
     save();
 });
 
 let highlightNotes = $("#highlightNotes");
-updateChecker(highlightNotes, config.highlightNotes);
+updateChecker(highlightNotes, settings.highlightNotes);
 highlightNotes.addEventListener('click', e => {
-    config.highlightNotes = !config.highlightNotes;
-    updateChecker(highlightNotes, config.highlightNotes);
+    settings.highlightNotes = !settings.highlightNotes;
+    updateChecker(highlightNotes, settings.highlightNotes);
     save();
 });

@@ -86,9 +86,9 @@ menu.addEventListener('click', e => {
 
 // Dark mode
 darkModeBtn.addEventListener('click', e => {
-    config.dark = !config.dark;
-    setDarkMode(config.dark);
-    update('dark', config.dark);
+    settings.dark = !settings.dark;
+    setDarkMode(settings.dark);
+    update('dark', settings.dark);
 });
 
 function setDarkMode(dark) {
@@ -108,14 +108,14 @@ function setDarkMode(dark) {
         root.setProperty('--bar-color', '#e0e0e0');
         fillColor = '#f0f0f0';
     }
-    updateChecker(darkModeBtn, config.dark);
+    updateChecker(darkModeBtn, settings.dark);
 }
 
 refresh.addEventListener('click', e => {
     list(true);
 });
 
-setDarkMode(config.dark);
+setDarkMode(settings.dark);
 
 // TODO: respond to browser back button
 
@@ -197,7 +197,7 @@ languageButton.addEventListener('click', e => {
     item.appendChild(createLocaleItem('languages.auto'));
     item.addEventListener('click', e => {
         setLocale(navigator.language);
-        config.language = "auto";
+        settings.language = "auto";
         save();
     });
     dialogContent.appendChild(item);
@@ -207,7 +207,7 @@ languageButton.addEventListener('click', e => {
         item.classList.add('button-flash');
         item.addEventListener('click', e => {
             setLocale(language);
-            config.language = language;
+            settings.language = language;
             save();
         });
         dialogContent.appendChild(item);
@@ -218,12 +218,12 @@ languageButton.addEventListener('click', e => {
 // Show Info
 let showInfoBtn = $('#showInfo');
 showInfoBtn.addEventListener('click', e => {
-    config.showInfo = !config.showInfo;
+    settings.showInfo = !settings.showInfo;
     list();
     save();
-    updateChecker(showInfoBtn, config.showInfo);
+    updateChecker(showInfoBtn, settings.showInfo);
 });
-updateChecker(showInfoBtn, config.showInfo);
+updateChecker(showInfoBtn, settings.showInfo);
 
 window.onpopstate = event => {
     console.log(location.hash.substring(2));
@@ -238,7 +238,7 @@ select.addEventListener("change", function () {
 });
 
 function updateSorting(func) {
-    config.sortFunc = func;
+    settings.sortFunc = func;
     if (func.startsWith("-")) {
         func = func.substr(1);
         sortReversed = true;

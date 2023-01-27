@@ -65,7 +65,7 @@ function AudioPlayer() {
     this.load = function (path, callback) {
         bufferedBar.style.display = 'block';
         try {
-            this.audio.src = (config.midisrc ? "api/midi" : "api/play") + path;
+            this.audio.src = (settings.midisrc ? "api/midi" : "api/play") + path;
             this.seek(0);
         } catch (error) {
             console.log(error.message);
@@ -231,7 +231,7 @@ function PicoAudioPlayer() {
                     smfData = parsedData;
                     try {
                         picoAudio.setData(parsedData);
-                        if (config.webmidi) {
+                        if (settings.webmidi) {
                             resetMIDI(picoAudio.settings.WebMIDIPortOutput);
                         }
                     } catch (error) {
@@ -378,7 +378,7 @@ function PicoAudioPlayer() {
 
 // PicoAudio MIDI initialize
 function setupWebMIDI() {
-    if (config.webmidi) {
+    if (settings.webmidi) {
         navigator.requestMIDIAccess({ sysex: true }).then(access => {
 
             picoAudio.setWebMIDI(true);
@@ -441,8 +441,8 @@ function resetMIDI(output, mute = false) {
 
 if (window.isSecureContext) {
     midiBtn.addEventListener('click', e => {
-        config.webmidi = !config.webmidi;
-        updateChecker(midiBtn, config.webmidi);
+        settings.webmidi = !settings.webmidi;
+        updateChecker(midiBtn, settings.webmidi);
         setupWebMIDI();
         save();
     });
@@ -450,15 +450,15 @@ if (window.isSecureContext) {
     midiBtn.style.display = 'none';
     $("#picoaudio-section").style.display = "none";
 }
-updateChecker(midiBtn, config.webmidi);
+updateChecker(midiBtn, settings.webmidi);
 
 // audio midi src toggle
 midiSrcBtn.addEventListener('click', e => {
-    config.midisrc = !config.midisrc;
-    updateChecker(midiSrcBtn, config.midisrc);
+    settings.midisrc = !settings.midisrc;
+    updateChecker(midiSrcBtn, settings.midisrc);
     save();
 });
-updateChecker(midiSrcBtn, config.midisrc);
+updateChecker(midiSrcBtn, settings.midisrc);
 
 
 function updateBuffer(value, duration) {
@@ -562,7 +562,7 @@ midiInfo.addEventListener('click', e => {
 function createPlayer(playerClass) {
     let playtime = 0;
     let lastPaused = 0;
-    let volume = config.volume;
+    let volume = settings.volume;
     if (player != null) {
         playtime = player.currentTime();
         lastPaused = player.isPaused();
@@ -571,7 +571,7 @@ function createPlayer(playerClass) {
     }
     player = new playerClass();
     player.setVolume(volume);
-    updatePlayer(config.playMode);
+    updatePlayer(settings.playMode);
     updatePlayerChecker(playerClass);
 
     if (filesMem.length > 0) {
@@ -580,7 +580,7 @@ function createPlayer(playerClass) {
             if (!lastPaused) player.play();
         });
     }
-    config.player = player.constructor.name;
+    settings.player = player.constructor.name;
     save();
 }
 
@@ -625,16 +625,16 @@ locateFileBtn.addEventListener('click', e => {
 
 // Play Mode Switch
 playModeButton.addEventListener('click', e => {
-    config.playMode++;
-    if (config.playMode == 4) config.playMode = 0;
-    updatePlayer(config.playMode);
+    settings.playMode++;
+    if (settings.playMode == 4) settings.playMode = 0;
+    updatePlayer(settings.playMode);
     save();
 });
 
 playModeAltButton.addEventListener('click', e => {
-    config.playMode++;
-    if (config.playMode == 4) config.playMode = 0;
-    updatePlayer(config.playMode);
+    settings.playMode++;
+    if (settings.playMode == 4) settings.playMode = 0;
+    updatePlayer(settings.playMode);
     save();
 });
 
@@ -674,7 +674,7 @@ function updatePlayer(mode) {
 }
 
 function onended() {
-    switch (config.playMode) {
+    switch (settings.playMode) {
         case 2:
             if (playing == filesMem.length - 1) {
                 player.pause();
@@ -695,7 +695,7 @@ function onended() {
 function setVolume(percentage) {
     volumeControlInner.style.width = (percentage * 100) + "%";
     player.setVolume(Math.pow(percentage, 2));
-    config.volume = percentage;
+    settings.volume = percentage;
     save();
 }
 
