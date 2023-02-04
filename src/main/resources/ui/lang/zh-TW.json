@@ -27,6 +27,7 @@
     "settings.picoaudio": "PicoAudio合成器",
     "settings.picoaudio.web-midi": "使用MIDI輸出",
     "settings.picoaudio.midi-devices": "選擇MIDI設備",
+    "settings.picoaudio.midi-latency":"MIDI輸出延遲",
     "settings.piano-roll": "鋼琴瀑布",
     "settings.piano-roll.span-duration": "區間長度",
     "settings.piano-roll.max-note-duration": "最大音符長度",

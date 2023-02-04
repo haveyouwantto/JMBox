@@ -375,8 +375,8 @@ function setupWebMIDI() {
         navigator.requestMIDIAccess({ sysex: true }).then(access => {
 
             picoAudio.setWebMIDI(true);
-            picoAudio.settings.WebMIDIWaitTime = 100;
             deviceSelection.innerHTML = '';
+            picoAudio.settings.WebMIDIWaitTime = settings.midiLatency;
 
             midiDeviceList = access.outputs;
             for (let device of access.outputs) {
@@ -711,3 +711,12 @@ deviceSelection.addEventListener('change', e => {
     resetMIDI(device, true);  // reset current device
     picoAudio.settings.WebMIDIPortOutput = device;
 });
+
+let midiLatencySelect = $('#midiLatency');
+midiLatencySelect.value = settings.midiLatency;
+midiLatencySelect.addEventListener('change',e=>{
+    let midiLatency = parseInt(midiLatencySelect.value);
+    settings.midiLatency = midiLatency;
+    picoAudio.settings.WebMIDIWaitTime = midiLatency;
+    save();
+})
