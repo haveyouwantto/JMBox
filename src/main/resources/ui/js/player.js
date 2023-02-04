@@ -382,6 +382,7 @@ function setupWebMIDI() {
         navigator.requestMIDIAccess({ sysex: true }).then(access => {
 
             picoAudio.setWebMIDI(true);
+            picoAudio.settings.WebMIDIWaitTime = 50;
             deviceSelection.innerHTML = '';
 
             midiDeviceList = access.outputs;
@@ -409,9 +410,6 @@ function resetMIDI(output, mute = false) {
             if (mute)
                 output.send([0xB0 | i, 0x7A, 0x00]);  // All Notes Off
 
-            // 发送 "All Controllers Off" 事件
-            output.send([0xB0 | i, 0x7B, 0x00]);  // All Controllers Off
-
             // 发送额外的重置控制器事件
             output.send([0xB0 | i, 0x01, 0x00]);  // Modulation Wheel
             output.send([0xB0 | i, 0x0B, 0x7F]);  // Expression
@@ -435,6 +433,9 @@ function resetMIDI(output, mute = false) {
             output.send([0xD0 | i, 0x00]);        // Channel Pressure
 
             output.send([0xC0 | i, 0x00]);  // Program Change
+
+            // 发送 "All Controllers Off" 事件
+            output.send([0xB0 | i, 0x7B, 0x00]);  // All Controllers Off
         }
     }
 }
