@@ -375,7 +375,7 @@ function setupWebMIDI() {
         navigator.requestMIDIAccess({ sysex: true }).then(access => {
 
             picoAudio.setWebMIDI(true);
-            picoAudio.settings.WebMIDIWaitTime = 50;
+            picoAudio.settings.WebMIDIWaitTime = 100;
             deviceSelection.innerHTML = '';
 
             midiDeviceList = access.outputs;
