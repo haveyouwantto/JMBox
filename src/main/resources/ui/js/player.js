@@ -38,9 +38,6 @@ let picoAudioPlayer = $("#picoAudioPlayer");
 let midiBtn = $("#picoAudioMIDI");
 let midiSrcBtn = $("#midiSrc");
 
-// Player flags
-let paused = true;
-
 let midiDeviceList = {};
 /**
  * 0 = single
@@ -94,7 +91,6 @@ function AudioPlayer() {
             navigator.mediaSession.playbackState = 'playing';
         }
         playButton.innerText = '\ue00f';
-        paused = false;
         this.audio.play();
         startAnimation();
     }
@@ -107,7 +103,6 @@ function AudioPlayer() {
             navigator.mediaSession.playbackState = 'paused';
         }
         playButton.innerText = '\ue000';
-        paused = true;
         this.audio.pause();
     }
 
@@ -257,7 +252,6 @@ function PicoAudioPlayer() {
         }
         if (this.isEnded()) this.seek(0);
         playButton.innerText = '\ue00f';
-        paused = false;
         this.paused = false;
         picoAudio.play();
         this.intervalId = setInterval(updatePlayback, 100);
@@ -274,7 +268,6 @@ function PicoAudioPlayer() {
         playButton.innerText = '\ue000';
         this.lastPausedTime = this.currentTime();
 
-        paused = true;
         this.paused = true;
         picoAudio.pause();
 
@@ -482,11 +475,10 @@ progressBar.addEventListener('click', e => {
 });
 
 function togglePause() {
-    paused = !paused;
-    if (paused) {
-        player.pause();
-    } else {
+    if (player.isPaused()) {
         player.play();
+    } else {
+        player.pause();
     }
 }
 
