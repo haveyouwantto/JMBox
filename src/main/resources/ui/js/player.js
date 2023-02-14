@@ -362,6 +362,13 @@ function PicoAudioPlayer() {
             updatePlayback();
             onended();
         });
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                picoAudio.settings.WebMIDIWaitTime = 2000;
+            } else {
+                picoAudio.settings.WebMIDIWaitTime = settings.midiLatency;
+            }
+        });
         picoAudioInit = true;
     }
 
@@ -714,7 +721,7 @@ deviceSelection.addEventListener('change', e => {
 
 let midiLatencySelect = $('#midiLatency');
 midiLatencySelect.value = settings.midiLatency;
-midiLatencySelect.addEventListener('change',e=>{
+midiLatencySelect.addEventListener('change', e => {
     let midiLatency = parseInt(midiLatencySelect.value);
     settings.midiLatency = midiLatency;
     picoAudio.settings.WebMIDIWaitTime = midiLatency;

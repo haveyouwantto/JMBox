@@ -8,7 +8,7 @@ let defaultValue = {
     player: "AudioPlayer",
     playMode: 0,
     volume: 1,
-    midiLatency: 100,
+    midiLatency: 250,
     spanDuration: 4,
     maxNoteDuration: 30,
     language: "auto",
