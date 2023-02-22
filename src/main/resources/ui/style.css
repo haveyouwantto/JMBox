@@ -40,11 +40,10 @@ button:focus-visible {
     font-family: icon;
     font-size: 26px;
     text-decoration: none;
-    width: 40px;
-    height: 40px;
     text-align: center;
     margin-left: 6px;
     margin-right: 6px;
+    padding: 5px 6px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -194,6 +193,10 @@ body {
 
 .headerRight {
     margin-right: 4px;
+}
+
+.headerLeft .icon{
+    margin-right: 16px;
 }
 
 #title {
