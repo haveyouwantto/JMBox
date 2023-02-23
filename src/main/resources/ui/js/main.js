@@ -70,9 +70,11 @@ function list(ignoreCache = false, back = false) {
     if (pathman.isRoot()) {
         backBtn.classList.add('hidden');
         homeBtn.classList.add('hidden');
+        title.innerText = serverName;
     } else {
         backBtn.classList.remove('hidden');
         homeBtn.classList.remove('hidden');
+        title.innerText = pathman.dirName();
     }
 
     if (cache[path] == null || ignoreCache) {

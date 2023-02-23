@@ -15,7 +15,7 @@ var PathMan = function () {
             }
         }
     }
-    this.home = function(){
+    this.home = function () {
         this.stack = [];
     }
     this.getPath = function () {
@@ -28,5 +28,9 @@ var PathMan = function () {
     }
     this.isRoot = function () {
         return this.stack.length == 0;
+    }
+
+    this.dirName = function () {
+        return this.stack[this.stack.length - 1];
     }
 }
