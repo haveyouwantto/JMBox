@@ -632,10 +632,31 @@ playModeButton.addEventListener('click', e => {
 });
 
 playModeAltButton.addEventListener('click', e => {
-    settings.playMode++;
-    if (settings.playMode == 4) settings.playMode = 0;
-    updatePlayer(settings.playMode);
-    save();
+
+    dialogTitle.innerHTML = '';
+    dialogTitle.appendChild(createLocaleItem('menu.play-mode'));
+    dialogContent.innerHTML = '';
+
+    let icons = ['\ue00b', '\ue00c', '\ue00d', '\ue00e'];
+    let texts = ['menu.play-mode.single', 'menu.play-mode.single-looped', 'menu.play-mode.list', 'menu.play-mode.list-looped']
+
+    for (let i = 0; i < 4; i++) {
+        let item = createDialogItem(null, true);
+        item.classList.add('button-flash');
+        let icon = document.createElement('icon');
+        icon.innerText = icons[i];
+        item.appendChild(icon);
+        item.appendChild(createLocaleItem(texts[i]));
+        item.addEventListener('click', e => {
+            settings.playMode = i;
+            updatePlayer(settings.playMode);
+            save();
+            dialog.classList.add('fade-out');
+        });
+
+        dialogContent.appendChild(item);
+    }
+    dialog.showModal();
 });
 
 function updatePlayer(mode) {
@@ -644,29 +665,21 @@ function updatePlayer(mode) {
             player.setLoop(false);
             playModeButton.innerText = '\ue00b';
             altIcon.innerText = '\ue00b';
-            altText.innerHTML = '';
-            altText.appendChild(createLocaleItem('menu.play-mode.single'));
             break;
         case 1:
             player.setLoop(true);
             playModeButton.innerText = '\ue00c';
             altIcon.innerText = '\ue00c';
-            altText.innerHTML = '';
-            altText.appendChild(createLocaleItem('menu.play-mode.single-looped'));
             break;
         case 2:
             player.setLoop(false);
             playModeButton.innerText = '\ue00d';
             altIcon.innerText = '\ue00d';
-            altText.innerHTML = '';
-            altText.appendChild(createLocaleItem('menu.play-mode.list'));
             break;
         case 3:
             player.setLoop(false);
             playModeButton.innerText = '\ue00e';
             altIcon.innerText = '\ue00e';
-            altText.innerHTML = '';
-            altText.appendChild(createLocaleItem('menu.play-mode.list-looped'));
             break;
         default:
             break;
