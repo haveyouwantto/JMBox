@@ -12,13 +12,18 @@
     "menu.play-mode.list": "列表播放",
     "menu.play-mode.list-looped": "列表循環",
     "menu.replay": "重播",
-    "menu.languages":"語言",
-  
+    "menu.languages": "語言",
     "settings.title": "設定",
     "settings.general": "通用",
     "settings.general.dark-mode": "深色模式",
     "settings.general.show-info": "顯示檔案資訊",
     "settings.general.sort": "檔案順序",
+    "settings.general.sort.name": "名稱",
+    "settings.general.sort.name.reverse": "名稱倒序",
+    "settings.general.sort.size": "最小",
+    "settings.general.sort.size.reverse": "最大",
+    "settings.general.sort.mtime": "最舊",
+    "settings.general.sort.mtime.reverse": "最新",
     "settings.players": "播放模式",
     "settings.players.audio": "瀏覽器音頻",
     "settings.players.picoaudio": "PicoAudio合成器",
@@ -27,35 +32,28 @@
     "settings.picoaudio": "PicoAudio合成器",
     "settings.picoaudio.web-midi": "使用MIDI輸出",
     "settings.picoaudio.midi-devices": "選擇MIDI設備",
-    "settings.picoaudio.midi-latency":"MIDI輸出延遲",
+    "settings.picoaudio.midi-latency": "MIDI輸出延遲",
     "settings.piano-roll": "鋼琴瀑布",
     "settings.piano-roll.span-duration": "區間長度",
     "settings.piano-roll.max-note-duration": "最大音符長度",
     "settings.piano-roll.note-transparency": "根據音符力度設置透明度",
-    "settings.piano-roll.highlight-playing-notes":"高亮彈奏中的音符",
+    "settings.piano-roll.highlight-playing-notes": "高亮彈奏中的音符",
     "settings.close-btn": "關閉",
-  
     "dialog.close-btn": "關閉",
-  
     "about.title": "關於",
     "about.name": "網頁應用",
     "about.version": "版本",
     "about.libraries": "第三方庫",
-  
     "midi-info.title": "MIDI詳情",
     "midi-info.name": "名稱",
     "midi-info.size": "大小",
     "midi-info.last-modified": "修改日期",
     "midi-info.duration": "時長",
     "midi-info.failed": "無法取得MIDI資訊。",
-    
-    "languages.title":"語言",
-    "languages.auto":"自動",
-    
-    "player.failed":"無法播放",
-    "player.failed.description":"播放這個檔案時發生錯誤。",
-
-    "general.error":"錯誤",
-
-    "browser.not-found":"資料夾未找到。"
-}  
+    "languages.title": "語言",
+    "languages.auto": "自動",
+    "player.failed": "無法播放",
+    "player.failed.description": "播放這個檔案時發生錯誤。",
+    "general.error": "錯誤",
+    "browser.not-found": "資料夾未找到。"
+}

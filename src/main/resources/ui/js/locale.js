@@ -19,6 +19,12 @@ let defaultLocale = {
     "settings.general.dark-mode": "Dark mode",
     "settings.general.show-info": "Show file information",
     "settings.general.sort": "File order",
+    "settings.general.sort.name":"A-Z",
+    "settings.general.sort.name.reverse":"Z-A",
+    "settings.general.sort.size":"Smallest",
+    "settings.general.sort.size.reverse":"Largest",
+    "settings.general.sort.mtime":"Oldest",
+    "settings.general.sort.mtime.reverse":"Latest",
     "settings.players": "Players",
     "settings.players.audio": "Browser audio",
     "settings.players.picoaudio": "PicoAudio synthesizer",
@@ -110,6 +116,9 @@ function getLocale(key) {
 
 function updateHTML() {
     $("locale").forEach(element => {
+        element.innerText = getLocale(element.getAttribute('key'));
+    });
+    $(".locale").forEach(element => {
         element.innerText = getLocale(element.getAttribute('key'));
     });
 }
