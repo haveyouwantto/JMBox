@@ -190,15 +190,11 @@ body {
 .headerLeft,
 .headerRight {
     display: flex;
-    align-items: center;
+    align-items: baseline;
 }
 
 .headerLeft {
     overflow: hidden;
-}
-
-.headerRight {
-    padding-right: 4px;
 }
 
 .headerLeft .icon{
@@ -342,7 +338,6 @@ input[type="number"]:focus {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 4px;
 }
 
 #controlsLeft,
