@@ -43,8 +43,11 @@ button:focus-visible {
     text-align: center;
     margin-left: 6px;
     margin-right: 6px;
+    width:38px;
+    height:38px;
     padding: 5px 6px;
     display: flex;
+    user-select: none;
     justify-content: center;
     align-items: center;
     color: var(--text-color);
@@ -204,6 +207,8 @@ body {
 #title {
     margin-left: 10px;
     white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
 }
 
 .menu {
@@ -797,10 +802,6 @@ html::-webkit-scrollbar-track {
 
     #bar {
         height: 56px;
-    }
-
-    #waterfall {
-        height: calc(100% - 56px);
     }
 
     .nav {
