@@ -643,9 +643,19 @@ playModeAltButton.addEventListener('click', e => {
     for (let i = 0; i < 4; i++) {
         let item = createDialogItem(null, true);
         item.classList.add('button-flash');
-        let icon = document.createElement('icon');
-        icon.innerText = icons[i];
-        item.appendChild(icon);
+
+        let check = document.createElement('icon');
+        if (i == settings.playMode){
+            check.innerText = '\ue01c';
+            check.classList.add('icon-checked');
+        }else{
+            check.innerText = '\ue01b';
+        }
+        item.appendChild(check);
+
+        // let icon = document.createElement('icon');
+        // icon.innerText = icons[i];
+        // item.appendChild(icon);
         item.appendChild(createLocaleItem(texts[i]));
         item.addEventListener('click', e => {
             settings.playMode = i;
