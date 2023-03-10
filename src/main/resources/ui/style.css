@@ -308,7 +308,7 @@ input[type="number"]:focus {
 
 #progress #bufferedtime {
     width: 0;
-    background-color: var(--theme-color-50);
+    background-color: #80808060;
     height: 100%;
     position: absolute;
     transition: width 0.2s;
