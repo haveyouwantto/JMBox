@@ -364,7 +364,7 @@ function PicoAudioPlayer() {
         });
         document.addEventListener("visibilitychange", function () {
             if (document.hidden) {
-                picoAudio.settings.WebMIDIWaitTime = 2000;
+                picoAudio.settings.WebMIDIWaitTime = 1000;
             } else {
                 picoAudio.settings.WebMIDIWaitTime = settings.midiLatency;
             }
@@ -374,7 +374,6 @@ function PicoAudioPlayer() {
 
     setupWebMIDI();
 }
-
 
 // PicoAudio MIDI initialize
 function setupWebMIDI() {
@@ -421,10 +420,10 @@ function resetMIDI(output, mute = false) {
             output.send([0xB0 | i, 0x45, 0x00]);  // Hold 2
             output.send([0xB0 | i, 0x07, 0x64]);  // Volume
             output.send([0xB0 | i, 0x0A, 0x40]);  // Pan
-            output.send([0xB0 | i, 0x65, 0x00]);  // Non-Registered Parameter (coarse)
-            output.send([0xB0 | i, 0x64, 0x00]);  // Non-Registered Parameter (fine)
-            output.send([0xB0 | i, 0x06, 0x02]);  // Registered Parameter (coarse)
-            output.send([0xB0 | i, 0x26, 0x01]);  // Registered Parameter (fine)
+            // output.send([0xB0 | i, 0x65, 0x00]);  // Non-Registered Parameter (coarse)
+            // output.send([0xB0 | i, 0x64, 0x00]);  // Non-Registered Parameter (fine)
+            // output.send([0xB0 | i, 0x06, 0x02]);  // Registered Parameter (coarse)
+            // output.send([0xB0 | i, 0x26, 0x01]);  // Registered Parameter (fine)
             output.send([0xB0 | i, 0x5B, 0x28]);  // Reverb
             output.send([0xB0 | i, 0x5D, 0x00]);  // Chorus
 
@@ -490,7 +489,8 @@ function togglePause() {
 }
 
 playButton.addEventListener('click', togglePause);
-document.addEventListener("keypress", function (event) {
+
+document.addEventListener("keydown", function (event) {
     if (event.key === " ") {
         event.preventDefault();
         togglePause();
