@@ -254,7 +254,7 @@ function PicoAudioPlayer() {
         playButton.innerText = '\ue00f';
         this.paused = false;
         picoAudio.play();
-        this.intervalId = setInterval(updatePlayback, 100);
+        this.intervalId = setInterval(updatePlayback, 50);
         startAnimation();
     }
 

@@ -26,6 +26,7 @@ button {
     text-align: unset;
     cursor: pointer;
     padding: unset;
+    user-select: none;
 }
 
 button:focus-visible {
@@ -73,7 +74,6 @@ file-icon {
     text-align: center;
     font-family: icon;
     font-size: 26px;
-    user-select: none;
     text-decoration: none;
     margin-right: 10px;
     color: var(--theme-color);
@@ -209,6 +209,11 @@ body {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow-x: hidden;
+}
+
+#title::selection {
+    background-color: white;
+    color: var(--theme-color);
 }
 
 .menu {
