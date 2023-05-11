@@ -66,6 +66,7 @@ function info() {
  * Listing a directory
  */
 function list(ignoreCache = false, back = false) {
+    content.innerHTML = '';
     let path = pathman.getPath();
     if (pathman.isRoot()) {
         backBtn.classList.add('hidden');
