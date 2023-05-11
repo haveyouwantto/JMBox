@@ -640,7 +640,7 @@ dialog.fade-out::backdrop {
 
 @keyframes fileFadeIn {
     from {
-        transform: translateY(20%);
+        transform: translateY(10%);
         opacity: 0;
         visibility: hidden;
     }
