@@ -478,6 +478,9 @@ function updatePlayback() {
 progressBar.addEventListener('click', e => {
     player.seekPercentage(e.clientX / progressBar.clientWidth);
     updatePlayback();
+    if (waterfall.classList.contains('open')) {
+        draw();
+    }
 });
 
 function togglePause() {

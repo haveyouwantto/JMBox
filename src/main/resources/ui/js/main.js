@@ -40,7 +40,7 @@ function info() {
         } else {
             player = new window[settings.player]();
         }
-        
+
         select.value = settings.sortFunc;
         updateSorting(settings.sortFunc);
 
@@ -110,14 +110,16 @@ async function updateList(path, result, back = false) {
 
     // Sorting files
     result.sort(sortFunc);
-    if(sortReversed) result.reverse();
+    if (sortReversed) result.reverse();
 
     files = [];
-
+    let animationMs = 0;
     for (let element of result) {
         let file = document.createElement("button");
         file.classList.add('file');
         file.setAttribute("value", element.name);
+        file.style.animationDelay = animationMs + 'ms';
+        animationMs += 15;
 
         let fileName = document.createElement('div');
         fileName.classList.add('filename');

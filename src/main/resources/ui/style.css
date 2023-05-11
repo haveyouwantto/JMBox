@@ -638,6 +638,19 @@ dialog.fade-out::backdrop {
     }
 }
 
+@keyframes fileFadeIn {
+    from {
+        transform: translateY(20%);
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
 .menu-hidden {
     animation: fadeOut 0.2s ease-out 0s;
     visibility: hidden;
@@ -706,6 +719,9 @@ html::-webkit-scrollbar-track {
         width: unset;
         overflow-x: hidden;
         overflow-wrap: anywhere;
+        opacity: 0;
+        animation: fileFadeIn 150ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+        animation-fill-mode: forwards;
     }
 
     .seperater,
