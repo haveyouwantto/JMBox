@@ -34,10 +34,13 @@ public class APIHandler implements HttpHandler {
 
     private ExecutorService executor;
 
-    APIHandler(File rootDir) {
+    private String rootPrefix;
+
+    APIHandler(File rootDir) throws IOException {
         super();
         this.rootDir = rootDir;
         executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        rootPrefix = rootDir.getCanonicalPath();
     }
 
     @Override
@@ -56,19 +59,24 @@ public class APIHandler implements HttpHandler {
             if (exchange.getRequestMethod().equals("GET")) {
                 // GET api/<operation>/<params>
                 String[] args = URLDecoder.decode(exchange.getRequestURI().toString(), "UTF-8").split("/");
+                File file = new File(rootDir, FilePath.buildPath(args, 3));
+
+                if (!file.getCanonicalPath().startsWith(rootPrefix))
+                    throw new SecurityException("Access denied: " + file);
+
                 if (args.length > 2) {
                     switch (args[2]) {
                         case "play":
-                            play(exchange, new File(rootDir, FilePath.buildPath(args, 3)));
+                            play(exchange, file);
                             return;
                         case "list":
-                            list(exchange, new File(rootDir, FilePath.buildPath(args, 3)));
+                            list(exchange, file);
                             return;
                         case "midi":
-                            midi(exchange, new File(rootDir, FilePath.buildPath(args, 3)));
+                            midi(exchange, file);
                             return;
                         case "midiinfo":
-                            midiinfo(exchange, new File(rootDir, FilePath.buildPath(args, 3)));
+                            midiinfo(exchange, file);
                             return;
                         case "info":
                             info(exchange);
@@ -85,6 +93,9 @@ public class APIHandler implements HttpHandler {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SecurityException e){
+            e.printStackTrace();
+            send(exchange, 403, "Forbidden");
         }
     }
 

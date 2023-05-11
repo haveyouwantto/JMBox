@@ -5,8 +5,14 @@ import hywt.jmbox.web.Config;
 import hywt.jmbox.web.WebServer;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FilePermission;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.Permission;
+import java.util.Arrays;
 import java.util.prefs.Preferences;
 
 public class Main {
