@@ -225,11 +225,21 @@ showInfoBtn.addEventListener('click', e => {
 });
 updateChecker(showInfoBtn, settings.showInfo);
 
-window.onpopstate = event => {
+function listByUrl() {
     console.log(location.hash.substring(2));
     pathman.setPath(location.hash.substring(2));
     list(false, true);
 }
+
+window.onpopstate = event => {
+    listByUrl();
+}
+
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        back();
+    }
+});
 
 var select = document.getElementById("sort-select");
 select.addEventListener("change", function () {
