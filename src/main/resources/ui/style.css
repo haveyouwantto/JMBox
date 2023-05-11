@@ -137,6 +137,9 @@ file-icon {
     transition: background-color 0.15s;
 
     -webkit-tap-highlight-color: var(--theme-color-80);
+    opacity: 0;
+    animation: fileFadeIn 200ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    animation-fill-mode: forwards;
 }
 
 .file:hover {
@@ -145,6 +148,8 @@ file-icon {
 
 .file-locate {
     animation: locate 2s ease-in-out 0s;
+    opacity: 1;
+    animation-fill-mode: none;
 }
 
 .filename {
@@ -721,15 +726,6 @@ html::-webkit-scrollbar-track {
         width: unset;
         overflow-x: hidden;
         overflow-wrap: anywhere;
-        opacity: 0;
-        animation: fileFadeIn 200ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
-        animation-fill-mode: forwards;
-    }
-
-    .file-locate {
-        opacity: 1;
-        animation-fill-mode: none;
-        animation: locate 2s ease-in-out 0s;
     }
 
     .seperater,
