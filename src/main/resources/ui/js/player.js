@@ -609,15 +609,15 @@ picoAudioPlayer.addEventListener('click', e => {
 });
 
 // Locate the file
-function highlight(name) {
+function highlight(name, smooth = false) {
     let element = $(".file[value=\"" + name + "\"]");
     element.classList.remove('file-locate');
-    element.scrollIntoView({ block: "center" });
+    element.scrollIntoView({ block: "center", behavior: smooth ? 'smooth' : 'instant' });
     element.classList.add('file-locate');
 }
 locateFileBtn.addEventListener('click', e => {
     if (cdMem == pathman.getPath()) {
-        highlight(filesMem[playing]);
+        highlight(filesMem[playing], true);
     } else {
         pathman.setPath(cdMem);
         list().then(() => {
@@ -648,10 +648,10 @@ playModeAltButton.addEventListener('click', e => {
         item.classList.add('button-flash');
 
         let check = document.createElement('icon');
-        if (i == settings.playMode){
+        if (i == settings.playMode) {
             check.innerText = '\ue01c';
             check.classList.add('icon-checked');
-        }else{
+        } else {
             check.innerText = '\ue01b';
         }
         item.appendChild(check);

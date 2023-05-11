@@ -68,6 +68,7 @@ function info() {
 function list(ignoreCache = false, back = false) {
     content.innerHTML = '';
     let path = pathman.getPath();
+
     if (pathman.isRoot()) {
         backBtn.classList.add('hidden');
         homeBtn.classList.add('hidden');
@@ -109,6 +110,7 @@ async function updateList(path, result, back = false) {
 
     content.innerHTML = '';
 
+
     // Sorting files
     result.sort(sortFunc);
     if (sortReversed) result.reverse();
@@ -119,8 +121,6 @@ async function updateList(path, result, back = false) {
         let file = document.createElement("button");
         file.classList.add('file');
         file.setAttribute("value", element.name);
-        file.style.animationDelay = animationMs + 'ms';
-        animationMs += 15;
 
         let fileName = document.createElement('div');
         fileName.classList.add('filename');
