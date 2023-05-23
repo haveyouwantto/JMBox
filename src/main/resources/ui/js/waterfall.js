@@ -46,6 +46,21 @@ function endAnimation() {
     }
 }
 
+function acquireWakelock() {
+    if (wakeLockSupported) {
+        try {
+            navigator.wakeLock.request('screen').then(lock => {
+                wakeLock = lock;
+                lock.addEventListener('release', e => {
+                    console.log("wakelock released");
+                })
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+}
+
 // Entrance to waterfall
 controlsLeft.addEventListener('click', e => {
     if (waterfall.classList.contains('hidden')) {
@@ -53,18 +68,7 @@ controlsLeft.addEventListener('click', e => {
         waterfall.classList.add('open');
 
         startAnimation();
-        if (wakeLockSupported) {
-            try {
-                navigator.wakeLock.request('screen').then(lock => {
-                    wakeLock = lock;
-                    lock.addEventListener('release', e => {
-                        console.log("wakelock released");
-                    })
-                });
-            } catch (error) {
-                console.error(error);
-            }
-        }
+        acquireWakelock();
     } else {
         endAnimation();
         waterfall.classList.add('hidden');
@@ -77,6 +81,12 @@ controlsLeft.addEventListener('click', e => {
         }
     }
     resizeCanvas();
+});
+
+document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === 'visible' && !waterfall.classList.contains('hidden')) {
+        acquireWakelock();
+    }
 });
 
 function isBlackKey(midiNoteNumber) {
@@ -113,7 +123,10 @@ function getNoteTransparency(velocity) {
 }
 
 function fastSpan(list, startTime, duration) {
-    if (list.length == 0) return [];
+    if (list.length == 0) return {
+        notes: [],
+        index: 0
+    };
     // Define the left and right boundaries of the search interval
     let left = 0;
     let right = list.length - 1;
@@ -160,7 +173,10 @@ function fastSpan(list, startTime, duration) {
         i--;
     }
 
-    return result;
+    return {
+        notes: result,
+        index: left
+    };
 }
 
 function draw() {
@@ -170,11 +186,15 @@ function draw() {
         let playTime = player.currentTime();
 
         let scaling = canvas.height / settings.spanDuration;
+        let noteCount = 0;
 
         if (smfData != null) {
             for (let i = 0; i < 16; i++) {
                 canvasCtx.fillStyle = palette[i];
-                for (let note of fastSpan(smfData.channels[i].notes, playTime, settings.spanDuration)) {
+                let result = fastSpan(smfData.channels[i].notes, playTime, settings.spanDuration);
+                noteCount += result.index;
+
+                for (let note of result.notes) {
                     let stopTime = getStopTime(note);
                     let startY = (note.startTime - playTime) * scaling;
                     let endY = (stopTime - playTime) * scaling;
@@ -197,6 +217,13 @@ function draw() {
                         }
                     }
                 }
+            }
+            if (settings.showNoteCounter) {
+                canvasCtx.fillStyle = settings.dark? "white": "black";
+                canvasCtx.font = "2rem Sans-serif";
+                canvasCtx.textAlign = "left";
+                canvasCtx.textBaseline = "top";
+                canvasCtx.fillText(noteCount, 0, 0);
             }
         }
 
@@ -283,5 +310,13 @@ updateChecker(highlightNotes, settings.highlightNotes);
 highlightNotes.addEventListener('click', e => {
     settings.highlightNotes = !settings.highlightNotes;
     updateChecker(highlightNotes, settings.highlightNotes);
+    save();
+});
+
+let showNoteCounter = $("#showNoteCounter");
+updateChecker(showNoteCounter, settings.showNoteCounter);
+showNoteCounter.addEventListener('click', e => {
+    settings.showNoteCounter = !settings.showNoteCounter;
+    updateChecker(showNoteCounter, settings.showNoteCounter);
     save();
 });
