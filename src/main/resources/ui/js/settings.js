@@ -2,7 +2,7 @@
 
 let defaultValue = {
     dark: false,
-    showInfo: false,
+    showInfo: true,
     webmidi: false,
     midisrc: false,
     player: "AudioPlayer",
@@ -13,7 +13,7 @@ let defaultValue = {
     maxNoteDuration: 30,
     language: "auto",
     noteTransparency: false,
-    highlightNotes: false,
+    highlightNotes: true,
     sortFunc : "sortName",
     showNoteCounter : false
 }
