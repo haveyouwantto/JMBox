@@ -116,7 +116,6 @@ async function updateList(path, result, back = false) {
     if (sortReversed) result.reverse();
 
     files = [];
-    let animationMs = 0;
     for (let element of result) {
         let file = document.createElement("button");
         file.classList.add('file');
@@ -203,7 +202,7 @@ function play(dir, file) {
     document.title = serverName + " - " + file;
     wav.setAttribute("href", "api/play" + url);
     mid.setAttribute("href", "api/midi" + url);
-    midiInfo.setAttribute("value", url);
+    // midiInfo.setAttribute("value", url);
     songTitle.innerText = file;
 
     player.stop();
@@ -260,25 +259,38 @@ function createLocaleItem(key) {
     return locale;
 }
 
-function midiinfo(url) {
+function midiinfo() {
     dialogTitle.innerText = getLocale("midi-info.title");
     dialogContent.innerHTML = '';
-    fetch("api/midiinfo" + url)
-        .then(response => {
-            if (response.ok) {
-                response.json()
-                    .then(data => {
-                        dialogContent.appendChild(createDialogItem(getLocale("midi-info.name") + ": " + data.name));
-                        dialogContent.appendChild(createDialogItem(getLocale("midi-info.size") + ": " + toSI(data.size, true) + "B"));
-                        dialogContent.appendChild(createDialogItem(getLocale("midi-info.last-modified") + ": " + new Date(data.lastModified).toLocaleString()));
-                        dialogContent.appendChild(createDialogItem(getLocale("midi-info.duration") + ": " + formatTime(player.duration())));
-                        dialog.showModal();
-                    })
-            } else {
-                dialogContent.appendChild(createDialogItem(getLocale("midi-info.failed")));
-                dialog.showModal();
-            }
-        });
+
+    let data = cache[cdMem].find(i => i.name === filesMem[playing]);
+    let notes = smfData.channels.reduce((prev, cur) => prev + cur.notes.length, 0);
+
+    dialogContent.appendChild(createDialogItem(getLocale("midi-info.name") + ": " + data.name));
+    dialogContent.appendChild(createDialogItem(getLocale("midi-info.size") + ": " + toSI(data.size, true) + "B"));
+    dialogContent.appendChild(createDialogItem(getLocale("midi-info.last-modified") + ": " + new Date(data.date).toLocaleString()));
+    dialogContent.appendChild(createDialogItem(getLocale("midi-info.duration") + ": " + formatTime(smfData.lastEventTime)));
+    dialogContent.appendChild(createDialogItem(getLocale("midi-info.notes") + ": " + notes));
+    dialog.showModal();
+
+    // console.log(url);
+
+    // fetch("api/midiinfo" + url)
+    //     .then(response => {
+    //         if (response.ok) {
+    //             response.json()
+    //                 .then(data => {
+    //                     dialogContent.appendChild(createDialogItem(getLocale("midi-info.name") + ": " + data.name));
+    //                     dialogContent.appendChild(createDialogItem(getLocale("midi-info.size") + ": " + toSI(data.size, true) + "B"));
+    //                     dialogContent.appendChild(createDialogItem(getLocale("midi-info.last-modified") + ": " + new Date(data.lastModified).toLocaleString()));
+    //                     dialogContent.appendChild(createDialogItem(getLocale("midi-info.duration") + ": " + formatTime(player.duration())));
+    //                     dialog.showModal();
+    //                 })
+    //         } else {
+    //             dialogContent.appendChild(createDialogItem(getLocale("midi-info.failed")));
+    //             dialog.showModal();
+    //         }
+    //     });
 }
 
 // Set browser media control

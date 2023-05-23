@@ -49,6 +49,7 @@
   "midi-info.size": "サイズ",
   "midi-info.last-modified": "更新日時",
   "midi-info.duration": "再生時間",
+  "midi-info.notes": "音符数",
   "midi-info.failed": "MIDI情報の取得に失敗しました。",
   "languages.title": "言語",
   "languages.auto": "自動",

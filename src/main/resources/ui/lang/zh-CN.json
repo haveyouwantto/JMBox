@@ -49,6 +49,7 @@
     "midi-info.size": "大小",
     "midi-info.last-modified": "修改日期",
     "midi-info.duration": "时长",
+    "midi-info.notes": "音符数",
     "midi-info.failed": "无法获取MIDI信息。",
     "languages.title": "语言",
     "languages.auto": "自动",

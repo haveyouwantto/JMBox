@@ -53,6 +53,7 @@ let defaultLocale = {
     "midi-info.size": "Size",
     "midi-info.last-modified": "Last modified",
     "midi-info.duration": "Duration",
+    "midi-info.notes": "Notes",
     "midi-info.failed": "Failed to fetch MIDI information.",
 
     "languages.title": "Languages",
