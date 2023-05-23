@@ -179,6 +179,8 @@ function fastSpan(list, startTime, duration) {
     };
 }
 
+let lastDrawTime = performance.now();
+let timeList = []
 function draw() {
     if (!waterfall.classList.contains('hidden')) {
         canvasCtx.fillStyle = fillColor;
@@ -187,12 +189,14 @@ function draw() {
 
         let scaling = canvas.height / settings.spanDuration;
         let noteCount = 0;
+        let renderCount = 0;
 
         if (smfData != null) {
             for (let i = 0; i < 16; i++) {
                 canvasCtx.fillStyle = palette[i];
                 let result = fastSpan(smfData.channels[i].notes, playTime, settings.spanDuration);
                 noteCount += result.index;
+                renderCount += result.notes.length;
 
                 for (let note of result.notes) {
                     let stopTime = getStopTime(note);
@@ -217,13 +221,6 @@ function draw() {
                         }
                     }
                 }
-            }
-            if (settings.showNoteCounter) {
-                canvasCtx.fillStyle = settings.dark? "white": "black";
-                canvasCtx.font = "2rem Sans-serif";
-                canvasCtx.textAlign = "left";
-                canvasCtx.textBaseline = "top";
-                canvasCtx.fillText(noteCount, 0, 0);
             }
         }
 
@@ -261,6 +258,63 @@ function draw() {
 
         canvasCtx.fillStyle = '#b71c1c';
         canvasCtx.fillRect(0, canvas.height - keyboardHeight - noteWidth * 0.5, canvas.width, noteWidth * 0.5);
+
+        if (settings.prefmon) {
+            let drawTime = performance.now();
+            let frameTime = drawTime - lastDrawTime;
+
+            lastDrawTime = drawTime;
+            timeList.push(frameTime);
+            if (timeList.length > 250) {
+                timeList.shift();
+            }
+
+            let c = 0;
+            let t = 0
+            for (let i = timeList.length - 1; i > 0; i--) {
+                t += timeList[i];
+                c++;
+                if (t > 1000) {
+                    break;
+                }
+            }
+
+            canvasCtx.fillStyle = '#00000080';
+            canvasCtx.fillRect(0, 0, 260, 160);
+
+            canvasCtx.fillStyle = "white";
+            canvasCtx.font = "26px Sans-serif";
+            canvasCtx.textAlign = "left";
+            canvasCtx.textBaseline = "top";
+
+            canvasCtx.fillText(`N: ${noteCount} R: ${renderCount}`, 0, 0);
+            canvasCtx.fillText(`T: ${frameTime.toFixed(1)}  ${(c / t * 1000).toFixed(2)}fps`, 0, 26);
+
+
+            canvasCtx.lineWidth = 1;
+            canvasCtx.beginPath();
+            canvasCtx.strokeStyle = "red";
+            canvasCtx.moveTo(0, 150);
+            canvasCtx.lineTo(250, 150);
+            canvasCtx.stroke();
+
+            canvasCtx.strokeStyle = "#ffffff80";
+            for (let i = 0; i < 100; i += 20) {
+                canvasCtx.beginPath();
+                canvasCtx.moveTo(0, 150 - i);
+                canvasCtx.lineTo(250, 150 - i);
+                canvasCtx.stroke();
+            }
+
+            canvasCtx.lineWidth = 1.5;
+            canvasCtx.strokeStyle = "white";
+            canvasCtx.beginPath();
+            canvasCtx.moveTo(0, 150 - frameTime);
+            for (let i = 0; i < timeList.length; i++) {
+                canvasCtx.lineTo(i, 150 - timeList[i]);
+            }
+            canvasCtx.stroke();
+        }
 
         if (player.isPaused()) {
             endAnimation();
@@ -313,10 +367,10 @@ highlightNotes.addEventListener('click', e => {
     save();
 });
 
-let showNoteCounter = $("#showNoteCounter");
-updateChecker(showNoteCounter, settings.showNoteCounter);
-showNoteCounter.addEventListener('click', e => {
-    settings.showNoteCounter = !settings.showNoteCounter;
-    updateChecker(showNoteCounter, settings.showNoteCounter);
+let prefmon = $("#prefmon");
+updateChecker(prefmon, settings.prefmon);
+prefmon.addEventListener('click', e => {
+    settings.prefmon = !settings.prefmon;
+    updateChecker(prefmon, settings.prefmon);
     save();
 });

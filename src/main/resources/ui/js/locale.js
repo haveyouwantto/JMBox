@@ -40,6 +40,7 @@ let defaultLocale = {
     "settings.piano-roll.note-transparency": "Note translucence to velocity",
     "settings.piano-roll.highlight-playing-notes": "Highlight playing notes",
     "settings.piano-roll.show-note-counter":"Show note counter",
+    "settings.piano-roll.prefmon":"Performance Monitor",
     "settings.close-btn": "Close",
 
     "dialog.close-btn": "Close",

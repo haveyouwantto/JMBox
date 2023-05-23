@@ -38,7 +38,7 @@
   "settings.piano-roll.max-note-duration": "最大音符の長さ",
   "settings.piano-roll.note-transparency": "音符の力度が透明度を決定する",
   "settings.piano-roll.highlight-playing-notes": "演奏音符のハイライト表示",
-  "settings.piano-roll.show-note-counter": "音符カウンターを表示する",
+  "settings.piano-roll.prefmon": "パフォーマンスモニター",
   "settings.close-btn": "閉じる",
   "dialog.close-btn": "閉じる",
   "about.title": "について",

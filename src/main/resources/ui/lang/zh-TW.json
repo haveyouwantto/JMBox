@@ -39,6 +39,7 @@
     "settings.piano-roll.note-transparency": "根據音符力度設置透明度",
     "settings.piano-roll.highlight-playing-notes": "高亮彈奏中的音符",
     "settings.piano-roll.show-note-counter": "顯示音符計數器",
+    "settings.piano-roll.prefmon": "性能監視器",
     "settings.close-btn": "關閉",
     "dialog.close-btn": "關閉",
     "about.title": "關於",
