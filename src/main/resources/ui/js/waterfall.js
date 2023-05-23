@@ -35,8 +35,15 @@ let wakeLock = null;
 
 let animationId = null;
 
+// for performance monitoring
+let lastDrawTime = performance.now();
+let timeList = []
+
 function startAnimation() {
-    if (animationId == null && waterfall.classList.contains('open')) animationId = requestAnimationFrame(draw);
+    if (animationId == null && waterfall.classList.contains('open')) {
+        lastDrawTime = performance.now();
+        animationId = requestAnimationFrame(draw);
+    }
 }
 
 function endAnimation() {
@@ -179,8 +186,6 @@ function fastSpan(list, startTime, duration) {
     };
 }
 
-let lastDrawTime = performance.now();
-let timeList = []
 function draw() {
     if (!waterfall.classList.contains('hidden')) {
         canvasCtx.fillStyle = fillColor;
