@@ -23,7 +23,7 @@ let settings = {};
 /**
  * Load configurations from disk
  */
-function load() {
+function loadSettings() {
     const localStorage = window.localStorage;
     for (const key in defaultValue) {
         if (Object.hasOwnProperty.call(defaultValue, key)) {
@@ -52,7 +52,7 @@ function load() {
 /**
  * Save configurations to disk
  */
-let saving = false;
+let savingSettings = false;
 function saveNow() {
     const localStorage = window.localStorage;
     for (const key in settings) {
@@ -63,12 +63,12 @@ function saveNow() {
     }
     console.log("Settings saved.");
 
-    saving = false;
+    savingSettings = false;
 }
 
-function save() {
-    if (!saving) setTimeout(saveNow, 1000);
-    saving = true;
+function saveSettings() {
+    if (!savingSettings) setTimeout(saveNow, 1000);
+    savingSettings = true;
 }
 
 /**
@@ -80,4 +80,4 @@ function update(key, value) {
     window.localStorage.setItem(key, value);
 }
 
-load();
+loadSettings();

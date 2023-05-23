@@ -59,14 +59,10 @@ function AudioPlayer() {
      * @param {string} url 
      * @param {Function} callback
      */
-    this.load = function (path, callback) {
+    this.load = function (path, callback, error) {
         bufferedBar.style.display = 'block';
-        try {
-            this.audio.src = (settings.midisrc ? "api/midi" : "api/play") + path;
-            this.seek(0);
-        } catch (error) {
-            console.log(error.message);
-        }
+        this.audio.src = (settings.midisrc ? "api/midi" : "api/play") + path;
+        this.seek(0);
         updateBuffer(0, 1);
         fetch("api/midi" + path).then(r => {
             if (r.ok) {
@@ -207,7 +203,7 @@ function PicoAudioPlayer() {
      * @param {string} url 
      * @param {Function} callback
      */
-    this.load = function (path, callback) {
+    this.load = function (path, callback, error) {
         this.seek(0);
         fetch("api/midi" + path).then(r => {
             if (r.ok) {
@@ -225,10 +221,7 @@ function PicoAudioPlayer() {
                     callback();
                 })
             } else {
-                dialogTitle.innerText = getLocale("player.failed");
-                dialogContent.innerHTML = '';
-                dialogContent.appendChild(createDialogItem(getLocale("player.failed.description")));
-                dialog.showModal();
+                error();
             }
         });
     }
@@ -347,14 +340,12 @@ function PlayerWrapper(player) {
 
     this.load = function (path, callback) {
         this.seek(0);
-        this.player.load(path, callback);
-        /**
-         * 
-                dialogTitle.innerText = getLocale("player.failed");
-                dialogContent.innerHTML = '';
-                dialogContent.appendChild(createDialogItem(getLocale("player.failed.description")));
-                dialog.showModal();
-         */
+        this.player.load(path, callback, () => {
+            dialogTitle.innerText = getLocale("player.failed");
+            dialogContent.innerHTML = '';
+            dialogContent.appendChild(createDialogItem(getLocale("player.failed.description")));
+            dialog.showModal();
+        });
     }
 
     /**
@@ -510,7 +501,7 @@ if (window.isSecureContext) {
         settings.webmidi = !settings.webmidi;
         updateChecker(midiBtn, settings.webmidi);
         setupWebMIDI();
-        save();
+        saveSettings();
     });
 } else {
     midiBtn.style.display = 'none';
@@ -522,7 +513,7 @@ updateChecker(midiBtn, settings.webmidi);
 midiSrcBtn.addEventListener('click', e => {
     settings.midisrc = !settings.midisrc;
     updateChecker(midiSrcBtn, settings.midisrc);
-    save();
+    saveSettings();
 });
 updateChecker(midiSrcBtn, settings.midisrc);
 
@@ -650,7 +641,7 @@ function createPlayer(playerClass) {
         });
     }
     settings.player = playerClass.name;
-    save();
+    saveSettings();
 }
 
 function updatePlayerChecker(player) {
@@ -697,7 +688,7 @@ playModeButton.addEventListener('click', e => {
     settings.playMode++;
     if (settings.playMode == 4) settings.playMode = 0;
     updatePlayer(settings.playMode);
-    save();
+    saveSettings();
 });
 
 playModeAltButton.addEventListener('click', e => {
@@ -729,7 +720,7 @@ playModeAltButton.addEventListener('click', e => {
         item.addEventListener('click', e => {
             settings.playMode = i;
             updatePlayer(settings.playMode);
-            save();
+            saveSettings();
             dialog.classList.add('fade-out');
         });
 
@@ -788,7 +779,7 @@ function setVolume(percentage) {
     volumeControlInner.style.width = (percentage * 100) + "%";
     player.setVolume(Math.pow(percentage, 2));
     settings.volume = percentage;
-    save();
+    saveSettings();
 }
 
 volumeControl.addEventListener('pointermove', e => {
@@ -817,5 +808,5 @@ midiLatencySelect.addEventListener('change', e => {
     let midiLatency = parseInt(midiLatencySelect.value);
     settings.midiLatency = midiLatency;
     picoAudio.settings.WebMIDIWaitTime = midiLatency;
-    save();
+    saveSettings();
 })

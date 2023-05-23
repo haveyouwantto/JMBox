@@ -198,7 +198,7 @@ languageButton.addEventListener('click', e => {
     item.addEventListener('click', e => {
         setLocale(navigator.language);
         settings.language = "auto";
-        save();
+        saveSettings();
     });
     dialogContent.appendChild(item);
 
@@ -208,7 +208,7 @@ languageButton.addEventListener('click', e => {
         item.addEventListener('click', e => {
             setLocale(language);
             settings.language = language;
-            save();
+            saveSettings();
         });
         dialogContent.appendChild(item);
     }
@@ -220,7 +220,7 @@ let showInfoBtn = $('#showInfo');
 showInfoBtn.addEventListener('click', e => {
     settings.showInfo = !settings.showInfo;
     list();
-    save();
+    saveSettings();
     updateChecker(showInfoBtn, settings.showInfo);
 });
 updateChecker(showInfoBtn, settings.showInfo);
@@ -255,7 +255,7 @@ function updateSorting(func) {
     } else {
         sortReversed = false;
     }
-    save()
+    saveSettings()
     sortFunc = window[func];
     list();
 }

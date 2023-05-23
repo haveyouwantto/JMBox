@@ -346,14 +346,14 @@ let spanDurationEdit = $("#spanDuration");
 spanDurationEdit.value = settings.spanDuration;
 spanDurationEdit.addEventListener('change', e => {
     settings.spanDuration = parseFloat(spanDurationEdit.value);
-    save();
+    saveSettings();
 });
 
 let maxNoteDurationEdit = $("#maxNoteDuration");
 maxNoteDurationEdit.value = settings.maxNoteDuration;
 maxNoteDurationEdit.addEventListener('change', e => {
     settings.maxNoteDuration = parseFloat(maxNoteDurationEdit.value);
-    save();
+    saveSettings();
 });
 
 let noteTransparencyBtn = $("#noteTransparency");
@@ -361,7 +361,7 @@ updateChecker(noteTransparencyBtn, settings.noteTransparency);
 noteTransparencyBtn.addEventListener('click', e => {
     settings.noteTransparency = !settings.noteTransparency;
     updateChecker(noteTransparencyBtn, settings.noteTransparency);
-    save();
+    saveSettings();
 });
 
 let highlightNotes = $("#highlightNotes");
@@ -369,7 +369,7 @@ updateChecker(highlightNotes, settings.highlightNotes);
 highlightNotes.addEventListener('click', e => {
     settings.highlightNotes = !settings.highlightNotes;
     updateChecker(highlightNotes, settings.highlightNotes);
-    save();
+    saveSettings();
 });
 
 let prefmon = $("#prefmon");
@@ -377,5 +377,5 @@ updateChecker(prefmon, settings.prefmon);
 prefmon.addEventListener('click', e => {
     settings.prefmon = !settings.prefmon;
     updateChecker(prefmon, settings.prefmon);
-    save();
+    saveSettings();
 });
