@@ -88,7 +88,6 @@ function AudioPlayer() {
      */
     this.play = function () {
         this.audio.play();
-        startAnimation();
     }
 
     /**
@@ -210,7 +209,6 @@ function PicoAudioPlayer() {
      */
     this.load = function (path, callback) {
         this.seek(0);
-        endAnimation();
         fetch("api/midi" + path).then(r => {
             if (r.ok) {
                 r.arrayBuffer().then(data => {
@@ -243,7 +241,6 @@ function PicoAudioPlayer() {
         this.paused = false;
         picoAudio.play();
         this.intervalId = setInterval(updatePlayback, 50);
-        startAnimation();
     }
 
     /**
@@ -350,7 +347,6 @@ function PlayerWrapper(player) {
 
     this.load = function (path, callback) {
         this.seek(0);
-        endAnimation();
         this.player.load(path, callback);
         /**
          * 
@@ -369,6 +365,7 @@ function PlayerWrapper(player) {
             navigator.mediaSession.playbackState = 'playing';
         }
         playButton.innerText = '\ue00f';
+        startAnimation();
         this.player.play();
     }
 
