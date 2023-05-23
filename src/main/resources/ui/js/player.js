@@ -87,10 +87,6 @@ function AudioPlayer() {
      * Play the audio
      */
     this.play = function () {
-        if ('mediaSession' in navigator) {
-            navigator.mediaSession.playbackState = 'playing';
-        }
-        playButton.innerText = '\ue00f';
         this.audio.play();
         startAnimation();
     }
@@ -99,10 +95,6 @@ function AudioPlayer() {
      * Pause the audio
      */
     this.pause = function () {
-        if ('mediaSession' in navigator) {
-            navigator.mediaSession.playbackState = 'paused';
-        }
-        playButton.innerText = '\ue000';
         this.audio.pause();
     }
 
@@ -247,11 +239,7 @@ function PicoAudioPlayer() {
      * Play the audio
      */
     this.play = function () {
-        if ('mediaSession' in navigator) {
-            navigator.mediaSession.playbackState = 'playing';
-        }
         if (this.isEnded()) this.seek(0);
-        playButton.innerText = '\ue00f';
         this.paused = false;
         picoAudio.play();
         this.intervalId = setInterval(updatePlayback, 50);
@@ -262,15 +250,9 @@ function PicoAudioPlayer() {
      * Pause the audio
      */
     this.pause = function () {
-        if ('mediaSession' in navigator) {
-            navigator.mediaSession.playbackState = 'paused';
-        }
-        playButton.innerText = '\ue000';
         this.lastPausedTime = this.currentTime();
-
         this.paused = true;
         picoAudio.pause();
-
         clearInterval(this.intervalId);
     }
 
@@ -344,18 +326,6 @@ function PicoAudioPlayer() {
         this.play();
     }
 
-    // picoAudio.addEventListener('noteOn', e => {
-    //     updatePlayback();
-    // });
-
-    // picoAudio.addEventListener('noteOff', e => {
-    //     updatePlayback();
-    // });
-
-    // picoAudio.addEventListener('play', e => {
-    //     updatePlayback();
-    // });
-
     if (!picoAudioInit) {
         picoAudio.addEventListener('songEnd', e => {
             if (!picoAudio.isLoop()) this.pause();
@@ -373,6 +343,105 @@ function PicoAudioPlayer() {
     }
 
     setupWebMIDI();
+}
+
+function PlayerWrapper(player) {
+    this.player = new window[player]();
+
+    this.load = function (path, callback) {
+        this.seek(0);
+        endAnimation();
+        this.player.load(path, callback);
+        /**
+         * 
+                dialogTitle.innerText = getLocale("player.failed");
+                dialogContent.innerHTML = '';
+                dialogContent.appendChild(createDialogItem(getLocale("player.failed.description")));
+                dialog.showModal();
+         */
+    }
+
+    /**
+     * Play the audio
+     */
+    this.play = function () {
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = 'playing';
+        }
+        playButton.innerText = '\ue00f';
+        this.player.play();
+    }
+
+    /**
+     * Pause the audio
+     */
+    this.pause = function () {
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = 'paused';
+        }
+        playButton.innerText = '\ue000';
+        this.player.pause();
+    }
+
+    /**
+     * Gets audio duration
+     * @returns duration in seconds
+     */
+    this.duration = function () {
+        return this.player.duration();
+    }
+
+    /**
+     * Gets current audio progress
+     * @returns progress in seconds
+     */
+    this.currentTime = function () {
+        return this.player.currentTime();
+    }
+
+    /**
+     * Seek audio in seconds
+     * @param {float} seconds 
+     */
+    this.seek = function (seconds) {
+        return this.player.seek(seconds);
+    }
+
+    /**
+     * Seek audio by percentage
+     * @param {float} percentage 
+     */
+    this.seekPercentage = function (percentage) {
+        this.player.seekPercentage(percentage);
+    }
+
+    this.stop = function () {
+        this.player.stop();
+    }
+
+    this.isPaused = function () {
+        return this.player.isPaused();
+    }
+
+    this.isEnded = function () {
+        return this.player.isEnded();
+    }
+
+    this.setLoop = function (loop) {
+        this.player.setLoop(loop);
+    }
+
+    this.getVolume = function () {
+        return this.player.getVolume();
+    }
+
+    this.setVolume = function (volume) {
+        this.player.setVolume(volume);
+    }
+
+    this.replay = function () {
+        this.player.replay();
+    }
 }
 
 // PicoAudio MIDI initialize
@@ -572,10 +641,10 @@ function createPlayer(playerClass) {
         volume = player.getVolume();
         player.stop();
     }
-    player = new playerClass();
+    player = new PlayerWrapper(playerClass.name);
     player.setVolume(volume);
     updatePlayer(settings.playMode);
-    updatePlayerChecker(playerClass);
+    updatePlayerChecker(playerClass.name);
 
     if (filesMem.length > 0) {
         player.load(cdMem + "/" + filesMem[playing], () => {
@@ -583,17 +652,17 @@ function createPlayer(playerClass) {
             if (!lastPaused) player.play();
         });
     }
-    settings.player = player.constructor.name;
+    settings.player = playerClass.name;
     save();
 }
 
 function updatePlayerChecker(player) {
     switch (player) {
-        case AudioPlayer:
+        case 'AudioPlayer':
             updateChecker(audioPlayer, true);
             updateChecker(picoAudioPlayer, false);
             break;
-        case PicoAudioPlayer:
+        case 'PicoAudioPlayer':
             updateChecker(audioPlayer, false);
             updateChecker(picoAudioPlayer, true);
             break;

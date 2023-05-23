@@ -38,7 +38,7 @@ function info() {
             $('#player-section').style.display = 'none';
             $('#audio-section').style.display = 'none';
         } else {
-            player = new window[settings.player]();
+            player = new PlayerWrapper(settings.player);
         }
 
         select.value = settings.sortFunc;
@@ -46,7 +46,7 @@ function info() {
 
         setVolume(settings.volume);
         updatePlayer(settings.playMode);
-        updatePlayerChecker(player.constructor);
+        updatePlayerChecker(settings.player);
 
         if ('mediaSession' in navigator) {
             navigator.mediaSession.metadata.album = serverName;
