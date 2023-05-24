@@ -34,7 +34,7 @@ function info() {
         title.innerText = serverName;
 
         if (!result.capabilities.play) {
-            player = new PicoAudioPlayer();
+            player = new PlayerWrapper("PicoAudioPlayer");
             $('#player-section').style.display = 'none';
             $('#audio-section').style.display = 'none';
         } else {
