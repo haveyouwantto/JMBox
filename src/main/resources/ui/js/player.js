@@ -194,6 +194,7 @@ function PicoAudioPlayer() {
     this.paused = true;
     this.lastPausedTime = 0;
     this.intervalId = 0;
+    this.silent = null;
     if (picoAudio == null) {
         picoAudio = new PicoAudio();
         picoAudio.init();
@@ -234,6 +235,13 @@ function PicoAudioPlayer() {
         this.paused = false;
         picoAudio.play();
         this.intervalId = setInterval(updatePlayback, 50);
+
+        if (this.silent == null && settings.webmidi) {
+            this.silent = picoAudio.context.createConstantSource();
+            this.silent.offset.value = 0.01
+            this.silent.connect(picoAudio.context.destination);
+            this.silent.start();
+        }
     }
 
     /**
@@ -244,6 +252,11 @@ function PicoAudioPlayer() {
         this.paused = true;
         picoAudio.pause();
         clearInterval(this.intervalId);
+
+        if (this.silent != null) {
+            this.silent.stop();
+            this.silent = null;
+        }
     }
 
     /**
