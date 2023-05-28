@@ -255,8 +255,8 @@ function PicoAudioPlayer() {
 
         if (this.silent != null) {
             this.silent.stop();
-            this.silent.discconnect(picoAudio.context.destination);
-            this.silent = null;
+            this.silent.disconnect(picoAudio.context.destination);
+            delete this.silent;
         }
     }
 
