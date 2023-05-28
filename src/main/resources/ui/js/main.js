@@ -24,6 +24,12 @@ let pathman = new PathMan();
 let sortFunc = sortName;
 let sortReversed = false;
 
+
+function init() {
+    select.value = settings.sortFunc;
+    updateSorting(settings.sortFunc);
+}
+
 /** 
  * Gets server information
  */
@@ -40,13 +46,10 @@ function info() {
         } else {
             player = new PlayerWrapper(settings.player);
         }
-
-        select.value = settings.sortFunc;
-        updateSorting(settings.sortFunc);
-
         setVolume(settings.volume);
         updatePlayer(settings.playMode);
         updatePlayerChecker(settings.player);
+
 
         if ('mediaSession' in navigator) {
             navigator.mediaSession.metadata.album = serverName;
@@ -148,7 +151,7 @@ async function updateList(path, result, back = false) {
                 props.appendChild(date);
             }
 
-            if (!element.isDir) {
+            if (!element.isDir && element.date != null) {
                 let size = document.createElement('span');
                 size.innerText = toSI(element.size) + "B";
                 props.appendChild(size);
@@ -320,5 +323,6 @@ if (urlDir != null) {
 }
 
 // Initialize view
+init();
 info();
 list();

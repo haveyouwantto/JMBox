@@ -245,6 +245,7 @@ var select = document.getElementById("sort-select");
 select.addEventListener("change", function () {
     var selectedOption = select.options[select.selectedIndex].value;
     updateSorting(selectedOption);
+    list();
 });
 
 function updateSorting(func) {
@@ -257,5 +258,4 @@ function updateSorting(func) {
     }
     saveSettings()
     sortFunc = window[func];
-    list();
 }

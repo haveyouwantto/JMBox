@@ -39,6 +39,7 @@ function formatTime(seconds) {
  * @param {boolean} bin Use base 1024 instead of 1000.
  */
 function toSI(n, bin = false) {
+    if (n == null) return "Unknown "
     let suffix = ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
     let base = bin ? 1024 : 1000;
     if (n < base) return parseInt(n) + " ";
