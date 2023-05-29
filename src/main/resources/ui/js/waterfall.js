@@ -1,5 +1,5 @@
 let waterfall = $("#waterfall");
-let canvas = $("#canvas");
+let canvas = waterfall.querySelector('canvas');
 let canvasCtx = canvas.getContext('2d');
 let dpr = window.devicePixelRatio;
 let smfData = null;
@@ -227,8 +227,10 @@ function draw() {
                             canvasCtx.shadowBlur = 16;
                             canvasCtx.shadowColor = palette[i];
                             canvasCtx.fillStyle = "#ffffff60";
+
                             canvasCtx.fillRect(x, canvas.height - endY - keyboardHeight, noteWidth, endY - startY);
                             canvasCtx.fillStyle = palette[i];
+
                             canvasCtx.shadowOffsetX = 0;
                             canvasCtx.shadowOffsetY = 0;
                             canvasCtx.shadowBlur = 0;

@@ -3,8 +3,6 @@ let serverName = "JMBox";
 let files = [];
 let playing = [];
 
-let musicLoop = true;
-
 let prefix = location.pathname;
 let urlDir = location.hash.substring(2);
 
