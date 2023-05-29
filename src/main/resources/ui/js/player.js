@@ -814,7 +814,7 @@ volumeControl.addEventListener('click', e => {
 
 function switchMidiDevice(deviceId){
     resetMIDI(picoAudio.settings.WebMIDIPortOutput, true);  // reset previous device
-    let device = midiDeviceList.get(deviceSelection.value);
+    let device = midiDeviceList.get(deviceId);
     settings.lastMidiDevice = device.name;
     saveSettings();
     
