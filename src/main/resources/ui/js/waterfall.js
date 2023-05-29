@@ -199,16 +199,8 @@ function draw() {
         let renderCount = 0;
 
         if (smfData != null) {
-            if (settings.fancyMode) {
-                canvasCtx.shadowOffsetX = 0;
-                canvasCtx.shadowOffsetY = 0;
-                canvasCtx.shadowBlur = 8;
-            }
             for (let i = 0; i < 16; i++) {
                 canvasCtx.fillStyle = palette[i];
-                if (settings.fancyMode) {
-                    canvasCtx.shadowColor = palette[i];
-                }
                 let result = fastSpan(smfData.channels[i].notes, playTime, settings.spanDuration);
                 noteCount += result.index;
                 renderCount += result.notes.length;
@@ -230,21 +222,23 @@ function draw() {
 
                         // Highlight notes
                         if (settings.highlightNotes) {
+                            canvasCtx.shadowOffsetX = 0;
+                            canvasCtx.shadowOffsetY = 0;
+                            canvasCtx.shadowBlur = 16;
+                            canvasCtx.shadowColor = palette[i];
                             canvasCtx.fillStyle = "#ffffff60";
                             canvasCtx.fillRect(x, canvas.height - endY - keyboardHeight, noteWidth, endY - startY);
                             canvasCtx.fillStyle = palette[i];
+                            canvasCtx.shadowOffsetX = 0;
+                            canvasCtx.shadowOffsetY = 0;
+                            canvasCtx.shadowBlur = 0;
+                            canvasCtx.shadowColor = "transparent";
                         }
                     }
                 }
             }
         }
 
-        if (settings.fancyMode) {
-            canvasCtx.shadowOffsetX = 0;
-            canvasCtx.shadowOffsetY = 0;
-            canvasCtx.shadowBlur = 0;
-            canvasCtx.shadowColor = "transparent";
-        }
         // Draw white keys
         canvasCtx.fillStyle = 'white';
         canvasCtx.fillRect(0, canvas.height - keyboardHeight, canvas.width, keyboardHeight);
@@ -264,12 +258,10 @@ function draw() {
             }
         }
 
-        if (settings.fancyMode) {
-            canvasCtx.shadowOffsetX = 5;
-            canvasCtx.shadowOffsetY = 5;
-            canvasCtx.shadowBlur = 10;
-            canvasCtx.shadowColor = "rgba(0, 0, 0, 0.5)";
-        }
+        canvasCtx.shadowOffsetX = 0;
+        canvasCtx.shadowOffsetY = 0;
+        canvasCtx.shadowBlur = 8;
+        canvasCtx.shadowColor = "#00000080";
 
         // Draw black keys
         canvasCtx.fillStyle = 'black';
@@ -283,15 +275,14 @@ function draw() {
                 canvasCtx.fillStyle = 'black';
             }
         }
-        if (settings.fancyMode) {
-            canvasCtx.shadowOffsetX = 0;
-            canvasCtx.shadowOffsetY = 0;
-            canvasCtx.shadowBlur = 0;
-            canvasCtx.shadowColor = "transparent";
-        }
 
         canvasCtx.fillStyle = '#b71c1c';
         canvasCtx.fillRect(0, canvas.height - keyboardHeight - noteWidth * 0.5, canvas.width, noteWidth * 0.5);
+
+        canvasCtx.shadowOffsetX = 0;
+        canvasCtx.shadowOffsetY = 0;
+        canvasCtx.shadowBlur = 0;
+        canvasCtx.shadowColor = "transparent";
 
         if (settings.prefmon) {
             let drawTime = performance.now();
