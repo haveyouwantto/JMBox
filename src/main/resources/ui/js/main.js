@@ -53,14 +53,19 @@ function info() {
             navigator.mediaSession.metadata.album = serverName;
         }
 
-        document.documentElement.style.setProperty('--theme-color', result.themeColor);
-        document.documentElement.style.setProperty('--theme-color-80', result.themeColor + "80");
-        document.documentElement.style.setProperty('--theme-color-60', result.themeColor + "60");
-        document.documentElement.style.setProperty('--theme-color-50', result.themeColor + "50");
-        document.documentElement.style.setProperty('--theme-color-40', result.themeColor + "40");
-        document.documentElement.style.setProperty('--theme-color-20', result.themeColor + "20");
-        metaThemeColor.content = result.themeColor;
+        setThemeColor(result.themeColor);
     });
+}
+
+function setThemeColor(color) {
+    document.documentElement.style.setProperty('--theme-color', color);
+    document.documentElement.style.setProperty('--theme-color-80', color + "80");
+    document.documentElement.style.setProperty('--theme-color-60', color + "60");
+    document.documentElement.style.setProperty('--theme-color-50', color + "50");
+    document.documentElement.style.setProperty('--theme-color-40', color + "40");
+    document.documentElement.style.setProperty('--theme-color-20', color + "20");
+    // Browser metadata theme color
+    $("#meta-theme-color").content = color;
 }
 
 /** 

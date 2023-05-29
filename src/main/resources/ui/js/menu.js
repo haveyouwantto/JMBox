@@ -17,10 +17,6 @@ let mid = $("#mid");
 
 let refresh = $("#refresh");
 
-
-// Browser metadata theme color
-let metaThemeColor = $("#meta-theme-color");
-
 // loop.addEventListener('click', function (e) {
 //     musicLoop = !musicLoop;
 //     audio.loop = musicLoop;
