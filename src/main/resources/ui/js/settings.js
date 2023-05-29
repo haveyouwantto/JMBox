@@ -15,7 +15,8 @@ let defaultValue = {
     noteTransparency: false,
     highlightNotes: true,
     sortFunc : "sortName",
-    prefmon : false
+    prefmon : false,
+    fancyMode : false
 }
 
 let settings = {};

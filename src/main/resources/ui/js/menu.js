@@ -13,12 +13,12 @@ let collapse = $("#collapse");
 // Menu Items
 let wav = $("#wav");
 let mid = $("#mid");
-let darkModeBtn = $("#dark");
+// let darkModeBtn = $("#dark");
 
 let refresh = $("#refresh");
 
 
-// Misc Items
+// Browser metadata theme color
 let metaThemeColor = $("#meta-theme-color");
 
 // loop.addEventListener('click', function (e) {
@@ -85,30 +85,30 @@ menu.addEventListener('click', e => {
 });
 
 // Dark mode
-darkModeBtn.addEventListener('click', e => {
-    settings.dark = !settings.dark;
-    setDarkMode(settings.dark);
-    update('dark', settings.dark);
-});
+// darkModeBtn.addEventListener('click', e => {
+//     settings.dark = !settings.dark;
+//     setDarkMode(settings.dark);
+//     update('dark', settings.dark);
+// });
 
 function setDarkMode(dark) {
-    let root = document.documentElement.style;
-    if (dark) {
-        root.setProperty('--text-color', '#cccccc');
-        root.setProperty('--bg-color', '#101010');
-        root.setProperty('--hover-color', '#ffffff20');
-        root.setProperty('--bg-color-alt', '#202020');
-        root.setProperty('--bar-color', '#303030');
-        fillColor = '#101010';
-    } else {
-        root.setProperty('--text-color', '#202020');
-        root.setProperty('--bg-color', 'white');
-        root.setProperty('--hover-color', '#00000020');
-        root.setProperty('--bg-color-alt', 'white');
-        root.setProperty('--bar-color', '#e0e0e0');
-        fillColor = '#f0f0f0';
-    }
-    updateChecker(darkModeBtn, settings.dark);
+    // let root = document.documentElement.style;
+    // if (dark) {
+    //     root.setProperty('--text-color', '#cccccc');
+    //     root.setProperty('--bg-color', '#101010');
+    //     root.setProperty('--hover-color', '#ffffff20');
+    //     root.setProperty('--bg-color-alt', '#202020');
+    //     root.setProperty('--bar-color', '#303030');
+    //     fillColor = '#101010';
+    // } else {
+    //     root.setProperty('--text-color', '#202020');
+    //     root.setProperty('--bg-color', 'white');
+    //     root.setProperty('--hover-color', '#00000020');
+    //     root.setProperty('--bg-color-alt', 'white');
+    //     root.setProperty('--bar-color', '#e0e0e0');
+    //     fillColor = '#f0f0f0';
+    // }
+    // updateChecker(darkModeBtn, settings.dark);
 }
 
 refresh.addEventListener('click', e => {

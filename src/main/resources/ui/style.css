@@ -1,10 +1,12 @@
 :root {
     --theme-color: #00796b;
+
     --text-color: #202020;
-    --bg-color: #white;
+    --bg-color: white;
     --bg-color-alt: white;
     --hover-color: #00000020;
     --bar-color: #e0e0e0;
+    --fill-color: #f0f0f0;
 
     --theme-color-80: #00796b80;
     --theme-color-60: #00796b60;
@@ -14,6 +16,17 @@
 
     overflow-x: hidden;
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #cccccc;
+        --bg-color: #101010;
+        --hover-color: #ffffff20;
+        --bg-color-alt: #202020;
+        --bar-color: #303030;
+        --fill-color: #101010;
+    }
+  }
 
 * {
     -webkit-tap-highlight-color: transparent;

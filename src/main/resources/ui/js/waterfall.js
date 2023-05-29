@@ -188,8 +188,10 @@ function fastSpan(list, startTime, duration) {
 
 function draw() {
     if (!waterfall.classList.contains('hidden')) {
-        canvasCtx.fillStyle = fillColor;
+        canvasCtx.globalCompositeOperation = 'copy';
+        canvasCtx.fillStyle = "#ff000000";
         canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+        canvasCtx.globalCompositeOperation = 'source-over';
         let playTime = player.currentTime();
 
         let scaling = canvas.height / settings.spanDuration;
@@ -197,8 +199,12 @@ function draw() {
         let renderCount = 0;
 
         if (smfData != null) {
+            // canvasCtx.shadowOffsetX = 0;
+            // canvasCtx.shadowOffsetY = 0;
+            // canvasCtx.shadowBlur = 12;
             for (let i = 0; i < 16; i++) {
                 canvasCtx.fillStyle = palette[i];
+                // canvasCtx.shadowColor = palette[i];
                 let result = fastSpan(smfData.channels[i].notes, playTime, settings.spanDuration);
                 noteCount += result.index;
                 renderCount += result.notes.length;
@@ -227,6 +233,11 @@ function draw() {
                     }
                 }
             }
+            
+        // canvasCtx.shadowOffsetX = 0;
+        // canvasCtx.shadowOffsetY = 0;
+        // canvasCtx.shadowBlur = 0;
+        // canvasCtx.shadowColor = "transparent";
         }
 
         // Draw white keys

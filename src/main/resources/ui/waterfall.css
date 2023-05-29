@@ -4,7 +4,13 @@
     top: 0;
     z-index: 3;
     height: calc(100% - 60px);
-    background-color: white;
+    background-color: var(--fill-color);
+    /* backdrop-filter: blur(8px); */
+}
+
+#waterfall.fancy{
+    background-color: unset;
+    backdrop-filter: blur(8px);
 }
 
 #waterfall canvas {
