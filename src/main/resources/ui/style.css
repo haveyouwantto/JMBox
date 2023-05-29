@@ -846,10 +846,11 @@ html::-webkit-scrollbar-track {
         padding-top: 0;
         padding-bottom: 0;
         font-size: 16px;
+        height: 48px;
     }
 
     #content {
-        margin-top: 50px;
+        margin-top: 48px;
     }
 
 }
