@@ -224,7 +224,7 @@ function draw() {
                         if (settings.highlightNotes) {
                             canvasCtx.shadowOffsetX = 0;
                             canvasCtx.shadowOffsetY = 0;
-                            canvasCtx.shadowBlur = 16;
+                            canvasCtx.shadowBlur = noteWidth * 1.5;
                             canvasCtx.shadowColor = palette[i];
                             canvasCtx.fillStyle = "#ffffff60";
 
@@ -262,7 +262,7 @@ function draw() {
 
         canvasCtx.shadowOffsetX = 0;
         canvasCtx.shadowOffsetY = 0;
-        canvasCtx.shadowBlur = 8;
+        canvasCtx.shadowBlur = noteWidth * 0.75;
         canvasCtx.shadowColor = "#00000080";
 
         // Draw black keys
