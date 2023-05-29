@@ -775,6 +775,9 @@ function updatePlayer(mode) {
 
 function onended() {
     switch (settings.playMode) {
+        case 0:
+            player.pause();
+            break;
         case 2:
             if (playing == filesMem.length - 1) {
                 player.pause();
