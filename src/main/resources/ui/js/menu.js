@@ -152,45 +152,29 @@ closeSettingsButton.addEventListener('click', () => {
 });
 
 
-const dialog = $("#common-dialog");
-const dialogTitle = dialog.querySelector('.title');
-const dialogContent = dialog.querySelector('.dialog-container');
-const closeDialogButton = $("#close-dialog-button");
-
-dialog.addEventListener('animationend', function () {
-    if (dialog.classList.contains('fade-out')) {
-        dialog.classList.remove('fade-out')
-        dialog.close();
-    }
-});
-
-closeDialogButton.addEventListener('click', () => {
-    dialog.classList.add('fade-out')
-});
 
 const aboutButton = $("#about-button");
 aboutButton.addEventListener('click', e => {
-    dialogTitle.innerText = getLocale('about.title');
-    dialogContent.innerHTML = '';
-    dialogContent.appendChild(createDialogItem('<a href="https://github.com/haveyouwantto/JMBox" class="link">JMBox</a> ' + getLocale("about.name")));
-    dialogContent.appendChild(createDialogItem(getLocale("about.version") + " " + version));
-    dialogContent.appendChild(createDialogItem("\u00a9 2023 haveyouwantto"));
-    dialogContent.appendChild(createDialogItem("Licensed under MIT License."));
+    let dialog = new Dialog();
+    dialog.setTitle(getLocale('about.title'));
+    dialog.addText('<a href="https://github.com/haveyouwantto/JMBox" class="link">JMBox</a> ' + getLocale("about.name"));
+    dialog.addText(getLocale("about.version") + " " + version);
+    dialog.addText("\u00a9 2023 haveyouwantto");
+    dialog.addText("Licensed under MIT License.");
 
     let section = document.createElement("a");
     section.classList.add('dialog-subtitle');
     section.innerText = getLocale("about.libraries");
-    dialogContent.appendChild(section);
-    dialogContent.appendChild(createDialogItem('<a href="https://github.com/cagpie/PicoAudio.js" class="link">PicoAudio</a> \u00a9 cagpie (MIT License)'));
-    dialog.showModal();
+    dialog.addElement(section);
+    dialog.addText('<a href="https://github.com/cagpie/PicoAudio.js" class="link">PicoAudio</a> \u00a9 cagpie (MIT License)');
+    dialog.setVisible(true);
 });
 
 const languageButton = $("#language-button");
 
 languageButton.addEventListener('click', e => {
-    dialogTitle.innerHTML = '';
-    dialogTitle.appendChild(createLocaleItem('languages.title'));
-    dialogContent.innerHTML = '';
+    let dialog = new Dialog();
+    dialog.setTitleElement(createLocaleItem('languages.title'));
 
     let item = createDialogItem(null, true);
     item.classList.add('button-flash');
@@ -200,7 +184,7 @@ languageButton.addEventListener('click', e => {
         settings.language = "auto";
         saveSettings();
     });
-    dialogContent.appendChild(item);
+    dialog.addElement(item);
 
     for (let language in localeList) {
         let item = createDialogItem(localeList[language], true);
@@ -210,9 +194,9 @@ languageButton.addEventListener('click', e => {
             settings.language = language;
             saveSettings();
         });
-        dialogContent.appendChild(item);
+        dialog.addElement(item);
     }
-    dialog.showModal();
+    dialog.setVisible(true);
 });
 
 // Show Info

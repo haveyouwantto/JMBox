@@ -176,10 +176,10 @@ function AudioPlayer() {
 
         this.audio.addEventListener('error', e => {
             if (this.audio.src != 'null:') {
-                dialogTitle.innerText = getLocale("player.failed");
-                dialogContent.innerHTML = '';
-                dialogContent.appendChild(createDialogItem(getLocale("player.failed.description")));
-                dialog.showModal();
+                let dialog = new Dialog();
+                dialog.setTitle(getLocale("player.failed"));
+                dialog.addText(getLocale("player.failed.description"));
+                dialog.setVisible(true);
             }
         })
 
@@ -355,10 +355,10 @@ function PlayerWrapper(player) {
     this.load = function (path, callback) {
         this.seek(0);
         this.player.load(path, callback, () => {
-            dialogTitle.innerText = getLocale("player.failed");
-            dialogContent.innerHTML = '';
-            dialogContent.appendChild(createDialogItem(getLocale("player.failed.description")));
-            dialog.showModal();
+            let dialog = new Dialog();
+            dialog.setTitle(getLocale("player.failed"));
+            dialog.addText(getLocale("player.failed.description"));
+            dialog.setVisible(true);
         });
     }
 
@@ -711,10 +711,8 @@ playModeButton.addEventListener('click', e => {
 });
 
 playModeAltButton.addEventListener('click', e => {
-
-    dialogTitle.innerHTML = '';
-    dialogTitle.appendChild(createLocaleItem('menu.play-mode'));
-    dialogContent.innerHTML = '';
+    let dialog = new Dialog();
+    dialog.setTitle(getLocale('menu.play-mode'));
 
     let icons = ['\ue00b', '\ue00c', '\ue00d', '\ue00e'];
     let texts = ['menu.play-mode.single', 'menu.play-mode.single-looped', 'menu.play-mode.list', 'menu.play-mode.list-looped']
@@ -740,12 +738,12 @@ playModeAltButton.addEventListener('click', e => {
             settings.playMode = i;
             updatePlayer(settings.playMode);
             saveSettings();
-            dialog.classList.add('fade-out');
+            dialog.setVisible(false);
         });
 
-        dialogContent.appendChild(item);
+        dialog.addElement(item);
     }
-    dialog.showModal();
+    dialog.setVisible(true);
 });
 
 function updatePlayer(mode) {

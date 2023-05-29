@@ -143,4 +143,12 @@ function setLocale(language = 'en-US') {
     }
 }
 
+function createLocaleItem(key) {
+    let locale = document.createElement('locale');
+    locale.setAttribute('key', key);
+    locale.innerText = getLocale(key);
+    return locale;
+}
+
+
 localeInit();

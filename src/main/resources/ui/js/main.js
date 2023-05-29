@@ -86,13 +86,10 @@ function list(ignoreCache = false, back = false) {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    dialogTitle.innerHTML = '';
-                    dialogTitle.appendChild(createLocaleItem('general.error'));
-                    dialogContent.innerHTML = '';
-                    let item = createDialogItem();
-                    item.appendChild(createLocaleItem('browser.not-found'))
-                    dialogContent.appendChild(item);
-                    dialog.showModal();
+                    let dialog = new Dialog();
+                    dialog.setTitleElement(createLocaleItem('general.error'));
+                    dialog.addText(getLocale('browser.not-found'));
+                    dialog.setVisible(true);
                 }
             })
             .then(result => {
@@ -239,59 +236,19 @@ function previous() {
     play(cdMem, filesMem[playing]);
 }
 
-/**
- * 
- * @param {string} content 
- * @param {boolean} button default false
- * @returns 
- */
-function createDialogItem(content, button = false) {
-    let a = document.createElement(button ? 'button' : 'a');
-    a.classList.add('dialog-item');
-    if (content != null)
-        a.innerHTML = content;
-    return a;
-}
-
-function createLocaleItem(key) {
-    let locale = document.createElement('locale');
-    locale.setAttribute('key', key);
-    locale.innerText = getLocale(key);
-    return locale;
-}
-
 function midiinfo() {
-    dialogTitle.innerText = getLocale("midi-info.title");
-    dialogContent.innerHTML = '';
+    let dialog = new Dialog();
+    dialog.setTitle(getLocale("midi-info.title"));
 
     let data = cache[cdMem].find(i => i.name === filesMem[playing]);
     let notes = smfData.channels.reduce((prev, cur) => prev + cur.notes.length, 0);
 
-    dialogContent.appendChild(createDialogItem(getLocale("midi-info.name") + ": " + data.name));
-    dialogContent.appendChild(createDialogItem(getLocale("midi-info.size") + ": " + toSI(data.size, true) + "B"));
-    dialogContent.appendChild(createDialogItem(getLocale("midi-info.last-modified") + ": " + new Date(data.date).toLocaleString()));
-    dialogContent.appendChild(createDialogItem(getLocale("midi-info.duration") + ": " + formatTime(smfData.lastEventTime)));
-    dialogContent.appendChild(createDialogItem(getLocale("midi-info.notes") + ": " + notes));
-    dialog.showModal();
-
-    // console.log(url);
-
-    // fetch("api/midiinfo" + url)
-    //     .then(response => {
-    //         if (response.ok) {
-    //             response.json()
-    //                 .then(data => {
-    //                     dialogContent.appendChild(createDialogItem(getLocale("midi-info.name") + ": " + data.name));
-    //                     dialogContent.appendChild(createDialogItem(getLocale("midi-info.size") + ": " + toSI(data.size, true) + "B"));
-    //                     dialogContent.appendChild(createDialogItem(getLocale("midi-info.last-modified") + ": " + new Date(data.lastModified).toLocaleString()));
-    //                     dialogContent.appendChild(createDialogItem(getLocale("midi-info.duration") + ": " + formatTime(player.duration())));
-    //                     dialog.showModal();
-    //                 })
-    //         } else {
-    //             dialogContent.appendChild(createDialogItem(getLocale("midi-info.failed")));
-    //             dialog.showModal();
-    //         }
-    //     });
+    dialog.addText(getLocale("midi-info.name") + ": " + data.name);
+    dialog.addText(getLocale("midi-info.size") + ": " + toSI(data.size, true) + "B");
+    dialog.addText(getLocale("midi-info.last-modified") + ": " + new Date(data.date).toLocaleString());
+    dialog.addText(getLocale("midi-info.duration") + ": " + formatTime(smfData.lastEventTime));
+    dialog.addText(getLocale("midi-info.notes") + ": " + notes);
+    dialog.setVisible(true);
 }
 
 // Set browser media control
