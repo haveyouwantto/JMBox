@@ -466,6 +466,7 @@ function setupWebMIDI() {
 
                 if (device[1].name == settings.lastMidiDevice) {
                     deviceSelection.value = option.value;
+                    switchMidiDevice(device[0]);
                 }
             }
         });
@@ -810,10 +811,7 @@ volumeControl.addEventListener('click', e => {
     setVolume(e.offsetX / volumeControl.clientWidth);
 });
 
-let deviceSelection = $("#devices");
-deviceSelection.addEventListener('change', e => {
-    console.log(deviceSelection.value);
-
+function switchMidiDevice(deviceId){
     resetMIDI(picoAudio.settings.WebMIDIPortOutput, true);  // reset previous device
     let device = midiDeviceList.get(deviceSelection.value);
     settings.lastMidiDevice = device.name;
@@ -821,6 +819,11 @@ deviceSelection.addEventListener('change', e => {
     
     resetMIDI(device, true);  // reset current device
     picoAudio.settings.WebMIDIPortOutput = device;
+}
+
+let deviceSelection = $("#devices");
+deviceSelection.addEventListener('change', e => {
+    switchMidiDevice(deviceSelection.value);
 });
 
 let midiLatencySelect = $('#midiLatency');
