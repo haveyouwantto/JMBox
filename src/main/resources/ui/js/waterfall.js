@@ -264,6 +264,9 @@ function draw() {
         canvasCtx.shadowOffsetY = 0;
         canvasCtx.shadowBlur = noteWidth * 0.75;
         canvasCtx.shadowColor = "#00000080";
+        
+        canvasCtx.fillStyle = '#b71c1c';
+        canvasCtx.fillRect(0, canvas.height - keyboardHeight - noteWidth * 0.5, canvas.width, noteWidth * 0.5);
 
         // Draw black keys
         canvasCtx.fillStyle = 'black';
@@ -278,8 +281,6 @@ function draw() {
             }
         }
 
-        canvasCtx.fillStyle = '#b71c1c';
-        canvasCtx.fillRect(0, canvas.height - keyboardHeight - noteWidth * 0.5, canvas.width, noteWidth * 0.5);
 
         canvasCtx.shadowOffsetX = 0;
         canvasCtx.shadowOffsetY = 0;
