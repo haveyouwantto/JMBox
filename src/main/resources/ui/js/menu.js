@@ -138,13 +138,21 @@ settingsDialog.addEventListener('animationend', function () {
     }
 });
 
+function isSettingsDialogOpen() {
+    return settingsDialog.open;
+}
+
+function closeSettings() {
+    settingsDialog.classList.add("fade-out");
+}
+
 openSettingsButton.addEventListener('click', () => {
     settingsDialog.classList.remove("fade-out");
     settingsDialog.showModal();
 });
 
 closeSettingsButton.addEventListener('click', () => {
-    settingsDialog.classList.add("fade-out");
+    closeSettings();
 });
 
 
