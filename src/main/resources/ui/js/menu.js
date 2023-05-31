@@ -142,13 +142,19 @@ function isSettingsDialogOpen() {
     return settingsDialog.open;
 }
 
+function openSettings() {
+    document.documentElement.classList.add('noscroll');
+    settingsDialog.classList.remove("fade-out");
+    settingsDialog.showModal();
+}
+
 function closeSettings() {
+    document.documentElement.classList.remove('noscroll');
     settingsDialog.classList.add("fade-out");
 }
 
 openSettingsButton.addEventListener('click', () => {
-    settingsDialog.classList.remove("fade-out");
-    settingsDialog.showModal();
+    openSettings();
 });
 
 closeSettingsButton.addEventListener('click', () => {

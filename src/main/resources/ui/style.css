@@ -42,6 +42,10 @@ button {
     user-select: none;
 }
 
+.noscroll {
+    overflow: hidden;
+}
+
 button:focus-visible {
     outline: 2px solid var(--theme-color);
 }
