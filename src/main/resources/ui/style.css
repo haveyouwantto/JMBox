@@ -14,7 +14,7 @@
     --theme-color-40: #00796b40;
     --theme-color-20: #00796b20;
 
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,7 +26,7 @@
         --bar-color: #303030;
         --fill-color: #101010;
     }
-  }
+}
 
 * {
     -webkit-tap-highlight-color: transparent;
@@ -102,16 +102,36 @@ file-icon {
 }
 
 #content {
-    display: flex;
+    overflow-y: auto;
+    height: calc(100vh - 116px);
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 65px;
+    align-items: center; */
     margin-top: 56px;
 }
 
 #content locale {
     color: var(--text-color);
     margin: auto;
+}
+
+@media only screen and (min-width: 768px) {
+    #content::-webkit-scrollbar {
+        width: 10px;
+        height: 1px;
+    }
+
+    #content::-webkit-scrollbar-thumb {
+        background: var(--theme-color);
+    }
+
+    #content::-webkit-scrollbar-track {
+        background: var(--bar-color);
+    }
+
+    #content::-webkit-scrollbar-thumb:hover {
+        background-color: var(--theme-color-80);
+    }
 }
 
 .menu-button {
@@ -142,7 +162,9 @@ file-icon {
 }
 
 .file {
-    width: 50vw;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
     padding: 5px 10px;
     min-height: 50px;
     border-bottom: 1px solid var(--hover-color);
@@ -695,19 +717,6 @@ dialog.fade-out::backdrop {
     display: none;
 }
 
-/* Scroll Bar*/
-html::-webkit-scrollbar {
-    width: 10px;
-    height: 1px;
-}
-
-html::-webkit-scrollbar-thumb {
-    background: var(--theme-color);
-}
-
-html::-webkit-scrollbar-track {
-    background: var(--bar-color);
-}
 
 .line-seperater {
     margin: 0;
@@ -736,7 +745,8 @@ html::-webkit-scrollbar-track {
 /* Start from this, treat as mobile phone */
 @media only screen and (max-width: 768px) {
     .file {
-        width: unset;
+        width: 100%;
+        margin: 0;
         overflow-x: hidden;
         overflow-wrap: anywhere;
     }
@@ -744,10 +754,6 @@ html::-webkit-scrollbar-track {
     .seperater,
     #durationDisplay {
         display: none;
-    }
-
-    #content {
-        align-items: stretch;
     }
 
     dialog[open] {
@@ -761,6 +767,7 @@ html::-webkit-scrollbar-track {
     dialog.fade-out::backdrop {
         animation-duration: 200ms;
     }
+
 }
 
 @media only screen and (max-width: 680px) {
@@ -851,6 +858,7 @@ html::-webkit-scrollbar-track {
 
     #content {
         margin-top: 48px;
+        height: calc(100vh - 104px);
     }
 
 }
