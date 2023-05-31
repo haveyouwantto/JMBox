@@ -653,6 +653,28 @@ dialog.fade-out::backdrop {
     }
 }
 
+@keyframes activityFadeIn {
+    from {
+        visibility: hidden;
+        transform: translate(100%, 0)
+    }
+
+    to {
+        visibility: visible;
+    }
+}
+
+@keyframes activityFadeOut {
+    from {
+        visibility: visible;
+    }
+
+    to {
+        visibility: hidden;
+        transform: translate(100%, 0)
+    }
+}
+
 @keyframes locate {
     from {
         color: white;
@@ -756,6 +778,10 @@ dialog.fade-out::backdrop {
         display: none;
     }
 
+    dialog {
+        max-width: 90%;
+    }
+
     dialog[open] {
         animation-duration: 250ms;
     }
@@ -793,6 +819,33 @@ dialog.fade-out::backdrop {
     #time {
         display: none;
     }
+
+    #settings-dialog {
+        margin: 0;
+        min-width: 100%;
+        min-height: 100%;
+        padding: 0;
+        border-radius: 0;
+    }
+
+    #settings-dialog[open] {
+        animation: activityFadeIn 400ms ease-in-out 0s;
+    }
+
+    #settings-dialog.fade-out {
+        animation: activityFadeOut 350ms ease-in-out 0s;
+    }
+
+    #settings-dialog .title {
+        min-height: 56px;
+        display: flex;
+        align-items: center;
+        color: white;
+        background-color: var(--theme-color);
+        padding-top: 0;
+        padding-bottom: 0;
+        box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+    }
 }
 
 @media only screen and (max-width: 420px) {
@@ -804,10 +857,6 @@ dialog.fade-out::backdrop {
 @media only screen and (max-width: 380px) {
     #next {
         display: none;
-    }
-
-    dialog {
-        min-width: 80%;
     }
 
     .dialog-item {
