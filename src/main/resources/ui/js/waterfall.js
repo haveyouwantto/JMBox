@@ -422,3 +422,17 @@ prefmon.addEventListener('click', e => {
     updateChecker(prefmon, settings.prefmon);
     saveSettings();
 });
+let showLyrics = $("#showLyrics");
+updateChecker(showLyrics, settings.showLyrics);
+showLyrics.addEventListener('click', e => {
+    settings.showLyrics = !settings.showLyrics;
+    updateChecker(showLyrics, settings.showLyrics);
+    saveSettings();
+});
+let lyricsEncoding = document.querySelector("#lyricsEncoding > input");
+lyricsEncoding.value = settings.lyricsEncoding;
+lyricsEncoding.addEventListener('change', e => {
+    settings.lyricsEncoding = lyricsEncoding.value;
+    lrc.load(smfData,settings.lyricsEncoding)
+    saveSettings();
+});

@@ -294,7 +294,7 @@ select option {
     background-color: var(--bg-color-alt);
 }
 
-input[type=number] {
+input[type=number], input[type=text] {
     border: none;
     background-color: #0000;
     font-size: 1rem;
@@ -304,7 +304,7 @@ input[type=number] {
     min-width: 5rem;
 }
 
-input[type="number"]:focus {
+input[type="number"]:focus, input[type=text]:focus {
     outline: none;
     border-bottom: 2px solid var(--theme-color);
 }

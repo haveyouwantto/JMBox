@@ -41,6 +41,8 @@ let defaultLocale = {
     "settings.piano-roll.highlight-playing-notes": "Highlight playing notes",
     "settings.piano-roll.show-note-counter":"Show note counter",
     "settings.piano-roll.prefmon":"Performance Monitor",
+    "settings.piano-roll.show-lyrics":"Show lyrics",
+    "settings.piano-roll.lyrics-encoding":"Lyrics encoding",
     "settings.close-btn": "Close",
 
     "dialog.close-btn": "Close",
