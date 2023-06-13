@@ -40,6 +40,8 @@
     "settings.piano-roll.highlight-playing-notes": "高亮彈奏中的音符",
     "settings.piano-roll.show-note-counter": "顯示音符計數器",
     "settings.piano-roll.prefmon": "性能監視器",
+    "settings.piano-roll.show-lyrics": "顯示歌詞",
+    "settings.piano-roll.lyrics-encoding": "歌詞編碼",
     "settings.close-btn": "關閉",
     "dialog.close-btn": "關閉",
     "about.title": "關於",

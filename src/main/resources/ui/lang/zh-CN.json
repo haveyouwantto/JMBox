@@ -39,6 +39,8 @@
     "settings.piano-roll.note-transparency": "根据音符力度设置透明度",
     "settings.piano-roll.highlight-playing-notes": "高亮弹奏中的音符",
     "settings.piano-roll.prefmon": "性能监视器",
+    "settings.piano-roll.show-lyrics": "显示歌词",
+    "settings.piano-roll.lyrics-encoding": "歌词编码",
     "settings.close-btn": "关闭",
     "dialog.close-btn": "关闭",
     "about.title": "关于",

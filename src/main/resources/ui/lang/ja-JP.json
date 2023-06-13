@@ -39,6 +39,8 @@
   "settings.piano-roll.note-transparency": "音符の力度が透明度を決定する",
   "settings.piano-roll.highlight-playing-notes": "演奏音符のハイライト表示",
   "settings.piano-roll.prefmon": "パフォーマンスモニター",
+  "settings.piano-roll.show-lyrics": "歌詞の表示",
+  "settings.piano-roll.lyrics-encoding": "歌詞のエンコーディング",
   "settings.close-btn": "閉じる",
   "dialog.close-btn": "閉じる",
   "about.title": "について",
