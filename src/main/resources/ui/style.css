@@ -31,15 +31,13 @@
 }
 
 .dark {
-    :root {
-        --text-color: #cccccc;
-        --bg-color: #101010;
-        --hover-color: #ffffff20;
-        --bg-color-alt: #202020;
-        --bar-color: #303030;
-        --fill-color: #101010;
-        --transparent-bg-color: #00000060;
-    }
+    --text-color: #cccccc;
+    --bg-color: #101010;
+    --hover-color: #ffffff20;
+    --bg-color-alt: #202020;
+    --bar-color: #303030;
+    --fill-color: #101010;
+    --transparent-bg-color: #00000060;
 }
 
 .light {
