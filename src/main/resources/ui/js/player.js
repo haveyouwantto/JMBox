@@ -73,6 +73,8 @@ function AudioPlayer() {
                 r.arrayBuffer().then(data => {
                     const parsedData = picoAudio.parseSMF(data);
                     smfData = parsedData;
+                    lrc.load(parsedData, settings.lyricsEncoding);
+                    lrc.seek(0);
                 })
             }
         });
@@ -213,6 +215,8 @@ function PicoAudioPlayer() {
                     smfData = parsedData;
                     try {
                         picoAudio.setData(parsedData);
+                        lrc.load(parsedData, settings.lyricsEncoding);
+                        lrc.seek(0);
                         if (settings.webmidi) {
                             resetMIDI(picoAudio.settings.WebMIDIPortOutput);
                         }
@@ -406,6 +410,7 @@ function PlayerWrapper(player) {
      * @param {float} seconds 
      */
     this.seek = function (seconds) {
+        lrc.seek(seconds);
         return this.player.seek(seconds);
     }
 
@@ -414,7 +419,7 @@ function PlayerWrapper(player) {
      * @param {float} percentage 
      */
     this.seekPercentage = function (percentage) {
-        this.player.seekPercentage(percentage);
+        this.seek(this.duration() * percentage);
     }
 
     this.stop = function () {
@@ -812,12 +817,12 @@ volumeControl.addEventListener('click', e => {
     setVolume(e.offsetX / volumeControl.clientWidth);
 });
 
-function switchMidiDevice(deviceId){
+function switchMidiDevice(deviceId) {
     resetMIDI(picoAudio.settings.WebMIDIPortOutput, true);  // reset previous device
     let device = midiDeviceList.get(deviceId);
     settings.lastMidiDevice = device.name;
     saveSettings();
-    
+
     resetMIDI(device, true);  // reset current device
     picoAudio.settings.WebMIDIPortOutput = device;
 }

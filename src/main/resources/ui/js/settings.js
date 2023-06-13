@@ -17,7 +17,9 @@ let defaultValue = {
     highlightNotes: true,
     sortFunc : "sortName",
     prefmon : false,
-    fancyMode : false
+    fancyMode : false,
+    showLyrics : true,
+    lyricsEncoding: "utf-8"
 }
 
 let settings = {};

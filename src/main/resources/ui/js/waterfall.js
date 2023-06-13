@@ -39,9 +39,27 @@ let animationId = null;
 let lastDrawTime = performance.now();
 let timeList = []
 
+let lrc = new LrcDisplayer();
+let lrcDiv = $("#lyrics");
+
+lrc.onload = function () {
+    lrcDiv.innerText = '';
+}
+
+lrc.onlyrics = function (lrc) {
+    lrcDiv.innerText += lrc;
+    lrcDiv.scrollTo(0, lrcDiv.scrollHeight)
+}
+
+lrc.onseek = function (lrc) {
+    lrcDiv.innerText = lrc;
+    lrcDiv.scrollTo(0, lrcDiv.scrollHeight)
+}
+
 function startAnimation() {
     if (animationId == null && waterfall.classList.contains('open')) {
         lastDrawTime = performance.now();
+        lrc.seek(player.currentTime());
         animationId = requestAnimationFrame(draw);
     }
 }
@@ -239,6 +257,8 @@ function draw() {
                     }
                 }
             }
+
+            lrc.update(playTime);
         }
 
         // Draw white keys
@@ -264,7 +284,7 @@ function draw() {
         canvasCtx.shadowOffsetY = 0;
         canvasCtx.shadowBlur = noteWidth * 0.75;
         canvasCtx.shadowColor = "#00000080";
-        
+
         canvasCtx.fillStyle = '#b71c1c';
         canvasCtx.fillRect(0, canvas.height - keyboardHeight - noteWidth * 0.5, canvas.width, noteWidth * 0.5);
 
