@@ -7,6 +7,7 @@
     --hover-color: #00000020;
     --bar-color: #e0e0e0;
     --fill-color: #f0f0f0;
+    --transparent-bg-color: #ffffff60;
 
     --theme-color-80: #00796b80;
     --theme-color-60: #00796b60;
@@ -25,8 +26,31 @@
         --bg-color-alt: #202020;
         --bar-color: #303030;
         --fill-color: #101010;
+        --transparent-bg-color: #00000060;
     }
-  }
+}
+
+.dark {
+    :root {
+        --text-color: #cccccc;
+        --bg-color: #101010;
+        --hover-color: #ffffff20;
+        --bg-color-alt: #202020;
+        --bar-color: #303030;
+        --fill-color: #101010;
+        --transparent-bg-color: #00000060;
+    }
+}
+
+.light {
+    --text-color: #202020;
+    --bg-color: white;
+    --bg-color-alt: white;
+    --hover-color: #00000020;
+    --bar-color: #e0e0e0;
+    --fill-color: #f0f0f0;
+    --transparent-bg-color: #ffffff60;
+}
 
 * {
     -webkit-tap-highlight-color: transparent;
@@ -294,7 +318,8 @@ select option {
     background-color: var(--bg-color-alt);
 }
 
-input[type=number], input[type=text] {
+input[type=number],
+input[type=text] {
     border: none;
     background-color: #0000;
     font-size: 1rem;
@@ -304,7 +329,8 @@ input[type=number], input[type=text] {
     min-width: 5rem;
 }
 
-input[type="number"]:focus, input[type=text]:focus {
+input[type="number"]:focus,
+input[type=text]:focus {
     outline: none;
     border-bottom: 2px solid var(--theme-color);
 }

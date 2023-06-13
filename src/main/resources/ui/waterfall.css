@@ -27,7 +27,7 @@
     top: 0;
     left: 0;
     color: var(--text-color);
-    background-color: #00000060;
+    background-color: var(--transparent-bg-color);
     overflow-y: auto;
     width: 100%;
     max-height: 40%;
