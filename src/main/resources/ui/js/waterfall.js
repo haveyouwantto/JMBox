@@ -59,7 +59,7 @@ lrc.onseek = function (lrc) {
 function startAnimation() {
     if (animationId == null && waterfall.classList.contains('open')) {
         lastDrawTime = performance.now();
-        lrc.seek(player.currentTime());
+        if (settings.showLyrics) lrc.seek(player.currentTime());
         animationId = requestAnimationFrame(draw);
     }
 }
@@ -258,7 +258,7 @@ function draw() {
                 }
             }
 
-            lrc.update(playTime);
+            if (settings.showLyrics) lrc.update(playTime);
         }
 
         // Draw white keys
@@ -422,17 +422,25 @@ prefmon.addEventListener('click', e => {
     updateChecker(prefmon, settings.prefmon);
     saveSettings();
 });
+
 let showLyrics = $("#showLyrics");
 updateChecker(showLyrics, settings.showLyrics);
 showLyrics.addEventListener('click', e => {
     settings.showLyrics = !settings.showLyrics;
     updateChecker(showLyrics, settings.showLyrics);
+    if (settings.showLyrics) {
+        lrc.load(smfData, settings.lyricsEncoding);
+    } else {
+        lrc.clear();
+        lrcDiv.innerText = '';
+    }
     saveSettings();
 });
+
 let lyricsEncoding = document.querySelector("#lyricsEncoding > input");
 lyricsEncoding.value = settings.lyricsEncoding;
 lyricsEncoding.addEventListener('change', e => {
     settings.lyricsEncoding = lyricsEncoding.value;
-    lrc.load(smfData,settings.lyricsEncoding)
+    lrc.load(smfData, settings.lyricsEncoding)
     saveSettings();
 });

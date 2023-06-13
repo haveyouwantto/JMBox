@@ -176,4 +176,9 @@ class LrcDisplayer {
             }
         }
     }
+
+    clear() {
+        this.index = 0;
+        this.lyrics = [];
+    }
 }

@@ -73,8 +73,10 @@ function AudioPlayer() {
                 r.arrayBuffer().then(data => {
                     const parsedData = picoAudio.parseSMF(data);
                     smfData = parsedData;
-                    lrc.load(parsedData, settings.lyricsEncoding);
-                    lrc.seek(0);
+                    if (settings.showLyrics) {
+                        lrc.load(parsedData, settings.lyricsEncoding);
+                        lrc.seek(0);
+                    }
                 })
             }
         });
@@ -215,8 +217,10 @@ function PicoAudioPlayer() {
                     smfData = parsedData;
                     try {
                         picoAudio.setData(parsedData);
-                        lrc.load(parsedData, settings.lyricsEncoding);
-                        lrc.seek(0);
+                        if (settings.showLyrics) {
+                            lrc.load(parsedData, settings.lyricsEncoding);
+                            lrc.seek(0);
+                        }
                         if (settings.webmidi) {
                             resetMIDI(picoAudio.settings.WebMIDIPortOutput);
                         }
@@ -410,7 +414,7 @@ function PlayerWrapper(player) {
      * @param {float} seconds 
      */
     this.seek = function (seconds) {
-        lrc.seek(seconds);
+        if (settings.showLyrics) lrc.seek(seconds);
         return this.player.seek(seconds);
     }
 
