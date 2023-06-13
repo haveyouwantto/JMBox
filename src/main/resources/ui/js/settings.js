@@ -1,7 +1,7 @@
 // For S&L configs
 
 let defaultValue = {
-    dark: false,
+    dark: 'unset',
     showInfo: true,
     webmidi: false,
     midisrc: false,

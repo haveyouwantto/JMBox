@@ -139,11 +139,21 @@
         <div class="dialog-container">
             <section class="dialog-section" id="general-section">
                 <locale class="dialog-subtitle" key="settings.general">General</locale>
-                <!-- <button id="dark" class="dialog-item button-flash">
+                <button id="dark" class="dialog-item button-flash">
                     <icon>&#57350;</icon>
                     <locale key="settings.general.dark-mode">Dark Mode</locale>
-                    <icon class="right" checker>&#57362;</icon>
-                </button> -->
+                    <select id="dark-select" class="right">
+                        <option class="locale" value="unset" key="settings.general.dark.unset">
+                            Follow system
+                        </option>
+                        <option class="locale" value="force-light" key="settings.general.dark.light">
+                            Light
+                        </option>
+                        <option class="locale" value="force-dark" key="settings.general.dark.dark">
+                            Dark
+                        </option>
+                    </select>
+                </button>
                 <button id="showInfo" class="dialog-item button-flash">
                     <icon>&#57352;</icon>
                     <locale key="settings.general.show-info">Show file information</locale>
