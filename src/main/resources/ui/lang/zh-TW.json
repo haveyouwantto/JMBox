@@ -33,6 +33,7 @@
     "settings.audio": "瀏覽器音頻",
     "settings.audio.midi-src": "使用MIDI文件作為播放源",
     "settings.picoaudio": "PicoAudio合成器",
+    "settings.picoaudio.wave-type": "使用更好的波形",
     "settings.picoaudio.web-midi": "使用MIDI輸出",
     "settings.picoaudio.midi-devices": "選擇MIDI設備",
     "settings.picoaudio.midi-latency": "MIDI輸出延遲",

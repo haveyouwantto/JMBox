@@ -7,7 +7,7 @@
     --hover-color: #00000020;
     --bar-color: #e0e0e0;
     --fill-color: #f0f0f0;
-    --transparent-bg-color: #ffffff80;
+    --transparent-bg-color: #ffffffa0;
 
     --theme-color-80: #00796b80;
     --theme-color-60: #00796b60;
@@ -26,7 +26,7 @@
         --bg-color-alt: #202020;
         --bar-color: #303030;
         --fill-color: #101010;
-        --transparent-bg-color: #00000080;
+        --transparent-bg-color: #000000a0;
     }
 }
 
@@ -37,7 +37,7 @@
     --bg-color-alt: #202020;
     --bar-color: #303030;
     --fill-color: #101010;
-    --transparent-bg-color: #00000080;
+    --transparent-bg-color: #000000a0;
 }
 
 .light {
@@ -47,7 +47,7 @@
     --hover-color: #00000020;
     --bar-color: #e0e0e0;
     --fill-color: #f0f0f0;
-    --transparent-bg-color: #ffffff80;
+    --transparent-bg-color: #ffffffa0;
 }
 
 * {

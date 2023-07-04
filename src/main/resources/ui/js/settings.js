@@ -8,6 +8,7 @@ let defaultValue = {
     player: "AudioPlayer",
     playMode: 0,
     volume: 1,
+    waveType: true,
     midiLatency: 250,
     lastMidiDevice: "",
     spanDuration: 4,

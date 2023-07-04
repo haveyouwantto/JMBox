@@ -202,6 +202,7 @@ function PicoAudioPlayer() {
     if (picoAudio == null) {
         picoAudio = new PicoAudio();
         picoAudio.init();
+        picoAudio.settings.soundQuality = settings.waveType ? 1 : 0;
     }
     /**
      * Loads a url
@@ -533,7 +534,9 @@ if (window.isSecureContext) {
     });
 } else {
     midiBtn.style.display = 'none';
-    $("#picoaudio-section").style.display = "none";
+    $("#picoAudioMIDI").style.display = "none";
+    $("#picoAudioMIDIDevice").style.display = "none";
+    $("#picoAudioMIDILatency").style.display = "none";
 }
 updateChecker(midiBtn, settings.webmidi);
 
@@ -844,3 +847,12 @@ midiLatencySelect.addEventListener('change', e => {
     picoAudio.settings.WebMIDIWaitTime = midiLatency;
     saveSettings();
 })
+
+let waveType = $("#waveType");
+waveType.addEventListener('click', e => {
+    settings.waveType = !settings.waveType;
+    updateChecker(waveType, settings.waveType);
+    saveSettings();
+    picoAudio.settings.soundQuality = settings.waveType ? 1 : 0;
+});
+updateChecker(waveType, settings.waveType);
