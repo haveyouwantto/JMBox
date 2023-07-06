@@ -5,7 +5,7 @@ let defaultValue = {
     showInfo: true,
     webmidi: false,
     midisrc: false,
-    player: "AudioPlayer",
+    player: "PicoAudioPlayer",
     playMode: 0,
     volume: 1,
     waveType: true,
