@@ -66,10 +66,7 @@ function AudioPlayer() {
         updateBuffer(0, 1);
         fetch("api/midi" + path).then(r => {
             if (r.ok) {
-                if (picoAudio == null) {
-                    picoAudio = new PicoAudio();
-                    picoAudio.init();
-                }
+                initializePicoAudio();
                 r.arrayBuffer().then(data => {
                     const parsedData = picoAudio.parseSMF(data);
                     smfData = parsedData;
@@ -194,16 +191,21 @@ function AudioPlayer() {
 // singleton picoaudio
 let picoAudio = null;
 let picoAudioInit = false;
+
+function initializePicoAudio(){
+    if (picoAudio == null) {
+        picoAudio = new PicoAudio();
+        picoAudio.init();
+        picoAudio.settings.soundQuality = settings.waveType ? 1 : 0;
+        picoAudio.settings.preserveSmfData = true;
+    }
+}
 function PicoAudioPlayer() {
     this.paused = true;
     this.lastPausedTime = 0;
     this.intervalId = 0;
     this.silent = null;
-    if (picoAudio == null) {
-        picoAudio = new PicoAudio();
-        picoAudio.init();
-        picoAudio.settings.soundQuality = settings.waveType ? 1 : 0;
-    }
+    initializePicoAudio();
     /**
      * Loads a url
      * @param {string} url 
