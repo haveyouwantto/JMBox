@@ -33,7 +33,7 @@
     "settings.audio": "浏览器音频",
     "settings.audio.midi-src": "使用MIDI文件作为播放源",
     "settings.picoaudio": "PicoAudio合成器",
-    "settings.picoaudio.wave-type":"使用更好的波形",
+    "settings.picoaudio.wave-type":"使用FM波形",
     "settings.picoaudio.web-midi": "使用MIDI输出",
     "settings.picoaudio.midi-devices": "选择MIDI设备",
     "settings.picoaudio.midi-latency": "MIDI输出延迟",

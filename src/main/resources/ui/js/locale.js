@@ -34,7 +34,7 @@ let defaultLocale = {
     "settings.audio": "Browser Audio",
     "settings.audio.midi-src": "Use MIDI as source",
     "settings.picoaudio": "PicoAudio",
-    "settings.picoaudio.wave-type":"Use better waveform",
+    "settings.picoaudio.wave-type":"Use FM waveform",
     "settings.picoaudio.web-midi": "Use Web MIDI Output",
     "settings.picoaudio.midi-devices": "MIDI device",
     "settings.picoaudio.midi-latency":"MIDI output latency",

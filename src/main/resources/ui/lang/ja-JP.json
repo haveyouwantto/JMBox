@@ -33,7 +33,7 @@
   "settings.audio": "ブラウザオーディオ",
   "settings.audio.midi-src": "MIDIファイルを再生元に使用",
   "settings.picoaudio": "PicoAudioシンセサイザー",
-  "settings.picoaudio.wave-type": "より良い波形を使用する",
+  "settings.picoaudio.wave-type": "FM波形を使用する",
   "settings.picoaudio.web-midi": "MIDI出力を使用",
   "settings.picoaudio.midi-devices": "MIDIデバイスを選択",
   "settings.picoaudio.midi-latency": "MIDI出力レイテンシ",
