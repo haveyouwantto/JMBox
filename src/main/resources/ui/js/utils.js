@@ -116,7 +116,7 @@ function extractLyrics(midiData, encoding = "UTF-8") {
             if (a == 0xff && [1, 5].includes(b)) {
                 const len = midiData.smfData[smfPtr + 2];
                 let textBytes = midiData.smfData.slice(smfPtr + 3, smfPtr + 3 + len);
-                lyrics.push({ "time": message.time, "tick": message.tick, "bytes": textBytes, "text": decoder.decode(textBytes).replace(/\x00/g, ''), "ord":ord++ });
+                lyrics.push({ "time": message.time, "tick": message.tick, "bytes": textBytes, "text": decoder.decode(textBytes).replace(/\x00/g, ''), "ord": ord++ });
             }
         }
     }
@@ -165,7 +165,7 @@ class LrcDisplayer {
                 let lrc = this.lyrics[i];
                 if (lrc == null || lrc.time > t) {
                     if (this.onseek != null) {
-                        this.onseek(this.lyrics[i-1]);
+                        this.onseek(this.lyrics[Math.min(i, this.lyrics.length - 1)]);
                     }
                     this.index = i;
                     break;

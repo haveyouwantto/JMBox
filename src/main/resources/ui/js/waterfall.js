@@ -52,7 +52,6 @@ lrc.onload = function (lyricsList) {
             segment.innerText = lyrics.text;
             lrcDiv.appendChild(segment);
         }
-        console.log(lyricsList)
     }
 }
 
@@ -64,12 +63,10 @@ lrc.onlyrics = function (lyrics) {
 
 lrc.onseek = function (lyrics) {
     document.querySelectorAll('.lyrics-highlight').forEach(e => e.classList.remove('lyrics-highlight'));
-    console.log(lyrics)
-    for (let i = 0; i < lyrics.ord; i++) {
+    for (let i = 0; i <= lyrics.ord; i++) {
         document.getElementById('lyrics-' + i).classList.add('lyrics-highlight');
     }
     const lrcElement = document.getElementById('lyrics-' + lyrics.ord)
-    lrcElement.classList.add('lyrics-highlight');
     lrcElement.scrollIntoView({ block: "center", behavior: 'smooth' })
 }
 
