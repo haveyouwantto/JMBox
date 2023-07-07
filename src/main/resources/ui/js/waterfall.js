@@ -59,7 +59,7 @@ lrc.onload = function (lyricsList) {
 lrc.onlyrics = function (lyrics) {
     const lrcElement = document.getElementById('lyrics-' + lyrics.ord)
     lrcElement.classList.add('lyrics-highlight');
-    lrcElement.scrollIntoView({ block: "center", behavior: 'smooth' })
+    if (lrcElement.offsetWidth > 0) lrcElement.scrollIntoView({ block: "center", behavior: 'smooth' })
 }
 
 lrc.onseek = function (lyrics) {
