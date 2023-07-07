@@ -33,6 +33,13 @@
     max-height: 40%;
     text-align: center;
     overflow-wrap: anywhere;
+    font-size: 1.25rem;
+}
+
+
+.lyrics-highlight {
+    color: var(--theme-color);
+    font-weight: bold;
 }
 
 @keyframes waterfallOpen {

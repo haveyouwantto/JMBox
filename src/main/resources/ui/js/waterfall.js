@@ -42,18 +42,35 @@ let timeList = []
 let lrc = new LrcDisplayer();
 let lrcDiv = $("#lyrics");
 
-lrc.onload = function () {
+lrc.onload = function (lyricsList) {
     lrcDiv.innerText = '';
+    if (lyricsList.length > 0) {
+        for (let i = 0; i < lyricsList.length; i++) {
+            const lyrics = lyricsList[i];
+            let segment = document.createElement('span');
+            segment.id = 'lyrics-' + lyrics.ord;
+            segment.innerText = lyrics.text;
+            lrcDiv.appendChild(segment);
+        }
+        console.log(lyricsList)
+    }
 }
 
-lrc.onlyrics = function (lrc) {
-    lrcDiv.innerText += lrc;
-    lrcDiv.scrollTo(0, lrcDiv.scrollHeight)
+lrc.onlyrics = function (lyrics) {
+    const lrcElement = document.getElementById('lyrics-' + lyrics.ord)
+    lrcElement.classList.add('lyrics-highlight');
+    lrcElement.scrollIntoView({ block: "center", behavior: 'smooth' })
 }
 
-lrc.onseek = function (lrc) {
-    lrcDiv.innerText = lrc;
-    lrcDiv.scrollTo(0, lrcDiv.scrollHeight)
+lrc.onseek = function (lyrics) {
+    document.querySelectorAll('.lyrics-highlight').forEach(e => e.classList.remove('lyrics-highlight'));
+    console.log(lyrics)
+    for (let i = 0; i < lyrics.ord; i++) {
+        document.getElementById('lyrics-' + i).classList.add('lyrics-highlight');
+    }
+    const lrcElement = document.getElementById('lyrics-' + lyrics.ord)
+    lrcElement.classList.add('lyrics-highlight');
+    lrcElement.scrollIntoView({ block: "center", behavior: 'smooth' })
 }
 
 function startAnimation() {

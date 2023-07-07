@@ -105,6 +105,7 @@ function sortMtime(a, b) {
 function extractLyrics(midiData, encoding = "UTF-8") {
     const decoder = new TextDecoder(encoding);
     const lyrics = [];
+    let ord = 0;
 
     for (const message of midiData.messages) {
         const smfPtr = message.smfPtr;
@@ -115,7 +116,7 @@ function extractLyrics(midiData, encoding = "UTF-8") {
             if (a == 0xff && [1, 5].includes(b)) {
                 const len = midiData.smfData[smfPtr + 2];
                 let textBytes = midiData.smfData.slice(smfPtr + 3, smfPtr + 3 + len);
-                lyrics.push({ "time": message.time, "tick": message.tick, "bytes": textBytes, "text": decoder.decode(textBytes).replace(/\x00/g, '') });
+                lyrics.push({ "time": message.time, "tick": message.tick, "bytes": textBytes, "text": decoder.decode(textBytes).replace(/\x00/g, ''), "ord":ord++ });
             }
         }
     }
@@ -137,7 +138,7 @@ class LrcDisplayer {
         this.lyrics = extractLyrics(midiData, encoding);
         this.index = 0;
         if (this.onload != null) {
-            this.onload();
+            this.onload(this.lyrics);
         }
     }
 
@@ -150,7 +151,7 @@ class LrcDisplayer {
                 } else {
                     this.index++;
                     if (this.onlyrics != null) {
-                        this.onlyrics(lrc.text);
+                        this.onlyrics(lrc);
                     }
                 }
             }
@@ -159,19 +160,17 @@ class LrcDisplayer {
 
     seek(t) {
         if (this.lyrics.length > 0) {
-            let arr = [];
             let i = 0;
             while (true) {
                 let lrc = this.lyrics[i];
                 if (lrc == null || lrc.time > t) {
                     if (this.onseek != null) {
-                        this.onseek(arr.join(''));
+                        this.onseek(this.lyrics[i-1]);
                     }
                     this.index = i;
                     break;
                 } else {
                     i++;
-                    arr.push(lrc.text);
                 }
             }
         }
