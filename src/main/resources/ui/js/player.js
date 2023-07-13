@@ -329,11 +329,11 @@ function PicoAudioPlayer() {
     }
 
     this.getVolume = function () {
-        return picoAudio.getMasterVolume() / 2;
+        return picoAudio.getMasterVolume();
     }
 
     this.setVolume = function (volume) {
-        picoAudio.setMasterVolume(volume * 2);
+        picoAudio.setMasterVolume(volume);
     }
 
     this.replay = function () {
