@@ -4,9 +4,7 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import hywt.jmbox.IOStream;
-import hywt.jmbox.audio.Converter;
-import hywt.jmbox.audio.FileFinder;
-import hywt.jmbox.audio.FileResult;
+import hywt.jmbox.audio.*;
 import hywt.jmbox.logging.LoggerUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -243,8 +241,8 @@ public class APIHandler implements HttpHandler {
                         return;
                     }
 
-                    Converter c = new Converter(file);
-                    AudioInputStream is = c.convert();
+                    IMidiRenderer c = new FluidSynthWrapper(file);
+                    AudioInputStream is = c.getAudioInputStream();
                     long totalLength = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
 
                     // Send directly
@@ -289,6 +287,8 @@ public class APIHandler implements HttpHandler {
                 send(exchange, 404, "Not Found");
             } catch (IOException e) {
                 logger.warning(e.toString());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             } finally {
                 exchange.close();
             }
