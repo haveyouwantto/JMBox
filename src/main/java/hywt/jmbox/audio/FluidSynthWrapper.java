@@ -27,7 +27,6 @@ public class FluidSynthWrapper implements IMidiRenderer {
                 "-T", "raw",
                 "-r", "44100",
                 midiFile.getAbsolutePath());
-        processBuilder.redirectErrorStream(true);
         Process process = processBuilder.start();
         AudioInputStream audioInputStream = new AudioInputStream(process.getInputStream(),
                 new AudioFormat(44100, 16, 2, true, false), length);

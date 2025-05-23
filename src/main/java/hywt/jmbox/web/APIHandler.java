@@ -204,6 +204,8 @@ public class APIHandler implements HttpHandler {
         boolean finalSeeking = seeking;
         long finalStart = start;
         Runnable r = () -> {
+            IMidiRenderer renderer = null;
+            AudioInputStream is = null;
             try {
                 // Find for existing audio file
                 FileResult fr = null;
@@ -241,8 +243,8 @@ public class APIHandler implements HttpHandler {
                         return;
                     }
 
-                    IMidiRenderer c = new FluidSynthWrapper(file);
-                    AudioInputStream is = c.getAudioInputStream();
+                    renderer = new FluidSynthWrapper(file);
+                    is = renderer.getAudioInputStream();
                     long totalLength = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
 
                     // Send directly
@@ -291,6 +293,13 @@ public class APIHandler implements HttpHandler {
                 throw new RuntimeException(e);
             } finally {
                 exchange.close();
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         };
 
