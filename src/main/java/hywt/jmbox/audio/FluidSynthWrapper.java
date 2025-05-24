@@ -1,11 +1,14 @@
 package hywt.jmbox.audio;
 
+import hywt.jmbox.ZeroPaddingInputStream;
+
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import java.io.File;
+import java.io.IOException;
 
 public class FluidSynthWrapper implements IMidiRenderer {
 
@@ -25,6 +28,10 @@ public class FluidSynthWrapper implements IMidiRenderer {
         long length = sequence.getMicrosecondLength();
         long sampleLen = (long) ((length / 1000000f)*audioFormat.getSampleRate());
 
+        return getStream(audioFormat, sampleLen);
+    }
+
+    private AudioInputStream getStream(AudioFormat audioFormat, long sampleLen) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder(
                 "fluidsynth",
                 "-niq",
@@ -35,8 +42,7 @@ public class FluidSynthWrapper implements IMidiRenderer {
                 "-o", "synth.polyphony=128",
                 midiFile.getAbsolutePath());
         Process process = processBuilder.start();
-        AudioInputStream audioInputStream = new AudioInputStream(process.getInputStream(),
+        return new AudioInputStream(new ZeroPaddingInputStream(process.getInputStream()),
                 audioFormat, sampleLen);
-        return audioInputStream;
     }
 }
