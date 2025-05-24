@@ -244,7 +244,14 @@ public class APIHandler implements HttpHandler {
                     }
 
                     renderer = new FluidSynthWrapper(file);
-                    is = renderer.getAudioInputStream();
+
+                    // TODO: Calculate start microseconds
+
+                    // Assume 44.1kHz, 16bit, stereo
+                    // 44 bytes header
+                    // long startMicroseconds = (long) ((float) (finalStart-44) / 2 / 44100 * 1000000);
+
+                    is = renderer.getAudioInputStream(0);
                     long totalLength = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
 
                     // Send directly

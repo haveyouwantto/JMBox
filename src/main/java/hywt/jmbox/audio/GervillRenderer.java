@@ -7,7 +7,7 @@ import java.io.*;
 /**
  * Midi converter wrapper
  */
-public class GervillRenderer implements IMidiRenderer{
+public class GervillRenderer implements IMidiRenderer {
     public File midi;
 
     public GervillRenderer(File midi) {
@@ -15,7 +15,14 @@ public class GervillRenderer implements IMidiRenderer{
     }
 
     @Override
-    public AudioInputStream getAudioInputStream() throws Exception{
-        return AudioSystem.getAudioInputStream(this.midi);
+    public AudioInputStream getAudioInputStream(long startMicroseconds) throws Exception {
+        AudioInputStream stream = AudioSystem.getAudioInputStream(this.midi);
+        // if (startMicroseconds > 0) {
+        //     // Calculate the number of frames to skip
+        //     long framesToSkip = (long) (startMicroseconds * stream.getFormat().getFrameRate() / 1000000);
+        //     // Skip the frames
+        //     stream.skip(framesToSkip * stream.getFormat().getFrameSize());
+        // }
+        return stream;
     }
 }
