@@ -26,6 +26,7 @@ public class Config {
         defaults.put("gervill-max-polyphony", "256");
         defaults.put("gervill-interpolation", "sinc");
         defaults.put("gervill-large-mode", "false");
+        defaults.put("use-fluidsynth", "false");
         load();
     }
 

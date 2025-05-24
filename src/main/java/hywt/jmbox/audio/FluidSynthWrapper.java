@@ -27,7 +27,7 @@ public class FluidSynthWrapper implements IMidiRenderer {
 
         ProcessBuilder processBuilder = new ProcessBuilder(
                 "fluidsynth",
-                "-ni",
+                "-niq",
                 "-F","-",
                 "-T", "raw",
                 "-r", "44100",

@@ -243,7 +243,11 @@ public class APIHandler implements HttpHandler {
                         return;
                     }
 
-                    renderer = new FluidSynthWrapper(file);
+                    if (Config.getBoolean("use-fluidsynth")){
+                        renderer = new FluidSynthWrapper(file);
+                    } else {
+                        renderer = new GervillRenderer(file);
+                    }
 
                     // TODO: Calculate start microseconds
 
