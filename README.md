@@ -22,19 +22,19 @@ Download jar file in [Releases](https://github.com/haveyouwantto/JMBox/releases)
 JMBox will automatically generate a `server.properties` in the current folder on first run.
 
 | property | default | description |
-| --- | ------ | ----------- |
-| server-name | JMBox | The displayed server name. |
-| port | 60752 | The server port. |
-| external-ui | | Path to the external UI. |
-| streaming-file-size | 786432 | The minimum size to enter the streaming mode. |
+| --- |---------| ----------- |
+| server-name | JMBox   | The displayed server name. |
+| port | 60752   | The server port. |
+| external-ui |         | Path to the external UI. |
+| streaming-file-size | 786432  | The minimum size to enter the streaming mode. |
 | max-file-size | 1048576 | The maximum allowed size for MIDI files in bytes. |
-| theme-color | #00796b | The theme color for the UI. |
-| enable-midi | true | Whether to enable MIDI API. |
-| enable-play | true | Whether to enable WAVE playback API. |
-| scan-for-audio | false | Whether to enable the server to scan for audio files. |
-| gervill-max-polyphony | 256 | Max polyphony. |
-| gervill-interpolation | sinc | Audio interpolation algorithm. |
-| gervill-large-mode | false | Use large mode. |
+| theme-color | #008577 | The theme color for the UI. |
+| enable-midi | true    | Whether to enable MIDI API. |
+| enable-play | true    | Whether to enable WAVE playback API. |
+| scan-for-audio | false   | Whether to enable the server to scan for audio files. |
+| gervill-max-polyphony | 256     | Max polyphony. |
+| gervill-interpolation | sinc    | Audio interpolation algorithm. |
+| gervill-large-mode | false   | Use large mode. |
 
 ## Building
 

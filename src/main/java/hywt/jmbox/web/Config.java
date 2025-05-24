@@ -19,7 +19,7 @@ public class Config {
         defaults.put("external-ui", "");
         defaults.put("streaming-file-size", "786432");
         defaults.put("max-file-size", "1048576");
-        defaults.put("theme-color", "#00796b");
+        defaults.put("theme-color", "#008577");
         defaults.put("enable-midi", "true");
         defaults.put("enable-play", "true");
         defaults.put("scan-for-audio", "false");
@@ -27,6 +27,7 @@ public class Config {
         defaults.put("gervill-interpolation", "sinc");
         defaults.put("gervill-large-mode", "false");
         defaults.put("use-fluidsynth", "false");
+        defaults.put("compress", "false");
         load();
     }
 

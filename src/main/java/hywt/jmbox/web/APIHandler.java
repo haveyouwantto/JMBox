@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import hywt.jmbox.io.IOStream;
 import hywt.jmbox.audio.*;
+import hywt.jmbox.io.OpusInputStream;
 import hywt.jmbox.logging.LoggerUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -91,7 +92,7 @@ public class APIHandler implements HttpHandler {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (SecurityException e){
+        } catch (SecurityException e) {
             e.printStackTrace();
             send(exchange, 403, "Forbidden");
         }
@@ -243,7 +244,7 @@ public class APIHandler implements HttpHandler {
                         return;
                     }
 
-                    if (Config.getBoolean("use-fluidsynth")){
+                    if (Config.getBoolean("use-fluidsynth")) {
                         renderer = new FluidSynthWrapper(file);
                     } else {
                         renderer = new GervillRenderer(file);
@@ -261,33 +262,43 @@ public class APIHandler implements HttpHandler {
                     // Send directly
                     long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
 
-                    response.set("Content-Type", "audio/x-wav");
                     response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
 
-                    // Detect Streaming Mode (disables seeking)
-                    if (file.length() > Config.getLong("streaming-file-size")) {
-                        exchange.sendResponseHeaders(200, length);
-                        AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                    boolean compress = Config.getBoolean("compress");
+                    if (compress) {
+                        response.set("Content-Type", "audio/ogg");
+                        OpusInputStream opusInputStream = new OpusInputStream(is);
+
+                        exchange.sendResponseHeaders(200, 0);
+                        opusInputStream.transferTo(exchange.getResponseBody());
                     } else {
+                        response.set("Content-Type", "audio/x-wav");
 
-                        // Seeking
-                        if (finalSeeking) {
-                            long skiplen = Math.max(finalStart - 44, 0);
+                        // Detect Streaming Mode (disables seeking)
+                        if (file.length() > Config.getLong("streaming-file-size")) {
+                            exchange.sendResponseHeaders(200, length);
+                            AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                        } else {
 
-                            if (skiplen > 0) {
-                                is.skip(skiplen);
+                            // Seeking
+                            if (finalSeeking) {
+                                long skiplen = Math.max(finalStart - 44, 0);
 
-                                response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, totalLength - 1, totalLength));
-                                exchange.sendResponseHeaders(206, totalLength - skiplen);
-                                AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
-                                return;
+                                if (skiplen > 0) {
+                                    is.skip(skiplen);
+
+                                    response.set("Content-Range", String.format("bytes %d-%d/%d", skiplen, totalLength - 1, totalLength));
+                                    exchange.sendResponseHeaders(206, totalLength - skiplen);
+                                    AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                                    return;
+                                }
                             }
-                        }
 
-                        // Non-streaming mode
-                        response.set("Content-Range", String.format("bytes 0-%d/%d", length - 1, length));
-                        exchange.sendResponseHeaders(206, length);
-                        AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                            // Non-streaming mode
+                            response.set("Content-Range", String.format("bytes 0-%d/%d", length - 1, length));
+                            exchange.sendResponseHeaders(206, length);
+                            AudioSystem.write(is, AudioFileFormat.Type.WAVE, exchange.getResponseBody());
+                        }
                     }
                 }
 
