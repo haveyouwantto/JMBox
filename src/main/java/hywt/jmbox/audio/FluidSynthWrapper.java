@@ -1,12 +1,11 @@
 package hywt.jmbox.audio;
 
-import hywt.jmbox.ZeroPaddingInputStream;
+import hywt.jmbox.io.ZeroPaddingInputStream;
 
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import java.io.File;
 import java.io.IOException;
 

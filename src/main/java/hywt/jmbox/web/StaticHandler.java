@@ -3,7 +3,7 @@ package hywt.jmbox.web;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import hywt.jmbox.IOStream;
+import hywt.jmbox.io.IOStream;
 import hywt.jmbox.logging.LoggerUtil;
 
 import java.io.File;
