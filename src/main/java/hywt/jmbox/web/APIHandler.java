@@ -18,6 +18,7 @@ import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
@@ -144,7 +145,8 @@ public class APIHandler implements HttpHandler {
             throw new RuntimeException(e);
         }
 
-        if (eTag.equals(exchange.getRequestHeaders().get("If-None-Match").get(0))){
+        List<String> lastEtag = exchange.getRequestHeaders().get("If-None-Match");
+        if (lastEtag != null && !lastEtag.isEmpty() && eTag.equals(lastEtag.get(0))){
             exchange.sendResponseHeaders(304, 0);
             return;
         }
@@ -210,7 +212,8 @@ public class APIHandler implements HttpHandler {
         Headers request = exchange.getRequestHeaders();
 
         // Check if eTag matches
-        if (eTag.equals(request.get("If-None-Match").get(0))){
+        List<String> lastEtag = exchange.getRequestHeaders().get("If-None-Match");
+        if (lastEtag != null && !lastEtag.isEmpty() && eTag.equals(lastEtag.get(0))){
             exchange.sendResponseHeaders(304, 0);
             return;
         }
