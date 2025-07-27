@@ -57,6 +57,8 @@ public class OpusInputStream extends InputStream {
         command.add("pipe:0"); // Read from stdin
 
         // Output options
+        command.add("-t");
+        command.add(String.valueOf(sourceAudioStream.getFrameLength()*1f/sourceFormat.getFrameRate()));
         command.add("-c:a");
         command.add("libopus");
         command.add("-b:a");
@@ -68,7 +70,7 @@ public class OpusInputStream extends InputStream {
 
         // Output format and destination
         command.add("-f");
-        command.add("opus"); // Raw Opus stream in Ogg container (common for streaming)
+        command.add("webm"); // Raw Opus stream in Ogg container (common for streaming)
         // For raw Opus packets without container, you might try "-f data" or just rely on pipe,
         // but "-f opus" is generally safer for compatibility.
         command.add("pipe:1"); // Output to stdout

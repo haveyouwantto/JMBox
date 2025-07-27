@@ -294,7 +294,7 @@ public class APIHandler implements HttpHandler {
 
                     boolean compress = Config.getBoolean("compress");
                     if (compress) {
-                        response.set("Content-Type", "audio/ogg");
+                        response.set("Content-Type", "audio/webm");
                         OpusInputStream opusInputStream = new OpusInputStream(is);
 
                         exchange.sendResponseHeaders(200, 0);
