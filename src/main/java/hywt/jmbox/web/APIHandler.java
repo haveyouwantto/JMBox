@@ -17,6 +17,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
@@ -130,15 +131,28 @@ public class APIHandler implements HttpHandler {
         exchange.close();
     }
 
-    private void midi(HttpExchange exchange, File file) {
+    private void midi(HttpExchange exchange, File file) throws IOException {
         if (!Config.getBoolean("enable-midi")) {
             send(exchange, 406, "Not Enabled");
             return;
         }
+
+        String eTag = null;
+        try {
+            eTag = ETagGenerator.generateETag(file, "midi");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (eTag.equals(exchange.getRequestHeaders().get("If-None-Match").get(0))){
+            exchange.sendResponseHeaders(304, 0);
+            return;
+        }
+
         try {
             FileInputStream fis = new FileInputStream(file);
             exchange.getResponseHeaders().set("Content-Type", "audio/midi");
-            exchange.getResponseHeaders().set("Last-Modified", TimeFormatter.format(file.lastModified()));
+            exchange.getResponseHeaders().set("ETag", eTag);
             exchange.sendResponseHeaders(200, fis.available());
             OutputStream os = exchange.getResponseBody();
 
@@ -179,14 +193,27 @@ public class APIHandler implements HttpHandler {
         exchange.close();
     }
 
-    private void play(HttpExchange exchange, File file) {
+    private void play(HttpExchange exchange, File file) throws IOException {
         if (!Config.getBoolean("enable-play")) {
             send(exchange, 406, "Not Enabled");
             return;
         }
 
+        String eTag = null;
+        try {
+            eTag = ETagGenerator.generateETag(file, "play");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
         Headers response = exchange.getResponseHeaders();
         Headers request = exchange.getRequestHeaders();
+
+        // Check if eTag matches
+        if (eTag.equals(request.get("If-None-Match").get(0))){
+            exchange.sendResponseHeaders(304, 0);
+            return;
+        }
 
         // Detect if browser sent Range request
         long start = 0;
@@ -204,6 +231,7 @@ public class APIHandler implements HttpHandler {
 
         boolean finalSeeking = seeking;
         long finalStart = start;
+        String finalETag = eTag;
         Runnable r = () -> {
             IMidiRenderer renderer = null;
             AudioInputStream is = null;
@@ -219,7 +247,7 @@ public class APIHandler implements HttpHandler {
                     long totalLength = fr.getFile().length();
 
                     response.set("Content-Type", mimeType);
-                    response.set("Last-Modified", TimeFormatter.format(audio.lastModified()));
+                    response.set("ETag", finalETag);
 
                     FileInputStream fis = new FileInputStream(audio);
 
@@ -262,7 +290,7 @@ public class APIHandler implements HttpHandler {
                     // Send directly
                     long length = is.getFrameLength() * is.getFormat().getFrameSize() + 44;
 
-                    response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
+                    response.set("ETag", finalETag);
 
                     boolean compress = Config.getBoolean("compress");
                     if (compress) {
