@@ -147,7 +147,7 @@ public class APIHandler implements HttpHandler {
 
         List<String> lastEtag = exchange.getRequestHeaders().get("If-None-Match");
         if (lastEtag != null && !lastEtag.isEmpty() && eTag.equals(lastEtag.get(0))){
-            exchange.sendResponseHeaders(304, 0);
+            exchange.sendResponseHeaders(304, -1);
             return;
         }
 
@@ -214,7 +214,7 @@ public class APIHandler implements HttpHandler {
         // Check if eTag matches
         List<String> lastEtag = exchange.getRequestHeaders().get("If-None-Match");
         if (lastEtag != null && !lastEtag.isEmpty() && eTag.equals(lastEtag.get(0))){
-            exchange.sendResponseHeaders(304, 0);
+            exchange.sendResponseHeaders(304, -1);
             return;
         }
 
