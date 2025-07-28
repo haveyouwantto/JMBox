@@ -6,11 +6,9 @@ import com.sun.net.httpserver.HttpHandler;
 import hywt.jmbox.io.IOStream;
 import hywt.jmbox.logging.LoggerUtil;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URLDecoder;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
@@ -76,12 +74,22 @@ public class StaticHandler implements HttpHandler {
 
             Headers response = exchange.getResponseHeaders();
 
-            // Set Last-Modified header. If using internal UI it will be always 0
-            if (file == null) {
-                response.set("Last-Modified", TimeFormatter.format(bootTime));
-            } else {
-                response.set("Last-Modified", TimeFormatter.format(file.lastModified()));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            is.transferTo(baos);
+
+            byte[] content = baos.toByteArray();
+            InputStream stream1 = new ByteArrayInputStream(content);
+            is = new ByteArrayInputStream(content);
+            String etag = ETagGenerator.md5(stream1);
+
+            // Check if eTag matches
+            List<String> lastEtag = exchange.getRequestHeaders().get("If-None-Match");
+            if (lastEtag != null && !lastEtag.isEmpty() && etag != null && etag.equals(lastEtag.get(0))) {
+                exchange.sendResponseHeaders(304, 0);
+                return;
             }
+
+            response.set("ETag", etag);
             if (!test) response.set("Cache-Control", "max-age=3600");
 
             // Send file
