@@ -18,12 +18,16 @@ import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * API processor
@@ -145,20 +149,37 @@ public class APIHandler implements HttpHandler {
             throw new RuntimeException(e);
         }
 
-        List<String> lastEtag = exchange.getRequestHeaders().get("If-None-Match");
-        if (lastEtag != null && !lastEtag.isEmpty() && eTag.equals(lastEtag.get(0))){
-            exchange.sendResponseHeaders(304, 0);
+        Headers response = exchange.getResponseHeaders();
+        Headers request = exchange.getRequestHeaders();
+
+        List<String> lastEtag = request.get("If-None-Match");
+        if (lastEtag != null && !lastEtag.isEmpty() && eTag.equals(lastEtag.get(0))) {
+            exchange.sendResponseHeaders(304, -1);
             return;
         }
 
         try {
-            FileInputStream fis = new FileInputStream(file);
-            exchange.getResponseHeaders().set("Content-Type", "audio/midi");
-            exchange.getResponseHeaders().set("ETag", eTag);
-            exchange.sendResponseHeaders(200, fis.available());
+            InputStream fis = new FileInputStream(file);
+            boolean supportGzip = request.get("Accept-Encoding").stream().anyMatch(s -> s.toLowerCase().startsWith("gzip"));
+
+            response.set("Content-Type", "audio/midi");
+            response.set("ETag", eTag);
             OutputStream os = exchange.getResponseBody();
 
-            IOStream.writeTo(fis, os);
+            if (supportGzip) {
+                response.set("Content-Encoding", "gzip");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                GZIPOutputStream gzos = new GZIPOutputStream(baos);
+                fis.transferTo(gzos);
+                gzos.close();
+                byte[] compressedData = baos.toByteArray();
+                exchange.sendResponseHeaders(200, compressedData.length);
+                os.write(compressedData);
+            } else {
+                exchange.sendResponseHeaders(200, fis.available());
+            }
+
+            fis.transferTo(os);
 
         } catch (FileNotFoundException e) {
             logger.warning(e.toString());
@@ -212,9 +233,9 @@ public class APIHandler implements HttpHandler {
         Headers request = exchange.getRequestHeaders();
 
         // Check if eTag matches
-        List<String> lastEtag = exchange.getRequestHeaders().get("If-None-Match");
-        if (lastEtag != null && !lastEtag.isEmpty() && eTag.equals(lastEtag.get(0))){
-            exchange.sendResponseHeaders(304, 0);
+        List<String> lastEtag = request.get("If-None-Match");
+        if (lastEtag != null && !lastEtag.isEmpty() && eTag.equals(lastEtag.get(0))) {
+            exchange.sendResponseHeaders(304, -1);
             return;
         }
 
